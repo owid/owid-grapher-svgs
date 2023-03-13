@@ -8,45 +8,6 @@
   },
   "data": {
     "availableEntities": [
-      "Oman",
-      "Nauru",
-      "Vanuatu",
-      "Micronesia (country)",
-      "Marshall Islands",
-      "Palau",
-      "Timor",
-      "Qatar",
-      "Saint Kitts and Nevis",
-      "Saint Lucia",
-      "Saint Vincent and the Grenadines",
-      "San Marino",
-      "Sao Tome and Principe",
-      "Seychelles",
-      "Suriname",
-      "Tonga",
-      "Tuvalu",
-      "Venezuela",
-      "Samoa",
-      "American Samoa",
-      "Guam",
-      "United States Virgin Islands",
-      "South Sudan",
-      "El Salvador",
-      "Niue",
-      "Northern Mariana Islands",
-      "Tokelau",
-      "World",
-      "Northern Ireland",
-      "Scotland",
-      "England",
-      "G20",
-      "Wales",
-      "World Bank High Income",
-      "World Bank Low Income",
-      "World Bank Lower Middle Income",
-      "World Bank Upper Middle Income",
-      "OECD Countries",
-      "Latin America & Caribbean (WB)",
       "Eastern Mediterranean Region (WHO)",
       "Sub-Saharan Africa (WB)",
       "Europe & Central Asia (WB)",
@@ -236,6 +197,45 @@
       "Mauritius",
       "Monaco",
       "Montenegro",
+      "Oman",
+      "Nauru",
+      "Vanuatu",
+      "Micronesia (country)",
+      "Marshall Islands",
+      "Palau",
+      "Timor",
+      "Qatar",
+      "Saint Kitts and Nevis",
+      "Saint Lucia",
+      "Saint Vincent and the Grenadines",
+      "San Marino",
+      "Sao Tome and Principe",
+      "Seychelles",
+      "Suriname",
+      "Tonga",
+      "Tuvalu",
+      "Venezuela",
+      "Samoa",
+      "American Samoa",
+      "Guam",
+      "United States Virgin Islands",
+      "South Sudan",
+      "El Salvador",
+      "Niue",
+      "Northern Mariana Islands",
+      "Tokelau",
+      "World",
+      "Northern Ireland",
+      "Scotland",
+      "England",
+      "G20",
+      "Wales",
+      "World Bank High Income",
+      "World Bank Low Income",
+      "World Bank Lower Middle Income",
+      "World Bank Upper Middle Income",
+      "OECD Countries",
+      "Latin America & Caribbean (WB)",
       "North America",
       "South America",
       "High-income countries",
@@ -331,18 +331,32 @@
       "Transnistria"
     ]
   },
+  "note": "To allow for comparisons between countries and over time, these metrics are [age-standardized](hover::general::age_standardized).",
   "slug": "suicide-vs-violent-deaths",
   "type": "ScatterPlot",
-  "title": "Suicide rate vs. death rate from violence",
+  "title": "Suicide death rate vs. death rate from violence",
   "xAxis": {
-    "min": 0
+    "min": 0,
+    "canChangeScaleType": true
   },
   "yAxis": {
-    "min": 0
+    "min": 0,
+    "canChangeScaleType": true
+  },
+  "details": {
+    "general": {
+      "age_standardized": {
+        "id": 79,
+        "term": "age_standardized",
+        "title": "Age-standardized",
+        "content": "Age standardization is an adjustment that makes it possible to compare populations with different age structures, by standardizing them to a common reference population.",
+        "category": "general"
+      }
+    }
   },
   "minTime": "latest",
-  "version": 20,
-  "subtitle": "Death rates are measured as the number of deaths per 100,000 people in a population. Deaths from violence include the categories of interpersonal violence, conflict and terrorism, and police conflict and executions.",
+  "version": 29,
+  "subtitle": "Number of deaths per 100,000 people in a population. Deaths from violence include the categories of interpersonal violence, conflict and terrorism, and police conflict and executions.",
   "originUrl": "ourworldindata.org/homicides",
   "colorScale": {
     "binningStrategy": "equalInterval"
@@ -351,17 +365,17 @@
     {
       "display": {
         "name": "Suicide rate",
-        "unit": "deaths per 100,000 individuals",
         "includeInTable": true
       },
       "property": "y",
-      "variableId": 418660
+      "variableId": 418669
     },
     {
       "display": {
         "name": "Death rate from violence",
         "unit": "deaths per 100,000",
-        "includeInTable": true
+        "includeInTable": true,
+        "numDecimalPlaces": 1
       },
       "property": "x",
       "variableId": 419283
