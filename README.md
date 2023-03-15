@@ -14,7 +14,7 @@ Use this manually when you have changed grapher, and want to know if your change
     ```
     node ./itsJustJavascript/devTools/svgTester/export-graphs.js \
         -i ../owid-grapher-svgs/configs \
-        -o ../owid-grapher-svgs/svgs
+        -o ../owid-grapher-svgs/svg
     ```
 
 3. Use git to see any changes
