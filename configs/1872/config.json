@@ -264,24 +264,30 @@
       "Svalbard and Jan Mayen",
       "Falkland Islands",
       "Reunion",
+      "Macao",
       "Mayotte",
-      "Vatican",
       "French Polynesia",
-      "British Virgin Islands",
-      "Cayman Islands",
-      "Bonaire Sint Eustatius and Saba",
-      "Kosovo",
       "Saint Barthlemy",
       "Gibraltar",
       "Wallis and Futuna",
+      "Vatican",
       "Saint Helena",
-      "Macao",
       "Isle of Man",
-      "Curacao",
       "Saint Martin (French part)",
-      "Sint Maarten (Dutch part)",
       "Guernsey",
       "Jersey",
+      "British Virgin Islands",
+      "Cayman Islands",
+      "Kosovo",
+      "Curacao",
+      "Sint Maarten (Dutch part)",
+      "Bonaire Sint Eustatius and Saba",
+      "Northern America (UN)",
+      "Latin America and the Caribbean (UN)",
+      "Oceania (UN)",
+      "Asia (UN)",
+      "Europe (UN)",
+      "Africa (UN)",
       "West Germany",
       "East Germany",
       "Christmas Island",
@@ -331,10 +337,10 @@
       "Transnistria"
     ]
   },
-  "note": "To allow for comparisons between countries and over time, these metrics are [age-standardized](hover::general::age_standardized).",
+  "note": "To allow for comparisons between countries and over time, this metric is [age-standardized](hover::general::age_standardized).",
   "slug": "suicide-vs-violent-deaths",
   "type": "ScatterPlot",
-  "title": "Suicide death rate vs. death rate from violence",
+  "title": "Suicide rate vs. death rate from violence",
   "xAxis": {
     "min": 0,
     "canChangeScaleType": true
@@ -348,18 +354,22 @@
       "age_standardized": {
         "id": 79,
         "term": "age_standardized",
-        "title": "Age-standardized",
-        "content": "Age standardization is an adjustment that makes it possible to compare populations with different age structures, by standardizing them to a common reference population.",
+        "title": "Age standardization",
+        "content": "Age standardization is an adjustment that makes it possible to compare populations with different age structures, by standardizing them to a common reference population.\n📄 Learn more: [How does age standardization make health metrics comparable?](https://ourworldindata.org/age-standardization)",
         "category": "general"
       }
     }
   },
-  "minTime": "latest",
-  "version": 29,
-  "subtitle": "Number of deaths per 100,000 people in a population. Deaths from violence include the categories of interpersonal violence, conflict and terrorism, and police conflict and executions.",
+  "maxTime": 2021,
+  "minTime": 2021,
+  "version": 40,
+  "subtitle": "Number of deaths per 100,000 people in a population. Deaths from violence include the categories of interpersonal violence, conflict and terrorism, and police conflict and executions. Suicide deaths are underreported in many countries due to social stigma and cultural or legal concerns. This data is adjusted for this underreporting to estimate the actual rate of suicides.",
   "originUrl": "ourworldindata.org/homicides",
   "colorScale": {
-    "binningStrategy": "equalInterval"
+    "binningStrategy": "equalInterval",
+    "customHiddenCategories": {
+      "No data": true
+    }
   },
   "dimensions": [
     {
@@ -382,7 +392,7 @@
     },
     {
       "property": "size",
-      "variableId": 525711
+      "variableId": 597930
     },
     {
       "property": "color",
@@ -397,5 +407,6 @@
   "excludedEntities": [
     77
   ],
-  "hideRelativeToggle": false
+  "hideRelativeToggle": false,
+  "matchingEntitiesOnly": true
 }
