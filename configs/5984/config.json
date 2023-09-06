@@ -53,6 +53,7 @@
       "East Africa (WID)",
       "East Asia (WID)",
       "East Germany",
+      "East Timor",
       "Eastern Europe (WID)",
       "Ecuador",
       "Egypt",
@@ -175,7 +176,6 @@
       "Tajikistan",
       "Tanzania",
       "Thailand",
-      "Timor",
       "Togo",
       "Tunisia",
       "Turkey",
@@ -197,28 +197,43 @@
       "Zimbabwe"
     ]
   },
-  "note": "Income is also measured after payment of public and private pensions.",
-  "slug": "world-inequality-database-wid---pretax-income",
-  "type": "StackedArea",
-  "title": "Income share of the bottom 50%, middle 40% and top 10% (before tax)",
+  "note": "Income is measured before payment of taxes and non-pension benefits, but after the payment of public and private pensions.",
+  "slug": "income-share-distribution-before-tax-middle40-wid",
+  "type": "StackedDiscreteBar",
+  "title": "Distribution of income across richer and poorer groups (before tax)",
   "yAxis": {
     "facetDomain": "shared"
   },
-  "version": 17,
-  "subtitle": "The income share is the percentage of the national income received by a segment of the population – in this case for the poorest 50%, the richest 10% and the 40% in the middle of both groups. Income here is measured before the payment and receipt of taxes and benefits.",
-  "originUrl": "ourworldindata.org/income-inequality",
+  "sortBy": "column",
+  "$schema": "https://files.ourworldindata.org/schemas/grapher-schema.003.json",
+  "minTime": "latest",
+  "version": 42,
+  "subtitle": "The share of income received by different income groups. Income here is measured before taxes and benefits.",
+  "originUrl": "https://ourworldindata.org/economic-inequality",
   "dimensions": [
     {
       "display": {
-        "name": "Share of the top 10%",
+        "name": "Richest 1%",
+        "tolerance": 5,
         "includeInTable": true
       },
       "property": "y",
-      "variableId": 541249
+      "variableId": 541254
     },
     {
       "display": {
-        "name": "Share of the middle 40%",
+        "name": "Between 90%-99%",
+        "unit": "%",
+        "tolerance": 5,
+        "includeInTable": true
+      },
+      "property": "y",
+      "variableId": 714499
+    },
+    {
+      "display": {
+        "name": "Middle 40%",
+        "tolerance": 5,
         "includeInTable": true
       },
       "property": "y",
@@ -226,20 +241,29 @@
     },
     {
       "display": {
-        "name": "Share of the bottom 50%",
+        "name": "Poorest 50%",
+        "unit": "%",
+        "tolerance": 5,
         "includeInTable": true
       },
       "property": "y",
       "variableId": 541241
     }
   ],
-  "entityType": "country or region",
   "isPublished": true,
-  "addCountryMode": "change-country",
+  "variantName": "WID, bars",
+  "sortColumnSlug": "541254",
   "baseColorScheme": "OwidCategoricalE",
-  "entityTypePlural": "countries or regions",
+  "hideFacetControl": true,
+  "hideTotalValueLabel": true,
   "selectedEntityNames": [
-    "World"
+    "World",
+    "North America (WID)",
+    "Latin America (WID)",
+    "Europe (WID)",
+    "Africa (WID)",
+    "Asia (WID)",
+    "Oceania (WID)"
   ],
   "selectedFacetStrategy": "entity"
 }
