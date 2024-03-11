@@ -1,18 +1,20 @@
 {
   "id": 792296,
-  "name": "Estimated completeness of death reporting",
+  "name": "Share of deaths that are registered",
   "unit": "%",
-  "description": "It ranges from 0 to 100. Derived as \"Registered deaths\" divided by \"Expected number of deaths\". See paper (https://www.medrxiv.org/content/10.1101/2021.08.12.21261978v1) for details.",
   "createdAt": "2023-08-17T10:51:31.000Z",
-  "updatedAt": "2023-08-31T05:43:39.000Z",
+  "updatedAt": "2024-03-06T16:15:58.000Z",
   "coverage": "",
   "timespan": "2015-2019",
   "datasetId": 6191,
   "shortUnit": "%",
   "columnOrder": 0,
   "shortName": "death_comp",
-  "catalogPath": "grapher/health/2023-08-16/deaths_karlinsky/deaths_karlinsky",
+  "catalogPath": "grapher/health/2023-08-16/deaths_karlinsky/deaths_karlinsky#death_comp",
+  "descriptionShort": "The number of deaths reported in a country's vital registration system as a share of total expected deaths. Expected deaths are taken as the average of estimates from three international sources: the UN, WHO, and IHME.",
+  "descriptionFromProducer": "Death registration completeness, the share of deaths captured by countries’ vital registration systems, vary substantially across countries. Estimates of completeness, even recent ones, are outdated or contradictory for many countries. In this short paper, I utilize the annual amount of deaths registered in 139 vital registration systems around the world to provide the most up-to-date estimates of death-registration completeness from 2015 to 2019.\n\n\\[Text from [Karlinsky (2021)](https://www.medrxiv.org/content/10.1101/2021.08.12.21261978v1)\\]",
   "datasetName": "International Completeness of Death Registration 2015-2019 (Karlinsky, 2023)",
+  "updatePeriodDays": 365,
   "datasetVersion": "2023-08-16",
   "type": "float",
   "nonRedistributable": false,
@@ -21,21 +23,69 @@
     "shortUnit": "%",
     "numDecimalPlaces": 1
   },
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "presentation": {
-    "topicTagsLinks": [],
-    "faqs": []
+    "grapherConfigETL": {
+      "map": {
+        "colorScale": {
+          "baseColorScheme": "PuBu",
+          "binningStrategy": "manual",
+          "customNumericValues": [
+            10,
+            20,
+            30,
+            40,
+            50,
+            60,
+            70,
+            80,
+            90,
+            100
+          ],
+          "customNumericColorsActive": true
+        },
+        "columnSlug": "539877",
+        "timeTolerance": 5
+      },
+      "tab": "map",
+      "slug": "share-of-deaths-registered",
+      "title": "Share of deaths that are registered",
+      "yAxis": {
+        "max": 0,
+        "min": 0
+      },
+      "$schema": "https://files.ourworldindata.org/schemas/grapher-schema.003.json",
+      "minTime": "latest",
+      "subtitle": "The number of deaths reported in a country's [vital registration system](#dod:cvrs) as a share of total expected deaths. Expected deaths are estimated by three international sources: UN, WHO, and IHME, using data from household surveys and censuses.",
+      "hasMapTab": true,
+      "originUrl": "https://ourworldindata.org/causes-of-death",
+      "sourceDesc": "Karlinsky, A. (2021)",
+      "selectedEntityNames": [
+        "United States",
+        "United Kingdom",
+        "China",
+        "Russia",
+        "Indonesia",
+        "Nigeria"
+      ]
+    },
+    "attributionShort": "Ariel Karlinsky (2021)",
+    "topicTagsLinks": [
+      "Population Growth",
+      "Causes of Death"
+    ],
+    "faqs": [
+      {
+        "gdocId": "1gGburArxglFdHXeTLotFW4TOOLoeRq5XW6UfAdKtaAw",
+        "fragmentId": "deaths-estimation"
+      }
+    ]
   },
-  "descriptionKey": [],
-  "source": {
-    "id": 28348,
-    "name": "Karlinsky (2023)",
-    "dataPublishedBy": "A. Karlinsky (2023). International Completeness of Death Registration 2015-2019. GitHub. https://github.com/akarlinsky/death_registration",
-    "dataPublisherSource": "",
-    "link": "https://github.com/akarlinsky/death_registration",
-    "retrievedDate": "2023-08-16",
-    "additionalInfo": "\nDeath registration completeness, the share of deaths captured by countries’ vital registration systems, vary substantially across countries. Estimates of completeness, even recent ones, are outdated or contradictory for many countries. The authors of this paper present the International Completeness of Death Registration (ICDR) dataset. ICDR contains the annual amount of deaths registered in 181 countries’ vital registration systems from 2015 to 2019. These counts allow derivation of the most up-to-date and consistent estimates of death registration completeness.\n\nThe work and sources are documented in detail on GitHub: https://github.com/akarlinsky/death_registration.\n\nYou can read a detailed description of the ICDR in the medRxiv preprint \"Karlinsky, A. (2021). International Completeness of Death Registration 2015–2019.\": https://www.medrxiv.org/content/10.1101/2021.08.12.21261978v1.\n\nAriel Karlinsky is also a co-producer of the World Mortality Dataset (WMD), which currently collects data on all-cause mortality from 2015–2022 for 117 countries and territories. The WMD is one of the primary data sources on excess mortality during the COVID-19 pandemic. You can find the WMD on GitHub here: https://github.com/akarlinsky/world_mortality."
-  },
+  "descriptionKey": [
+    "The most common way of knowing how many deaths occur in a country is to rely on death certificates registered in national Vital Registry systems. In many countries, however, a large share of deaths are not registered. This is due to factors such as a lack of doctors and nurses to fill in death certificates, or a poorly functioning Vital Registry system.",
+    "This indicator estimates the extent of under-registering, given as the share of deaths that were registered, out of the total deaths expected for that year.",
+    "The number of expected deaths is estimated by taking the average number of deaths from three data sources: the UN's World Population Prospects, WHO's Global Health Estimates and IHME's Global Burden of Disease study. These three sources themselves estimate the number of deaths from models based on data from censuses and household surveys. For many countries, the estimates of the three sources are very similar. However, for others, where vital registration systems are lacking or not functional, they tend to differ."
+  ],
   "dimensions": {
     "years": {
       "values": [
@@ -976,5 +1026,21 @@
       ]
     }
   },
-  "origins": []
+  "origins": [
+    {
+      "id": 186,
+      "title": "International Completeness of Death Registration 2015-2019",
+      "description": "The International Completeness of Death Registration 2015–2019 database (ICDR), produced by Ariel Karlinsky, represents the most comprehensive and up-to-date database on the completeness of death reporting globally.\n\nThe work and sources are documented in detail on GitHub: https://github.com/akarlinsky/death_registration.\n\nYou can read a detailed description of the ICDR in the medRxiv preprint \"Karlinsky, A. (2021). International Completeness of Death Registration 2015–2019.\": https://www.medrxiv.org/content/10.1101/2021.08.12.21261978v1.",
+      "producer": "Ariel Karlinksy",
+      "citationFull": "A. Karlinsky (2021). International Completeness of Death Registration 2015-2019. GitHub. https://github.com/akarlinsky/death_registration",
+      "urlMain": "https://github.com/akarlinsky/death_registration",
+      "urlDownload": "https://raw.githubusercontent.com/akarlinsky/death_registration/main/death_reg_final.csv",
+      "dateAccessed": "2023-08-16",
+      "datePublished": "2021-08-14",
+      "license": {
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "name": "CC BY 4.0"
+      }
+    }
+  ]
 }

@@ -2,40 +2,38 @@
   "id": 597932,
   "name": "Population (future projections)",
   "unit": "persons",
-  "description": "Population by country, available from 10,000 BCE to 2100 based on Gapminder data, HYDE, and UN Population Division (2022) estimates.\n\n• 10,000 BCE - 1799: Historical estimates by HYDE (v3.2). Includes some datapoints from Gapminder (Systema Globalis).\n• 1800-1949: Historical estimates by Gapminder. Includes some datapoints from HYDE (v3.2) and Gapminder (Systema Globalis).\n• 1950-2021: Population records by the UN World Population Prospects (2022 revision). Includes some datapoints from HYDE (v3.2), Gapminder (Systema Globalis) and Gapminder (v7).\n• 2022-2100: Projections based on Medium variant by the UN World Population Prospects (2022 revision).",
+  "description": "Population by country and year.",
   "createdAt": "2023-04-04T20:14:10.000Z",
-  "updatedAt": "2023-08-31T05:39:55.000Z",
+  "updatedAt": "2024-03-06T16:13:45.000Z",
   "coverage": "",
   "timespan": "2022-2100",
   "datasetId": 5963,
+  "shortUnit": "",
   "columnOrder": 0,
   "shortName": "population_projection",
-  "catalogPath": "grapher/demography/2023-03-31/population/population",
+  "catalogPath": "grapher/demography/2023-03-31/population/population#population_projection",
+  "descriptionShort": "Population by country, available from 10,000 BCE to 2100, based on data and estimates from different sources.",
+  "descriptionProcessing": "The population time series is constructed by combining data from multiple sources:\n\n- 10,000 BCE - 1799: Historical estimates by HYDE (v3.2). Includes some data from Gapminder (Systema Globalis).\n\n- 1800-1949: Historical estimates by Gapminder. Includes some data from HYDE (v3.2) and Gapminder (Systema Globalis).\n\n- 1950-2021: Population records by the UN World Population Prospects (2022 revision). Includes some data from HYDE (v3.2), Gapminder (Systema Globalis) and Gapminder (v7).\n\n- 2022-2100: Projections based on Medium variant by the UN World Population Prospects (2022 revision).",
+  "licenses": "[{\"url\": \"https://docs.google.com/document/d/1-RmthhS2EPMK_HIpnPctcXpB0n7ADSWnXa5Hb3PxNq4/edit?usp=sharing\", \"name\": \"Creative Commons BY 4.0\"}, {\"url\": \"https://dataportaal.pbl.nl/downloads/HYDE/HYDE3.2/readme_release_HYDE3.2.1.txt\", \"name\": \"CC BY 3.0\"}, {\"url\": \"http://creativecommons.org/licenses/by/3.0/igo/\", \"name\": \"CC BY 3.0 IGO\"}]",
   "datasetName": "Population (various sources, 2023.1)",
+  "updatePeriodDays": 365,
   "datasetVersion": "2023-03-31",
   "type": "int",
   "nonRedistributable": false,
   "display": {
-    "name": "Population (future projections)",
+    "name": "Population (future projections) (future projections)",
     "unit": "persons",
-    "includeInTable": true,
     "numDecimalPlaces": 0
   },
-  "schemaVersion": 1,
+  "schemaVersion": 2,
+  "processingLevel": "major",
   "presentation": {
-    "topicTagsLinks": [],
+    "topicTagsLinks": [
+      "Population Growth"
+    ],
     "faqs": []
   },
   "descriptionKey": [],
-  "source": {
-    "id": 28160,
-    "name": "Gapminder (2022); UN (2022); HYDE (2017); Gapminder (Systema Globalis)",
-    "dataPublishedBy": "Gapminder (v7); United Nations, World Population Prospects (2022); HYDE (v3.2); Gapminder (Systema Globalis)",
-    "dataPublisherSource": "",
-    "link": "https://www.gapminder.org/data/documentation/gd003/ ; https://population.un.org/wpp/Download/Standard/Population/ ; https://dataportaal.pbl.nl/downloads/HYDE/ ; https://github.com/open-numbers/ddf--gapminder--systema_globalis",
-    "retrievedDate": "2023-03-31",
-    "additionalInfo": "Our World in Data builds and maintains a long-run dataset on population by country, region, and for the world, based on three key sources: HYDE, Gapminder, and the UN World Population Prospects.\nYou can find more information on these sources and how our time series is constructed on this page: <a href=\"https://ourworldindata.org/population-sources\">What sources do we rely on for population estimates?</a>"
-  },
   "dimensions": {
     "years": {
       "values": [
@@ -1553,5 +1551,72 @@
       ]
     }
   },
-  "origins": []
+  "origins": [
+    {
+      "id": 70,
+      "title": "Population",
+      "producer": "Gapminder",
+      "citationFull": "Gapminder Population v7 (2022).\n\nGapminder's population data is divided into two chunks: One long historical trend for the global population that goes back to 10,000 BC. And the second chunk is country estimates that only reaches back to 1800. For the first chunk, several sources were used. You can learn more at https://docs.google.com/spreadsheets/d/1hkLbEilJbl630IG68q-aQJlUjuTFm9b_12nQMVd1sZM/edit#gid=0. For the second chunk, Gapminder uses UN population data between 1950 to 2100 from the UN Population Division World Population Prospects 2019, and the forecast to the year 2100 uses their medium-fertility variant. For years before 1950, this version uses the data documented in greater detail by Mattias Lindgren in version 3. The main source was Angus Maddison's data, which CLIO Infra Project maintained and improved. Note that when combining version 3 with the new UN data, the trends for a few countries didn't match up in the overlapping year 1950. Minor adjustments were made to the years before and after to smooth out discrepancies between the two sources and avoid spurious jumps in Gapminder's visualisations. Visit https://www.gapminder.org/data/documentation/gd003/ to learn more about the methodology used and the data from back to 10,000 BC.",
+      "attribution": "Gapminder - Population v7 (2022)",
+      "attributionShort": "Gapminder",
+      "versionProducer": "v7",
+      "urlMain": "http://gapm.io/dpop",
+      "urlDownload": "https://gapm.io/dl_popv7",
+      "dateAccessed": "2023-03-31",
+      "datePublished": "2022-10-19",
+      "license": {
+        "url": "https://docs.google.com/document/d/1-RmthhS2EPMK_HIpnPctcXpB0n7ADSWnXa5Hb3PxNq4/edit?usp=sharing",
+        "name": "CC BY 4.0"
+      }
+    },
+    {
+      "id": 71,
+      "title": "Systema Globalis",
+      "producer": "Gapminder",
+      "citationFull": "Gapminder - Systema Globalis (2023).",
+      "attribution": "Gapminder - Systema Globalis (2022)",
+      "attributionShort": "Gapminder",
+      "urlMain": "https://github.com/open-numbers/ddf--gapminder--systema_globalis",
+      "dateAccessed": "2023-03-31",
+      "datePublished": "2023-02-21",
+      "license": {
+        "url": "https://github.com/open-numbers/ddf--gapminder--systema_globalis",
+        "name": "CC BY 4.0"
+      }
+    },
+    {
+      "id": 97,
+      "title": "HYDE",
+      "description": "HYDE is an internally consistent combination of updated historical population (gridded) estimates and land use for the past 12,000 years. Categories include cropland, with a new distinction into irrigated and rain fed crops (other than rice) and irrigated and rain fed rice. Also grazing lands are provided, divided into more intensively used pasture, converted rangeland and non-converted natural (less intensively used) rangeland. Population is represented by maps of total, urban, rural population and population density as well as built-up area.",
+      "producer": "PBL Netherlands Environmental Assessment Agency",
+      "citationFull": "Klein Goldewijk, K., A. Beusen, J.Doelman and E. Stehfest (2017), Anthropogenic land use estimates for the Holocene; HYDE 3.2, Earth System Science Data, 9, 927-953.",
+      "attribution": "HYDE (2017)",
+      "attributionShort": "HYDE",
+      "versionProducer": "3.2",
+      "urlMain": "https://www.pbl.nl/en/image/links/hyde",
+      "urlDownload": "https://public.yoda.uu.nl/geo/UU01/MO2FF3.html",
+      "dateAccessed": "2021-10-01",
+      "datePublished": "2017",
+      "license": {
+        "url": "https://public.yoda.uu.nl/geo/UU01/MO2FF3.html",
+        "name": "CC BY 3.0"
+      }
+    },
+    {
+      "id": 69,
+      "title": "World Population Prospects",
+      "description": "World Population Prospects 2022 is the 27th edition of the official estimates and projections of the global population that have been published by the United Nations since 1951. The estimates are based on all available sources of data on population size and levels of fertility, mortality and international migration for 237 countries or areas. More details at https://population.un.org/wpp/Publications/.",
+      "producer": "United Nations",
+      "citationFull": "United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022, Online Edition.",
+      "attribution": "United Nations - World Population Prospects (2022)",
+      "attributionShort": "UN WPP",
+      "urlMain": "https://population.un.org/wpp/Download/",
+      "dateAccessed": "2022-09-09",
+      "datePublished": "2022-07-11",
+      "license": {
+        "url": "https://population.un.org/wpp/Download/Standard/MostUsed/",
+        "name": "CC BY 3.0 IGO"
+      }
+    }
+  ]
 }
