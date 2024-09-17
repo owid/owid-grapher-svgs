@@ -1,43 +1,73 @@
 {
   "id": 734426,
-  "name": "estimated_daily_excess_deaths_per_100k",
-  "unit": "",
+  "name": "Daily excess deaths per 100,000 people (central estimate)",
+  "unit": "deaths per 100,000 people",
   "createdAt": "2023-06-13T10:48:43.000Z",
-  "updatedAt": "2024-07-12T11:38:37.000Z",
+  "updatedAt": "2024-08-21T15:55:30.000Z",
   "coverage": "",
   "timespan": "",
   "datasetId": 6068,
-  "shortUnit": "",
   "columnOrder": 0,
   "shortName": "estimated_daily_excess_deaths_per_100k",
   "catalogPath": "grapher/excess_mortality/latest/excess_mortality_economist/excess_mortality_economist#estimated_daily_excess_deaths_per_100k",
   "type": "float",
   "dataChecksum": "b0a93cba6d2c5d31e59d67807cb34c66",
-  "metadataChecksum": "c83a9ed445f71aca08a48734d58f23f8",
-  "datasetName": "Excess Mortality (The Economist, 2023)",
+  "metadataChecksum": "384a22e0eaf3cc84b426a45fe24af80f",
+  "datasetName": "COVID-19, Excess Mortality",
   "datasetVersion": "latest",
   "nonRedistributable": false,
   "display": {
+    "name": "Central estimate",
+    "unit": "deaths per 100,000 people",
+    "color": "#B13507",
     "zeroDay": "2020-01-01",
     "yearIsDay": true,
     "includeInTable": true,
     "numDecimalPlaces": 0
   },
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "presentation": {
+    "grapherConfigETL": {
+      "map": {
+        "colorScale": {
+          "binningStrategy": "manual",
+          "customNumericColors": [
+            "#E0F3F8",
+            "#ffffcc",
+            "#ffeda0",
+            "#fed976",
+            "#feb24c",
+            "#fd8d3c",
+            "#fc4e2a",
+            "#e31a1c",
+            "#bd0026",
+            "#800026"
+          ],
+          "customNumericValues": [
+            0,
+            0.5,
+            1,
+            1.5,
+            2,
+            2.5,
+            3,
+            3.5,
+            4,
+            4.5
+          ],
+          "customNumericColorsActive": true
+        }
+      },
+      "hasMapTab": true
+    },
     "topicTagsLinks": [],
     "faqs": []
   },
-  "descriptionKey": [],
-  "source": {
-    "id": 28194,
-    "name": "The Economist (2023)",
-    "dataPublishedBy": "The Economist",
-    "dataPublisherSource": "",
-    "link": "https://github.com/TheEconomist/covid-19-the-economist-global-excess-deaths-model",
-    "retrievedDate": "2023-05-09",
-    "additionalInfo": "\nData from The Economist estimating the number of excess deaths, from all causes, during the COVID-19 pandemic for 223 countries & regions. The Economist publishes new estimates each day. We update our charts with the latest available data each week.\n\nExcess deaths measure the difference between how many people died during the pandemic, from any cause, and how many deaths would have been expected had there been no pandemic.\n\nMany countries have not reported any all-cause mortality data during the pandemic, which means their entire data series is estimated. Other countries report data regularly, but it is not always up-to-date due to delays in reporting; for these, only recent weeks are estimated. These delays, as well as incomplete reporting coverage, mean the reported number of deaths might not count all deaths that occurred.\n\nThe Economist's GitHub page, which contains their data and code, is here: https://github.com/TheEconomist/covid-19-the-economist-global-excess-deaths-model\n\nTo read The Economist's article presenting the model estimates, see: https://www.economist.com/graphic-detail/coronavirus-excess-deaths-estimates\n\nTo read about the model methodology, see: https://www.economist.com/graphic-detail/2021/05/13/how-we-estimated-the-true-death-toll-of-the-pandemic\n\nFor the Our World in Data page on excess mortality during COVID-19, with expanded explanations and data from other sources, see: https://ourworldindata.org/excess-mortality-covid"
-  },
+  "descriptionKey": [
+    "Data from The Economist estimating the number of excess deaths, from all causes, during the COVID-19 pandemic for 223 countries & regions. The Economist publishes new estimates each day. We update our charts with the latest available data each week.",
+    "Excess deaths measure the difference between how many people died during the pandemic, from any cause, and how many deaths would have been expected had there been no pandemic.",
+    "Many countries have not reported any all-cause mortality data during the pandemic, which means their entire data series is estimated. Other countries report data regularly, but it is not always up-to-date due to delays in reporting; for these, only recent weeks are estimated. These delays, as well as incomplete reporting coverage, mean the reported number of deaths might not count all deaths that occurred."
+  ],
   "dimensions": {
     "years": {
       "values": [
@@ -1935,5 +1965,16 @@
       ]
     }
   },
-  "origins": []
+  "origins": [
+    {
+      "id": 1249,
+      "title": "Excess Deaths Model",
+      "description": "The Living Planet Database contains tens of thousands of vertebrate population time-series from around the world. It is the largest collection of its kind, and is publicly available, making it an invaluable tool for both research and conservation.\nThis dataset contains time-series of population abundance data for vertebrate species spanning years between 1970 and 2021. This is the public version of the database as confidential records that cannot be shared have been removed. The open-source code used to calculate the Living Planet Index using this data set can be found here: [https://github.com/Zoological-Society-of-London/rlpi](https://github.com/Zoological-Society-of-London/rlpi).\n[Text from [Living Planet Index website](https://www.livingplanetindex.org/data_portal)]",
+      "producer": "The Economist",
+      "citationFull": "The Economist and Solstad, S. (corresponding author), 2021. The pandemic's true death toll. [online] The Economist. Available at: https://www.economist.com/graphic-detail/coronavirus-excess-deaths-estimates [Accessed 21 August 2024]. First published in the article \"Counting the dead\", The Economist, issue 20, 2021.",
+      "urlMain": "https://github.com/TheEconomist/covid-19-the-economist-global-excess-deaths-model",
+      "dateAccessed": "2024-08-20",
+      "datePublished": "2024"
+    }
+  ]
 }

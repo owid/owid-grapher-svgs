@@ -6,6 +6,7 @@
       "customNumericMinValue": 0
     }
   },
+  "note": "To allow for comparisons between countries and over time, death rates are [age-standardized](#dod:age_standardized). Non-melanoma skin cancers are excluded due to potentially incomplete records and inconsistent registry practices.",
   "slug": "death-rate-from-cancers-vs-average-income",
   "type": "ScatterPlot",
   "title": "Death rate from cancers vs. GDP per capita",
@@ -16,10 +17,9 @@
   "yAxis": {
     "min": 0
   },
-  "$schema": "https://files.ourworldindata.org/schemas/grapher-schema.004.json",
-  "minTime": "latest",
-  "version": 34,
-  "subtitle": "The death rate (measured as the number of deaths per 100,000 individuals) refers to all forms of cancers and is standardized for age to allow cross-country comparisons.",
+  "minTime": 2021,
+  "version": 38,
+  "subtitle": "Estimated annual number of deaths from all types of [cancer](#dod:cancer) per 100,000 people versus gross domestic product (GDP) per capita, measured in constant international-$.",
   "originUrl": "https://ourworldindata.org/cancer",
   "colorScale": {
     "binningStrategy": "equalInterval"
@@ -27,15 +27,16 @@
   "dimensions": [
     {
       "display": {
-        "name": "Cancers",
-        "unit": "deaths per 100,000 individuals"
+        "name": "Cancer death rate",
+        "includeInTable": true
       },
       "property": "y",
-      "variableId": 929758
+      "variableId": 929967
     },
     {
       "display": {
-        "tolerance": 1
+        "tolerance": 1,
+        "includeInTable": true
       },
       "property": "x",
       "variableId": 735665
@@ -50,5 +51,7 @@
     }
   ],
   "isPublished": true,
-  "hideRelativeToggle": false
+  "hideRelativeToggle": false,
+  "selectedEntityNames": [],
+  "$schema": "https://files.ourworldindata.org/schemas/grapher-schema.005.json"
 }
