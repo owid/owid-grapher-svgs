@@ -2,7 +2,16 @@
   "id": 3890,
   "map": {
     "colorScale": {
-      "binningStrategy": "equalInterval"
+      "baseColorScheme": "YlOrBr",
+      "binningStrategy": "manual",
+      "customNumericValues": [
+        100000,
+        300000,
+        1000000,
+        3000000,
+        10000000,
+        30000000
+      ]
     }
   },
   "slug": "number-of-deaths-per-year",
@@ -11,16 +20,21 @@
     "max": 0,
     "min": 0
   },
-  "version": 23,
-  "subtitle": "Historic estimates from 1950 to 2023, and projected to 2100 based on the [UN medium scenario](#dod:un-projection-scenarios).",
+  "$schema": "https://files.ourworldindata.org/schemas/grapher-schema.006.json",
+  "version": 25,
+  "subtitle": "Future projections are based on the [UN's medium-fertility scenario](#dod:un-projection-scenarios).",
+  "hasMapTab": true,
   "originUrl": "https://ourworldindata.org/population-growth",
   "dimensions": [
     {
       "display": {
         "name": "",
         "unit": "people",
+        "roundingMode": "significantFigures",
+        "includeInTable": true,
         "conversionFactor": 1,
-        "numDecimalPlaces": 0
+        "numDecimalPlaces": 0,
+        "numSignificantFigures": 3
       },
       "property": "y",
       "variableId": 950690
@@ -31,8 +45,11 @@
         "unit": "people",
         "shortUnit": "",
         "isProjection": true,
+        "roundingMode": "significantFigures",
+        "includeInTable": true,
         "conversionFactor": 1,
-        "numDecimalPlaces": 0
+        "numDecimalPlaces": 0,
+        "numSignificantFigures": 3
       },
       "property": "y",
       "variableId": 950692
@@ -52,6 +69,5 @@
     "time": true,
     "entity": true,
     "changeInPrefix": true
-  },
-  "$schema": "https://files.ourworldindata.org/schemas/grapher-schema.005.json"
+  }
 }

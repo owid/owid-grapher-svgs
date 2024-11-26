@@ -7,19 +7,27 @@
   },
   "slug": "population-subjected-to-sexual-violence-male-vs-female",
   "type": "ScatterPlot",
-  "title": "Share of population subjected to sexual violence, male vs. female",
+  "title": "Share of population subjected to sexual assault, male vs. female",
   "xAxis": {
     "max": 5,
-    "min": 0
+    "min": 0.09,
+    "scaleType": "log",
+    "canChangeScaleType": true
   },
   "yAxis": {
     "max": 5,
-    "min": 0
+    "min": 0.09,
+    "scaleType": "log",
+    "canChangeScaleType": true
   },
+  "$schema": "https://files.ourworldindata.org/schemas/grapher-schema.006.json",
   "minTime": "latest",
-  "version": 31,
-  "subtitle": "Respondents were asked about violence they experienced in the previous year.",
+  "version": 33,
+  "subtitle": "Includes only people who were victims of sexual assault in the last 12 months and reported this to relevant authorities. Sexual assault includes rape and other physical assault, but excludes non-physical forms such as sexual harassment.",
   "originUrl": "https://ourworldindata.org/women-rights",
+  "chartTypes": [
+    "ScatterPlot"
+  ],
   "colorScale": {
     "customHiddenCategories": {
       "No data": true
@@ -29,37 +37,49 @@
     {
       "display": {
         "name": "Male",
-        "tolerance": 5,
-        "includeInTable": true
+        "unit": "%",
+        "tolerance": 5
       },
       "property": "y",
-      "variableId": 801312
+      "variableId": 993823
     },
     {
       "display": {
         "name": "Female",
-        "tolerance": 5,
-        "includeInTable": true
+        "tolerance": 5
       },
       "property": "x",
-      "variableId": 801311
+      "variableId": 993822
     },
     {
       "display": {
-        "name": "Population",
-        "includeInTable": true
+        "name": "Population"
       },
       "property": "size",
       "variableId": 953903
     },
     {
       "property": "color",
-      "variableId": 123
+      "variableId": 900801
     }
   ],
   "isPublished": true,
   "comparisonLines": [
-    {}
+    {
+      "label": "No difference between genders"
+    },
+    {
+      "label": "Men are twice as likely to be assaulted",
+      "yEquals": "2*x"
+    },
+    {
+      "label": "Women are twice as likely to be assaulted",
+      "yEquals": "0.5*x"
+    },
+    {
+      "label": "Women are ten times as likely to be assaulted",
+      "yEquals": "0.1*x"
+    }
   ],
-  "$schema": "https://files.ourworldindata.org/schemas/grapher-schema.005.json"
+  "selectedEntityNames": []
 }
