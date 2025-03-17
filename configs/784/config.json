@@ -9,6 +9,7 @@
     },
     "timeTolerance": 1
   },
+  "note": "GDP per capita is expressed in [international-$](#dod:int_dollar_abbreviation) at 2021 prices.",
   "slug": "carbon-emission-intensity-vs-gdp-per-capita",
   "title": "Carbon emission intensity vs. GDP per capita",
   "xAxis": {
@@ -16,12 +17,14 @@
     "canChangeScaleType": true
   },
   "yAxis": {
-    "min": 0
+    "max": 1,
+    "min": 0,
+    "removePointsOutsideDomain": true
   },
   "$schema": "https://files.ourworldindata.org/schemas/grapher-schema.006.json",
   "minTime": "latest",
-  "version": 22,
-  "subtitle": "Carbon emission intensity is measured in kilograms of CO₂ per dollar of GDP.  Emissions from [fossil fuels and industry](#dod:fossilemissions) are included. Land-use change is not included. GDP data is adjusted for inflation and differences in the cost of living between countries.",
+  "version": 24,
+  "subtitle": "Carbon emission intensity is measured in kilograms of CO₂ per dollar of GDP.  Emissions from [fossil fuels and industry](#dod:fossilemissions) are included. Land-use change is not included. GDP per capita is adjusted for inflation and for differences in living costs between countries.",
   "originUrl": "https://ourworldindata.org/co2-and-greenhouse-gas-emissions",
   "chartTypes": [
     "ScatterPlot"
@@ -32,17 +35,17 @@
   "dimensions": [
     {
       "display": {
-        "name": "Carbon intensity"
+        "name": "Carbon intensity",
+        "unit": "kg per 2021 PPP $ of GDP",
+        "shortUnit": "kg",
+        "includeInTable": true
       },
       "property": "y",
-      "variableId": 905053
+      "variableId": 1007928
     },
     {
-      "display": {
-        "unit": "constant international-$"
-      },
       "property": "x",
-      "variableId": 905490
+      "variableId": 1008370
     },
     {
       "property": "color",

@@ -3,7 +3,7 @@
   "name": "Military expenditure per military personnel (constant US$)",
   "unit": "constant 2021 US$",
   "createdAt": "2024-12-12T13:53:21.000Z",
-  "updatedAt": "2024-12-12T13:53:21.000Z",
+  "updatedAt": "2025-03-14T15:10:15.000Z",
   "coverage": "",
   "timespan": "1816-2016",
   "datasetId": 6860,
@@ -15,6 +15,8 @@
   "descriptionFromProducer": "\"_Latent variable model_\n\nIn [the main manuscript](https://journals.sagepub.com/doi/10.1177/00220027241232964), we present, estimate, and describe a latent variable model that links together observed dataset values from across many sources of military expenditure data.\n\nWe are interested in estimating is country-year military spending. Using military ex- penditure data presents several challenges because the datasets are incomplete, cover short periods of time, and are presented in many different monetary units-of-measurement. To overcome these challenges, we specify a dynamic latent variable measurement model that links all of the available information across different contemporary and historical sources of arms spending data. We essentially want to estimate the country-year distribution or simply the average of military spending across all the available observed dataset values so that we generate the best estimate of military spending for each of the country-year units.\n\nThe observed dataset values are linked together through the estimation of a country- year parameter or latent trait. However, the latent trait parameter itself is not directly of interest for inference because it does not have a direct monetary interpretation. This is because it is scaled by the item-specific intercept parameter which transforms the latent trait into the unit-of-measurement of any one of the originally observed military expenditure variables. The measurement model provides predictive intervals for each of the original observed variables on the original scales of these variables. Notationally, we represent the observed country-year dataset values as yitj where i indexes countries, t indexes years of time, and j indexes the dataset. The model then produces posterior predictive distributions of yitj, which we denote as y ̃itj. These are normally distributed values (on the natural log scale). We can therefore take the average of y ̃itj as E(y ̃itj) or the standard deviation of y ̃itj as sd(y ̃itj).\n\nFor the applications in the main manuscript and in this appendix, y ̃itj is the key the quantity we care about. It is the estimated value of yitj, conditional on all the other observed information about military spending for a given country-year unit, which is captured by the latent trait θcur[it] and then scaled by the item-specific intercept parameter αj. Note that, as described in the main manuscript, that we also account for the relationship between current and constant monetary values through inflation by this year scaling relationship: θcon[it] = βt ∗ θcur[it]\n\nWe approximate the posterior distributions of y ̃itj by taking repeated draws from Bayesian simulation model. Specifically, the measurement models are estimated with four MCMC chains to run for 2,000 iterations each using the Stan software (Stan Development Team, 2021). The first 1,000 iterations are thrown away as a burn-in or warmup period. The 4,000 remaining samples were thinned by a factor of 2 and are used to generate the posterior prediction intervals for the original observed variables. Diagnostics (i.e. trace plots, effective sample size, and R-hats) all suggest convergence (Gelman and Hill, 2007).\n\nSo in the end, we have a normally distributed, posterior prediction interval: y ̃itj for every country-year dataset. We can then compare the observed dataset values to these prediction intervals to see how well the model is doing at approximating these observed dataset values. We learn a lot from these descriptive comparisons as we demonstrate in the main manuscript and in additional detail in the rest of this appendix. Ultimately, these comparisons help us validate the resulting estimates relative to other estimates. Even the original data represents historic and government estimates, so such validation efforts are essential, especially when comparing long term historical trends and making predictions about the future.\"",
   "descriptionProcessing": "We calculated this indicator by dividing the military expenditure by the [military personnel](https://ourworldindata.org/grapher/military-personnel) estimated by the Correlates of War's National Material Capabilities dataset.",
   "type": "float",
+  "dataChecksum": "13693027181733787128",
+  "metadataChecksum": "7624047139181414953",
   "datasetName": "Global Military Spending Dataset",
   "updatePeriodDays": 365,
   "datasetVersion": "2024-11-26",
@@ -32,8 +34,7 @@
     "titlePublic": "Military expenditure per military personnel",
     "topicTagsLinks": [
       "Military Personnel & Spending"
-    ],
-    "faqs": []
+    ]
   },
   "descriptionKey": [
     "This data is calculated by using nine different military expenditure data sources and combining them using a model. The model links the country-year data together and estimates a mean with a prediction interval for each observation. For more information about the methodology, see [the original article](https://journals.sagepub.com/doi/10.1177/00220027241232964).",
