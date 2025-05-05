@@ -12,7 +12,7 @@ Use this manually when you have changed grapher, and want to know if your change
 2. Regenerate any SVGs that have changed
 
     ```
-    node ./itsJustJavascript/devTools/svgTester/export-graphs.js \
+    yarn tsx --tsconfig tsconfig.tsx.json devTools/svgTester/export-graphs.ts \
         -i ../owid-grapher-svgs/configs \
         -o ../owid-grapher-svgs/svg
     ```
