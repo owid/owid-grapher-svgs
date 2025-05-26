@@ -1,7 +1,7 @@
 <svg
     xmlns="http://www.w3.org/2000/svg"
     version="1.1"
-    style="font-family:Lato, &#x27;Helvetica Neue&#x27;, Helvetica, Arial, &#x27;Liberation Sans&#x27;, sans-serif;font-size:18px;background-color:#ffffff;text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased"
+    style="font-family:Lato, &#x27;Helvetica Neue&#x27;, Helvetica, Arial, &#x27;Liberation Sans&#x27;, sans-serif;text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased;font-size:18px;background-color:#ffffff"
     width="850"
     height="600"
     viewBox="0 0 850 600"
@@ -42,7 +42,7 @@
         </g>
         <a
             id="title"
-            href="https://ourworldindata.org/grapher/births-and-deaths-projected-to-2100?tab=chart&amp;yScale=log&amp;time=earliest&amp;facet=none&amp;uniformYAxis=0"
+            href="https://ourworldindata.org/grapher/births-and-deaths-projected-to-2100?yScale=log&amp;time=earliest&amp;facet=none&amp;uniformYAxis=0"
             style="font-family:&#x27;Playfair Display&#x27;, Georgia, &#x27;Times New Roman&#x27;, &#x27;Liberation Serif&#x27;, serif"
             target="_blank"
             rel="noopener"
@@ -55,7 +55,7 @@
                 fill="#2d2e2d"
             >
                 <tspan x="16" y="40.25">
-                    Births and deaths per year, World
+                    Births and deaths per year, World, 1950
                 </tspan>
             </text>
         </a>
@@ -77,219 +77,88 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <g id="horizontal-axis" class="HorizontalAxis">
-            <g id="tick-marks">
-                <line
-                    id="1950"
-                    x1="418.785"
-                    y1="531.9"
-                    x2="418.785"
-                    y2="537.4"
-                    stroke="#999"
-                    stroke-width="1"
-                ></line>
-            </g>
-            <g id="tick-labels">
-                <text
-                    x="418.785"
-                    y="550.4"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    1950
-                </text>
-            </g>
+        <line
+            id="vertical-zero-line"
+            x1="60.85"
+            y1="552.40"
+            x2="60.85"
+            y2="86.00"
+            stroke="#999"
+            stroke-width="0.5"
+        ></line>
+        <g id="bars">
+            <rect
+                id="Births"
+                x="0"
+                y="0"
+                transform="translate(61.1, 126.81)"
+                width="686.9"
+                height="151.57999999999998"
+                fill="#00295b"
+                opacity="0.8"
+                style="transition: height 200ms ease"
+            ></rect>
+            <rect
+                id="Deaths"
+                x="0"
+                y="0"
+                transform="translate(61.1, 360.01)"
+                width="362.7"
+                height="151.57999999999998"
+                fill="#c4523e"
+                opacity="0.8"
+                style="transition: height 200ms ease"
+            ></rect>
         </g>
-        <g id="vertical-axis" class="VerticalAxis">
-            <g id="tick-labels">
-                <text
-                    x="70.99"
-                    y="511.2"
-                    dy=".32em"
-                    text-anchor="end"
-                    fill="#5b5b5b"
-                    font-size="13"
-                >
-                    50 million
-                </text>
-                <text
-                    x="70.99"
-                    y="385.5"
-                    dy=".32em"
-                    text-anchor="end"
-                    fill="#5b5b5b"
-                    font-size="13"
-                >
-                    60 million
-                </text>
-                <text
-                    x="70.99"
-                    y="279.2"
-                    dy=".32em"
-                    text-anchor="end"
-                    fill="#5b5b5b"
-                    font-size="13"
-                >
-                    70 million
-                </text>
-                <text
-                    x="70.99"
-                    y="187.1"
-                    dy=".32em"
-                    text-anchor="end"
-                    fill="#5b5b5b"
-                    font-size="13"
-                >
-                    80 million
-                </text>
-                <text
-                    x="70.99"
-                    y="105.8"
-                    dy=".32em"
-                    text-anchor="end"
-                    fill="#5b5b5b"
-                    font-size="13"
-                >
-                    90 million
-                </text>
-            </g>
+        <g id="value-labels">
+            <text
+                x="0"
+                y="0"
+                transform="translate(753, 202.6)"
+                fill="#5b5b5b"
+                dy=".32em"
+                text-anchor="start"
+                font-size="13.5"
+                font-weight="400"
+            >
+                91.82 million
+                <tspan fill="#999"></tspan>
+            </text>
+            <text
+                x="0"
+                y="0"
+                transform="translate(428.8, 435.79999999999995)"
+                fill="#5b5b5b"
+                dy=".32em"
+                text-anchor="start"
+                font-size="13.5"
+                font-weight="400"
+            >
+                48.49 million
+                <tspan fill="#999"></tspan>
+            </text>
         </g>
-        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
-            <line
-                id="50-million"
-                x1="75.99"
-                y1="511.2"
-                x2="761.58"
-                y2="511.2"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="60-million"
-                x1="75.99"
-                y1="385.5"
-                x2="761.58"
-                y2="385.5"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="70-million"
-                x1="75.99"
-                y1="279.2"
-                x2="761.58"
-                y2="279.2"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="80-million"
-                x1="75.99"
-                y1="187.1"
-                x2="761.58"
-                y2="187.1"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="90-million"
-                x1="75.99"
-                y1="105.8"
-                x2="761.58"
-                y2="105.8"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-        </g>
-        <g id="line-labels" class="LineLabels">
-            <g id="text-annotations"></g>
-            <g id="text-labels">
-                <text
-                    id="label__Births"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="765.6"
-                    y="98.0"
-                    fill="#00295b"
-                    opacity="1"
-                    text-anchor="start"
-                >
-                    <tspan x="765.58" y="97.96000000000001">Births</tspan>
-                </text>
-                <text
-                    id="label__Deaths"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="765.6"
-                    y="537.2"
-                    fill="#c4523e"
-                    opacity="1"
-                    text-anchor="start"
-                >
-                    <tspan x="765.58" y="537.21">Deaths</tspan>
-                </text>
-            </g>
-        </g>
-        <g id="lines">
-            <path
-                fill="none"
-                stroke-linecap="butt"
-                stroke-linejoin="round"
-                stroke="#ffffff"
-                id="outline__Births"
-                stroke-width="2.5"
-                d="M418.8 92"
-            ></path>
-            <path
-                fill="none"
-                stroke-linecap="butt"
-                stroke-linejoin="round"
-                stroke="#00295b"
-                id="line__Births"
-                stroke-width="1.5"
-                stroke-opacity="1"
-                d="M418.8 92"
-            ></path>
-            <g id="datapoints__Births">
-                <circle
-                    id="1950"
-                    cx="418.8"
-                    cy="92"
-                    r="1.8"
-                    fill="#00295b"
-                    opacity="1"
-                ></circle>
-            </g>
-            <path
-                fill="none"
-                stroke-linecap="butt"
-                stroke-linejoin="round"
-                stroke="#ffffff"
-                id="outline__Deaths"
-                stroke-width="2.5"
-                d="M418.8 532.4"
-            ></path>
-            <path
-                fill="none"
-                stroke-linecap="butt"
-                stroke-linejoin="round"
-                stroke="#c4523e"
-                id="line__Deaths"
-                stroke-width="1.5"
-                stroke-opacity="1"
-                d="M418.8 532.4"
-            ></path>
-            <g id="datapoints__Deaths">
-                <circle
-                    id="1950"
-                    cx="418.8"
-                    cy="532.4"
-                    r="1.8"
-                    fill="#c4523e"
-                    opacity="1"
-                ></circle>
-            </g>
+        <g id="entity-labels">
+            <text
+                font-size="13.50"
+                font-weight="700"
+                x="56.1"
+                y="207.6"
+                fill="#555"
+                text-anchor="end"
+            >
+                <tspan x="56.1" y="207.59499999999997">Births</tspan>
+            </text>
+            <text
+                font-size="13.50"
+                font-weight="700"
+                x="56.1"
+                y="440.8"
+                fill="#555"
+                text-anchor="end"
+            >
+                <tspan x="56.1" y="440.79499999999996">Deaths</tspan>
+            </text>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">
