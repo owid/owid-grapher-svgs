@@ -3,7 +3,9 @@
   "map": {
     "colorScale": {
       "binningStrategy": "equalInterval",
-      "customNumericMinValue": 0
+      "customNumericValues": [
+        0
+      ]
     }
   },
   "slug": "measles-cases-and-death-rate",
@@ -11,14 +13,24 @@
   "yAxis": {
     "max": 0,
     "min": 0,
-    "scaleType": "log",
+    "facetDomain": "independent",
     "canChangeScaleType": true
   },
-  "$schema": "https://files.ourworldindata.org/schemas/grapher-schema.006.json",
-  "version": 19,
+  "$schema": "https://files.ourworldindata.org/schemas/grapher-schema.008.json",
+  "version": 22,
   "subtitle": "The reported annual rate of new cases and deaths from measles, per 100,000 people in the population.",
   "originUrl": "https://ourworldindata.org/vaccination",
   "dimensions": [
+    {
+      "display": {
+        "name": "Case rate",
+        "unit": "cases per 100,000 people",
+        "includeInTable": true,
+        "conversionFactor": 1
+      },
+      "property": "y",
+      "variableId": 1012628
+    },
     {
       "display": {
         "name": "Death rate",
@@ -29,22 +41,13 @@
       },
       "property": "y",
       "variableId": 1012630
-    },
-    {
-      "display": {
-        "name": "Case rate",
-        "unit": "cases per 100,000 people",
-        "includeInTable": true,
-        "conversionFactor": 1
-      },
-      "property": "y",
-      "variableId": 1012628
     }
   ],
   "sourceDesc": "US Census Bureau (1944); Public Health Reports (1993); Centers for Disease Control and Prevention (1994; 2025)",
   "isPublished": true,
   "addCountryMode": "change-country",
   "timelineMaxTime": 2024,
+  "hideFacetControl": false,
   "invertColorScheme": true,
   "selectedEntityNames": [
     "United States"
@@ -52,6 +55,7 @@
   "selectedEntityColors": {
     "United States": "#b13507"
   },
+  "selectedFacetStrategy": "metric",
   "hideAnnotationFieldsInTitle": {
     "entity": true,
     "changeInPrefix": true
