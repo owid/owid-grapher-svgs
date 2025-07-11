@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -78,91 +67,280 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="210.15"
-            y1="552.40"
-            x2="210.15"
-            y2="99.80"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Alzheimer&#x27;s-disease-and-other-dementias"
-                x="0"
-                y="0"
-                transform="translate(210.4, 139.40249999999997)"
-                width="582.7"
-                height="147.095"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Parkinson&#x27;s-disease"
-                x="0"
-                y="0"
-                transform="translate(210.4, 365.7025)"
-                width="120.6"
-                height="147.095"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2021"
+                    x1="340.71999999999997"
+                    y1="531.9"
+                    x2="340.71999999999997"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="340.71999999999997"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2021
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(798.1, 212.95)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                0.7%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(336, 439.25)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                0.1%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="45.77"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="45.77"
+                    y="473.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.1%
+                </text>
+                <text
+                    x="45.77"
+                    y="414"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.2%
+                </text>
+                <text
+                    x="45.77"
+                    y="354.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.3%
+                </text>
+                <text
+                    x="45.77"
+                    y="295.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.4%
+                </text>
+                <text
+                    x="45.77"
+                    y="236.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.5%
+                </text>
+                <text
+                    x="45.77"
+                    y="177.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.6%
+                </text>
+                <text
+                    x="45.77"
+                    y="117.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.7%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="205.4"
-                y="210.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="205.4" y="210.51999999999998">
-                    Alzheimer&#x27;s disease and other
-                </tspan>
-                <tspan x="205.4" y="225.36999999999998">dementias</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="205.4"
-                y="444.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="205.4" y="444.245">Parkinson&#x27;s disease</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="50.77"
+                y1="532.4"
+                x2="630.67"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="0.1%"
+                x1="50.77"
+                y1="473.2"
+                x2="630.67"
+                y2="473.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="0.2%"
+                x1="50.77"
+                y1="414"
+                x2="630.67"
+                y2="414"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="0.3%"
+                x1="50.77"
+                y1="354.8"
+                x2="630.67"
+                y2="354.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="0.4%"
+                x1="50.77"
+                y1="295.6"
+                x2="630.67"
+                y2="295.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="0.5%"
+                x1="50.77"
+                y1="236.4"
+                x2="630.67"
+                y2="236.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="0.6%"
+                x1="50.77"
+                y1="177.1"
+                x2="630.67"
+                y2="177.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="0.7%"
+                x1="50.77"
+                y1="117.9"
+                x2="630.67"
+                y2="117.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Alzheimer&#x27;s-disease-and-other-dementias"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="634.7"
+                    y="111.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="634.67" y="111.75999999999999">
+                        Alzheimer&#x27;s disease and other
+                    </tspan>
+                    <tspan x="634.67" y="126.05999999999999">dementias</tspan>
+                </text>
+                <text
+                    id="label__Parkinson&#x27;s-disease"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="634.7"
+                    y="448.9"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="634.67" y="448.91">
+                        Parkinson&#x27;s disease
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Parkinson&#x27;s-disease"
+                stroke-width="2.5"
+                d="M340.7 444.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Parkinson&#x27;s-disease"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.7 444.1"
+            ></path>
+            <g id="datapoints__Parkinson&#x27;s-disease">
+                <circle
+                    id="2021"
+                    cx="340.7"
+                    cy="444.1"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Alzheimer&#x27;s-disease-and-other-dementias"
+                stroke-width="2.5"
+                d="M340.7 105.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Alzheimer&#x27;s-disease-and-other-dementias"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.7 105.8"
+            ></path>
+            <g id="datapoints__Alzheimer&#x27;s-disease-and-other-dementias">
+                <circle
+                    id="2021"
+                    cx="340.7"
+                    cy="105.8"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

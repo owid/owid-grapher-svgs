@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -79,156 +68,338 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="53.25"
-            y1="552.40"
-            x2="53.25"
-            y2="122.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Water"
-                x="0"
-                y="0"
-                transform="translate(53.5, 140.83)"
-                width="724.5"
-                height="69.94"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Road"
-                x="0"
-                y="0"
-                transform="translate(53.5, 248.42999999999998)"
-                width="380.5"
-                height="69.94"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Rail"
-                x="0"
-                y="0"
-                transform="translate(53.5, 356.03)"
-                width="121.6"
-                height="69.94"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Air"
-                x="0"
-                y="0"
-                transform="translate(53.5, 463.63)"
-                width="2"
-                height="69.94"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2010"
+                    x1="408.71"
+                    y1="531.9"
+                    x2="408.71"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="408.71"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2010
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(783, 175.8)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                58.97%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(439, 283.4)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                30.97%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(180.1, 391)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9.9%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(60.5, 498.59999999999997)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                0.16%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="42.13"
+                    y="465"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="397.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="42.13"
+                    y="330.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    30%
+                </text>
+                <text
+                    x="42.13"
+                    y="262.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="42.13"
+                    y="195.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    50%
+                </text>
+                <text
+                    x="42.13"
+                    y="128"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="48.5"
-                y="180.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="48.5" y="180.79500000000002">Water</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="48.5"
-                y="288.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="48.5" y="288.395">Road</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="48.5"
-                y="396.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="48.5" y="395.995">Rail</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="48.5"
-                y="503.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="48.5" y="503.59499999999997">Air</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="47.13"
+                y1="532.4"
+                x2="770.29"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="465"
+                x2="770.29"
+                y2="465"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="397.6"
+                x2="770.29"
+                y2="397.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30%"
+                x1="47.13"
+                y1="330.2"
+                x2="770.29"
+                y2="330.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="47.13"
+                y1="262.8"
+                x2="770.29"
+                y2="262.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="50%"
+                x1="47.13"
+                y1="195.4"
+                x2="770.29"
+                y2="195.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60%"
+                x1="47.13"
+                y1="128"
+                x2="770.29"
+                y2="128"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Water"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.3"
+                    y="139.7"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.29" y="139.71">Water</tspan>
+                </text>
+                <text
+                    id="label__Road"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.3"
+                    y="328.5"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.29" y="328.51">Road</tspan>
+                </text>
+                <text
+                    id="label__Rail"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.3"
+                    y="470.5"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.29" y="470.51">Rail</tspan>
+                </text>
+                <text
+                    id="label__Air"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.3"
+                    y="536.1"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.29" y="536.11">Air</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Air"
+                stroke-width="2.5"
+                d="M408.7 531.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Air"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M408.7 531.3"
+            ></path>
+            <g id="datapoints__Air">
+                <circle
+                    id="2010"
+                    cx="408.7"
+                    cy="531.3"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Water"
+                stroke-width="2.5"
+                d="M408.7 134.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Water"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M408.7 134.9"
+            ></path>
+            <g id="datapoints__Water">
+                <circle
+                    id="2010"
+                    cx="408.7"
+                    cy="134.9"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Rail"
+                stroke-width="2.5"
+                d="M408.7 465.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Rail"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M408.7 465.7"
+            ></path>
+            <g id="datapoints__Rail">
+                <circle
+                    id="2010"
+                    cx="408.7"
+                    cy="465.7"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Road"
+                stroke-width="2.5"
+                d="M408.7 323.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Road"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M408.7 323.7"
+            ></path>
+            <g id="datapoints__Road">
+                <circle
+                    id="2010"
+                    cx="408.7"
+                    cy="323.7"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

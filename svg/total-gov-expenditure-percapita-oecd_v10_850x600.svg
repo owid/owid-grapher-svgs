@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -82,530 +71,895 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="119.95"
-            y1="516.70"
-            x2="119.95"
-            y2="122.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Norway"
-                x="0"
-                y="0"
-                transform="translate(120.2, 126.60483333333333)"
-                width="606.3"
-                height="17.103666666666665"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Austria"
-                x="0"
-                y="0"
-                transform="translate(120.2, 152.91816666666668)"
-                width="482.50000000000006"
-                height="17.103666666666665"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="France"
-                x="0"
-                y="0"
-                transform="translate(120.2, 179.2315)"
-                width="432.09999999999997"
-                height="17.103666666666665"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Sweden"
-                x="0"
-                y="0"
-                transform="translate(120.2, 205.54483333333334)"
-                width="429.2"
-                height="17.103666666666665"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Germany"
-                x="0"
-                y="0"
-                transform="translate(120.2, 231.85816666666668)"
-                width="428.59999999999997"
-                height="17.103666666666665"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="United-States"
-                x="0"
-                y="0"
-                transform="translate(120.2, 258.17150000000004)"
-                width="421.50000000000006"
-                height="17.103666666666665"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Canada"
-                x="0"
-                y="0"
-                transform="translate(120.2, 284.4848333333333)"
-                width="359.1"
-                height="17.103666666666665"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="United-Kingdom"
-                x="0"
-                y="0"
-                transform="translate(120.2, 310.7981666666667)"
-                width="357.1"
-                height="17.103666666666665"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="New-Zealand"
-                x="0"
-                y="0"
-                transform="translate(120.2, 337.1115)"
-                width="291.8"
-                height="17.103666666666665"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Poland"
-                x="0"
-                y="0"
-                transform="translate(120.2, 363.42483333333337)"
-                width="277.5"
-                height="17.103666666666665"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Japan"
-                x="0"
-                y="0"
-                transform="translate(120.2, 389.73816666666664)"
-                width="267.7"
-                height="17.103666666666665"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Mexico"
-                x="0"
-                y="0"
-                transform="translate(120.2, 416.05150000000003)"
-                width="129.39999999999998"
-                height="17.103666666666665"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Colombia"
-                x="0"
-                y="0"
-                transform="translate(120.2, 442.3648333333333)"
-                width="126.7"
-                height="17.103666666666665"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Chile"
-                x="0"
-                y="0"
-                transform="translate(120.2, 468.6781666666667)"
-                width="110.3"
-                height="17.103666666666665"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Indonesia"
-                x="0"
-                y="0"
-                transform="translate(120.2, 494.9915)"
-                width="42.7"
-                height="17.103666666666665"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2022"
+                    x1="68.3"
+                    y1="496.2"
+                    x2="68.3"
+                    y2="501.7"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2023"
+                    x1="712.2"
+                    y1="496.2"
+                    x2="712.2"
+                    y2="501.7"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="68.32"
+                    y="514.7"
+                    fill="#5b5b5b"
+                    text-anchor="start"
+                    font-size="13"
+                >
+                    2022
+                </text>
+                <text
+                    x="712.1799999999998"
+                    y="514.7"
+                    fill="#5b5b5b"
+                    text-anchor="end"
+                    font-size="13"
+                >
+                    2023
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(731.5, 135.15666666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $46,552
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(607.7, 161.47)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $37,044
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(557.3, 187.78333333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $33,178
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(554.4, 214.09666666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $32,953
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(553.8, 240.41)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $32,908
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(546.7, 266.72333333333336)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $32,358
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(484.3, 293.03666666666663)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $27,569
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(482.3, 319.35)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $27,418
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(417, 345.6633333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $22,401
-                <tspan fill="#999">in 2022</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(402.7, 371.9766666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $21,307
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(392.9, 398.28999999999996)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $20,556
-                <tspan fill="#999">in 2022</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(254.6, 424.60333333333335)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $9,932
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(251.9, 450.91666666666663)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $9,727
-                <tspan fill="#999">in 2022</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(235.5, 477.23)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $8,468
-                <tspan fill="#999">in 2022</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(167.9, 503.5433333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $3,279
-                <tspan fill="#999">in 2022</tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="63.32"
+                    y="496.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $0
+                </text>
+                <text
+                    x="63.32"
+                    y="423"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $10,000
+                </text>
+                <text
+                    x="63.32"
+                    y="349.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $20,000
+                </text>
+                <text
+                    x="63.32"
+                    y="275.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $30,000
+                </text>
+                <text
+                    x="63.32"
+                    y="201.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $40,000
+                </text>
+                <text
+                    x="63.32"
+                    y="128"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $50,000
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="140.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="140.15166666666667">Norway</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="166.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="166.46499999999997">Austria</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="192.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="192.7783333333333">France</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="219.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="219.09166666666664">Sweden</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="245.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="245.40499999999997">Germany</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="271.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="271.71833333333336">United States</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="298.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="298.03166666666664">Canada</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="324.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="324.345">United Kingdom</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="350.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="350.6583333333333">New Zealand</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="377.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="376.9716666666667">Poland</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="403.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="403.28499999999997">Japan</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="429.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="429.59833333333336">Mexico</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="455.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="455.91166666666663">Colombia</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="482.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="482.225">Chile</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="508.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="508.5383333333333">Indonesia</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="$0"
+                x1="68.32"
+                y1="496.7"
+                x2="712.18"
+                y2="496.7"
+                stroke="#999"
+            ></line>
+            <line
+                id="$10,000"
+                x1="68.32"
+                y1="423"
+                x2="712.18"
+                y2="423"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$20,000"
+                x1="68.32"
+                y1="349.2"
+                x2="712.18"
+                y2="349.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$30,000"
+                x1="68.32"
+                y1="275.5"
+                x2="712.18"
+                y2="275.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$40,000"
+                x1="68.32"
+                y1="201.7"
+                x2="712.18"
+                y2="201.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$50,000"
+                x1="68.32"
+                y1="128"
+                x2="712.18"
+                y2="128"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Norway"
+                    d="M716.18,153.4 H724.68 V153.4 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Austria"
+                    d="M716.18,223.5 H724.68 V202.18999999999997 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="France"
+                    d="M716.18,252 H727.5133333333333 V220.48999999999998 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Sweden"
+                    d="M716.18,253.7 H730.3466666666667 V238.79 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Germany"
+                    d="M716.18,254 H730.3466666666667 V257.09 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-States"
+                    d="M716.18,258.1 H727.5133333333333 V275.39 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Canada"
+                    d="M716.18,293.4 H724.68 V293.69 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-Kingdom"
+                    d="M716.18,294.5 H721.8466666666667 V311.99 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="New-Zealand"
+                    d="M716.18,331.5 H721.8466666666667 V330.29 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Poland"
+                    d="M716.18,339.6 H721.8466666666667 V348.59000000000003 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Japan"
+                    d="M716.18,345.1 H719.0133333333333 V366.89000000000004 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Mexico"
+                    d="M716.18,423.5 H727.5133333333332 V409.3 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Colombia"
+                    d="M716.18,425 H727.5133333333332 V427.6 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Chile"
+                    d="M716.18,434.3 H721.8466666666666 V445.90000000000003 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Indonesia"
+                    d="M716.18,472.5 H724.68 V472.5 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Norway"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="158.2"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="158.21">Norway</tspan>
+                </text>
+                <text
+                    id="label__Austria"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="207.0"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="206.99999999999997">Austria</tspan>
+                </text>
+                <text
+                    id="label__France"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="225.3"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="225.29999999999998">France</tspan>
+                </text>
+                <text
+                    id="label__Sweden"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="243.6"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="243.6">Sweden</tspan>
+                </text>
+                <text
+                    id="label__Germany"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="261.9"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="261.9">Germany</tspan>
+                </text>
+                <text
+                    id="label__United-States"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="280.2"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="280.2">United States</tspan>
+                </text>
+                <text
+                    id="label__Canada"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="298.5"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="298.5">Canada</tspan>
+                </text>
+                <text
+                    id="label__United-Kingdom"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="316.8"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="316.8">United Kingdom</tspan>
+                </text>
+                <text
+                    id="label__New-Zealand"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="335.1"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="335.1">New Zealand</tspan>
+                </text>
+                <text
+                    id="label__Poland"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="353.4"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="353.40000000000003">Poland</tspan>
+                </text>
+                <text
+                    id="label__Japan"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="371.7"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="371.70000000000005">Japan</tspan>
+                </text>
+                <text
+                    id="label__Mexico"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="414.1"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="414.11">Mexico</tspan>
+                </text>
+                <text
+                    id="label__Colombia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="432.4"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="432.41">Colombia</tspan>
+                </text>
+                <text
+                    id="label__Chile"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="450.7"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="450.71000000000004">Chile</tspan>
+                </text>
+                <text
+                    id="label__Indonesia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="477.3"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="477.31">Indonesia</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States"
+                stroke-width="2.5"
+                d="M712.2 258.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__United-States"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M712.2 258.1"
+            ></path>
+            <g id="datapoints__United-States">
+                <circle
+                    id="2023"
+                    cx="712.2"
+                    cy="258.1"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom"
+                stroke-width="2.5"
+                d="M712.2 294.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__United-Kingdom"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M712.2 294.5"
+            ></path>
+            <g id="datapoints__United-Kingdom">
+                <circle
+                    id="2023"
+                    cx="712.2"
+                    cy="294.5"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Sweden"
+                stroke-width="2.5"
+                d="M712.2 253.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Sweden"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M712.2 253.7"
+            ></path>
+            <g id="datapoints__Sweden">
+                <circle
+                    id="2023"
+                    cx="712.2"
+                    cy="253.7"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Poland"
+                stroke-width="2.5"
+                d="M712.2 339.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Poland"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M712.2 339.6"
+            ></path>
+            <g id="datapoints__Poland">
+                <circle
+                    id="2023"
+                    cx="712.2"
+                    cy="339.6"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Norway"
+                stroke-width="2.5"
+                d="M712.2 153.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Norway"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M712.2 153.4"
+            ></path>
+            <g id="datapoints__Norway">
+                <circle
+                    id="2023"
+                    cx="712.2"
+                    cy="153.4"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Mexico"
+                stroke-width="2.5"
+                d="M712.2 423.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Mexico"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M712.2 423.5"
+            ></path>
+            <g id="datapoints__Mexico">
+                <circle
+                    id="2023"
+                    cx="712.2"
+                    cy="423.5"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Germany"
+                stroke-width="2.5"
+                d="M712.2 254"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Germany"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M712.2 254"
+            ></path>
+            <g id="datapoints__Germany">
+                <circle
+                    id="2023"
+                    cx="712.2"
+                    cy="254"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__France"
+                stroke-width="2.5"
+                d="M712.2 252"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__France"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M712.2 252"
+            ></path>
+            <g id="datapoints__France">
+                <circle
+                    id="2023"
+                    cx="712.2"
+                    cy="252"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Canada"
+                stroke-width="2.5"
+                d="M712.2 293.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Canada"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M712.2 293.4"
+            ></path>
+            <g id="datapoints__Canada">
+                <circle
+                    id="2023"
+                    cx="712.2"
+                    cy="293.4"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Austria"
+                stroke-width="2.5"
+                d="M712.2 223.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Austria"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M712.2 223.5"
+            ></path>
+            <g id="datapoints__Austria">
+                <circle
+                    id="2023"
+                    cx="712.2"
+                    cy="223.5"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__New-Zealand"
+                stroke-width="2.5"
+                d="M68.3 331.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__New-Zealand"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M68.3 331.5"
+            ></path>
+            <g id="datapoints__New-Zealand">
+                <circle
+                    id="2022"
+                    cx="68.3"
+                    cy="331.5"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Japan"
+                stroke-width="2.5"
+                d="M68.3 345.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Japan"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M68.3 345.1"
+            ></path>
+            <g id="datapoints__Japan">
+                <circle
+                    id="2022"
+                    cx="68.3"
+                    cy="345.1"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Indonesia"
+                stroke-width="2.5"
+                d="M68.3 472.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Indonesia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M68.3 472.5"
+            ></path>
+            <g id="datapoints__Indonesia">
+                <circle
+                    id="2022"
+                    cx="68.3"
+                    cy="472.5"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Colombia"
+                stroke-width="2.5"
+                d="M68.3 425"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Colombia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M68.3 425"
+            ></path>
+            <g id="datapoints__Colombia">
+                <circle
+                    id="2022"
+                    cx="68.3"
+                    cy="425"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Chile"
+                stroke-width="2.5"
+                d="M68.3 434.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Chile"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M68.3 434.3"
+            ></path>
+            <g id="datapoints__Chile">
+                <circle
+                    id="2022"
+                    cx="68.3"
+                    cy="434.3"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

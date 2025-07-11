@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -87,826 +76,1197 @@
     </g>
     <g id="chart-area" style="pointer-events: none">
         <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="Jan-1,-2025"
+                    x1="361.91"
+                    y1="511.79999999999995"
+                    x2="361.91"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
             <g id="tick-labels">
                 <text
-                    x="50.695"
-                    y="530.3"
-                    fill="#5b5b5b"
-                    text-anchor="start"
-                    font-size="13"
-                >
-                    0%
-                </text>
-                <text
-                    x="205.4"
+                    x="361.91"
                     y="530.3"
                     fill="#5b5b5b"
                     text-anchor="middle"
                     font-size="13"
                 >
-                    20%
-                </text>
-                <text
-                    x="360"
-                    y="530.3"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    40%
-                </text>
-                <text
-                    x="514.7"
-                    y="530.3"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    60%
-                </text>
-                <text
-                    x="669.3"
-                    y="530.3"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    80%
-                </text>
-                <text
-                    x="824"
-                    y="530.3"
-                    fill="#5b5b5b"
-                    text-anchor="end"
-                    font-size="13"
-                >
-                    100%
+                    Jan 1, 2025
                 </text>
             </g>
         </g>
-        <g id="vertical-grid-lines" class="AxisGridLines verticalLines">
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.39"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    +0%
+                </text>
+            </g>
+        </g>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
             <line
-                id="0%"
-                x1="50.7"
-                y1="512.30"
-                x2="50.7"
-                y2="159.50"
+                id="+0%"
+                x1="47.39"
+                y1="512.3"
+                x2="676.43"
+                y2="512.3"
                 stroke="#999"
             ></line>
-            <line
-                id="20%"
-                x1="205.4"
-                y1="512.30"
-                x2="205.4"
-                y2="159.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="40%"
-                x1="360"
-                y1="512.30"
-                x2="360"
-                y2="159.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="60%"
-                x1="514.7"
-                y1="512.30"
-                x2="514.7"
-                y2="159.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="80%"
-                x1="669.3"
-                y1="512.30"
-                x2="669.3"
-                y2="159.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="100%"
-                x1="824"
-                y1="512.30"
-                x2="824"
-                y2="159.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
         </g>
-        <line
-            id="vertical-zero-line"
-            x1="50.45"
-            y1="512.30"
-            x2="50.45"
-            y2="159.50"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="categorical-color-legend" class="categoricalColorLegend">
-            <g id="swatches">
-                <rect
-                    id="Meat-eater"
-                    x="16"
-                    y="137"
-                    width="13.5"
-                    height="13.5"
-                    fill="#883039"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Flexitarian"
-                    x="115.62"
-                    y="137"
-                    width="13.5"
-                    height="13.5"
-                    fill="#c05917"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Pescetarian"
-                    x="212.64800000000002"
-                    y="137"
-                    width="13.5"
-                    height="13.5"
-                    fill="#4c6a9c"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Vegetarian"
-                    x="319.468"
-                    y="137"
-                    width="13.5"
-                    height="13.5"
-                    fill="#425a36"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Vegan"
-                    x="419.952"
-                    y="137"
-                    width="13.5"
-                    height="13.5"
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="18-24-–-None-of-these"
+                    d="M680.4300000000001,512.3 H681.2395238095239 V159.14999999999992 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="65+-–-Vegan"
+                    d="M680.4300000000001,512.3 H682.0490476190478 V177.44999999999993 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="50-64-–-Vegan"
+                    d="M680.4300000000001,512.3 H682.8585714285715 V195.74999999999994 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="25-49-–-Vegan"
+                    d="M680.4300000000001,512.3 H683.6680952380954 V214.04999999999995 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="18-24-–-Vegan"
+                    d="M680.4300000000001,512.3 H684.4776190476191 V232.34999999999997 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="65+-–-Vegetarian"
+                    d="M680.4300000000001,512.3 H685.287142857143 V250.64999999999998 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="50-64-–-Vegetarian"
+                    d="M680.4300000000001,512.3 H686.0966666666668 V268.94999999999993 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="25-49-–-Vegetarian"
+                    d="M680.4300000000001,512.3 H686.9061904761905 V287.24999999999994 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="18-24-–-Vegetarian"
+                    d="M680.4300000000001,512.3 H687.7157142857144 V305.54999999999995 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="65+-–-Pescetarian"
+                    d="M680.4300000000001,512.3 H688.5252380952383 V323.84999999999997 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="50-64-–-Pescetarian"
+                    d="M680.4300000000001,512.3 H689.334761904762 V342.15 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="25-49-–-Pescetarian"
+                    d="M680.4300000000001,512.3 H690.1442857142858 V360.45 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="18-24-–-Pescetarian"
+                    d="M680.4300000000001,512.3 H690.9538095238096 V378.75 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="65+-–-Flexitarian"
+                    d="M680.4300000000001,512.3 H691.7633333333334 V397.05 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="50-64-–-Flexitarian"
+                    d="M680.4300000000001,512.3 H692.5728571428573 V415.35 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="25-49-–-Flexitarian"
+                    d="M680.4300000000001,512.3 H693.382380952381 V433.65000000000003 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="18-24-–-Flexitarian"
+                    d="M680.4300000000001,512.3 H694.1919047619049 V451.95000000000005 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="65+-–-Meat-eater"
+                    d="M680.4300000000001,512.3 H695.0014285714287 V470.25000000000006 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="50-64-–-Meat-eater"
+                    d="M680.4300000000001,512.3 H695.8109523809525 V488.55000000000007 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="25-49-–-Meat-eater"
+                    d="M680.4300000000001,512.3 H696.6204761904763 V506.8500000000001 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="18-24-–-Meat-eater"
+                    d="M680.4300000000001,512.3 H696.6204761904763 V525.1500000000001 H697.4300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__18-24-–-None-of-these"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="164.0"
                     fill="#00875e"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="None-of-these"
-                    x="492.356"
-                    y="137"
-                    width="13.5"
-                    height="13.5"
-                    fill="#bc8e5a"
-                    stroke-width="0.4"
-                ></rect>
-            </g>
-            <g id="labels">
-                <text
-                    x="34.5"
-                    y="143.75"
-                    dy=".32em"
-                    font-size="14.4"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Meat eater
+                    <tspan x="701.4300000000001" y="163.95999999999992">
+                        18-24 – None of these
+                    </tspan>
                 </text>
                 <text
-                    x="134.12"
-                    y="143.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__65+-–-Vegan"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="182.3"
+                    fill="#425a36"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Flexitarian
+                    <tspan x="701.4300000000001" y="182.25999999999993">
+                        65+ – Vegan
+                    </tspan>
                 </text>
                 <text
-                    x="231.14800000000002"
-                    y="143.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__50-64-–-Vegan"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="200.6"
+                    fill="#4c6a9c"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Pescetarian
+                    <tspan x="701.4300000000001" y="200.55999999999995">
+                        50-64 – Vegan
+                    </tspan>
                 </text>
                 <text
-                    x="337.968"
-                    y="143.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__25-49-–-Vegan"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="218.9"
+                    fill="#c05917"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Vegetarian
+                    <tspan x="701.4300000000001" y="218.85999999999996">
+                        25-49 – Vegan
+                    </tspan>
                 </text>
                 <text
-                    x="438.452"
-                    y="143.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__18-24-–-Vegan"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="237.2"
+                    fill="#883039"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Vegan
+                    <tspan x="701.4300000000001" y="237.15999999999997">
+                        18-24 – Vegan
+                    </tspan>
                 </text>
                 <text
-                    x="510.856"
-                    y="143.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__65+-–-Vegetarian"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="255.5"
+                    fill="#00295b"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    None of these
+                    <tspan x="701.4300000000001" y="255.45999999999998">
+                        65+ – Vegetarian
+                    </tspan>
+                </text>
+                <text
+                    id="label__50-64-–-Vegetarian"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="273.8"
+                    fill="#cf0a66"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.4300000000001" y="273.75999999999993">
+                        50-64 – Vegetarian
+                    </tspan>
+                </text>
+                <text
+                    id="label__25-49-–-Vegetarian"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="292.1"
+                    fill="#9a5129"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.4300000000001" y="292.05999999999995">
+                        25-49 – Vegetarian
+                    </tspan>
+                </text>
+                <text
+                    id="label__18-24-–-Vegetarian"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="310.4"
+                    fill="#d96855"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.4300000000001" y="310.35999999999996">
+                        18-24 – Vegetarian
+                    </tspan>
+                </text>
+                <text
+                    id="label__65+-–-Pescetarian"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="328.7"
+                    fill="#36a4b3"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.4300000000001" y="328.65999999999997">
+                        65+ – Pescetarian
+                    </tspan>
+                </text>
+                <text
+                    id="label__50-64-–-Pescetarian"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="347.0"
+                    fill="#8c4569"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.4300000000001" y="346.96">
+                        50-64 – Pescetarian
+                    </tspan>
+                </text>
+                <text
+                    id="label__25-49-–-Pescetarian"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="365.3"
+                    fill="#18470f"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.4300000000001" y="365.26">
+                        25-49 – Pescetarian
+                    </tspan>
+                </text>
+                <text
+                    id="label__18-24-–-Pescetarian"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="383.6"
+                    fill="#c15065"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.4300000000001" y="383.56">
+                        18-24 – Pescetarian
+                    </tspan>
+                </text>
+                <text
+                    id="label__65+-–-Flexitarian"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="401.9"
+                    fill="#00295b"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.4300000000001" y="401.86">
+                        65+ – Flexitarian
+                    </tspan>
+                </text>
+                <text
+                    id="label__50-64-–-Flexitarian"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="420.2"
+                    fill="#cf0a66"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.4300000000001" y="420.16">
+                        50-64 – Flexitarian
+                    </tspan>
+                </text>
+                <text
+                    id="label__25-49-–-Flexitarian"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="438.5"
+                    fill="#9a5129"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.4300000000001" y="438.46000000000004">
+                        25-49 – Flexitarian
+                    </tspan>
+                </text>
+                <text
+                    id="label__18-24-–-Flexitarian"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="456.8"
+                    fill="#d96855"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.4300000000001" y="456.76000000000005">
+                        18-24 – Flexitarian
+                    </tspan>
+                </text>
+                <text
+                    id="label__65+-–-Meat-eater"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="475.1"
+                    fill="#36a4b3"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.4300000000001" y="475.06000000000006">
+                        65+ – Meat eater
+                    </tspan>
+                </text>
+                <text
+                    id="label__50-64-–-Meat-eater"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="493.4"
+                    fill="#8c4569"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.4300000000001" y="493.36000000000007">
+                        50-64 – Meat eater
+                    </tspan>
+                </text>
+                <text
+                    id="label__25-49-–-Meat-eater"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="511.7"
+                    fill="#18470f"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.4300000000001" y="511.6600000000001">
+                        25-49 – Meat eater
+                    </tspan>
+                </text>
+                <text
+                    id="label__18-24-–-Meat-eater"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.4"
+                    y="530.0"
+                    fill="#c15065"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.4300000000001" y="529.9600000000002">
+                        18-24 – Meat eater
+                    </tspan>
                 </text>
             </g>
         </g>
-        <g id="bars">
-            <g id="18-24" class="bar" transform="translate(0, 203.6)">
-                <g id="Meat-eater">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(50.7, -28.665000000000003)"
-                        width="471.7"
-                        height="57.330000000000005"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="286.55"
-                        y="0"
-                        width="471.7"
-                        height="57.330000000000005"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        61%
-                    </text>
-                </g>
-                <g id="Flexitarian">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(522.4, -28.665000000000003)"
-                        width="108.3"
-                        height="57.330000000000005"
-                        fill="#c05917"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="576.55"
-                        y="0"
-                        width="108.3"
-                        height="57.330000000000005"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        14%
-                    </text>
-                </g>
-                <g id="Pescetarian">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(630.7, -28.665000000000003)"
-                        width="23.200000000000003"
-                        height="57.330000000000005"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="642.3000000000001"
-                        y="0"
-                        width="23.200000000000003"
-                        height="57.330000000000005"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        3%
-                    </text>
-                </g>
-                <g id="Vegetarian">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(653.9, -28.665000000000003)"
-                        width="92.8"
-                        height="57.330000000000005"
-                        fill="#425a36"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="700.3"
-                        y="0"
-                        width="92.8"
-                        height="57.330000000000005"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        12%
-                    </text>
-                </g>
-                <g id="Vegan">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(746.7, -28.665000000000003)"
-                        width="38.7"
-                        height="57.330000000000005"
-                        fill="#00875e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="766.0500000000001"
-                        y="0"
-                        width="38.7"
-                        height="57.330000000000005"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        5%
-                    </text>
-                </g>
-                <g id="None-of-these">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(785.3, -28.665000000000003)"
-                        width="38.7"
-                        height="57.330000000000005"
-                        fill="#bc8e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="804.65"
-                        y="0"
-                        width="38.7"
-                        height="57.330000000000005"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        5%
-                    </text>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="45.7"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="45.7" y="4.995000000000001">18-24</tspan>
-                </text>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__65+-–-None-of-these"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#18470f"
+                id="line__65+-–-None-of-these"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__65+-–-None-of-these">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#18470f"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="25-49" class="bar" transform="translate(0, 291.8)">
-                <g id="Meat-eater">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(50.7, -28.665000000000003)"
-                        width="549"
-                        height="57.330000000000005"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="325.2"
-                        y="0"
-                        width="549"
-                        height="57.330000000000005"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        71%
-                    </text>
-                </g>
-                <g id="Flexitarian">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(599.7, -28.665000000000003)"
-                        width="100.49999999999999"
-                        height="57.330000000000005"
-                        fill="#c05917"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="649.95"
-                        y="0"
-                        width="100.49999999999999"
-                        height="57.330000000000005"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        13%
-                    </text>
-                </g>
-                <g id="Pescetarian">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(700.3, -28.665000000000003)"
-                        width="15.5"
-                        height="57.330000000000005"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Vegetarian">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(715.7, -28.665000000000003)"
-                        width="46.39999999999999"
-                        height="57.330000000000005"
-                        fill="#425a36"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="738.9000000000001"
-                        y="0"
-                        width="46.39999999999999"
-                        height="57.330000000000005"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        6%
-                    </text>
-                </g>
-                <g id="Vegan">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(762.1, -28.665000000000003)"
-                        width="30.89999999999999"
-                        height="57.330000000000005"
-                        fill="#00875e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="777.5500000000001"
-                        y="0"
-                        width="30.89999999999999"
-                        height="57.330000000000005"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        4%
-                    </text>
-                </g>
-                <g id="None-of-these">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(793.1, -28.665000000000003)"
-                        width="30.89999999999999"
-                        height="57.330000000000005"
-                        fill="#bc8e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="808.5500000000001"
-                        y="0"
-                        width="30.89999999999999"
-                        height="57.330000000000005"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        4%
-                    </text>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="45.7"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="45.7" y="4.995000000000001">25-49</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__50-64-–-None-of-these"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c15065"
+                id="line__50-64-–-None-of-these"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__50-64-–-None-of-these">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#c15065"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="50-64" class="bar" transform="translate(0, 380)">
-                <g id="Meat-eater">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(50.7, -28.665000000000003)"
-                        width="587.6999999999999"
-                        height="57.330000000000005"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="344.54999999999995"
-                        y="0"
-                        width="587.6999999999999"
-                        height="57.330000000000005"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        76%
-                    </text>
-                </g>
-                <g id="Flexitarian">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(638.4, -28.665000000000003)"
-                        width="92.8"
-                        height="57.330000000000005"
-                        fill="#c05917"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="684.8"
-                        y="0"
-                        width="92.8"
-                        height="57.330000000000005"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        12%
-                    </text>
-                </g>
-                <g id="Pescetarian">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(731.2, -28.665000000000003)"
-                        width="15.5"
-                        height="57.330000000000005"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Vegetarian">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(746.7, -28.665000000000003)"
-                        width="46.39999999999999"
-                        height="57.330000000000005"
-                        fill="#425a36"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="769.9000000000001"
-                        y="0"
-                        width="46.39999999999999"
-                        height="57.330000000000005"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        6%
-                    </text>
-                </g>
-                <g id="Vegan">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(793.1, -28.665000000000003)"
-                        width="15.5"
-                        height="57.330000000000005"
-                        fill="#00875e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="None-of-these">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(808.5, -28.665000000000003)"
-                        width="15.5"
-                        height="57.330000000000005"
-                        fill="#bc8e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="45.7"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="45.7" y="4.995000000000001">50-64</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__25-49-–-None-of-these"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#bc8e5a"
+                id="line__25-49-–-None-of-these"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__25-49-–-None-of-these">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#bc8e5a"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="65+"
-                class="bar"
-                transform="translate(0, 468.20000000000005)"
-            >
-                <g id="Meat-eater">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(50.7, -28.665000000000003)"
-                        width="574.1999999999999"
-                        height="57.330000000000005"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="337.79999999999995"
-                        y="0"
-                        width="574.1999999999999"
-                        height="57.330000000000005"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        74%
-                    </text>
-                </g>
-                <g id="Flexitarian">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(624.9, -28.665000000000003)"
-                        width="122.49999999999999"
-                        height="57.330000000000005"
-                        fill="#c05917"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="686.15"
-                        y="0"
-                        width="122.49999999999999"
-                        height="57.330000000000005"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        16%
-                    </text>
-                </g>
-                <g id="Pescetarian">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(747.4, -28.665000000000003)"
-                        width="23"
-                        height="57.330000000000005"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Vegetarian">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(770.4, -28.665000000000003)"
-                        width="30.599999999999994"
-                        height="57.330000000000005"
-                        fill="#425a36"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="785.6999999999999"
-                        y="0"
-                        width="30.599999999999994"
-                        height="57.330000000000005"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        4%
-                    </text>
-                </g>
-                <g id="Vegan">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(801, -28.665000000000003)"
-                        width="7.699999999999996"
-                        height="57.330000000000005"
-                        fill="#00875e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="None-of-these">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(808.7, -28.665000000000003)"
-                        width="15.299999999999997"
-                        height="57.330000000000005"
-                        fill="#bc8e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="45.7"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="45.7" y="4.995000000000001">65+</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__18-24-–-None-of-these"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00875e"
+                id="line__18-24-–-None-of-these"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__18-24-–-None-of-these">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#00875e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__65+-–-Vegan"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#425a36"
+                id="line__65+-–-Vegan"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__65+-–-Vegan">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#425a36"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__50-64-–-Vegan"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__50-64-–-Vegan"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__50-64-–-Vegan">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__25-49-–-Vegan"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c05917"
+                id="line__25-49-–-Vegan"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__25-49-–-Vegan">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#c05917"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__18-24-–-Vegan"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__18-24-–-Vegan"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__18-24-–-Vegan">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__65+-–-Vegetarian"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__65+-–-Vegetarian"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__65+-–-Vegetarian">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__50-64-–-Vegetarian"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#cf0a66"
+                id="line__50-64-–-Vegetarian"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__50-64-–-Vegetarian">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#cf0a66"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__25-49-–-Vegetarian"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__25-49-–-Vegetarian"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__25-49-–-Vegetarian">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__18-24-–-Vegetarian"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#e56e5a"
+                id="line__18-24-–-Vegetarian"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__18-24-–-Vegetarian">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#e56e5a"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__65+-–-Pescetarian"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#38aaba"
+                id="line__65+-–-Pescetarian"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__65+-–-Pescetarian">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#38aaba"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__50-64-–-Pescetarian"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#8c4569"
+                id="line__50-64-–-Pescetarian"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__50-64-–-Pescetarian">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#8c4569"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__25-49-–-Pescetarian"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#18470f"
+                id="line__25-49-–-Pescetarian"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__25-49-–-Pescetarian">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#18470f"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__18-24-–-Pescetarian"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c15065"
+                id="line__18-24-–-Pescetarian"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__18-24-–-Pescetarian">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#c15065"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__65+-–-Flexitarian"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__65+-–-Flexitarian"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__65+-–-Flexitarian">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__50-64-–-Flexitarian"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#cf0a66"
+                id="line__50-64-–-Flexitarian"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__50-64-–-Flexitarian">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#cf0a66"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__25-49-–-Flexitarian"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__25-49-–-Flexitarian"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__25-49-–-Flexitarian">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__18-24-–-Flexitarian"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#e56e5a"
+                id="line__18-24-–-Flexitarian"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__18-24-–-Flexitarian">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#e56e5a"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__65+-–-Meat-eater"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#38aaba"
+                id="line__65+-–-Meat-eater"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__65+-–-Meat-eater">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#38aaba"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__50-64-–-Meat-eater"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#8c4569"
+                id="line__50-64-–-Meat-eater"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__50-64-–-Meat-eater">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#8c4569"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__25-49-–-Meat-eater"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#18470f"
+                id="line__25-49-–-Meat-eater"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__25-49-–-Meat-eater">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#18470f"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__18-24-–-Meat-eater"
+                stroke-width="2.5"
+                d="M361.9 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c15065"
+                id="line__18-24-–-Meat-eater"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.9 512.3"
+            ></path>
+            <g id="datapoints__18-24-–-Meat-eater">
+                <circle
+                    id="Jan-1,-2025"
+                    cx="361.9"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#c15065"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>

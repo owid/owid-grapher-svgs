@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -75,190 +64,379 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="102.15"
-            y1="516.70"
-            x2="102.15"
-            y2="86.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Australia"
-                x="0"
-                y="0"
-                transform="translate(102.4, 101.07449999999999)"
-                width="641.7"
-                height="55.99100000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="South-Africa"
-                x="0"
-                y="0"
-                transform="translate(102.4, 187.2145)"
-                width="130.2"
-                height="55.99100000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="China"
-                x="0"
-                y="0"
-                transform="translate(102.4, 273.35450000000003)"
-                width="95"
-                height="55.99100000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="United-States"
-                x="0"
-                y="0"
-                transform="translate(102.4, 359.4945)"
-                width="50.599999999999994"
-                height="55.99100000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="India"
-                x="0"
-                y="0"
-                transform="translate(102.4, 445.6345)"
-                width="17.099999999999994"
-                height="55.99100000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2023"
+                    x1="412.285"
+                    y1="496.2"
+                    x2="412.285"
+                    y2="501.7"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="412.285"
+                    y="514.7"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2023
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(749.1, 129.07)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                122,555 kWh
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(237.6, 215.20999999999998)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                24,869 kWh
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(202.4, 301.35)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                18,139 kWh
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(158, 387.49)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9,670 kWh
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(124.5, 473.63)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                3,257 kWh
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="92.96"
+                    y="496.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0 kWh
+                </text>
+                <text
+                    x="92.96"
+                    y="430.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20,000 kWh
+                </text>
+                <text
+                    x="92.96"
+                    y="364.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40,000 kWh
+                </text>
+                <text
+                    x="92.96"
+                    y="298.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60,000 kWh
+                </text>
+                <text
+                    x="92.96"
+                    y="232.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    80,000 kWh
+                </text>
+                <text
+                    x="92.96"
+                    y="166.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100,000 kWh
+                </text>
+                <text
+                    x="92.96"
+                    y="100.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    120,000 kWh
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="97.4"
-                y="134.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="97.4" y="134.065">Australia</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="97.4"
-                y="220.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="97.4" y="220.20499999999998">South Africa</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="97.4"
-                y="306.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="97.4" y="306.345">China</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="97.4"
-                y="392.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="97.4" y="392.485">United States</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="97.4"
-                y="478.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="97.4" y="478.625">India</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-kWh"
+                x1="97.96"
+                y1="496.7"
+                x2="726.61"
+                y2="496.7"
+                stroke="#999"
+            ></line>
+            <line
+                id="20,000-kWh"
+                x1="97.96"
+                y1="430.7"
+                x2="726.61"
+                y2="430.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40,000-kWh"
+                x1="97.96"
+                y1="364.6"
+                x2="726.61"
+                y2="364.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60,000-kWh"
+                x1="97.96"
+                y1="298.6"
+                x2="726.61"
+                y2="298.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80,000-kWh"
+                x1="97.96"
+                y1="232.5"
+                x2="726.61"
+                y2="232.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100,000-kWh"
+                x1="97.96"
+                y1="166.5"
+                x2="726.61"
+                y2="166.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="120,000-kWh"
+                x1="97.96"
+                y1="100.4"
+                x2="726.61"
+                y2="100.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Australia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="730.6"
+                    y="98.0"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="730.61" y="97.96000000000001">Australia</tspan>
+                </text>
+                <text
+                    id="label__South-Africa"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="730.6"
+                    y="419.4"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="730.61" y="419.41">South Africa</tspan>
+                </text>
+                <text
+                    id="label__China"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="730.6"
+                    y="441.6"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="730.61" y="441.61">China</tspan>
+                </text>
+                <text
+                    id="label__United-States"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="730.6"
+                    y="469.6"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="730.61" y="469.61">United States</tspan>
+                </text>
+                <text
+                    id="label__India"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="730.6"
+                    y="490.7"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="730.61" y="490.71">India</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States"
+                stroke-width="2.5"
+                d="M412.3 464.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__United-States"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M412.3 464.8"
+            ></path>
+            <g id="datapoints__United-States">
+                <circle
+                    id="2023"
+                    cx="412.3"
+                    cy="464.8"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__South-Africa"
+                stroke-width="2.5"
+                d="M412.3 414.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__South-Africa"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M412.3 414.6"
+            ></path>
+            <g id="datapoints__South-Africa">
+                <circle
+                    id="2023"
+                    cx="412.3"
+                    cy="414.6"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India"
+                stroke-width="2.5"
+                d="M412.3 485.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__India"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M412.3 485.9"
+            ></path>
+            <g id="datapoints__India">
+                <circle
+                    id="2023"
+                    cx="412.3"
+                    cy="485.9"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China"
+                stroke-width="2.5"
+                d="M412.3 436.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__China"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M412.3 436.8"
+            ></path>
+            <g id="datapoints__China">
+                <circle
+                    id="2023"
+                    cx="412.3"
+                    cy="436.8"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Australia"
+                stroke-width="2.5"
+                d="M412.3 92"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Australia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M412.3 92"
+            ></path>
+            <g id="datapoints__Australia">
+                <circle
+                    id="2023"
+                    cx="412.3"
+                    cy="92"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -86,133 +75,295 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="238.95"
-            y1="552.40"
-            x2="238.95"
-            y2="136.40"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Share-of-indicators-from-CRFs---by-provider"
-                x="0"
-                y="0"
-                transform="translate(239.2, 160.66666666666666)"
-                width="546.3"
-                height="90.13333333333334"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Share-of-indicators-from-CRFs---by-provider"
-                x="0"
-                y="0"
-                transform="translate(239.2, 299.3333333333333)"
-                width="492.8"
-                height="90.13333333333334"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Share-of-indicators-monitored-by-government-systems---by-provider"
-                x="0"
-                y="0"
-                transform="translate(239.2, 437.99999999999994)"
-                width="418.8"
-                height="90.13333333333334"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2018"
+                    x1="325.77"
+                    y1="531.9"
+                    x2="325.77"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="325.77"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2018
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(790.5, 205.73333333333332)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                57.1%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(737, 344.4)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                51.5%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(663, 483.0666666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                43.8%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="42.13"
+                    y="467.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="402.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="42.13"
+                    y="337.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    30%
+                </text>
+                <text
+                    x="42.13"
+                    y="272.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="42.13"
+                    y="207.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    50%
+                </text>
+                <text
+                    x="42.13"
+                    y="142.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="234.2"
-                y="203.3"
-                fill="#555"
-                text-anchor="end"
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="47.13"
+                y1="532.4"
+                x2="604.41"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="467.4"
+                x2="604.41"
+                y2="467.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="402.4"
+                x2="604.41"
+                y2="402.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30%"
+                x1="47.13"
+                y1="337.4"
+                x2="604.41"
+                y2="337.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="47.13"
+                y1="272.4"
+                x2="604.41"
+                y2="272.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="50%"
+                x1="47.13"
+                y1="207.4"
+                x2="604.41"
+                y2="207.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60%"
+                x1="47.13"
+                y1="142.4"
+                x2="604.41"
+                y2="142.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Share-of-indicators-from-CRFs---by-provider"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="608.4"
+                    y="166.1"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="608.41" y="166.11">
+                        Share of indicators from CRFs - by
+                    </tspan>
+                    <tspan x="608.41" y="180.41000000000003">provider</tspan>
+                </text>
+                <text
+                    id="label__Share-of-indicators-monitored-by-government-systems---by-provider"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="608.4"
+                    y="252.8"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="608.41" y="252.81">
+                        Share of indicators monitored by
+                    </tspan>
+                    <tspan x="608.41" y="267.11">
+                        government systems - by provider
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Share-of-indicators-from-CRFs---by-provider"
+                stroke-width="2.5"
+                d="M325.8 161.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Share-of-indicators-from-CRFs---by-provider"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 161.3"
+            ></path>
+            <g id="datapoints__Share-of-indicators-from-CRFs---by-provider">
+                <circle
+                    id="2018"
+                    cx="325.8"
+                    cy="161.3"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Share-of-indicators-monitored-by-government-systems---by-provider"
+                stroke-width="2.5"
+                d="M325.8 248"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Share-of-indicators-monitored-by-government-systems---by-provider"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 248"
+            ></path>
+            <g
+                id="datapoints__Share-of-indicators-monitored-by-government-systems---by-provider"
             >
-                <tspan x="234.2" y="203.30333333333334">
-                    Share of indicators from CRFs - by
-                </tspan>
-                <tspan x="234.2" y="218.15333333333334">provider</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="234.2"
-                y="342.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="234.2" y="341.96999999999997">
-                    Share of indicators from CRFs - by
-                </tspan>
-                <tspan x="234.2" y="356.82">provider</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="234.2"
-                y="480.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="234.2" y="480.6366666666666">
-                    Share of indicators monitored by
-                </tspan>
-                <tspan x="234.2" y="495.4866666666666">
-                    government systems - by provider
-                </tspan>
-            </text>
+                <circle
+                    id="2018"
+                    cx="325.8"
+                    cy="248"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Share-of-indicators-from-CRFs---by-provider"
+                stroke-width="2.5"
+                d="M325.8 197.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Share-of-indicators-from-CRFs---by-provider"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 197.7"
+            ></path>
+            <g id="datapoints__Share-of-indicators-from-CRFs---by-provider">
+                <circle
+                    id="2018"
+                    cx="325.8"
+                    cy="197.7"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

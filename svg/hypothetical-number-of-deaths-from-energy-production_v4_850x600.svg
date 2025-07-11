@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -86,224 +75,401 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="88.65"
-            y1="552.40"
-            x2="88.65"
-            y2="122.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Brown-coal"
-                x="0"
-                y="0"
-                transform="translate(88.9, 134.55333333333334)"
-                width="666.7"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Coal"
-                x="0"
-                y="0"
-                transform="translate(88.9, 206.2866666666667)"
-                width="501.6"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Oil"
-                x="0"
-                y="0"
-                transform="translate(88.9, 278.02000000000004)"
-                width="375.5"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Biomass"
-                x="0"
-                y="0"
-                transform="translate(88.9, 349.75333333333333)"
-                width="94.29999999999998"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Gas"
-                x="0"
-                y="0"
-                transform="translate(88.9, 421.4866666666667)"
-                width="57.5"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Nuclear"
-                x="0"
-                y="0"
-                transform="translate(88.9, 493.21999999999997)"
-                width="1.5"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2014"
+                    x1="404.615"
+                    y1="531.9"
+                    x2="404.615"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="404.615"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2014
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(760.6, 157.86666666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                5.2 million
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(595.5, 229.60000000000002)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                3.91 million
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(469.4, 301.33333333333337)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                2.93 million
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(188.2, 373.06666666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                736,170
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(151.4, 444.8)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                448,539
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(95.4, 516.5333333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                11,766
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="63.71"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0
+                </text>
+                <text
+                    x="63.71"
+                    y="454.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1 million
+                </text>
+                <text
+                    x="63.71"
+                    y="376.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2 million
+                </text>
+                <text
+                    x="63.71"
+                    y="299.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    3 million
+                </text>
+                <text
+                    x="63.71"
+                    y="221.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    4 million
+                </text>
+                <text
+                    x="63.71"
+                    y="143.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    5 million
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="83.9"
-                y="162.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="83.9" y="162.86166666666668">Brown coal</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="83.9"
-                y="234.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="83.9" y="234.59500000000003">Coal</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="83.9"
-                y="306.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="83.9" y="306.3283333333334">Oil</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="83.9"
-                y="378.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="83.9" y="378.06166666666667">Biomass</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="83.9"
-                y="449.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="83.9" y="449.795">Gas</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="83.9"
-                y="521.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="83.9" y="521.5283333333333">Nuclear</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0"
+                x1="68.71"
+                y1="532.4"
+                x2="740.52"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="1-million"
+                x1="68.71"
+                y1="454.7"
+                x2="740.52"
+                y2="454.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="2-million"
+                x1="68.71"
+                y1="376.9"
+                x2="740.52"
+                y2="376.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="3-million"
+                x1="68.71"
+                y1="299.2"
+                x2="740.52"
+                y2="299.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="4-million"
+                x1="68.71"
+                y1="221.5"
+                x2="740.52"
+                y2="221.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="5-million"
+                x1="68.71"
+                y1="143.7"
+                x2="740.52"
+                y2="143.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Brown-coal"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="744.5"
+                    y="134.0"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="744.52" y="133.96">Brown coal</tspan>
+                </text>
+                <text
+                    id="label__Coal"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="744.5"
+                    y="232.9"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="744.52" y="232.91">Coal</tspan>
+                </text>
+                <text
+                    id="label__Oil"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="744.5"
+                    y="309.4"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="744.52" y="309.41">Oil</tspan>
+                </text>
+                <text
+                    id="label__Biomass"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="744.5"
+                    y="480.0"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="744.52" y="480.01">Biomass</tspan>
+                </text>
+                <text
+                    id="label__Gas"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="744.5"
+                    y="502.3"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="744.52" y="502.31">Gas</tspan>
+                </text>
+                <text
+                    id="label__Nuclear"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="744.5"
+                    y="536.3"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="744.52" y="536.3100000000001">Nuclear</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brown-coal"
+                stroke-width="2.5"
+                d="M404.6 128"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Brown-coal"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M404.6 128"
+            ></path>
+            <g id="datapoints__Brown-coal">
+                <circle
+                    id="2014"
+                    cx="404.6"
+                    cy="128"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Nuclear"
+                stroke-width="2.5"
+                d="M404.6 531.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Nuclear"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M404.6 531.5"
+            ></path>
+            <g id="datapoints__Nuclear">
+                <circle
+                    id="2014"
+                    cx="404.6"
+                    cy="531.5"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Biomass"
+                stroke-width="2.5"
+                d="M404.6 475.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Biomass"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M404.6 475.2"
+            ></path>
+            <g id="datapoints__Biomass">
+                <circle
+                    id="2014"
+                    cx="404.6"
+                    cy="475.2"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Oil"
+                stroke-width="2.5"
+                d="M404.6 304.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Oil"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M404.6 304.6"
+            ></path>
+            <g id="datapoints__Oil">
+                <circle
+                    id="2014"
+                    cx="404.6"
+                    cy="304.6"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Gas"
+                stroke-width="2.5"
+                d="M404.6 497.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Gas"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M404.6 497.5"
+            ></path>
+            <g id="datapoints__Gas">
+                <circle
+                    id="2014"
+                    cx="404.6"
+                    cy="497.5"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Coal"
+                stroke-width="2.5"
+                d="M404.6 228.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Coal"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M404.6 228.1"
+            ></path>
+            <g id="datapoints__Coal">
+                <circle
+                    id="2014"
+                    cx="404.6"
+                    cy="228.1"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

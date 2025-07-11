@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -80,224 +69,445 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="119.95"
-            y1="552.40"
-            x2="119.95"
-            y2="122.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Netherlands"
-                x="0"
-                y="0"
-                transform="translate(120.2, 134.55333333333334)"
-                width="684.9"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="United-Kingdom"
-                x="0"
-                y="0"
-                transform="translate(120.2, 206.2866666666667)"
-                width="646"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="United-States"
-                x="0"
-                y="0"
-                transform="translate(120.2, 278.02000000000004)"
-                width="630.4"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Taiwan"
-                x="0"
-                y="0"
-                transform="translate(120.2, 349.75333333333333)"
-                width="583.6999999999999"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="India"
-                x="0"
-                y="0"
-                transform="translate(120.2, 421.4866666666667)"
-                width="583.6999999999999"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="China"
-                x="0"
-                y="0"
-                transform="translate(120.2, 493.21999999999997)"
-                width="505.90000000000003"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2011"
+                    x1="373.8699999999999"
+                    y1="531.9"
+                    x2="373.8699999999999"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="373.8699999999999"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2011
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(810.1, 157.86666666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                8.8
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(771.2, 229.60000000000002)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                8.3
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(755.6, 301.33333333333337)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                8.1
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(708.9, 373.06666666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                7.5
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(708.9, 444.8)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                7.5
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(631.1, 516.5333333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                6.5
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="30.56"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0
+                </text>
+                <text
+                    x="30.56"
+                    y="451.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2
+                </text>
+                <text
+                    x="30.56"
+                    y="370.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    4
+                </text>
+                <text
+                    x="30.56"
+                    y="289.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    6
+                </text>
+                <text
+                    x="30.56"
+                    y="208.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    8
+                </text>
+                <text
+                    x="30.56"
+                    y="128"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="162.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="162.86166666666668">Netherlands</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="234.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="234.59500000000003">United Kingdom</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="306.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="306.3283333333334">United States</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="378.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="378.06166666666667">Taiwan</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="449.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="449.795">India</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="521.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="521.5283333333333">China</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0"
+                x1="35.56"
+                y1="532.4"
+                x2="712.18"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="2"
+                x1="35.56"
+                y1="451.5"
+                x2="712.18"
+                y2="451.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="4"
+                x1="35.56"
+                y1="370.6"
+                x2="712.18"
+                y2="370.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="6"
+                x1="35.56"
+                y1="289.8"
+                x2="712.18"
+                y2="289.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="8"
+                x1="35.56"
+                y1="208.9"
+                x2="712.18"
+                y2="208.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10"
+                x1="35.56"
+                y1="128"
+                x2="712.18"
+                y2="128"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Netherlands"
+                    d="M716.18,176.5 H721.8466666666666 V170.64 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-Kingdom"
+                    d="M716.18,196.7 H727.5133333333332 V188.94 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-States"
+                    d="M716.18,204.8 H727.5133333333332 V207.24 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Taiwan"
+                    d="M716.18,229.1 H727.5133333333332 V225.54000000000002 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="India"
+                    d="M716.18,229.1 H727.5133333333332 V243.84000000000003 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="China"
+                    d="M716.18,269.5 H724.68 V269.5 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Netherlands"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="175.4"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="175.45">Netherlands</tspan>
+                </text>
+                <text
+                    id="label__United-Kingdom"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="193.8"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="193.75">United Kingdom</tspan>
+                </text>
+                <text
+                    id="label__United-States"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="212.1"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="212.05">United States</tspan>
+                </text>
+                <text
+                    id="label__Taiwan"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="230.4"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="230.35000000000002">Taiwan</tspan>
+                </text>
+                <text
+                    id="label__India"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="248.7"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="248.65000000000003">India</tspan>
+                </text>
+                <text
+                    id="label__China"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="274.3"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="274.31">China</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom"
+                stroke-width="2.5"
+                d="M373.9 196.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__United-Kingdom"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M373.9 196.7"
+            ></path>
+            <g id="datapoints__United-Kingdom">
+                <circle
+                    id="2011"
+                    cx="373.9"
+                    cy="196.7"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Netherlands"
+                stroke-width="2.5"
+                d="M373.9 176.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Netherlands"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M373.9 176.5"
+            ></path>
+            <g id="datapoints__Netherlands">
+                <circle
+                    id="2011"
+                    cx="373.9"
+                    cy="176.5"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States"
+                stroke-width="2.5"
+                d="M373.9 204.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__United-States"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M373.9 204.8"
+            ></path>
+            <g id="datapoints__United-States">
+                <circle
+                    id="2011"
+                    cx="373.9"
+                    cy="204.8"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India"
+                stroke-width="2.5"
+                d="M373.9 229.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__India"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M373.9 229.1"
+            ></path>
+            <g id="datapoints__India">
+                <circle
+                    id="2011"
+                    cx="373.9"
+                    cy="229.1"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Taiwan"
+                stroke-width="2.5"
+                d="M373.9 229.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Taiwan"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M373.9 229.1"
+            ></path>
+            <g id="datapoints__Taiwan">
+                <circle
+                    id="2011"
+                    cx="373.9"
+                    cy="229.1"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China"
+                stroke-width="2.5"
+                d="M373.9 269.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__China"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M373.9 269.5"
+            ></path>
+            <g id="datapoints__China">
+                <circle
+                    id="2011"
+                    cx="373.9"
+                    cy="269.5"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

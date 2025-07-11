@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -99,200 +88,427 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="139.95"
-            y1="552.40"
-            x2="139.95"
-            y2="125.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="All-armed-conflicts"
-                x="0"
-                y="0"
-                transform="translate(140.2, 140.53799999999998)"
-                width="578.4000000000001"
-                height="55.483999999999995"
-                fill="#d73c50"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Intrastate-conflicts"
-                x="0"
-                y="0"
-                transform="translate(140.2, 225.89799999999997)"
-                width="296.1"
-                height="55.483999999999995"
-                fill="#883039"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="One-sided-violence"
-                x="0"
-                y="0"
-                transform="translate(140.2, 311.2579999999999)"
-                width="179"
-                height="55.483999999999995"
-                fill="#b16214"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Non-state-conflicts"
-                x="0"
-                y="0"
-                transform="translate(140.2, 396.6179999999999)"
-                width="57.30000000000001"
-                height="55.483999999999995"
-                fill="#b13507"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Interstate-conflicts"
-                x="0"
-                y="0"
-                transform="translate(140.2, 481.9779999999999)"
-                width="45.900000000000006"
-                height="55.483999999999995"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2023"
+                    x1="407.92999999999995"
+                    y1="531.9"
+                    x2="407.92999999999995"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="407.92999999999995"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2023
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(723.6, 168.27999999999997)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                3.8 million deaths
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(441.3, 253.63999999999996)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1.9 million deaths
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(324.2, 338.99999999999994)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1.2 million deaths
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(202.5, 424.3599999999999)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                370,000 deaths
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(191.1, 509.7199999999999)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                300,000 deaths
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="117.53"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0 deaths
+                </text>
+                <text
+                    x="117.53"
+                    y="482.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    500,000 deaths
+                </text>
+                <text
+                    x="117.53"
+                    y="432.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1 million deaths
+                </text>
+                <text
+                    x="117.53"
+                    y="382.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1.5 million deaths
+                </text>
+                <text
+                    x="117.53"
+                    y="332"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2 million deaths
+                </text>
+                <text
+                    x="117.53"
+                    y="281.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2.5 million deaths
+                </text>
+                <text
+                    x="117.53"
+                    y="231.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    3 million deaths
+                </text>
+                <text
+                    x="117.53"
+                    y="181.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    3.5 million deaths
+                </text>
+                <text
+                    x="117.53"
+                    y="131.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    4 million deaths
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="135.2"
-                y="173.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="135.2" y="173.27499999999998">
-                    All armed conflicts
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="135.2"
-                y="258.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="135.2" y="258.63499999999993">
-                    Intrastate conflicts
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="135.2"
-                y="344.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="135.2" y="343.99499999999995">
-                    One-sided violence
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="135.2"
-                y="429.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="135.2" y="429.3549999999999">
-                    Non-state conflicts
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="135.2"
-                y="514.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="135.2" y="514.7149999999999">
-                    Interstate conflicts
-                </tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-deaths"
+                x1="122.53"
+                y1="532.4"
+                x2="693.33"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="500,000-deaths"
+                x1="122.53"
+                y1="482.3"
+                x2="693.33"
+                y2="482.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1-million-deaths"
+                x1="122.53"
+                y1="432.2"
+                x2="693.33"
+                y2="432.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1.5-million-deaths"
+                x1="122.53"
+                y1="382.1"
+                x2="693.33"
+                y2="382.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="2-million-deaths"
+                x1="122.53"
+                y1="332"
+                x2="693.33"
+                y2="332"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="2.5-million-deaths"
+                x1="122.53"
+                y1="281.9"
+                x2="693.33"
+                y2="281.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="3-million-deaths"
+                x1="122.53"
+                y1="231.8"
+                x2="693.33"
+                y2="231.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="3.5-million-deaths"
+                x1="122.53"
+                y1="181.7"
+                x2="693.33"
+                y2="181.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="4-million-deaths"
+                x1="122.53"
+                y1="131.6"
+                x2="693.33"
+                y2="131.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__All-armed-conflicts"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="697.3"
+                    y="159.8"
+                    fill="#d73c50"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="697.3299999999999" y="159.81">
+                        All armed conflicts
+                    </tspan>
+                </text>
+                <text
+                    id="label__Intrastate-conflicts"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="697.3"
+                    y="344.0"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="697.3299999999999" y="344.01">
+                        Intrastate conflicts
+                    </tspan>
+                </text>
+                <text
+                    id="label__One-sided-violence"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="697.3"
+                    y="420.4"
+                    fill="#b16214"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="697.3299999999999" y="420.41">
+                        One-sided violence
+                    </tspan>
+                </text>
+                <text
+                    id="label__Non-state-conflicts"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="697.3"
+                    y="494.4"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="697.3299999999999" y="494.41">
+                        Non-state conflicts
+                    </tspan>
+                </text>
+                <text
+                    id="label__Interstate-conflicts"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="697.3"
+                    y="512.7"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="697.3299999999999" y="512.71">
+                        Interstate conflicts
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__All-armed-conflicts"
+                stroke-width="2.5"
+                d="M407.9 155"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d73c50"
+                id="line__All-armed-conflicts"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M407.9 155"
+            ></path>
+            <g id="datapoints__All-armed-conflicts">
+                <circle
+                    id="2023"
+                    cx="407.9"
+                    cy="155"
+                    r="1.8"
+                    fill="#d73c50"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Intrastate-conflicts"
+                stroke-width="2.5"
+                d="M407.9 339.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Intrastate-conflicts"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M407.9 339.2"
+            ></path>
+            <g id="datapoints__Intrastate-conflicts">
+                <circle
+                    id="2023"
+                    cx="407.9"
+                    cy="339.2"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__One-sided-violence"
+                stroke-width="2.5"
+                d="M407.9 415.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b16214"
+                id="line__One-sided-violence"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M407.9 415.6"
+            ></path>
+            <g id="datapoints__One-sided-violence">
+                <circle
+                    id="2023"
+                    cx="407.9"
+                    cy="415.6"
+                    r="1.8"
+                    fill="#b16214"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Non-state-conflicts"
+                stroke-width="2.5"
+                d="M407.9 495"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Non-state-conflicts"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M407.9 495"
+            ></path>
+            <g id="datapoints__Non-state-conflicts">
+                <circle
+                    id="2023"
+                    cx="407.9"
+                    cy="495"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Interstate-conflicts"
+                stroke-width="2.5"
+                d="M407.9 502.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Interstate-conflicts"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M407.9 502.5"
+            ></path>
+            <g id="datapoints__Interstate-conflicts">
+                <circle
+                    id="2023"
+                    cx="407.9"
+                    cy="502.5"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

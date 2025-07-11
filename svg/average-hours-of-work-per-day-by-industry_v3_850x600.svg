@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -74,534 +63,906 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="184.65"
-            y1="552.40"
-            x2="184.65"
-            y2="86.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Paper"
-                x="0"
-                y="0"
-                transform="translate(184.9, 91.44133333333333)"
-                width="567.4"
-                height="20.210666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Chemicals"
-                x="0"
-                y="0"
-                transform="translate(184.9, 122.53466666666665)"
-                width="555.8000000000001"
-                height="20.210666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Food"
-                x="0"
-                y="0"
-                transform="translate(184.9, 153.628)"
-                width="553.1"
-                height="20.210666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Textiles"
-                x="0"
-                y="0"
-                transform="translate(184.9, 184.72133333333332)"
-                width="548.6"
-                height="20.210666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="All-Industries"
-                x="0"
-                y="0"
-                transform="translate(184.9, 215.81466666666665)"
-                width="537.8000000000001"
-                height="20.210666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Blacksmithing"
-                x="0"
-                y="0"
-                transform="translate(184.9, 246.908)"
-                width="537.8000000000001"
-                height="20.210666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Clothing"
-                x="0"
-                y="0"
-                transform="translate(184.9, 278.0013333333333)"
-                width="536.9"
-                height="20.210666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Tobacco"
-                x="0"
-                y="0"
-                transform="translate(184.9, 309.0946666666667)"
-                width="536"
-                height="20.210666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Agricultural-Services"
-                x="0"
-                y="0"
-                transform="translate(184.9, 340.188)"
-                width="535.1"
-                height="20.210666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Transportation-Equipment"
-                x="0"
-                y="0"
-                transform="translate(184.9, 371.28133333333335)"
-                width="533.4"
-                height="20.210666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Primary-Metals"
-                x="0"
-                y="0"
-                transform="translate(184.9, 402.37466666666666)"
-                width="531.6"
-                height="20.210666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Printing"
-                x="0"
-                y="0"
-                transform="translate(184.9, 433.468)"
-                width="531.6"
-                height="20.210666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Glass/Brick"
-                x="0"
-                y="0"
-                transform="translate(184.9, 464.5613333333333)"
-                width="527.1"
-                height="20.210666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Machinery"
-                x="0"
-                y="0"
-                transform="translate(184.9, 495.6546666666667)"
-                width="525.3000000000001"
-                height="20.210666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Construction"
-                x="0"
-                y="0"
-                transform="translate(184.9, 526.7479999999999)"
-                width="520.8000000000001"
-                height="20.210666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="1880"
+                    x1="363.34000000000003"
+                    y1="531.9"
+                    x2="363.34000000000003"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="363.34000000000003"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    1880
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(757.3, 101.54666666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                10.55 hours
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(745.7, 132.64)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                10.33 hours
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(743, 163.73333333333332)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                10.28 hours
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(738.5, 194.82666666666665)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                10.2 hours
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(727.7, 225.92)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                10 hours
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(727.7, 257.0133333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                10 hours
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(726.8, 288.1066666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9.98 hours
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(725.9, 319.2)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9.97 hours
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(725, 350.2933333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9.95 hours
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(723.3, 381.38666666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9.92 hours
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(721.5, 412.47999999999996)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9.88 hours
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(721.5, 443.5733333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9.88 hours
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(717, 474.66666666666663)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9.8 hours
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(715.2, 505.76)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9.77 hours
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(710.7, 536.8533333333332)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9.68 hours
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="66.83"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0 hours
+                </text>
+                <text
+                    x="66.83"
+                    y="459"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2 hours
+                </text>
+                <text
+                    x="66.83"
+                    y="385.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    4 hours
+                </text>
+                <text
+                    x="66.83"
+                    y="312.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    6 hours
+                </text>
+                <text
+                    x="66.83"
+                    y="238.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    8 hours
+                </text>
+                <text
+                    x="66.83"
+                    y="165.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10 hours
+                </text>
+                <text
+                    x="66.83"
+                    y="92"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    12 hours
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="179.9"
-                y="106.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="179.9" y="106.54166666666667">Paper</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="179.9"
-                y="137.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="179.9" y="137.635">Chemicals</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="179.9"
-                y="168.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="179.9" y="168.7283333333333">Food</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="179.9"
-                y="199.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="179.9" y="199.82166666666666">Textiles</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="179.9"
-                y="230.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="179.9" y="230.91499999999996">All Industries</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="179.9"
-                y="262.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="179.9" y="262.0083333333333">Blacksmithing</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="179.9"
-                y="293.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="179.9" y="293.10166666666663">Clothing</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="179.9"
-                y="324.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="179.9" y="324.195">Tobacco</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="179.9"
-                y="355.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="179.9" y="355.2883333333333">
-                    Agricultural Services
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="179.9"
-                y="386.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="179.9" y="386.38166666666666">
-                    Transportation Equipment
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="179.9"
-                y="417.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="179.9" y="417.47499999999997">Primary Metals</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="179.9"
-                y="448.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="179.9" y="448.5683333333333">Printing</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="179.9"
-                y="479.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="179.9" y="479.66166666666663">Glass/Brick</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="179.9"
-                y="510.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="179.9" y="510.755">Machinery</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="179.9"
-                y="541.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="179.9" y="541.8483333333332">Construction</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-hours"
+                x1="71.83"
+                y1="532.4"
+                x2="654.85"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="2-hours"
+                x1="71.83"
+                y1="459"
+                x2="654.85"
+                y2="459"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="4-hours"
+                x1="71.83"
+                y1="385.6"
+                x2="654.85"
+                y2="385.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="6-hours"
+                x1="71.83"
+                y1="312.2"
+                x2="654.85"
+                y2="312.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="8-hours"
+                x1="71.83"
+                y1="238.8"
+                x2="654.85"
+                y2="238.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10-hours"
+                x1="71.83"
+                y1="165.4"
+                x2="654.85"
+                y2="165.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="12-hours"
+                x1="71.83"
+                y1="92"
+                x2="654.85"
+                y2="92"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Paper"
+                    d="M658.85,145.2 H670.1833333333333 V93.15 H675.85"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Chemicals"
+                    d="M658.85,153.2 H671.6 V111.45 H675.85"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Food"
+                    d="M658.85,155 H673.0166666666667 V129.75 H675.85"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Textiles"
+                    d="M658.85,158.1 H674.4333333333333 V148.05 H675.85"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Blacksmithing"
+                    d="M658.85,165.4 H674.4333333333333 V166.35000000000002 H675.85"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="All-Industries"
+                    d="M658.85,165.4 H673.0166666666667 V184.65000000000003 H675.85"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Clothing"
+                    d="M658.85,166 H671.6 V202.95000000000005 H675.85"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Tobacco"
+                    d="M658.85,166.6 H670.1833333333333 V221.25000000000006 H675.85"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Agricultural-Services"
+                    d="M658.85,167.2 H668.7666666666667 V239.55000000000007 H675.85"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Transportation-Equipment"
+                    d="M658.85,168.5 H667.35 V257.8500000000001 H675.85"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Printing"
+                    d="M658.85,169.7 H665.9333333333333 V276.15000000000003 H675.85"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Primary-Metals"
+                    d="M658.85,169.7 H664.5166666666667 V294.45000000000005 H675.85"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Glass/Brick"
+                    d="M658.85,172.7 H663.1 V312.75000000000006 H675.85"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Machinery"
+                    d="M658.85,174 H661.6833333333333 V331.05000000000007 H675.85"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Construction"
+                    d="M658.85,177 H660.2666666666667 V349.3500000000001 H675.85"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Paper"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="679.9"
+                    y="98.0"
+                    fill="#286bbb"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="679.85" y="97.96000000000001">Paper</tspan>
+                </text>
+                <text
+                    id="label__Chemicals"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="679.9"
+                    y="116.3"
+                    fill="#338711"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="679.85" y="116.25999999999999">Chemicals</tspan>
+                </text>
+                <text
+                    id="label__Food"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="679.9"
+                    y="134.6"
+                    fill="#18470f"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="679.85" y="134.56">Food</tspan>
+                </text>
+                <text
+                    id="label__Textiles"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="679.9"
+                    y="152.9"
+                    fill="#c4523e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="679.85" y="152.86">Textiles</tspan>
+                </text>
+                <text
+                    id="label__Blacksmithing"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="679.9"
+                    y="171.2"
+                    fill="#a2559c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="679.85" y="171.16000000000003">
+                        Blacksmithing
+                    </tspan>
+                </text>
+                <text
+                    id="label__All-Industries"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="679.9"
+                    y="189.5"
+                    fill="#9a5129"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="679.85" y="189.46000000000004">
+                        All Industries
+                    </tspan>
+                </text>
+                <text
+                    id="label__Clothing"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="679.9"
+                    y="207.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="679.85" y="207.76000000000005">Clothing</tspan>
+                </text>
+                <text
+                    id="label__Tobacco"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="679.9"
+                    y="226.1"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="679.85" y="226.06000000000006">Tobacco</tspan>
+                </text>
+                <text
+                    id="label__Agricultural-Services"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="679.9"
+                    y="244.4"
+                    fill="#008291"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="679.85" y="244.36000000000007">
+                        Agricultural Services
+                    </tspan>
+                </text>
+                <text
+                    id="label__Transportation-Equipment"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="679.9"
+                    y="262.7"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="679.85" y="262.6600000000001">
+                        Transportation Equipment
+                    </tspan>
+                </text>
+                <text
+                    id="label__Printing"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="679.9"
+                    y="281.0"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="679.85" y="280.96000000000004">Printing</tspan>
+                </text>
+                <text
+                    id="label__Primary-Metals"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="679.9"
+                    y="299.3"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="679.85" y="299.26000000000005">
+                        Primary Metals
+                    </tspan>
+                </text>
+                <text
+                    id="label__Glass/Brick"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="679.9"
+                    y="317.6"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="679.85" y="317.56000000000006">Glass/Brick</tspan>
+                </text>
+                <text
+                    id="label__Machinery"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="679.9"
+                    y="335.9"
+                    fill="#00295b"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="679.85" y="335.86000000000007">Machinery</tspan>
+                </text>
+                <text
+                    id="label__Construction"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="679.9"
+                    y="354.2"
+                    fill="#970046"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="679.85" y="354.1600000000001">Construction</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Food"
+                stroke-width="2.5"
+                d="M363.3 155"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#18470f"
+                id="line__Food"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M363.3 155"
+            ></path>
+            <g id="datapoints__Food">
+                <circle
+                    id="1880"
+                    cx="363.3"
+                    cy="155"
+                    r="1.8"
+                    fill="#18470f"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Paper"
+                stroke-width="2.5"
+                d="M363.3 145.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#286bbb"
+                id="line__Paper"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M363.3 145.2"
+            ></path>
+            <g id="datapoints__Paper">
+                <circle
+                    id="1880"
+                    cx="363.3"
+                    cy="145.2"
+                    r="1.8"
+                    fill="#286bbb"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Textiles"
+                stroke-width="2.5"
+                d="M363.3 158.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c4523e"
+                id="line__Textiles"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M363.3 158.1"
+            ></path>
+            <g id="datapoints__Textiles">
+                <circle
+                    id="1880"
+                    cx="363.3"
+                    cy="158.1"
+                    r="1.8"
+                    fill="#c4523e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Chemicals"
+                stroke-width="2.5"
+                d="M363.3 153.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#338711"
+                id="line__Chemicals"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M363.3 153.2"
+            ></path>
+            <g id="datapoints__Chemicals">
+                <circle
+                    id="1880"
+                    cx="363.3"
+                    cy="153.2"
+                    r="1.8"
+                    fill="#338711"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Construction"
+                stroke-width="2.5"
+                d="M363.3 177"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#970046"
+                id="line__Construction"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M363.3 177"
+            ></path>
+            <g id="datapoints__Construction">
+                <circle
+                    id="1880"
+                    cx="363.3"
+                    cy="177"
+                    r="1.8"
+                    fill="#970046"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Agricultural-Services"
+                stroke-width="2.5"
+                d="M363.3 167.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#008291"
+                id="line__Agricultural-Services"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M363.3 167.2"
+            ></path>
+            <g id="datapoints__Agricultural-Services">
+                <circle
+                    id="1880"
+                    cx="363.3"
+                    cy="167.2"
+                    r="1.8"
+                    fill="#008291"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__All-Industries"
+                stroke-width="2.5"
+                d="M363.3 165.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__All-Industries"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M363.3 165.4"
+            ></path>
+            <g id="datapoints__All-Industries">
+                <circle
+                    id="1880"
+                    cx="363.3"
+                    cy="165.4"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Blacksmithing"
+                stroke-width="2.5"
+                d="M363.3 165.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__Blacksmithing"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M363.3 165.4"
+            ></path>
+            <g id="datapoints__Blacksmithing">
+                <circle
+                    id="1880"
+                    cx="363.3"
+                    cy="165.4"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Machinery"
+                stroke-width="2.5"
+                d="M363.3 174"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__Machinery"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M363.3 174"
+            ></path>
+            <g id="datapoints__Machinery">
+                <circle
+                    id="1880"
+                    cx="363.3"
+                    cy="174"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Glass/Brick"
+                stroke-width="2.5"
+                d="M363.3 172.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Glass/Brick"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M363.3 172.7"
+            ></path>
+            <g id="datapoints__Glass/Brick">
+                <circle
+                    id="1880"
+                    cx="363.3"
+                    cy="172.7"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Primary-Metals"
+                stroke-width="2.5"
+                d="M363.3 169.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Primary-Metals"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M363.3 169.7"
+            ></path>
+            <g id="datapoints__Primary-Metals">
+                <circle
+                    id="1880"
+                    cx="363.3"
+                    cy="169.7"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Printing"
+                stroke-width="2.5"
+                d="M363.3 169.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Printing"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M363.3 169.7"
+            ></path>
+            <g id="datapoints__Printing">
+                <circle
+                    id="1880"
+                    cx="363.3"
+                    cy="169.7"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Tobacco"
+                stroke-width="2.5"
+                d="M363.3 166.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Tobacco"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M363.3 166.6"
+            ></path>
+            <g id="datapoints__Tobacco">
+                <circle
+                    id="1880"
+                    cx="363.3"
+                    cy="166.6"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Transportation-Equipment"
+                stroke-width="2.5"
+                d="M363.3 168.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Transportation-Equipment"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M363.3 168.5"
+            ></path>
+            <g id="datapoints__Transportation-Equipment">
+                <circle
+                    id="1880"
+                    cx="363.3"
+                    cy="168.5"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Clothing"
+                stroke-width="2.5"
+                d="M363.3 166"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Clothing"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M363.3 166"
+            ></path>
+            <g id="datapoints__Clothing">
+                <circle
+                    id="1880"
+                    cx="363.3"
+                    cy="166"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

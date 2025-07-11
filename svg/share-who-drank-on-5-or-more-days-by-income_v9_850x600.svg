@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -80,236 +69,495 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="233.25"
-            y1="532.30"
-            x2="233.25"
-            y2="125.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="40,000+-(income-in-pounds)"
-                x="0"
-                y="0"
-                transform="translate(233.5, 137.46208333333334)"
-                width="552"
-                height="44.05916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="30,000-40,000-(income-in-pounds)"
-                x="0"
-                y="0"
-                transform="translate(233.5, 205.24541666666667)"
-                width="489.79999999999995"
-                height="44.05916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="20,000-29,000-(income-in-pounds)"
-                x="0"
-                y="0"
-                transform="translate(233.5, 273.02875)"
-                width="381.79999999999995"
-                height="44.05916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="15,000-20,000-(income-in-pounds)"
-                x="0"
-                y="0"
-                transform="translate(233.5, 340.81208333333336)"
-                width="377.70000000000005"
-                height="44.05916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="10,000-15,000-(income-in-pounds)"
-                x="0"
-                y="0"
-                transform="translate(233.5, 408.59541666666667)"
-                width="402.6"
-                height="44.05916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="10,000-or-less-(income-in-pounds)"
-                x="0"
-                y="0"
-                transform="translate(233.5, 476.37874999999997)"
-                width="303"
-                height="44.05916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2016"
+                    x1="326.615"
+                    y1="511.79999999999995"
+                    x2="326.615"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="326.615"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2016
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(790.5, 159.49166666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                13.3%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(728.3, 227.275)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                11.8%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(620.3, 295.05833333333334)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9.2%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(616.2, 362.8416666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9.1%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(641.1, 430.625)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9.7%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(541.5, 498.4083333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                7.3%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="42.13"
+                    y="457.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2%
+                </text>
+                <text
+                    x="42.13"
+                    y="403.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    4%
+                </text>
+                <text
+                    x="42.13"
+                    y="349.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    6%
+                </text>
+                <text
+                    x="42.13"
+                    y="294.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    8%
+                </text>
+                <text
+                    x="42.13"
+                    y="240.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="186"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    12%
+                </text>
+                <text
+                    x="42.13"
+                    y="131.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    14%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="228.5"
-                y="164.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="228.5" y="164.48666666666668">
-                    40,000+ (income in pounds)
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="228.5"
-                y="232.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="228.5" y="232.26999999999998">
-                    30,000-40,000 (income in pounds)
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="228.5"
-                y="300.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="228.5" y="300.05333333333334">
-                    20,000-29,000 (income in pounds)
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="228.5"
-                y="367.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="228.5" y="367.8366666666667">
-                    15,000-20,000 (income in pounds)
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="228.5"
-                y="435.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="228.5" y="435.62">
-                    10,000-15,000 (income in pounds)
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="228.5"
-                y="503.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="228.5" y="503.4033333333333">
-                    10,000 or less (income in pounds)
-                </tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="47.13"
+                y1="512.3"
+                x2="606.10"
+                y2="512.3"
+                stroke="#999"
+            ></line>
+            <line
+                id="2%"
+                x1="47.13"
+                y1="457.9"
+                x2="606.10"
+                y2="457.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="4%"
+                x1="47.13"
+                y1="403.5"
+                x2="606.10"
+                y2="403.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="6%"
+                x1="47.13"
+                y1="349.1"
+                x2="606.10"
+                y2="349.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="8%"
+                x1="47.13"
+                y1="294.8"
+                x2="606.10"
+                y2="294.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="240.4"
+                x2="606.10"
+                y2="240.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="12%"
+                x1="47.13"
+                y1="186"
+                x2="606.10"
+                y2="186"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="14%"
+                x1="47.13"
+                y1="131.6"
+                x2="606.10"
+                y2="131.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="40,000+-(income-in-pounds)"
+                    d="M610.1,150.6 H618.6 V150.6 H627.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="30,000-40,000-(income-in-pounds)"
+                    d="M610.1,191.4 H618.6 V191.4 H627.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="10,000-15,000-(income-in-pounds)"
+                    d="M610.1,248.5 H615.7666666666667 V240.16666666666669 H627.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="20,000-29,000-(income-in-pounds)"
+                    d="M610.1,262.1 H621.4333333333333 V258.4666666666667 H627.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="15,000-20,000-(income-in-pounds)"
+                    d="M610.1,264.8 H621.4333333333333 V276.76666666666665 H627.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="10,000-or-less-(income-in-pounds)"
+                    d="M610.1,313.8 H618.6 V313.8 H627.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__40,000+-(income-in-pounds)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="631.1"
+                    y="155.4"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="631.1" y="155.41">
+                        40,000+ (income in pounds)
+                    </tspan>
+                </text>
+                <text
+                    id="label__30,000-40,000-(income-in-pounds)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="631.1"
+                    y="196.2"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="631.1" y="196.21">
+                        30,000-40,000 (income in pounds)
+                    </tspan>
+                </text>
+                <text
+                    id="label__10,000-15,000-(income-in-pounds)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="631.1"
+                    y="245.0"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="631.1" y="244.9766666666667">
+                        10,000-15,000 (income in pounds)
+                    </tspan>
+                </text>
+                <text
+                    id="label__20,000-29,000-(income-in-pounds)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="631.1"
+                    y="263.3"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="631.1" y="263.2766666666667">
+                        20,000-29,000 (income in pounds)
+                    </tspan>
+                </text>
+                <text
+                    id="label__15,000-20,000-(income-in-pounds)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="631.1"
+                    y="281.6"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="631.1" y="281.57666666666665">
+                        15,000-20,000 (income in pounds)
+                    </tspan>
+                </text>
+                <text
+                    id="label__10,000-or-less-(income-in-pounds)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="631.1"
+                    y="318.6"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="631.1" y="318.61">
+                        10,000 or less (income in pounds)
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__20,000-29,000-(income-in-pounds)"
+                stroke-width="2.5"
+                d="M326.6 262.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__20,000-29,000-(income-in-pounds)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M326.6 262.1"
+            ></path>
+            <g id="datapoints__20,000-29,000-(income-in-pounds)">
+                <circle
+                    id="2016"
+                    cx="326.6"
+                    cy="262.1"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__40,000+-(income-in-pounds)"
+                stroke-width="2.5"
+                d="M326.6 150.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__40,000+-(income-in-pounds)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M326.6 150.6"
+            ></path>
+            <g id="datapoints__40,000+-(income-in-pounds)">
+                <circle
+                    id="2016"
+                    cx="326.6"
+                    cy="150.6"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__30,000-40,000-(income-in-pounds)"
+                stroke-width="2.5"
+                d="M326.6 191.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__30,000-40,000-(income-in-pounds)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M326.6 191.4"
+            ></path>
+            <g id="datapoints__30,000-40,000-(income-in-pounds)">
+                <circle
+                    id="2016"
+                    cx="326.6"
+                    cy="191.4"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__15,000-20,000-(income-in-pounds)"
+                stroke-width="2.5"
+                d="M326.6 264.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__15,000-20,000-(income-in-pounds)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M326.6 264.8"
+            ></path>
+            <g id="datapoints__15,000-20,000-(income-in-pounds)">
+                <circle
+                    id="2016"
+                    cx="326.6"
+                    cy="264.8"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__10,000-15,000-(income-in-pounds)"
+                stroke-width="2.5"
+                d="M326.6 248.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__10,000-15,000-(income-in-pounds)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M326.6 248.5"
+            ></path>
+            <g id="datapoints__10,000-15,000-(income-in-pounds)">
+                <circle
+                    id="2016"
+                    cx="326.6"
+                    cy="248.5"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__10,000-or-less-(income-in-pounds)"
+                stroke-width="2.5"
+                d="M326.6 313.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__10,000-or-less-(income-in-pounds)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M326.6 313.8"
+            ></path>
+            <g id="datapoints__10,000-or-less-(income-in-pounds)">
+                <circle
+                    id="2016"
+                    cx="326.6"
+                    cy="313.8"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

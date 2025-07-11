@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -76,162 +65,239 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="213.65"
-            y1="552.40"
-            x2="213.65"
-            y2="107.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Dedicated-heart-failure-centers"
-                x="0"
-                y="0"
-                transform="translate(213.9, 127.06000000000002)"
-                width="542.9"
-                height="72.28"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Dedicated-coronary-care-units"
-                x="0"
-                y="0"
-                transform="translate(213.9, 238.26)"
-                width="476.80000000000007"
-                height="72.28"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Cath-labs"
-                x="0"
-                y="0"
-                transform="translate(213.9, 349.46000000000004)"
-                width="327.20000000000005"
-                height="72.28"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Dedicated-stroke-units"
-                x="0"
-                y="0"
-                transform="translate(213.9, 460.65999999999997)"
-                width="240.6"
-                height="72.28"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2019"
+                    x1="333.245"
+                    y1="531.9"
+                    x2="333.245"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="333.245"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2019
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(761.8, 163.20000000000002)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                7.4
-                <tspan fill="#999">in 2017</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(695.7, 274.4)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                7
-                <tspan fill="#999">in 2015</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(546.1, 385.6)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                4.5
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(459.5, 496.79999999999995)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                3.3
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="23.28"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0
+                </text>
+                <text
+                    x="23.28"
+                    y="448.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1
+                </text>
+                <text
+                    x="23.28"
+                    y="364.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2
+                </text>
+                <text
+                    x="23.28"
+                    y="281.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    3
+                </text>
+                <text
+                    x="23.28"
+                    y="197.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    4
+                </text>
+                <text
+                    x="23.28"
+                    y="113.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    5
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="208.9"
-                y="168.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="208.9" y="168.195">
-                    Dedicated heart failure centers
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="208.9"
-                y="279.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="208.9" y="279.395">
-                    Dedicated coronary care units
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="208.9"
-                y="390.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="208.9" y="390.595">Cath labs</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="208.9"
-                y="501.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="208.9" y="501.79499999999996">
-                    Dedicated stroke units
-                </tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0"
+                x1="28.28"
+                y1="532.4"
+                x2="638.21"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="1"
+                x1="28.28"
+                y1="448.6"
+                x2="638.21"
+                y2="448.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="2"
+                x1="28.28"
+                y1="364.9"
+                x2="638.21"
+                y2="364.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="3"
+                x1="28.28"
+                y1="281.1"
+                x2="638.21"
+                y2="281.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="4"
+                x1="28.28"
+                y1="197.4"
+                x2="638.21"
+                y2="197.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="5"
+                x1="28.28"
+                y1="113.6"
+                x2="638.21"
+                y2="113.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Italy-–-Cath-labs"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="642.2"
+                    y="163.6"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="642.21" y="163.61">Italy – Cath labs</tspan>
+                </text>
+                <text
+                    id="label__Italy-–-Dedicated-stroke-units"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="642.2"
+                    y="262.5"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="642.21" y="262.51">
+                        Italy – Dedicated stroke units
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Italy-–-Cath-labs"
+                stroke-width="2.5"
+                d="M333.2 158.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Italy-–-Cath-labs"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M333.2 158.8"
+            ></path>
+            <g id="datapoints__Italy-–-Cath-labs">
+                <circle
+                    id="2019"
+                    cx="333.2"
+                    cy="158.8"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Italy-–-Dedicated-stroke-units"
+                stroke-width="2.5"
+                d="M333.2 257.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Italy-–-Dedicated-stroke-units"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M333.2 257.7"
+            ></path>
+            <g id="datapoints__Italy-–-Dedicated-stroke-units">
+                <circle
+                    id="2019"
+                    cx="333.2"
+                    cy="257.7"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

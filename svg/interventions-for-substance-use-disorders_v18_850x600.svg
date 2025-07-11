@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -83,124 +72,303 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="208.85"
-            y1="552.40"
-            x2="208.85"
-            y2="125.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Cocaine"
-                x="0"
-                y="0"
-                transform="translate(209.1, 150.49666666666664)"
-                width="568.9"
-                height="92.47333333333331"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Amphetamine-type-stimulants"
-                x="0"
-                y="0"
-                transform="translate(209.1, 292.76333333333326)"
-                width="566.9"
-                height="92.47333333333331"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Opioids"
-                x="0"
-                y="0"
-                transform="translate(209.1, 435.0299999999999)"
-                width="564"
-                height="92.47333333333331"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2022"
+                    x1="340.2"
+                    y1="531.9"
+                    x2="340.2"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="340.2"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2022
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(783, 196.7333333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                46.86%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(781, 338.99999999999994)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                46.7%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(778.1, 481.2666666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                46.5%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="42.13"
+                    y="452.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="372.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="42.13"
+                    y="291.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    30%
+                </text>
+                <text
+                    x="42.13"
+                    y="211.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="42.13"
+                    y="131.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    50%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="204.1"
-                y="201.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="204.1" y="201.7283333333333">Cocaine</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="204.1"
-                y="344.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="204.1" y="343.99499999999995">
-                    Amphetamine-type stimulants
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="204.1"
-                y="486.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="204.1" y="486.2616666666666">Opioids</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="47.13"
+                y1="532.4"
+                x2="633.27"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="452.2"
+                x2="633.27"
+                y2="452.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="372.1"
+                x2="633.27"
+                y2="372.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30%"
+                x1="47.13"
+                y1="291.9"
+                x2="633.27"
+                y2="291.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="47.13"
+                y1="211.8"
+                x2="633.27"
+                y2="211.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="50%"
+                x1="47.13"
+                y1="131.6"
+                x2="633.27"
+                y2="131.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Cocaine"
+                    d="M637.27,156.8 H648.6033333333332 V139.99999999999997 H654.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Amphetamine-type-stimulants"
+                    d="M637.27,158.1 H648.6033333333332 V158.29999999999998 H654.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Opioids"
+                    d="M637.27,160 H642.9366666666666 V176.6 H654.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Cocaine"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="658.3"
+                    y="144.8"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="658.27" y="144.80999999999997">Cocaine</tspan>
+                </text>
+                <text
+                    id="label__Amphetamine-type-stimulants"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="658.3"
+                    y="163.1"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="658.27" y="163.10999999999999">
+                        Amphetamine-type stimulants
+                    </tspan>
+                </text>
+                <text
+                    id="label__Opioids"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="658.3"
+                    y="181.4"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="658.27" y="181.41">Opioids</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Cocaine"
+                stroke-width="2.5"
+                d="M340.2 156.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Cocaine"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.2 156.8"
+            ></path>
+            <g id="datapoints__Cocaine">
+                <circle
+                    id="2022"
+                    cx="340.2"
+                    cy="156.8"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Amphetamine-type-stimulants"
+                stroke-width="2.5"
+                d="M340.2 158.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Amphetamine-type-stimulants"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.2 158.1"
+            ></path>
+            <g id="datapoints__Amphetamine-type-stimulants">
+                <circle
+                    id="2022"
+                    cx="340.2"
+                    cy="158.1"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Opioids"
+                stroke-width="2.5"
+                d="M340.2 160"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Opioids"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.2 160"
+            ></path>
+            <g id="datapoints__Opioids">
+                <circle
+                    id="2022"
+                    cx="340.2"
+                    cy="160"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -80,269 +69,553 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="227.05"
-            y1="552.40"
-            x2="227.05"
-            y2="100.40"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Northern-Africa-(UN)"
-                x="0"
-                y="0"
-                transform="translate(227.3, 111.70000000000002)"
-                width="502.3"
-                height="41.971428571428575"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Northern-America-(UN)"
-                x="0"
-                y="0"
-                transform="translate(227.3, 176.27142857142857)"
-                width="498.3"
-                height="41.971428571428575"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Europe-(UN)"
-                x="0"
-                y="0"
-                transform="translate(227.3, 240.84285714285713)"
-                width="490.09999999999997"
-                height="41.971428571428575"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="World"
-                x="0"
-                y="0"
-                transform="translate(227.3, 305.41428571428577)"
-                width="447.09999999999997"
-                height="41.971428571428575"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Central-and-Southern-Asia-(UN)"
-                x="0"
-                y="0"
-                transform="translate(227.3, 369.9857142857143)"
-                width="445.2"
-                height="41.971428571428575"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Latin-America-and-the-Caribbean-(UN)"
-                x="0"
-                y="0"
-                transform="translate(227.3, 434.5571428571429)"
-                width="418.7"
-                height="41.971428571428575"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Sub-Saharan-Africa-(UN)"
-                x="0"
-                y="0"
-                transform="translate(227.3, 499.1285714285715)"
-                width="360.09999999999997"
-                height="41.971428571428575"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2019"
+                    x1="54.4"
+                    y1="531.9"
+                    x2="54.4"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2022"
+                    x1="583.2"
+                    y1="531.9"
+                    x2="583.2"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2020"
+                    x1="230.7"
+                    y1="531.9"
+                    x2="230.7"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2021"
+                    x1="406.9"
+                    y1="531.9"
+                    x2="406.9"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="54.410000000000004"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="start"
+                    font-size="13"
+                >
+                    2019
+                </text>
+                <text
+                    x="583.22"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="end"
+                    font-size="13"
+                >
+                    2022
+                </text>
+                <text
+                    x="230.7"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2020
+                </text>
+                <text
+                    x="406.9"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2021
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(734.6, 132.6857142857143)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                96.23%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(730.6, 197.25714285714287)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                95.45%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(722.4, 261.8285714285714)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                93.88%
-                <tspan fill="#999">in 2019</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(679.4, 326.40000000000003)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                85.65%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(677.5, 390.9714285714286)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                85.29%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(651, 455.54285714285714)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                80.21%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(592.4, 520.1142857142858)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                68.99%
-                <tspan fill="#999">in 2021</tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="49.41"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="49.41"
+                    y="447.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="49.41"
+                    y="362"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="49.41"
+                    y="276.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60%
+                </text>
+                <text
+                    x="49.41"
+                    y="191.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    80%
+                </text>
+                <text
+                    x="49.41"
+                    y="106.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="222.3"
-                y="137.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="222.3" y="137.68071428571432">
-                    Northern Africa (UN)
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="222.3"
-                y="202.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="222.3" y="202.25214285714287">
-                    Northern America (UN)
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="222.3"
-                y="266.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="222.3" y="266.8235714285714">Europe (UN)</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="222.3"
-                y="331.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="222.3" y="331.39500000000004">World</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="222.3"
-                y="396.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="222.3" y="395.9664285714286">
-                    Central and Southern Asia (UN)
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="222.3"
-                y="453.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="222.3" y="453.11285714285714">
-                    Latin America and the Caribbean
-                </tspan>
-                <tspan x="222.3" y="467.96285714285716">(UN)</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="222.3"
-                y="525.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="222.3" y="525.1092857142858">
-                    Sub-Saharan Africa (UN)
-                </tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="54.41"
+                y1="532.4"
+                x2="583.22"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="20%"
+                x1="54.41"
+                y1="447.2"
+                x2="583.22"
+                y2="447.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="54.41"
+                y1="362"
+                x2="583.22"
+                y2="362"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60%"
+                x1="54.41"
+                y1="276.8"
+                x2="583.22"
+                y2="276.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80%"
+                x1="54.41"
+                y1="191.6"
+                x2="583.22"
+                y2="191.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100%"
+                x1="54.41"
+                y1="106.4"
+                x2="583.22"
+                y2="106.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Northern-Africa-(UN)"
+                    d="M587.22,122.5 H599.97 V107.55000000000001 H604.22"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Northern-America-(UN)"
+                    d="M587.22,125.8 H599.97 V125.85000000000001 H604.22"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Europe-(UN)"
+                    d="M587.22,132.5 H595.72 V144.15 H604.22"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="World"
+                    d="M587.22,167.5 H595.72 V162.45000000000002 H604.22"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Central-and-Southern-Asia-(UN)"
+                    d="M587.22,169.1 H595.72 V180.75000000000003 H604.22"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Latin-America-and-the-Caribbean-(UN)"
+                    d="M587.22,190.7 H591.47 V199.05000000000004 H604.22"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Sub-Saharan-Africa-(UN)"
+                    d="M587.22,238.5 H595.72 V238.5 H604.22"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Northern-Africa-(UN)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="608.2"
+                    y="112.4"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="608.22" y="112.36000000000001">
+                        Northern Africa (UN)
+                    </tspan>
+                </text>
+                <text
+                    id="label__Northern-America-(UN)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="608.2"
+                    y="130.7"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="608.22" y="130.66">Northern America (UN)</tspan>
+                </text>
+                <text
+                    id="label__Europe-(UN)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="608.2"
+                    y="149.0"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="608.22" y="148.96">Europe (UN)</tspan>
+                </text>
+                <text
+                    id="label__World"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="608.2"
+                    y="167.3"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="608.22" y="167.26000000000002">World</tspan>
+                </text>
+                <text
+                    id="label__Central-and-Southern-Asia-(UN)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="608.2"
+                    y="185.6"
+                    fill="#00295b"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="608.22" y="185.56000000000003">
+                        Central and Southern Asia (UN)
+                    </tspan>
+                </text>
+                <text
+                    id="label__Latin-America-and-the-Caribbean-(UN)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="608.2"
+                    y="203.9"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="608.22" y="203.86000000000004">
+                        Latin America and the Caribbean (UN)
+                    </tspan>
+                </text>
+                <text
+                    id="label__Sub-Saharan-Africa-(UN)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="608.2"
+                    y="243.3"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="608.22" y="243.31">Sub-Saharan Africa (UN)</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Central-and-Southern-Asia-(UN)"
+                stroke-width="2.5"
+                d="M583.2 169.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__Central-and-Southern-Asia-(UN)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M583.2 169.1"
+            ></path>
+            <g id="datapoints__Central-and-Southern-Asia-(UN)">
+                <circle
+                    id="2022"
+                    cx="583.2"
+                    cy="169.1"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Latin-America-and-the-Caribbean-(UN)"
+                stroke-width="2.5"
+                d="M583.2 190.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Latin-America-and-the-Caribbean-(UN)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M583.2 190.7"
+            ></path>
+            <g id="datapoints__Latin-America-and-the-Caribbean-(UN)">
+                <circle
+                    id="2022"
+                    cx="583.2"
+                    cy="190.7"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Northern-America-(UN)"
+                stroke-width="2.5"
+                d="M583.2 125.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Northern-America-(UN)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M583.2 125.8"
+            ></path>
+            <g id="datapoints__Northern-America-(UN)">
+                <circle
+                    id="2022"
+                    cx="583.2"
+                    cy="125.8"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Northern-Africa-(UN)"
+                stroke-width="2.5"
+                d="M583.2 122.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Northern-Africa-(UN)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M583.2 122.5"
+            ></path>
+            <g id="datapoints__Northern-Africa-(UN)">
+                <circle
+                    id="2022"
+                    cx="583.2"
+                    cy="122.5"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World"
+                stroke-width="2.5"
+                d="M583.2 167.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__World"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M583.2 167.5"
+            ></path>
+            <g id="datapoints__World">
+                <circle
+                    id="2022"
+                    cx="583.2"
+                    cy="167.5"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Sub-Saharan-Africa-(UN)"
+                stroke-width="2.5"
+                d="M406.9 238.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Sub-Saharan-Africa-(UN)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M406.9 238.5"
+            ></path>
+            <g id="datapoints__Sub-Saharan-Africa-(UN)">
+                <circle
+                    id="2021"
+                    cx="406.9"
+                    cy="238.5"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Europe-(UN)"
+                stroke-width="2.5"
+                d="M54.4 132.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Europe-(UN)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M54.4 132.5"
+            ></path>
+            <g id="datapoints__Europe-(UN)">
+                <circle
+                    id="2019"
+                    cx="54.4"
+                    cy="132.5"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

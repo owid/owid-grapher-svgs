@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -84,224 +73,485 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="128.75"
-            y1="552.40"
-            x2="128.75"
-            y2="125.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Africa"
-                x="0"
-                y="0"
-                transform="translate(129, 138.04833333333332)"
-                width="506.9"
-                height="46.23666666666666"
-                fill="#a2559c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Middle-East"
-                x="0"
-                y="0"
-                transform="translate(129, 209.18166666666664)"
-                width="413"
-                height="46.23666666666666"
-                fill="#bc8e5a"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="World"
-                x="0"
-                y="0"
-                transform="translate(129, 280.31499999999994)"
-                width="104.4"
-                height="46.23666666666666"
-                fill="#d73c50"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Europe"
-                x="0"
-                y="0"
-                transform="translate(129, 351.44833333333327)"
-                width="57.19999999999999"
-                height="46.23666666666666"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Americas"
-                x="0"
-                y="0"
-                transform="translate(129, 422.5816666666666)"
-                width="45.400000000000006"
-                height="46.23666666666666"
-                fill="#e56e5a"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Asia-and-Oceania"
-                x="0"
-                y="0"
-                transform="translate(129, 493.7149999999999)"
-                width="28.19999999999999"
-                height="46.23666666666666"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2023"
+                    x1="452"
+                    y1="531.9"
+                    x2="452"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="452"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2023
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(640.9, 161.16666666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                350 deaths per 100,000 people
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(547, 232.29999999999998)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                285 deaths per 100,000 people
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(238.4, 303.4333333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                72 deaths per 100,000 people
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(191.2, 374.5666666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                40 deaths per 100,000 people
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(179.4, 445.69999999999993)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                31 deaths per 100,000 people
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(162.2, 516.8333333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                19 deaths per 100,000 people
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="197.09"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0 deaths per 100,000 people
+                </text>
+                <text
+                    x="197.09"
+                    y="475.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    50 deaths per 100,000 people
+                </text>
+                <text
+                    x="197.09"
+                    y="418"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100 deaths per 100,000 people
+                </text>
+                <text
+                    x="197.09"
+                    y="360.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    150 deaths per 100,000 people
+                </text>
+                <text
+                    x="197.09"
+                    y="303.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    200 deaths per 100,000 people
+                </text>
+                <text
+                    x="197.09"
+                    y="246.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    250 deaths per 100,000 people
+                </text>
+                <text
+                    x="197.09"
+                    y="189.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    300 deaths per 100,000 people
+                </text>
+                <text
+                    x="197.09"
+                    y="131.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    350 deaths per 100,000 people
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="124.0"
-                y="166.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="124" y="166.16166666666663">Africa</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="124.0"
-                y="237.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="124" y="237.29499999999996">Middle East</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="124.0"
-                y="308.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="124" y="308.4283333333333">World</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="124.0"
-                y="379.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="124" y="379.5616666666666">Europe</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="124.0"
-                y="450.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="124" y="450.69499999999994">Americas</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="124.0"
-                y="521.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="124" y="521.8283333333333">Asia and Oceania</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-deaths-per-100,000-people"
+                x1="202.09"
+                y1="532.4"
+                x2="701.91"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="50-deaths-per-100,000-people"
+                x1="202.09"
+                y1="475.2"
+                x2="701.91"
+                y2="475.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100-deaths-per-100,000-people"
+                x1="202.09"
+                y1="418"
+                x2="701.91"
+                y2="418"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="150-deaths-per-100,000-people"
+                x1="202.09"
+                y1="360.7"
+                x2="701.91"
+                y2="360.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="200-deaths-per-100,000-people"
+                x1="202.09"
+                y1="303.5"
+                x2="701.91"
+                y2="303.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="250-deaths-per-100,000-people"
+                x1="202.09"
+                y1="246.3"
+                x2="701.91"
+                y2="246.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="300-deaths-per-100,000-people"
+                x1="202.09"
+                y1="189.1"
+                x2="701.91"
+                y2="189.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="350-deaths-per-100,000-people"
+                x1="202.09"
+                y1="131.9"
+                x2="701.91"
+                y2="131.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Africa"
+                    d="M705.91,131.6 H714.41 V132.75 H722.91"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Middle-East"
+                    d="M705.91,205.9 H714.41 V205.9 H722.91"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="World"
+                    d="M705.91,449.8 H714.41 V449.8 H722.91"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Europe"
+                    d="M705.91,487.2 H717.2433333333332 V479.6333333333333 H722.91"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Americas"
+                    d="M705.91,496.5 H717.2433333333332 V497.93333333333334 H722.91"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Asia-and-Oceania"
+                    d="M705.91,510.1 H711.5766666666666 V516.2333333333333 H722.91"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Africa"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="726.9"
+                    y="137.6"
+                    fill="#a2559c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="726.91" y="137.56">Africa</tspan>
+                </text>
+                <text
+                    id="label__Middle-East"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="726.9"
+                    y="210.7"
+                    fill="#af8454"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="726.91" y="210.71">Middle East</tspan>
+                </text>
+                <text
+                    id="label__World"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="726.9"
+                    y="454.6"
+                    fill="#d73c50"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="726.91" y="454.61">World</tspan>
+                </text>
+                <text
+                    id="label__Europe"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="726.9"
+                    y="484.4"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="726.91" y="484.4433333333333">Europe</tspan>
+                </text>
+                <text
+                    id="label__Americas"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="726.9"
+                    y="502.7"
+                    fill="#d96855"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="726.91" y="502.74333333333334">Americas</tspan>
+                </text>
+                <text
+                    id="label__Asia-and-Oceania"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="726.9"
+                    y="521.0"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="726.91" y="521.0433333333334">
+                        Asia and Oceania
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World"
+                stroke-width="2.5"
+                d="M452 449.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d73c50"
+                id="line__World"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M452 449.8"
+            ></path>
+            <g id="datapoints__World">
+                <circle
+                    id="2023"
+                    cx="452"
+                    cy="449.8"
+                    r="1.8"
+                    fill="#d73c50"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Middle-East"
+                stroke-width="2.5"
+                d="M452 205.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#bc8e5a"
+                id="line__Middle-East"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M452 205.9"
+            ></path>
+            <g id="datapoints__Middle-East">
+                <circle
+                    id="2023"
+                    cx="452"
+                    cy="205.9"
+                    r="1.8"
+                    fill="#bc8e5a"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Europe"
+                stroke-width="2.5"
+                d="M452 487.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Europe"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M452 487.2"
+            ></path>
+            <g id="datapoints__Europe">
+                <circle
+                    id="2023"
+                    cx="452"
+                    cy="487.2"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Asia-and-Oceania"
+                stroke-width="2.5"
+                d="M452 510.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Asia-and-Oceania"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M452 510.1"
+            ></path>
+            <g id="datapoints__Asia-and-Oceania">
+                <circle
+                    id="2023"
+                    cx="452"
+                    cy="510.1"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Americas"
+                stroke-width="2.5"
+                d="M452 496.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#e56e5a"
+                id="line__Americas"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M452 496.5"
+            ></path>
+            <g id="datapoints__Americas">
+                <circle
+                    id="2023"
+                    cx="452"
+                    cy="496.5"
+                    r="1.8"
+                    fill="#e56e5a"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Africa"
+                stroke-width="2.5"
+                d="M452 131.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__Africa"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M452 131.6"
+            ></path>
+            <g id="datapoints__Africa">
+                <circle
+                    id="2023"
+                    cx="452"
+                    cy="131.6"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -78,156 +67,376 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="105.15"
-            y1="501.10"
-            x2="105.15"
-            y2="99.80"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Rural-women"
-                x="0"
-                y="0"
-                transform="translate(105.4, 117.35687499999997)"
-                width="687.7"
-                height="65.21125"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Urban-women"
-                x="0"
-                y="0"
-                transform="translate(105.4, 217.68187499999996)"
-                width="669.7"
-                height="65.21125"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Urban-men"
-                x="0"
-                y="0"
-                transform="translate(105.4, 318.0068749999999)"
-                width="280.1"
-                height="65.21125"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Rural-men"
-                x="0"
-                y="0"
-                transform="translate(105.4, 418.33187499999997)"
-                width="237.49999999999997"
-                height="65.21125"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2018"
+                    x1="385.505"
+                    y1="480.6"
+                    x2="385.505"
+                    y2="486.1"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="385.505"
+                    y="499.1"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2018
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(798.1, 149.96249999999998)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                16%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(780.1, 250.28749999999997)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                15%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(390.5, 350.61249999999995)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                6.4%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(347.9, 450.9375)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                5.4%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="481.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="42.13"
+                    y="434.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2%
+                </text>
+                <text
+                    x="42.13"
+                    y="387.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    4%
+                </text>
+                <text
+                    x="42.13"
+                    y="340.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    6%
+                </text>
+                <text
+                    x="42.13"
+                    y="293.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    8%
+                </text>
+                <text
+                    x="42.13"
+                    y="246.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="199.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    12%
+                </text>
+                <text
+                    x="42.13"
+                    y="152.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    14%
+                </text>
+                <text
+                    x="42.13"
+                    y="105.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    16%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="100.4"
-                y="155.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="100.4" y="154.95749999999998">Rural women</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="100.4"
-                y="255.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="100.4" y="255.28249999999997">Urban women</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="100.4"
-                y="355.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="100.4" y="355.60749999999996">Urban men</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="100.4"
-                y="455.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="100.4" y="455.9325">Rural men</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="47.13"
+                y1="481.1"
+                x2="723.88"
+                y2="481.1"
+                stroke="#999"
+            ></line>
+            <line
+                id="2%"
+                x1="47.13"
+                y1="434.2"
+                x2="723.88"
+                y2="434.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="4%"
+                x1="47.13"
+                y1="387.3"
+                x2="723.88"
+                y2="387.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="6%"
+                x1="47.13"
+                y1="340.4"
+                x2="723.88"
+                y2="340.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="8%"
+                x1="47.13"
+                y1="293.4"
+                x2="723.88"
+                y2="293.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="246.5"
+                x2="723.88"
+                y2="246.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="12%"
+                x1="47.13"
+                y1="199.6"
+                x2="723.88"
+                y2="199.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="14%"
+                x1="47.13"
+                y1="152.7"
+                x2="723.88"
+                y2="152.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="16%"
+                x1="47.13"
+                y1="105.8"
+                x2="723.88"
+                y2="105.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Rural-women"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="727.9"
+                    y="113.6"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="727.88" y="113.56">Rural women</tspan>
+                </text>
+                <text
+                    id="label__Urban-women"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="727.9"
+                    y="131.9"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="727.88" y="131.85999999999999">Urban women</tspan>
+                </text>
+                <text
+                    id="label__Urban-men"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="727.9"
+                    y="336.0"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="727.88" y="336.01">Urban men</tspan>
+                </text>
+                <text
+                    id="label__Rural-men"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="727.9"
+                    y="358.8"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="727.88" y="358.81">Rural men</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Rural-men"
+                stroke-width="2.5"
+                d="M385.5 354"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Rural-men"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M385.5 354"
+            ></path>
+            <g id="datapoints__Rural-men">
+                <circle
+                    id="2018"
+                    cx="385.5"
+                    cy="354"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Urban-men"
+                stroke-width="2.5"
+                d="M385.5 331.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Urban-men"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M385.5 331.2"
+            ></path>
+            <g id="datapoints__Urban-men">
+                <circle
+                    id="2018"
+                    cx="385.5"
+                    cy="331.2"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Urban-women"
+                stroke-width="2.5"
+                d="M385.5 122.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Urban-women"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M385.5 122.7"
+            ></path>
+            <g id="datapoints__Urban-women">
+                <circle
+                    id="2018"
+                    cx="385.5"
+                    cy="122.7"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Rural-women"
+                stroke-width="2.5"
+                d="M385.5 113.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Rural-women"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M385.5 113.1"
+            ></path>
+            <g id="datapoints__Rural-women">
+                <circle
+                    id="2018"
+                    cx="385.5"
+                    cy="113.1"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

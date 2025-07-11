@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -77,230 +66,455 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="209.75"
-            y1="532.30"
-            x2="209.75"
-            y2="86.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Family"
-                x="0"
-                y="0"
-                transform="translate(210, 99.01708333333333)"
-                width="575.5"
-                height="48.34916666666667"
-                fill="#6d3e91"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="People-I-know-personally"
-                x="0"
-                y="0"
-                transform="translate(210, 173.40041666666664)"
-                width="547.6"
-                height="48.34916666666667"
-                fill="#6d3e91"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="People-of-another-religion"
-                x="0"
-                y="0"
-                transform="translate(210, 247.78375000000003)"
-                width="453.70000000000005"
-                height="48.34916666666667"
-                fill="#6d3e91"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="People-of-another-nationality"
-                x="0"
-                y="0"
-                transform="translate(210, 322.1670833333334)"
-                width="447.4"
-                height="48.34916666666667"
-                fill="#6d3e91"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Neighborhood"
-                x="0"
-                y="0"
-                transform="translate(210, 396.5504166666667)"
-                width="436.1"
-                height="48.34916666666667"
-                fill="#6d3e91"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="People-I-meet-for-the-first-time"
-                x="0"
-                y="0"
-                transform="translate(210, 470.93375000000003)"
-                width="241.2"
-                height="48.34916666666667"
-                fill="#6d3e91"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2022"
+                    x1="342.67"
+                    y1="511.79999999999995"
+                    x2="342.67"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="342.67"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2022
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(790.5, 123.19166666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                94.2%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(762.6, 197.575)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                89.6%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(668.7, 271.95833333333337)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                74.2%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(662.4, 346.3416666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                73.2%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(651.1, 420.725)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                71.4%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(456.2, 495.10833333333335)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                39.5%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="49.41"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="49.41"
+                    y="428.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="49.41"
+                    y="344.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="49.41"
+                    y="260.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60%
+                </text>
+                <text
+                    x="49.41"
+                    y="176.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    80%
+                </text>
+                <text
+                    x="49.41"
+                    y="92"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="205.0"
-                y="128.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="205" y="128.18666666666667">Family</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="205.0"
-                y="202.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="205" y="202.57">People I know personally</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="205.0"
-                y="277.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="205" y="276.9533333333334">
-                    People of another religion
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="205.0"
-                y="351.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="205" y="351.3366666666667">
-                    People of another nationality
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="205.0"
-                y="425.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="205" y="425.72">Neighborhood</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="205.0"
-                y="500.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="205" y="500.10333333333335">
-                    People I meet for the first time
-                </tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="54.41"
+                y1="512.3"
+                x2="630.93"
+                y2="512.3"
+                stroke="#999"
+            ></line>
+            <line
+                id="20%"
+                x1="54.41"
+                y1="428.2"
+                x2="630.93"
+                y2="428.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="54.41"
+                y1="344.2"
+                x2="630.93"
+                y2="344.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60%"
+                x1="54.41"
+                y1="260.1"
+                x2="630.93"
+                y2="260.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80%"
+                x1="54.41"
+                y1="176.1"
+                x2="630.93"
+                y2="176.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100%"
+                x1="54.41"
+                y1="92"
+                x2="630.93"
+                y2="92"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Family"
+                    d="M634.9300000000001,116.5 H643.4300000000001 V116.5 H651.9300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="People-I-know-personally"
+                    d="M634.9300000000001,135.7 H643.4300000000001 V135.7 H651.9300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="People-of-another-religion"
+                    d="M634.9300000000001,200.3 H646.2633333333333 V187.46666666666664 H651.9300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="People-of-another-nationality"
+                    d="M634.9300000000001,204.6 H646.2633333333333 V205.76666666666665 H651.9300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Neighborhood"
+                    d="M634.9300000000001,212.4 H640.5966666666667 V224.06666666666666 H651.9300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="People-I-meet-for-the-first-time"
+                    d="M634.9300000000001,346.4 H643.4300000000001 V346.4 H651.9300000000001"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Family"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="655.9"
+                    y="121.3"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="655.9300000000001" y="121.31">Family</tspan>
+                </text>
+                <text
+                    id="label__People-I-know-personally"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="655.9"
+                    y="140.5"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="655.9300000000001" y="140.51">
+                        People I know personally
+                    </tspan>
+                </text>
+                <text
+                    id="label__People-of-another-religion"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="655.9"
+                    y="192.3"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="655.9300000000001" y="192.27666666666664">
+                        People of another religion
+                    </tspan>
+                </text>
+                <text
+                    id="label__People-of-another-nationality"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="655.9"
+                    y="210.6"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="655.9300000000001" y="210.57666666666665">
+                        People of another nationality
+                    </tspan>
+                </text>
+                <text
+                    id="label__Neighborhood"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="655.9"
+                    y="228.9"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="655.9300000000001" y="228.87666666666667">
+                        Neighborhood
+                    </tspan>
+                </text>
+                <text
+                    id="label__People-I-meet-for-the-first-time"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="655.9"
+                    y="351.2"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="655.9300000000001" y="351.21">
+                        People I meet for the first time
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__People-I-know-personally"
+                stroke-width="2.5"
+                d="M342.7 135.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__People-I-know-personally"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M342.7 135.7"
+            ></path>
+            <g id="datapoints__People-I-know-personally">
+                <circle
+                    id="2022"
+                    cx="342.7"
+                    cy="135.7"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__People-I-meet-for-the-first-time"
+                stroke-width="2.5"
+                d="M342.7 346.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__People-I-meet-for-the-first-time"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M342.7 346.4"
+            ></path>
+            <g id="datapoints__People-I-meet-for-the-first-time">
+                <circle
+                    id="2022"
+                    cx="342.7"
+                    cy="346.4"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__People-of-another-religion"
+                stroke-width="2.5"
+                d="M342.7 200.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__People-of-another-religion"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M342.7 200.3"
+            ></path>
+            <g id="datapoints__People-of-another-religion">
+                <circle
+                    id="2022"
+                    cx="342.7"
+                    cy="200.3"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__People-of-another-nationality"
+                stroke-width="2.5"
+                d="M342.7 204.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__People-of-another-nationality"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M342.7 204.6"
+            ></path>
+            <g id="datapoints__People-of-another-nationality">
+                <circle
+                    id="2022"
+                    cx="342.7"
+                    cy="204.6"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Family"
+                stroke-width="2.5"
+                d="M342.7 116.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Family"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M342.7 116.5"
+            ></path>
+            <g id="datapoints__Family">
+                <circle
+                    id="2022"
+                    cx="342.7"
+                    cy="116.5"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Neighborhood"
+                stroke-width="2.5"
+                d="M342.7 212.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Neighborhood"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M342.7 212.4"
+            ></path>
+            <g id="datapoints__Neighborhood">
+                <circle
+                    id="2022"
+                    cx="342.7"
+                    cy="212.4"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

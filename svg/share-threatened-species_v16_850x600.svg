@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -90,224 +79,401 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="127.85"
-            y1="552.40"
-            x2="127.85"
-            y2="122.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Horseshoe-Crabs"
-                x="0"
-                y="0"
-                transform="translate(128.1, 134.55333333333334)"
-                width="661.1999999999999"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Gymnosperms"
-                x="0"
-                y="0"
-                transform="translate(128.1, 206.2866666666667)"
-                width="284.29999999999995"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Amphibians"
-                x="0"
-                y="0"
-                transform="translate(128.1, 278.02000000000004)"
-                width="271.1"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Mammals"
-                x="0"
-                y="0"
-                transform="translate(128.1, 349.75333333333333)"
-                width="178.50000000000003"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Reptiles"
-                x="0"
-                y="0"
-                transform="translate(128.1, 421.4866666666667)"
-                width="138.79999999999998"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Birds"
-                x="0"
-                y="0"
-                transform="translate(128.1, 493.21999999999997)"
-                width="79.30000000000001"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2024"
+                    x1="379.005"
+                    y1="531.9"
+                    x2="379.005"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="379.005"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2024
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(794.3, 157.86666666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                100%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(417.4, 229.60000000000002)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                43%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(404.2, 301.33333333333337)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                41%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(311.6, 373.06666666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                27%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(271.9, 444.8)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                21%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(212.4, 516.5333333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                12%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="49.41"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="49.41"
+                    y="451.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="49.41"
+                    y="370.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="49.41"
+                    y="289.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60%
+                </text>
+                <text
+                    x="49.41"
+                    y="208.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    80%
+                </text>
+                <text
+                    x="49.41"
+                    y="128"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="123.1"
-                y="162.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="123.1" y="162.86166666666668">Horseshoe Crabs</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="123.1"
-                y="234.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="123.1" y="234.59500000000003">Gymnosperms</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="123.1"
-                y="306.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="123.1" y="306.3283333333334">Amphibians</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="123.1"
-                y="378.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="123.1" y="378.06166666666667">Mammals</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="123.1"
-                y="449.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="123.1" y="449.795">Reptiles</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="123.1"
-                y="521.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="123.1" y="521.5283333333333">Birds</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="54.41"
+                y1="532.4"
+                x2="703.60"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="20%"
+                x1="54.41"
+                y1="451.5"
+                x2="703.60"
+                y2="451.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="54.41"
+                y1="370.6"
+                x2="703.60"
+                y2="370.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60%"
+                x1="54.41"
+                y1="289.8"
+                x2="703.60"
+                y2="289.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80%"
+                x1="54.41"
+                y1="208.9"
+                x2="703.60"
+                y2="208.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100%"
+                x1="54.41"
+                y1="128"
+                x2="703.60"
+                y2="128"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Horseshoe-Crabs"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="707.6"
+                    y="134.0"
+                    fill="#286bbb"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="707.6" y="133.96">Horseshoe Crabs</tspan>
+                </text>
+                <text
+                    id="label__Gymnosperms"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="707.6"
+                    y="358.2"
+                    fill="#54a385"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="707.6" y="358.21">Gymnosperms</tspan>
+                </text>
+                <text
+                    id="label__Amphibians"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="707.6"
+                    y="376.5"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="707.6" y="376.51">Amphibians</tspan>
+                </text>
+                <text
+                    id="label__Mammals"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="707.6"
+                    y="428.0"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="707.6" y="428.01">Mammals</tspan>
+                </text>
+                <text
+                    id="label__Reptiles"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="707.6"
+                    y="452.3"
+                    fill="#af8454"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="707.6" y="452.31">Reptiles</tspan>
+                </text>
+                <text
+                    id="label__Birds"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="707.6"
+                    y="488.7"
+                    fill="#c05917"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="707.6" y="488.71">Birds</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Reptiles"
+                stroke-width="2.5"
+                d="M379 447.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#bc8e5a"
+                id="line__Reptiles"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M379 447.5"
+            ></path>
+            <g id="datapoints__Reptiles">
+                <circle
+                    id="2024"
+                    cx="379"
+                    cy="447.5"
+                    r="1.8"
+                    fill="#bc8e5a"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Mammals"
+                stroke-width="2.5"
+                d="M379 423.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Mammals"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M379 423.2"
+            ></path>
+            <g id="datapoints__Mammals">
+                <circle
+                    id="2024"
+                    cx="379"
+                    cy="423.2"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Horseshoe-Crabs"
+                stroke-width="2.5"
+                d="M379 128"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#286bbb"
+                id="line__Horseshoe-Crabs"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M379 128"
+            ></path>
+            <g id="datapoints__Horseshoe-Crabs">
+                <circle
+                    id="2024"
+                    cx="379"
+                    cy="128"
+                    r="1.8"
+                    fill="#286bbb"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Gymnosperms"
+                stroke-width="2.5"
+                d="M379 358.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#58ac8c"
+                id="line__Gymnosperms"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M379 358.5"
+            ></path>
+            <g id="datapoints__Gymnosperms">
+                <circle
+                    id="2024"
+                    cx="379"
+                    cy="358.5"
+                    r="1.8"
+                    fill="#58ac8c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Birds"
+                stroke-width="2.5"
+                d="M379 483.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c05917"
+                id="line__Birds"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M379 483.9"
+            ></path>
+            <g id="datapoints__Birds">
+                <circle
+                    id="2024"
+                    cx="379"
+                    cy="483.9"
+                    r="1.8"
+                    fill="#c05917"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Amphibians"
+                stroke-width="2.5"
+                d="M379 366.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Amphibians"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M379 366.6"
+            ></path>
+            <g id="datapoints__Amphibians">
+                <circle
+                    id="2024"
+                    cx="379"
+                    cy="366.6"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -84,204 +73,396 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="248.05"
-            y1="552.40"
-            x2="248.05"
-            y2="137.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Projected-business-as-usual"
-                x="0"
-                y="0"
-                transform="translate(248.3, 151.539)"
-                width="526.5999999999999"
-                height="54.001999999999995"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Global-per-capita-meat-consumption-165g/day"
-                x="0"
-                y="0"
-                transform="translate(248.3, 234.619)"
-                width="412.40000000000003"
-                height="54.001999999999995"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="50mg-antibiotic-per-kg-meat-limit-for-OECD-&amp;-China"
-                x="0"
-                y="0"
-                transform="translate(248.3, 317.69899999999996)"
-                width="212.89999999999998"
-                height="54.001999999999995"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Global-limit-of-50mg-antibiotic-per-kg-meat"
-                x="0"
-                y="0"
-                transform="translate(248.3, 400.779)"
-                width="191.59999999999997"
-                height="54.001999999999995"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Global-per-capita-meat-consumption-40g/day"
-                x="0"
-                y="0"
-                transform="translate(248.3, 483.8589999999999)"
-                width="176.89999999999998"
-                height="54.001999999999995"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2030"
+                    x1="331.55499999999995"
+                    y1="531.9"
+                    x2="331.55499999999995"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="331.55499999999995"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2030
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(779.9, 178.54)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                200,235
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(665.7, 261.62)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                156,802
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(466.2, 344.69999999999993)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                80,970
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(444.9, 427.78)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                72,850
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(430.2, 510.8599999999999)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                67,244
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="63.32"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0
+                </text>
+                <text
+                    x="63.32"
+                    y="435.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    50,000
+                </text>
+                <text
+                    x="63.32"
+                    y="337.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100,000
+                </text>
+                <text
+                    x="63.32"
+                    y="240.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    150,000
+                </text>
+                <text
+                    x="63.32"
+                    y="143.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    200,000
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="243.3"
-                y="183.5"
-                fill="#555"
-                text-anchor="end"
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0"
+                x1="68.32"
+                y1="532.4"
+                x2="594.79"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="50,000"
+                x1="68.32"
+                y1="435.2"
+                x2="594.79"
+                y2="435.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100,000"
+                x1="68.32"
+                y1="337.9"
+                x2="594.79"
+                y2="337.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="150,000"
+                x1="68.32"
+                y1="240.7"
+                x2="594.79"
+                y2="240.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="200,000"
+                x1="68.32"
+                y1="143.5"
+                x2="594.79"
+                y2="143.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Projected-business-as-usual"
+                    d="M598.79,143 H607.29 V144.15 H615.79"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Global-per-capita-meat-consumption-165g/day"
+                    d="M598.79,227.5 H607.29 V234.65 H615.79"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="50mg-antibiotic-per-kg-meat-limit-for-OECD-&amp;-China"
+                    d="M598.79,374.9 H610.1233333333332 V363.6166666666667 H615.79"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Global-limit-of-50mg-antibiotic-per-kg-meat"
+                    d="M598.79,390.7 H610.1233333333332 V396.2166666666667 H615.79"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Global-per-capita-meat-consumption-40g/day"
+                    d="M598.79,401.6 H604.4566666666666 V428.8166666666667 H615.79"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Projected-business-as-usual"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="619.8"
+                    y="149.0"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="619.79" y="148.96">
+                        Projected business-as-usual
+                    </tspan>
+                </text>
+                <text
+                    id="label__Global-per-capita-meat-consumption-165g/day"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="619.8"
+                    y="232.3"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="619.79" y="232.31">
+                        Global per capita meat consumption
+                    </tspan>
+                    <tspan x="619.79" y="246.61">165g/day</tspan>
+                </text>
+                <text
+                    id="label__50mg-antibiotic-per-kg-meat-limit-for-OECD-&amp;-China"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="619.8"
+                    y="361.3"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="619.79" y="361.27666666666664">
+                        50mg antibiotic per kg meat limit for
+                    </tspan>
+                    <tspan x="619.79" y="375.57666666666665">
+                        OECD &amp; China
+                    </tspan>
+                </text>
+                <text
+                    id="label__Global-limit-of-50mg-antibiotic-per-kg-meat"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="619.8"
+                    y="393.9"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="619.79" y="393.87666666666667">
+                        Global limit of 50mg antibiotic per kg
+                    </tspan>
+                    <tspan x="619.79" y="408.1766666666667">meat</tspan>
+                </text>
+                <text
+                    id="label__Global-per-capita-meat-consumption-40g/day"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="619.8"
+                    y="426.5"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="619.79" y="426.4766666666667">
+                        Global per capita meat consumption
+                    </tspan>
+                    <tspan x="619.79" y="440.7766666666667">40g/day</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Global-per-capita-meat-consumption-165g/day"
+                stroke-width="2.5"
+                d="M331.6 227.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Global-per-capita-meat-consumption-165g/day"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M331.6 227.5"
+            ></path>
+            <g id="datapoints__Global-per-capita-meat-consumption-165g/day">
+                <circle
+                    id="2030"
+                    cx="331.6"
+                    cy="227.5"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Global-per-capita-meat-consumption-40g/day"
+                stroke-width="2.5"
+                d="M331.6 401.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Global-per-capita-meat-consumption-40g/day"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M331.6 401.6"
+            ></path>
+            <g id="datapoints__Global-per-capita-meat-consumption-40g/day">
+                <circle
+                    id="2030"
+                    cx="331.6"
+                    cy="401.6"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__50mg-antibiotic-per-kg-meat-limit-for-OECD-&amp;-China"
+                stroke-width="2.5"
+                d="M331.6 374.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__50mg-antibiotic-per-kg-meat-limit-for-OECD-&amp;-China"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M331.6 374.9"
+            ></path>
+            <g
+                id="datapoints__50mg-antibiotic-per-kg-meat-limit-for-OECD-&amp;-China"
             >
-                <tspan x="243.3" y="183.53499999999997">
-                    Projected business-as-usual
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="243.3"
-                y="259.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="243.3" y="259.19">Global per capita meat</tspan>
-                <tspan x="243.3" y="274.04">consumption 165g/day</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="243.3"
-                y="342.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="243.3" y="342.2699999999999">
-                    50mg antibiotic per kg meat limit for
-                </tspan>
-                <tspan x="243.3" y="357.11999999999995">OECD &amp; China</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="243.3"
-                y="425.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="243.3" y="425.34999999999997">
-                    Global limit of 50mg antibiotic per
-                </tspan>
-                <tspan x="243.3" y="440.2">kg meat</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="243.3"
-                y="508.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="243.3" y="508.4299999999999">
-                    Global per capita meat
-                </tspan>
-                <tspan x="243.3" y="523.2799999999999">
-                    consumption 40g/day
-                </tspan>
-            </text>
+                <circle
+                    id="2030"
+                    cx="331.6"
+                    cy="374.9"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Global-limit-of-50mg-antibiotic-per-kg-meat"
+                stroke-width="2.5"
+                d="M331.6 390.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Global-limit-of-50mg-antibiotic-per-kg-meat"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M331.6 390.7"
+            ></path>
+            <g id="datapoints__Global-limit-of-50mg-antibiotic-per-kg-meat">
+                <circle
+                    id="2030"
+                    cx="331.6"
+                    cy="390.7"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Projected-business-as-usual"
+                stroke-width="2.5"
+                d="M331.6 143"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Projected-business-as-usual"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M331.6 143"
+            ></path>
+            <g id="datapoints__Projected-business-as-usual">
+                <circle
+                    id="2030"
+                    cx="331.6"
+                    cy="143"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

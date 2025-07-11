@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -92,158 +81,302 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="242.45"
-            y1="552.40"
-            x2="242.45"
-            y2="125.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Fossil-fuels"
-                x="0"
-                y="0"
-                transform="translate(242.7, 144.27249999999998)"
-                width="515"
-                height="69.35499999999999"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Low-carbon-(nuclear-+-renewables)"
-                x="0"
-                y="0"
-                transform="translate(242.7, 250.97249999999997)"
-                width="342.8"
-                height="69.35499999999999"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Renewables"
-                x="0"
-                y="0"
-                transform="translate(242.7, 357.6724999999999)"
-                width="312.50000000000006"
-                height="69.35499999999999"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Nuclear"
-                x="0"
-                y="0"
-                transform="translate(242.7, 464.37249999999995)"
-                width="30.19999999999999"
-                height="69.35499999999999"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2023"
+                    x1="342.605"
+                    y1="531.9"
+                    x2="342.605"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="342.605"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2023
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(762.7, 178.94999999999996)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                2,048 TWh
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(590.5, 285.65)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1,363 TWh
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(560.2, 392.3499999999999)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1,243 TWh
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(277.9, 499.04999999999995)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                120 TWh
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="79.83"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0 TWh
+                </text>
+                <text
+                    x="79.83"
+                    y="434.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    500 TWh
+                </text>
+                <text
+                    x="79.83"
+                    y="336.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1,000 TWh
+                </text>
+                <text
+                    x="79.83"
+                    y="238.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1,500 TWh
+                </text>
+                <text
+                    x="79.83"
+                    y="141"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2,000 TWh
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="237.7"
-                y="183.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="237.7" y="183.94499999999994">Fossil fuels</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="237.7"
-                y="290.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="237.7" y="290.645">
-                    Low-carbon (nuclear + renewables)
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="237.7"
-                y="397.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="237.7" y="397.3449999999999">Renewables</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="237.7"
-                y="504.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="237.7" y="504.04499999999996">Nuclear</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-TWh"
+                x1="84.83"
+                y1="532.4"
+                x2="600.38"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="500-TWh"
+                x1="84.83"
+                y1="434.5"
+                x2="600.38"
+                y2="434.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1,000-TWh"
+                x1="84.83"
+                y1="336.7"
+                x2="600.38"
+                y2="336.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1,500-TWh"
+                x1="84.83"
+                y1="238.8"
+                x2="600.38"
+                y2="238.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="2,000-TWh"
+                x1="84.83"
+                y1="141"
+                x2="600.38"
+                y2="141"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Fossil-fuels"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="604.4"
+                    y="137.6"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="604.38" y="137.56">Fossil fuels</tspan>
+                </text>
+                <text
+                    id="label__Low-carbon-(nuclear-+-renewables)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="604.4"
+                    y="270.4"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="604.38" y="270.41">
+                        Low-carbon (nuclear + renewables)
+                    </tspan>
+                </text>
+                <text
+                    id="label__Renewables"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="604.4"
+                    y="294.0"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="604.38" y="294.01">Renewables</tspan>
+                </text>
+                <text
+                    id="label__Nuclear"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="604.4"
+                    y="513.7"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="604.38" y="513.71">Nuclear</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Nuclear"
+                stroke-width="2.5"
+                d="M342.6 508.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Nuclear"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M342.6 508.9"
+            ></path>
+            <g id="datapoints__Nuclear">
+                <circle
+                    id="2023"
+                    cx="342.6"
+                    cy="508.9"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Fossil-fuels"
+                stroke-width="2.5"
+                d="M342.6 131.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Fossil-fuels"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M342.6 131.6"
+            ></path>
+            <g id="datapoints__Fossil-fuels">
+                <circle
+                    id="2023"
+                    cx="342.6"
+                    cy="131.6"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Renewables"
+                stroke-width="2.5"
+                d="M342.6 289.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Renewables"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M342.6 289.2"
+            ></path>
+            <g id="datapoints__Renewables">
+                <circle
+                    id="2023"
+                    cx="342.6"
+                    cy="289.2"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Low-carbon-(nuclear-+-renewables)"
+                stroke-width="2.5"
+                d="M342.6 265.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Low-carbon-(nuclear-+-renewables)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M342.6 265.6"
+            ></path>
+            <g id="datapoints__Low-carbon-(nuclear-+-renewables)">
+                <circle
+                    id="2023"
+                    cx="342.6"
+                    cy="265.6"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">
