@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -78,408 +67,75 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <g id="horizontal-axis" class="HorizontalAxis">
-            <g id="horizontal-axis-label" class="markdown-text-wrap">
-                <text
-                    x="410.8"
-                    y="513.0"
-                    style="font-size: 13px; font-weight: 700; line-height: 1"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                >
-                    <tspan x="410.79" y="513.0">
-                        Year of first successful launch
-                    </tspan>
-                </text>
-            </g>
-            <g id="tick-labels">
-                <text
-                    x="89.38"
-                    y="491.70000000000005"
-                    fill="#5b5b5b"
-                    text-anchor="start"
-                    font-size="13"
-                >
-                    1961
-                </text>
-                <text
-                    x="250.1"
-                    y="491.70000000000005"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    1961.5
-                </text>
-                <text
-                    x="410.8"
-                    y="491.70000000000005"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    1962
-                </text>
-                <text
-                    x="571.5"
-                    y="491.70000000000005"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    1962.5
-                </text>
-                <text
-                    x="732.2"
-                    y="491.70000000000005"
-                    fill="#5b5b5b"
-                    text-anchor="end"
-                    font-size="13"
-                >
-                    1963
-                </text>
-            </g>
-        </g>
-        <g id="vertical-axis" class="VerticalAxis">
-            <g id="vertical-axis-label" class="markdown-text-wrap">
-                <text
-                    x="16.0"
-                    y="115.3"
-                    style="font-size: 13px; line-height: 1"
-                    fill="#5b5b5b"
-                    text-anchor="start"
-                >
-                    <tspan x="16" y="115.3">
-                        <tspan style="font-weight: 700">
-                            Launch cost per kilogram of payload
+        <g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="horizontal-axis-label" class="markdown-text-wrap">
+                    <text
+                        x="410.5"
+                        y="513.0"
+                        style="
+                            font-size: 13px;
+                            font-weight: 700;
+                            line-height: 1;
+                        "
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                    >
+                        <tspan x="410.5" y="513.0">
+                            Year of first successful launch
                         </tspan>
-                        (constant 2021 US$ per kilogram)
-                    </tspan>
-                </text>
-            </g>
-            <g id="tick-labels">
-                <text
-                    x="84.38"
-                    y="473.7"
-                    dy=".32em"
-                    text-anchor="end"
-                    fill="#5b5b5b"
-                    font-size="13"
-                >
-                    0 $/kg
-                </text>
-                <text
-                    x="84.38"
-                    y="427.7"
-                    dy=".32em"
-                    text-anchor="end"
-                    fill="#5b5b5b"
-                    font-size="13"
-                >
-                    2,000 $/kg
-                </text>
-                <text
-                    x="84.38"
-                    y="381.7"
-                    dy=".32em"
-                    text-anchor="end"
-                    fill="#5b5b5b"
-                    font-size="13"
-                >
-                    4,000 $/kg
-                </text>
-                <text
-                    x="84.38"
-                    y="335.7"
-                    dy=".32em"
-                    text-anchor="end"
-                    fill="#5b5b5b"
-                    font-size="13"
-                >
-                    6,000 $/kg
-                </text>
-                <text
-                    x="84.38"
-                    y="289.7"
-                    dy=".32em"
-                    text-anchor="end"
-                    fill="#5b5b5b"
-                    font-size="13"
-                >
-                    8,000 $/kg
-                </text>
-                <text
-                    x="84.38"
-                    y="243.7"
-                    dy=".32em"
-                    text-anchor="end"
-                    fill="#5b5b5b"
-                    font-size="13"
-                >
-                    10,000 $/kg
-                </text>
-                <text
-                    x="84.38"
-                    y="197.7"
-                    dy=".32em"
-                    text-anchor="end"
-                    fill="#5b5b5b"
-                    font-size="13"
-                >
-                    12,000 $/kg
-                </text>
-                <text
-                    x="84.38"
-                    y="151.7"
-                    dy=".32em"
-                    text-anchor="end"
-                    fill="#5b5b5b"
-                    font-size="13"
-                >
-                    14,000 $/kg
-                </text>
-            </g>
-        </g>
-        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
-            <line
-                id="0-$/kg"
-                x1="89.38"
-                y1="473.7"
-                x2="732.20"
-                y2="473.7"
-                stroke="#999"
-            ></line>
-            <line
-                id="2,000-$/kg"
-                x1="89.38"
-                y1="427.7"
-                x2="732.20"
-                y2="427.7"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="4,000-$/kg"
-                x1="89.38"
-                y1="381.7"
-                x2="732.20"
-                y2="381.7"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="6,000-$/kg"
-                x1="89.38"
-                y1="335.7"
-                x2="732.20"
-                y2="335.7"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="8,000-$/kg"
-                x1="89.38"
-                y1="289.7"
-                x2="732.20"
-                y2="289.7"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="10,000-$/kg"
-                x1="89.38"
-                y1="243.7"
-                x2="732.20"
-                y2="243.7"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="12,000-$/kg"
-                x1="89.38"
-                y1="197.7"
-                x2="732.20"
-                y2="197.7"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="14,000-$/kg"
-                x1="89.38"
-                y1="151.7"
-                x2="732.20"
-                y2="151.7"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-        </g>
-        <g id="vertical-grid-lines" class="AxisGridLines verticalLines">
-            <line
-                id="1961"
-                x1="89.4"
-                y1="473.70"
-                x2="89.4"
-                y2="131.00"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="1961.5"
-                x1="250.1"
-                y1="473.70"
-                x2="250.1"
-                y2="131.00"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="1962"
-                x1="410.8"
-                y1="473.70"
-                x2="410.8"
-                y2="131.00"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="1962.5"
-                x1="571.5"
-                y1="473.70"
-                x2="571.5"
-                y2="131.00"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="1963"
-                x1="732.2"
-                y1="473.70"
-                x2="732.2"
-                y2="131.00"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-        </g>
-        <g
-            id="scatter-points"
-            class="PointsWithLabels clickable"
-            clip-path="url(#scatterBounds-1)"
-        >
-            <rect
-                x="89.38"
-                y="131"
-                width="642.82"
-                height="342.7"
-                fill="rgba(255,255,255,0)"
-            ></rect>
-            <defs>
-                <clipPath id="scatterBounds-1">
-                    <rect
-                        x="79.38"
-                        y="121"
-                        width="662.82"
-                        height="362.7"
-                    ></rect>
-                </clipPath>
-            </defs>
-            <g id="points">
-                <g id="Kosmos__datapoint" class="key-Kosmos">
-                    <circle
-                        cx="410.00"
-                        cy="131.00"
-                        r="3.00"
-                        fill="#00847e"
-                        opacity="0.8"
-                        stroke="#333"
-                        stroke-width="0.5"
-                        style="transition: fill 250ms"
-                    ></circle>
+                    </text>
                 </g>
+                <g id="tick-marks"></g>
+                <g id="tick-labels"></g>
             </g>
-            <g id="labels" class="backgroundLabels" fill="#333">
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels"></g>
+            </g>
+            <g
+                id="horizontal-grid-lines"
+                class="AxisGridLines horizontalLines"
+            ></g>
+            <g class="no-data">
+                <rect
+                    x="16"
+                    y="155.5"
+                    width="789"
+                    height="336.2"
+                    fill="#fff"
+                    opacity="0.6"
+                ></rect>
                 <text
-                    id="outline__Kosmos"
-                    x="410.00"
-                    y="143.99"
-                    font-size="12.99"
-                    font-weight="400"
-                    fill="#00847e"
+                    x="410.5"
+                    y="323.6"
+                    dy=".32em"
+                    text-anchor="middle"
+                    font-size="16"
+                    font-weight="500"
+                    fill="#5b5b5b"
+                    id="no-data-message"
                     style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
+                        fill: #fff;
+                        stroke: #fff;
                         stroke-linecap: round;
                         stroke-linejoin: round;
                         user-select: none;
-                        stroke-width: 3.2484375;
+                        stroke-width: 4;
                     "
                 >
-                    Kosmos
+                    No launch selected
                 </text>
                 <text
-                    id="label__Kosmos"
-                    x="410.00"
-                    y="143.99"
-                    font-size="12.99"
-                    font-weight="400"
-                    fill="#00847e"
-                    style="pointer-events: none"
+                    x="410.5"
+                    y="323.6"
+                    dy=".32em"
+                    text-anchor="middle"
+                    font-size="16"
+                    font-weight="500"
+                    fill="#5b5b5b"
                 >
-                    Kosmos
+                    No launch selected
                 </text>
-            </g>
-            <g id="points"></g>
-            <g id="labels"></g>
-        </g>
-        <g id="vertical-color-legend" class="ScatterColorLegend clickable">
-            <text font-size="12.60" font-weight="700" x="752.2" y="142.0">
-                <tspan x="752.2" y="141.962">Payload size</tspan>
-            </text>
-            <g id="labels">
-                <text
-                    font-size="12.60"
-                    x="766.2"
-                    y="159.6"
-                    style="font-weight: bold"
-                >
-                    <tspan x="766.2" y="159.56199999999998">Heavy</tspan>
-                </text>
-                <text
-                    font-size="12.60"
-                    x="766.2"
-                    y="177.2"
-                    style="font-weight: bold"
-                >
-                    <tspan x="766.2" y="177.16199999999998">Medium</tspan>
-                </text>
-                <text font-size="12.60" x="766.2" y="194.8">
-                    <tspan x="766.2" y="194.762">Small</tspan>
-                </text>
-            </g>
-            <g id="swatches">
-                <rect
-                    id="Heavy"
-                    x="752.2"
-                    y="150.56199999999998"
-                    width="9"
-                    height="9"
-                    fill="#ccc"
-                ></rect>
-                <rect
-                    id="Medium"
-                    x="752.2"
-                    y="168.16199999999998"
-                    width="9"
-                    height="9"
-                    fill="#ccc"
-                ></rect>
-                <rect
-                    id="Small"
-                    x="752.2"
-                    y="185.762"
-                    width="9"
-                    height="9"
-                    fill="#00847e"
-                ></rect>
             </g>
         </g>
     </g>

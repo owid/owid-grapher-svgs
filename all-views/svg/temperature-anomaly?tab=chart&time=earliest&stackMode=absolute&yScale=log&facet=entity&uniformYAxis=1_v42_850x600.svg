@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -76,122 +65,102 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="569.00"
-            y1="516.70"
-            x2="569.00"
-            y2="107.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Upper-bound"
-                x="0"
-                y="0"
-                transform="translate(569, 131.46416666666664)"
-                width="208.29999999999995"
-                height="88.63833333333332"
-                fill="#c8c8c8"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Average"
-                x="0"
-                y="0"
-                transform="translate(469.6, 267.8308333333333)"
-                width="99.39999999999998"
-                height="88.63833333333332"
-                fill="#ca2628"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Lower-bound"
-                x="0"
-                y="0"
-                transform="translate(161.9, 404.19749999999993)"
-                width="407.1"
-                height="88.63833333333332"
-                fill="#c8c8c8"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="1850"
+                    x1="397.725"
+                    y1="496.19999999999993"
+                    x2="397.725"
+                    y2="501.69999999999993"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="397.725"
+                    y="514.6999999999999"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    1850
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(782.3, 175.7833333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                0.12 °C
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(464.6, 312.15)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="end"
-                font-size="13.5"
-                font-weight="400"
-            >
-                -0.06 °C
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(156.9, 448.5166666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="end"
-                font-size="13.5"
-                font-weight="400"
-            >
-                -0.23 °C
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="60.98"
+                    y="496.69999999999993"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.12 °C
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="564.0"
-                y="180.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="564" y="180.7783333333333">Upper bound</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="408.4"
-                y="317.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="408.435" y="317.145">Average</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="100.7"
-                y="453.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="100.735" y="453.5116666666666">Lower bound</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0.12-°C"
+                x1="65.98"
+                y1="496.69999999999993"
+                x2="729.47"
+                y2="496.69999999999993"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Upper-bound"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="733.5"
+                    y="501.5"
+                    fill="#a1a1a1"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="733.47" y="501.50999999999993">Upper bound</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Upper-bound"
+                stroke-width="2.5"
+                d="M397.7 496.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c8c8c8"
+                id="line__Upper-bound"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M397.7 496.7"
+            ></path>
+            <g id="datapoints__Upper-bound">
+                <circle
+                    id="1850"
+                    cx="397.7"
+                    cy="496.7"
+                    r="1.8"
+                    fill="#c8c8c8"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

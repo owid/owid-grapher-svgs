@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -82,7 +71,7 @@
     </g>
     <g id="chart-area" style="pointer-events: none">
         <text
-            x="16"
+            x="46.2"
             y="132.125"
             fill="#5b5b5b"
             font-size="13.5"
@@ -92,164 +81,213 @@
             <title>Cereals</title>
         </text>
         <g id="Cereals">
-            <line
-                id="vertical-zero-line"
-                x1="93.95"
-                y1="203.88"
-                x2="93.95"
-                y2="138.88"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <g id="India" class="bar" transform="translate(0, 147)">
-                    <g id="Cereals">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(94.2, -5.28125)"
-                            width="57.2"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2014"
+                        x1="127.6"
+                        y1="188.375"
+                        x2="127.6"
+                        y2="193.875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="89.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
+                        x="127.6"
+                        y="203.875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
                     >
-                        <tspan x="89.2" y="3.7462500000000007">India</tspan>
-                    </text>
-                    <text
-                        transform="translate(156.4, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        488 g
+                        2014
                     </text>
                 </g>
-                <g id="Kenya" class="bar" transform="translate(0, 163.25)">
-                    <g id="Cereals">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(94.2, -5.28125)"
-                            width="45.39999999999999"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="89.2"
-                        y="3.7"
+                        x="41.20"
+                        y="188.9"
+                        dy=".32em"
                         text-anchor="end"
-                        fill="#555"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        <tspan x="89.2" y="3.7462500000000007">Kenya</tspan>
+                        0 g
                     </text>
                     <text
-                        transform="translate(144.6, 0)"
+                        x="41.20"
+                        y="166.9"
                         dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        388 g
+                        500 g
+                    </text>
+                    <text
+                        x="41.20"
+                        y="144.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        1k g
                     </text>
                 </g>
-                <g
-                    id="United-Kingdom"
-                    class="bar"
-                    transform="translate(0, 179.5)"
-                >
-                    <g id="Cereals">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(94.2, -5.28125)"
-                            width="37.999999999999986"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="89.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="89.2" y="3.7462500000000007">
-                            United Kingdom
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(137.2, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        324 g
-                    </text>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-g"
+                    x1="46.20"
+                    y1="188.9"
+                    x2="209.00"
+                    y2="188.9"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="500-g"
+                    x1="46.20"
+                    y1="166.9"
+                    x2="209.00"
+                    y2="166.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1k-g"
+                    x1="46.20"
+                    y1="144.9"
+                    x2="209.00"
+                    y2="144.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__India"
+                    stroke-width="2.5"
+                    d="M127.6 167.4"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#2c8465"
+                    id="line__India"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M127.6 167.4"
+                ></path>
+                <g id="datapoints__India">
+                    <circle
+                        id="2014"
+                        cx="127.6"
+                        cy="167.4"
+                        r="1.8"
+                        fill="#2c8465"
+                        opacity="1"
+                    ></circle>
                 </g>
-                <g
-                    id="United-States"
-                    class="bar"
-                    transform="translate(0, 195.75)"
-                >
-                    <g id="Cereals">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(94.2, -5.28125)"
-                            width="35.499999999999986"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="89.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="89.2" y="3.7462500000000007">
-                            United States
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(134.7, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        303 g
-                    </text>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Kenya"
+                    stroke-width="2.5"
+                    d="M127.6 171.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#996d39"
+                    id="line__Kenya"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M127.6 171.8"
+                ></path>
+                <g id="datapoints__Kenya">
+                    <circle
+                        id="2014"
+                        cx="127.6"
+                        cy="171.8"
+                        r="1.8"
+                        fill="#996d39"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-States"
+                    stroke-width="2.5"
+                    d="M127.6 175.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#b13507"
+                    id="line__United-States"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M127.6 175.5"
+                ></path>
+                <g id="datapoints__United-States">
+                    <circle
+                        id="2014"
+                        cx="127.6"
+                        cy="175.5"
+                        r="1.8"
+                        fill="#b13507"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-Kingdom"
+                    stroke-width="2.5"
+                    d="M127.6 174.6"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__United-Kingdom"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M127.6 174.6"
+                ></path>
+                <g id="datapoints__United-Kingdom">
+                    <circle
+                        id="2014"
+                        cx="127.6"
+                        cy="174.6"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
                 </g>
             </g>
         </g>
         <text
-            x="224"
+            x="254.2"
             y="132.125"
             fill="#5b5b5b"
             font-size="13.5"
@@ -259,164 +297,213 @@
             <title>Roots and tubers</title>
         </text>
         <g id="Roots-and-tubers">
-            <line
-                id="vertical-zero-line"
-                x1="301.95"
-                y1="203.88"
-                x2="301.95"
-                y2="138.88"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <g
-                    id="United-Kingdom"
-                    class="bar"
-                    transform="translate(0, 147)"
-                >
-                    <g id="Roots-and-tubers">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(302.2, -5.28125)"
-                            width="28.69999999999999"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2014"
+                        x1="335.6"
+                        y1="188.375"
+                        x2="335.6"
+                        y2="193.875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="297.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
+                        x="335.6"
+                        y="203.875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
                     >
-                        <tspan x="297.2" y="3.7462500000000007">
-                            United Kingdom
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(335.9, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        245 g
+                        2014
                     </text>
                 </g>
-                <g id="Kenya" class="bar" transform="translate(0, 163.25)">
-                    <g id="Roots-and-tubers">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(302.2, -5.28125)"
-                            width="21.30000000000001"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="297.2"
-                        y="3.7"
+                        x="249.20"
+                        y="188.9"
+                        dy=".32em"
                         text-anchor="end"
-                        fill="#555"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        <tspan x="297.2" y="3.7462500000000007">Kenya</tspan>
+                        0 g
                     </text>
                     <text
-                        transform="translate(328.5, 0)"
+                        x="249.20"
+                        y="166.9"
                         dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        182 g
+                        500 g
+                    </text>
+                    <text
+                        x="249.20"
+                        y="144.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        1k g
                     </text>
                 </g>
-                <g
-                    id="United-States"
-                    class="bar"
-                    transform="translate(0, 179.5)"
-                >
-                    <g id="Roots-and-tubers">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(302.2, -5.28125)"
-                            width="17.900000000000034"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="297.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="297.2" y="3.7462500000000007">
-                            United States
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(325.1, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        153 g
-                    </text>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-g"
+                    x1="254.20"
+                    y1="188.9"
+                    x2="417.00"
+                    y2="188.9"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="500-g"
+                    x1="254.20"
+                    y1="166.9"
+                    x2="417.00"
+                    y2="166.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1k-g"
+                    x1="254.20"
+                    y1="144.9"
+                    x2="417.00"
+                    y2="144.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__India"
+                    stroke-width="2.5"
+                    d="M335.6 185.2"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#2c8465"
+                    id="line__India"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M335.6 185.2"
+                ></path>
+                <g id="datapoints__India">
+                    <circle
+                        id="2014"
+                        cx="335.6"
+                        cy="185.2"
+                        r="1.8"
+                        fill="#2c8465"
+                        opacity="1"
+                    ></circle>
                 </g>
-                <g id="India" class="bar" transform="translate(0, 195.75)">
-                    <g id="Roots-and-tubers">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(302.2, -5.28125)"
-                            width="9.900000000000034"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="297.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="297.2" y="3.7462500000000007">India</tspan>
-                    </text>
-                    <text
-                        transform="translate(317.1, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        85 g
-                    </text>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Kenya"
+                    stroke-width="2.5"
+                    d="M335.6 180.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#996d39"
+                    id="line__Kenya"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M335.6 180.8"
+                ></path>
+                <g id="datapoints__Kenya">
+                    <circle
+                        id="2014"
+                        cx="335.6"
+                        cy="180.8"
+                        r="1.8"
+                        fill="#996d39"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-States"
+                    stroke-width="2.5"
+                    d="M335.6 182.2"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#b13507"
+                    id="line__United-States"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M335.6 182.2"
+                ></path>
+                <g id="datapoints__United-States">
+                    <circle
+                        id="2014"
+                        cx="335.6"
+                        cy="182.2"
+                        r="1.8"
+                        fill="#b13507"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-Kingdom"
+                    stroke-width="2.5"
+                    d="M335.6 178.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__United-Kingdom"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M335.6 178.1"
+                ></path>
+                <g id="datapoints__United-Kingdom">
+                    <circle
+                        id="2014"
+                        cx="335.6"
+                        cy="178.1"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
                 </g>
             </g>
         </g>
         <text
-            x="432"
+            x="462.2"
             y="132.125"
             fill="#5b5b5b"
             font-size="13.5"
@@ -426,160 +513,213 @@
             <title>Vegetables</title>
         </text>
         <g id="Vegetables">
-            <line
-                id="vertical-zero-line"
-                x1="509.95"
-                y1="203.88"
-                x2="509.95"
-                y2="138.88"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <g id="United-States" class="bar" transform="translate(0, 147)">
-                    <g id="Vegetables">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(510.2, -5.28125)"
-                            width="38.900000000000034"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2014"
+                        x1="543.6"
+                        y1="188.375"
+                        x2="543.6"
+                        y2="193.875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="505.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
+                        x="543.6"
+                        y="203.875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
                     >
-                        <tspan x="505.2" y="3.7462500000000007">
-                            United States
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(554.1, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        333 g
+                        2014
                     </text>
                 </g>
-                <g
-                    id="United-Kingdom"
-                    class="bar"
-                    transform="translate(0, 163.25)"
-                >
-                    <g id="Vegetables">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(510.2, -5.28125)"
-                            width="27.000000000000057"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="505.2"
-                        y="3.7"
+                        x="457.20"
+                        y="188.9"
+                        dy=".32em"
                         text-anchor="end"
-                        fill="#555"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        <tspan x="505.2" y="3.7462500000000007">
-                            United Kingdom
-                        </tspan>
+                        0 g
                     </text>
                     <text
-                        transform="translate(542.2, 0)"
+                        x="457.20"
+                        y="166.9"
                         dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        231 g
+                        500 g
+                    </text>
+                    <text
+                        x="457.20"
+                        y="144.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        1k g
                     </text>
                 </g>
-                <g id="India" class="bar" transform="translate(0, 179.5)">
-                    <g id="Vegetables">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(510.2, -5.28125)"
-                            width="25.900000000000034"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="505.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="505.2" y="3.7462500000000007">India</tspan>
-                    </text>
-                    <text
-                        transform="translate(541.1, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        221 g
-                    </text>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-g"
+                    x1="462.20"
+                    y1="188.9"
+                    x2="625.00"
+                    y2="188.9"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="500-g"
+                    x1="462.20"
+                    y1="166.9"
+                    x2="625.00"
+                    y2="166.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1k-g"
+                    x1="462.20"
+                    y1="144.9"
+                    x2="625.00"
+                    y2="144.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__India"
+                    stroke-width="2.5"
+                    d="M543.6 179.2"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#2c8465"
+                    id="line__India"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M543.6 179.2"
+                ></path>
+                <g id="datapoints__India">
+                    <circle
+                        id="2014"
+                        cx="543.6"
+                        cy="179.2"
+                        r="1.8"
+                        fill="#2c8465"
+                        opacity="1"
+                    ></circle>
                 </g>
-                <g id="Kenya" class="bar" transform="translate(0, 195.75)">
-                    <g id="Vegetables">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(510.2, -5.28125)"
-                            width="15.699999999999989"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="505.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="505.2" y="3.7462500000000007">Kenya</tspan>
-                    </text>
-                    <text
-                        transform="translate(530.9, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        135 g
-                    </text>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Kenya"
+                    stroke-width="2.5"
+                    d="M543.6 183"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#996d39"
+                    id="line__Kenya"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M543.6 183"
+                ></path>
+                <g id="datapoints__Kenya">
+                    <circle
+                        id="2014"
+                        cx="543.6"
+                        cy="183"
+                        r="1.8"
+                        fill="#996d39"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-States"
+                    stroke-width="2.5"
+                    d="M543.6 174.2"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#b13507"
+                    id="line__United-States"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M543.6 174.2"
+                ></path>
+                <g id="datapoints__United-States">
+                    <circle
+                        id="2014"
+                        cx="543.6"
+                        cy="174.2"
+                        r="1.8"
+                        fill="#b13507"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-Kingdom"
+                    stroke-width="2.5"
+                    d="M543.6 178.7"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__United-Kingdom"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M543.6 178.7"
+                ></path>
+                <g id="datapoints__United-Kingdom">
+                    <circle
+                        id="2014"
+                        cx="543.6"
+                        cy="178.7"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
                 </g>
             </g>
         </g>
         <text
-            x="640"
+            x="670.2"
             y="132.125"
             fill="#5b5b5b"
             font-size="13.5"
@@ -589,164 +729,213 @@
             <title>Fruits</title>
         </text>
         <g id="Fruits">
-            <line
-                id="vertical-zero-line"
-                x1="717.95"
-                y1="203.88"
-                x2="717.95"
-                y2="138.88"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <g
-                    id="United-Kingdom"
-                    class="bar"
-                    transform="translate(0, 147)"
-                >
-                    <g id="Fruits">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(718.2, -5.28125)"
-                            width="28.09999999999991"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2014"
+                        x1="751.6"
+                        y1="188.375"
+                        x2="751.6"
+                        y2="193.875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="713.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
+                        x="751.6"
+                        y="203.875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
                     >
-                        <tspan x="713.2" y="3.7462500000000007">
-                            United Kingdom
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(751.3, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        240 g
+                        2014
                     </text>
                 </g>
-                <g
-                    id="United-States"
-                    class="bar"
-                    transform="translate(0, 163.25)"
-                >
-                    <g id="Fruits">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(718.2, -5.28125)"
-                            width="27.59999999999991"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="713.2"
-                        y="3.7"
+                        x="665.20"
+                        y="188.9"
+                        dy=".32em"
                         text-anchor="end"
-                        fill="#555"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        <tspan x="713.2" y="3.7462500000000007">
-                            United States
-                        </tspan>
+                        0 g
                     </text>
                     <text
-                        transform="translate(750.8, 0)"
+                        x="665.20"
+                        y="166.9"
                         dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        236 g
+                        500 g
+                    </text>
+                    <text
+                        x="665.20"
+                        y="144.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        1k g
                     </text>
                 </g>
-                <g id="Kenya" class="bar" transform="translate(0, 179.5)">
-                    <g id="Fruits">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(718.2, -5.28125)"
-                            width="20.899999999999977"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="713.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="713.2" y="3.7462500000000007">Kenya</tspan>
-                    </text>
-                    <text
-                        transform="translate(744.1, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        179 g
-                    </text>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-g"
+                    x1="670.20"
+                    y1="188.9"
+                    x2="833.00"
+                    y2="188.9"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="500-g"
+                    x1="670.20"
+                    y1="166.9"
+                    x2="833.00"
+                    y2="166.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1k-g"
+                    x1="670.20"
+                    y1="144.9"
+                    x2="833.00"
+                    y2="144.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__India"
+                    stroke-width="2.5"
+                    d="M751.6 181.9"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#2c8465"
+                    id="line__India"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M751.6 181.9"
+                ></path>
+                <g id="datapoints__India">
+                    <circle
+                        id="2014"
+                        cx="751.6"
+                        cy="181.9"
+                        r="1.8"
+                        fill="#2c8465"
+                        opacity="1"
+                    ></circle>
                 </g>
-                <g id="India" class="bar" transform="translate(0, 195.75)">
-                    <g id="Fruits">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(718.2, -5.28125)"
-                            width="18.59999999999991"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="713.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="713.2" y="3.7462500000000007">India</tspan>
-                    </text>
-                    <text
-                        transform="translate(741.8, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        159 g
-                    </text>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Kenya"
+                    stroke-width="2.5"
+                    d="M751.6 181"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#996d39"
+                    id="line__Kenya"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M751.6 181"
+                ></path>
+                <g id="datapoints__Kenya">
+                    <circle
+                        id="2014"
+                        cx="751.6"
+                        cy="181"
+                        r="1.8"
+                        fill="#996d39"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-States"
+                    stroke-width="2.5"
+                    d="M751.6 178.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#b13507"
+                    id="line__United-States"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M751.6 178.5"
+                ></path>
+                <g id="datapoints__United-States">
+                    <circle
+                        id="2014"
+                        cx="751.6"
+                        cy="178.5"
+                        r="1.8"
+                        fill="#b13507"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-Kingdom"
+                    stroke-width="2.5"
+                    d="M751.6 178.3"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__United-Kingdom"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M751.6 178.3"
+                ></path>
+                <g id="datapoints__United-Kingdom">
+                    <circle
+                        id="2014"
+                        cx="751.6"
+                        cy="178.3"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
                 </g>
             </g>
         </g>
         <text
-            x="16"
+            x="46.2"
             y="233.125"
             fill="#5b5b5b"
             font-size="13.5"
@@ -756,160 +945,213 @@
             <title>Dairy (milk equivalents)</title>
         </text>
         <g id="Dairy-(milk-equivalents)">
-            <line
-                id="vertical-zero-line"
-                x1="93.95"
-                y1="304.88"
-                x2="93.95"
-                y2="239.88"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <g id="United-States" class="bar" transform="translate(0, 248)">
-                    <g id="Dairy-(milk-equivalents)">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(94.2, -5.28125)"
-                            width="80.3"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2014"
+                        x1="127.6"
+                        y1="289.375"
+                        x2="127.6"
+                        y2="294.875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="89.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
+                        x="127.6"
+                        y="304.875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
                     >
-                        <tspan x="89.2" y="3.7462500000000007">
-                            United States
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(179.5, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        685 g
+                        2014
                     </text>
                 </g>
-                <g
-                    id="United-Kingdom"
-                    class="bar"
-                    transform="translate(0, 264.25)"
-                >
-                    <g id="Dairy-(milk-equivalents)">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(94.2, -5.28125)"
-                            width="72.2"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="89.2"
-                        y="3.7"
+                        x="41.20"
+                        y="289.9"
+                        dy=".32em"
                         text-anchor="end"
-                        fill="#555"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        <tspan x="89.2" y="3.7462500000000007">
-                            United Kingdom
-                        </tspan>
+                        0 g
                     </text>
                     <text
-                        transform="translate(171.4, 0)"
+                        x="41.20"
+                        y="267.9"
                         dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        616 g
+                        500 g
+                    </text>
+                    <text
+                        x="41.20"
+                        y="245.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        1k g
                     </text>
                 </g>
-                <g id="India" class="bar" transform="translate(0, 280.5)">
-                    <g id="Dairy-(milk-equivalents)">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(94.2, -5.28125)"
-                            width="29"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="89.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="89.2" y="3.7462500000000007">India</tspan>
-                    </text>
-                    <text
-                        transform="translate(128.2, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        248 g
-                    </text>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-g"
+                    x1="46.20"
+                    y1="289.9"
+                    x2="209.00"
+                    y2="289.9"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="500-g"
+                    x1="46.20"
+                    y1="267.9"
+                    x2="209.00"
+                    y2="267.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1k-g"
+                    x1="46.20"
+                    y1="245.9"
+                    x2="209.00"
+                    y2="245.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__India"
+                    stroke-width="2.5"
+                    d="M127.6 279"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#2c8465"
+                    id="line__India"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M127.6 279"
+                ></path>
+                <g id="datapoints__India">
+                    <circle
+                        id="2014"
+                        cx="127.6"
+                        cy="279"
+                        r="1.8"
+                        fill="#2c8465"
+                        opacity="1"
+                    ></circle>
                 </g>
-                <g id="Kenya" class="bar" transform="translate(0, 296.75)">
-                    <g id="Dairy-(milk-equivalents)">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(94.2, -5.28125)"
-                            width="26.299999999999997"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="89.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="89.2" y="3.7462500000000007">Kenya</tspan>
-                    </text>
-                    <text
-                        transform="translate(125.5, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        225 g
-                    </text>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Kenya"
+                    stroke-width="2.5"
+                    d="M127.6 280"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#996d39"
+                    id="line__Kenya"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M127.6 280"
+                ></path>
+                <g id="datapoints__Kenya">
+                    <circle
+                        id="2014"
+                        cx="127.6"
+                        cy="280"
+                        r="1.8"
+                        fill="#996d39"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-States"
+                    stroke-width="2.5"
+                    d="M127.6 259.7"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#b13507"
+                    id="line__United-States"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M127.6 259.7"
+                ></path>
+                <g id="datapoints__United-States">
+                    <circle
+                        id="2014"
+                        cx="127.6"
+                        cy="259.7"
+                        r="1.8"
+                        fill="#b13507"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-Kingdom"
+                    stroke-width="2.5"
+                    d="M127.6 262.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__United-Kingdom"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M127.6 262.8"
+                ></path>
+                <g id="datapoints__United-Kingdom">
+                    <circle
+                        id="2014"
+                        cx="127.6"
+                        cy="262.8"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
                 </g>
             </g>
         </g>
         <text
-            x="224"
+            x="254.2"
             y="233.125"
             fill="#5b5b5b"
             font-size="13.5"
@@ -919,160 +1161,213 @@
             <title>Red meat</title>
         </text>
         <g id="Red-meat">
-            <line
-                id="vertical-zero-line"
-                x1="301.95"
-                y1="304.88"
-                x2="301.95"
-                y2="239.88"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <g id="United-States" class="bar" transform="translate(0, 248)">
-                    <g id="Red-meat">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(302.2, -5.28125)"
-                            width="21"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2014"
+                        x1="335.6"
+                        y1="289.375"
+                        x2="335.6"
+                        y2="294.875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="297.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
+                        x="335.6"
+                        y="304.875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
                     >
-                        <tspan x="297.2" y="3.7462500000000007">
-                            United States
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(328.2, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        180 g
+                        2014
                     </text>
                 </g>
-                <g
-                    id="United-Kingdom"
-                    class="bar"
-                    transform="translate(0, 264.25)"
-                >
-                    <g id="Red-meat">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(302.2, -5.28125)"
-                            width="14.300000000000011"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="297.2"
-                        y="3.7"
+                        x="249.20"
+                        y="289.9"
+                        dy=".32em"
                         text-anchor="end"
-                        fill="#555"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        <tspan x="297.2" y="3.7462500000000007">
-                            United Kingdom
-                        </tspan>
+                        0 g
                     </text>
                     <text
-                        transform="translate(321.5, 0)"
+                        x="249.20"
+                        y="267.9"
                         dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        122 g
+                        500 g
+                    </text>
+                    <text
+                        x="249.20"
+                        y="245.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        1k g
                     </text>
                 </g>
-                <g id="Kenya" class="bar" transform="translate(0, 280.5)">
-                    <g id="Red-meat">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(302.2, -5.28125)"
-                            width="3.6000000000000227"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="297.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="297.2" y="3.7462500000000007">Kenya</tspan>
-                    </text>
-                    <text
-                        transform="translate(310.8, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        31 g
-                    </text>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-g"
+                    x1="254.20"
+                    y1="289.9"
+                    x2="417.00"
+                    y2="289.9"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="500-g"
+                    x1="254.20"
+                    y1="267.9"
+                    x2="417.00"
+                    y2="267.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1k-g"
+                    x1="254.20"
+                    y1="245.9"
+                    x2="417.00"
+                    y2="245.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__India"
+                    stroke-width="2.5"
+                    d="M335.6 289.7"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#2c8465"
+                    id="line__India"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M335.6 289.7"
+                ></path>
+                <g id="datapoints__India">
+                    <circle
+                        id="2014"
+                        cx="335.6"
+                        cy="289.7"
+                        r="1.8"
+                        fill="#2c8465"
+                        opacity="1"
+                    ></circle>
                 </g>
-                <g id="India" class="bar" transform="translate(0, 296.75)">
-                    <g id="Red-meat">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(302.2, -5.28125)"
-                            width="0.4000000000000341"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="297.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="297.2" y="3.7462500000000007">India</tspan>
-                    </text>
-                    <text
-                        transform="translate(307.6, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        3.9 g
-                    </text>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Kenya"
+                    stroke-width="2.5"
+                    d="M335.6 288.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#996d39"
+                    id="line__Kenya"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M335.6 288.5"
+                ></path>
+                <g id="datapoints__Kenya">
+                    <circle
+                        id="2014"
+                        cx="335.6"
+                        cy="288.5"
+                        r="1.8"
+                        fill="#996d39"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-States"
+                    stroke-width="2.5"
+                    d="M335.6 282"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#b13507"
+                    id="line__United-States"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M335.6 282"
+                ></path>
+                <g id="datapoints__United-States">
+                    <circle
+                        id="2014"
+                        cx="335.6"
+                        cy="282"
+                        r="1.8"
+                        fill="#b13507"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-Kingdom"
+                    stroke-width="2.5"
+                    d="M335.6 284.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__United-Kingdom"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M335.6 284.5"
+                ></path>
+                <g id="datapoints__United-Kingdom">
+                    <circle
+                        id="2014"
+                        cx="335.6"
+                        cy="284.5"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
                 </g>
             </g>
         </g>
         <text
-            x="432"
+            x="462.2"
             y="233.125"
             fill="#5b5b5b"
             font-size="13.5"
@@ -1082,160 +1377,213 @@
             <title>Chicken</title>
         </text>
         <g id="Chicken">
-            <line
-                id="vertical-zero-line"
-                x1="509.95"
-                y1="304.88"
-                x2="509.95"
-                y2="239.88"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <g id="United-States" class="bar" transform="translate(0, 248)">
-                    <g id="Chicken">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(510.2, -5.28125)"
-                            width="16.400000000000034"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2014"
+                        x1="543.6"
+                        y1="289.375"
+                        x2="543.6"
+                        y2="294.875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="505.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
+                        x="543.6"
+                        y="304.875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
                     >
-                        <tspan x="505.2" y="3.7462500000000007">
-                            United States
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(531.6, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        140 g
+                        2014
                     </text>
                 </g>
-                <g
-                    id="United-Kingdom"
-                    class="bar"
-                    transform="translate(0, 264.25)"
-                >
-                    <g id="Chicken">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(510.2, -5.28125)"
-                            width="9.000000000000057"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="505.2"
-                        y="3.7"
+                        x="457.20"
+                        y="289.9"
+                        dy=".32em"
                         text-anchor="end"
-                        fill="#555"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        <tspan x="505.2" y="3.7462500000000007">
-                            United Kingdom
-                        </tspan>
+                        0 g
                     </text>
                     <text
-                        transform="translate(524.2, 0)"
+                        x="457.20"
+                        y="267.9"
                         dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        78 g
+                        500 g
+                    </text>
+                    <text
+                        x="457.20"
+                        y="245.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        1k g
                     </text>
                 </g>
-                <g id="India" class="bar" transform="translate(0, 280.5)">
-                    <g id="Chicken">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(510.2, -5.28125)"
-                            width="0.6000000000000227"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="505.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="505.2" y="3.7462500000000007">India</tspan>
-                    </text>
-                    <text
-                        transform="translate(515.8, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        5.4 g
-                    </text>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-g"
+                    x1="462.20"
+                    y1="289.9"
+                    x2="625.00"
+                    y2="289.9"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="500-g"
+                    x1="462.20"
+                    y1="267.9"
+                    x2="625.00"
+                    y2="267.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1k-g"
+                    x1="462.20"
+                    y1="245.9"
+                    x2="625.00"
+                    y2="245.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__India"
+                    stroke-width="2.5"
+                    d="M543.6 289.6"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#2c8465"
+                    id="line__India"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M543.6 289.6"
+                ></path>
+                <g id="datapoints__India">
+                    <circle
+                        id="2014"
+                        cx="543.6"
+                        cy="289.6"
+                        r="1.8"
+                        fill="#2c8465"
+                        opacity="1"
+                    ></circle>
                 </g>
-                <g id="Kenya" class="bar" transform="translate(0, 296.75)">
-                    <g id="Chicken">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(510.2, -5.28125)"
-                            width="0.10000000000002274"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="505.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="505.2" y="3.7462500000000007">Kenya</tspan>
-                    </text>
-                    <text
-                        transform="translate(515.3, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        1.6 g
-                    </text>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Kenya"
+                    stroke-width="2.5"
+                    d="M543.6 289.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#996d39"
+                    id="line__Kenya"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M543.6 289.8"
+                ></path>
+                <g id="datapoints__Kenya">
+                    <circle
+                        id="2014"
+                        cx="543.6"
+                        cy="289.8"
+                        r="1.8"
+                        fill="#996d39"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-States"
+                    stroke-width="2.5"
+                    d="M543.6 283.7"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#b13507"
+                    id="line__United-States"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M543.6 283.7"
+                ></path>
+                <g id="datapoints__United-States">
+                    <circle
+                        id="2014"
+                        cx="543.6"
+                        cy="283.7"
+                        r="1.8"
+                        fill="#b13507"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-Kingdom"
+                    stroke-width="2.5"
+                    d="M543.6 286.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__United-Kingdom"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M543.6 286.5"
+                ></path>
+                <g id="datapoints__United-Kingdom">
+                    <circle
+                        id="2014"
+                        cx="543.6"
+                        cy="286.5"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
                 </g>
             </g>
         </g>
         <text
-            x="640"
+            x="670.2"
             y="233.125"
             fill="#5b5b5b"
             font-size="13.5"
@@ -1245,160 +1593,213 @@
             <title>Eggs</title>
         </text>
         <g id="Eggs">
-            <line
-                id="vertical-zero-line"
-                x1="717.95"
-                y1="304.88"
-                x2="717.95"
-                y2="239.88"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <g id="United-States" class="bar" transform="translate(0, 248)">
-                    <g id="Eggs">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(718.2, -5.28125)"
-                            width="4.899999999999977"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2014"
+                        x1="751.6"
+                        y1="289.375"
+                        x2="751.6"
+                        y2="294.875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="713.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
+                        x="751.6"
+                        y="304.875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
                     >
-                        <tspan x="713.2" y="3.7462500000000007">
-                            United States
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(728.1, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        41 g
+                        2014
                     </text>
                 </g>
-                <g
-                    id="United-Kingdom"
-                    class="bar"
-                    transform="translate(0, 264.25)"
-                >
-                    <g id="Eggs">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(718.2, -5.28125)"
-                            width="3.5"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="713.2"
-                        y="3.7"
+                        x="665.20"
+                        y="289.9"
+                        dy=".32em"
                         text-anchor="end"
-                        fill="#555"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        <tspan x="713.2" y="3.7462500000000007">
-                            United Kingdom
-                        </tspan>
+                        0 g
                     </text>
                     <text
-                        transform="translate(726.7, 0)"
+                        x="665.20"
+                        y="267.9"
                         dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        29 g
+                        500 g
+                    </text>
+                    <text
+                        x="665.20"
+                        y="245.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        1k g
                     </text>
                 </g>
-                <g id="India" class="bar" transform="translate(0, 280.5)">
-                    <g id="Eggs">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(718.2, -5.28125)"
-                            width="0.8999999999999773"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="713.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="713.2" y="3.7462500000000007">India</tspan>
-                    </text>
-                    <text
-                        transform="translate(724.1, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        7.7 g
-                    </text>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-g"
+                    x1="670.20"
+                    y1="289.9"
+                    x2="833.00"
+                    y2="289.9"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="500-g"
+                    x1="670.20"
+                    y1="267.9"
+                    x2="833.00"
+                    y2="267.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1k-g"
+                    x1="670.20"
+                    y1="245.9"
+                    x2="833.00"
+                    y2="245.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__India"
+                    stroke-width="2.5"
+                    d="M751.6 289.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#2c8465"
+                    id="line__India"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M751.6 289.5"
+                ></path>
+                <g id="datapoints__India">
+                    <circle
+                        id="2014"
+                        cx="751.6"
+                        cy="289.5"
+                        r="1.8"
+                        fill="#2c8465"
+                        opacity="1"
+                    ></circle>
                 </g>
-                <g id="Kenya" class="bar" transform="translate(0, 296.75)">
-                    <g id="Eggs">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(718.2, -5.28125)"
-                            width="0.39999999999997726"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="713.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="713.2" y="3.7462500000000007">Kenya</tspan>
-                    </text>
-                    <text
-                        transform="translate(723.6, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        3.5 g
-                    </text>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Kenya"
+                    stroke-width="2.5"
+                    d="M751.6 289.7"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#996d39"
+                    id="line__Kenya"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M751.6 289.7"
+                ></path>
+                <g id="datapoints__Kenya">
+                    <circle
+                        id="2014"
+                        cx="751.6"
+                        cy="289.7"
+                        r="1.8"
+                        fill="#996d39"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-States"
+                    stroke-width="2.5"
+                    d="M751.6 288.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#b13507"
+                    id="line__United-States"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M751.6 288.1"
+                ></path>
+                <g id="datapoints__United-States">
+                    <circle
+                        id="2014"
+                        cx="751.6"
+                        cy="288.1"
+                        r="1.8"
+                        fill="#b13507"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-Kingdom"
+                    stroke-width="2.5"
+                    d="M751.6 288.6"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__United-Kingdom"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M751.6 288.6"
+                ></path>
+                <g id="datapoints__United-Kingdom">
+                    <circle
+                        id="2014"
+                        cx="751.6"
+                        cy="288.6"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
                 </g>
             </g>
         </g>
         <text
-            x="16"
+            x="46.2"
             y="334.125"
             fill="#5b5b5b"
             font-size="13.5"
@@ -1408,160 +1809,213 @@
             <title>Fish</title>
         </text>
         <g id="Fish">
-            <line
-                id="vertical-zero-line"
-                x1="93.95"
-                y1="405.88"
-                x2="93.95"
-                y2="340.88"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <g id="United-States" class="bar" transform="translate(0, 349)">
-                    <g id="Fish">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(94.2, -5.28125)"
-                            width="7.5"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2014"
+                        x1="127.6"
+                        y1="390.375"
+                        x2="127.6"
+                        y2="395.875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="89.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
+                        x="127.6"
+                        y="405.875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
                     >
-                        <tspan x="89.2" y="3.7462500000000007">
-                            United States
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(106.7, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        60 g
+                        2014
                     </text>
                 </g>
-                <g
-                    id="United-Kingdom"
-                    class="bar"
-                    transform="translate(0, 365.25)"
-                >
-                    <g id="Fish">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(94.2, -5.28125)"
-                            width="6.8999999999999915"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="89.2"
-                        y="3.7"
+                        x="41.20"
+                        y="390.9"
+                        dy=".32em"
                         text-anchor="end"
-                        fill="#555"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        <tspan x="89.2" y="3.7462500000000007">
-                            United Kingdom
-                        </tspan>
+                        0 g
                     </text>
                     <text
-                        transform="translate(106.1, 0)"
+                        x="41.20"
+                        y="368.9"
                         dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        55 g
+                        500 g
+                    </text>
+                    <text
+                        x="41.20"
+                        y="346.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        1k g
                     </text>
                 </g>
-                <g id="India" class="bar" transform="translate(0, 381.5)">
-                    <g id="Fish">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(94.2, -5.28125)"
-                            width="2.0999999999999943"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="89.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="89.2" y="3.7462500000000007">India</tspan>
-                    </text>
-                    <text
-                        transform="translate(101.3, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        17 g
-                    </text>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-g"
+                    x1="46.20"
+                    y1="390.9"
+                    x2="209.00"
+                    y2="390.9"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="500-g"
+                    x1="46.20"
+                    y1="368.9"
+                    x2="209.00"
+                    y2="368.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1k-g"
+                    x1="46.20"
+                    y1="346.9"
+                    x2="209.00"
+                    y2="346.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__India"
+                    stroke-width="2.5"
+                    d="M127.6 390.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#2c8465"
+                    id="line__India"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M127.6 390.1"
+                ></path>
+                <g id="datapoints__India">
+                    <circle
+                        id="2014"
+                        cx="127.6"
+                        cy="390.1"
+                        r="1.8"
+                        fill="#2c8465"
+                        opacity="1"
+                    ></circle>
                 </g>
-                <g id="Kenya" class="bar" transform="translate(0, 397.75)">
-                    <g id="Fish">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(94.2, -5.28125)"
-                            width="1.3999999999999915"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="89.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="89.2" y="3.7462500000000007">Kenya</tspan>
-                    </text>
-                    <text
-                        transform="translate(100.6, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        11 g
-                    </text>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Kenya"
+                    stroke-width="2.5"
+                    d="M127.6 390.4"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#996d39"
+                    id="line__Kenya"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M127.6 390.4"
+                ></path>
+                <g id="datapoints__Kenya">
+                    <circle
+                        id="2014"
+                        cx="127.6"
+                        cy="390.4"
+                        r="1.8"
+                        fill="#996d39"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-States"
+                    stroke-width="2.5"
+                    d="M127.6 388.2"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#b13507"
+                    id="line__United-States"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M127.6 388.2"
+                ></path>
+                <g id="datapoints__United-States">
+                    <circle
+                        id="2014"
+                        cx="127.6"
+                        cy="388.2"
+                        r="1.8"
+                        fill="#b13507"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-Kingdom"
+                    stroke-width="2.5"
+                    d="M127.6 388.4"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__United-Kingdom"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M127.6 388.4"
+                ></path>
+                <g id="datapoints__United-Kingdom">
+                    <circle
+                        id="2014"
+                        cx="127.6"
+                        cy="388.4"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
                 </g>
             </g>
         </g>
         <text
-            x="224"
+            x="254.2"
             y="334.125"
             fill="#5b5b5b"
             font-size="13.5"
@@ -1571,164 +2025,213 @@
             <title>Legumes</title>
         </text>
         <g id="Legumes">
-            <line
-                id="vertical-zero-line"
-                x1="301.95"
-                y1="405.88"
-                x2="301.95"
-                y2="340.88"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <g id="Kenya" class="bar" transform="translate(0, 349)">
-                    <g id="Legumes">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(302.2, -5.28125)"
-                            width="5.100000000000023"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2014"
+                        x1="335.6"
+                        y1="390.375"
+                        x2="335.6"
+                        y2="395.875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="297.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
+                        x="335.6"
+                        y="405.875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
                     >
-                        <tspan x="297.2" y="3.7462500000000007">Kenya</tspan>
-                    </text>
-                    <text
-                        transform="translate(312.3, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        42 g
+                        2014
                     </text>
                 </g>
-                <g id="India" class="bar" transform="translate(0, 365.25)">
-                    <g id="Legumes">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(302.2, -5.28125)"
-                            width="5"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="297.2"
-                        y="3.7"
+                        x="249.20"
+                        y="390.9"
+                        dy=".32em"
                         text-anchor="end"
-                        fill="#555"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        <tspan x="297.2" y="3.7462500000000007">India</tspan>
+                        0 g
                     </text>
                     <text
-                        transform="translate(312.2, 0)"
+                        x="249.20"
+                        y="368.9"
                         dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        41 g
+                        500 g
+                    </text>
+                    <text
+                        x="249.20"
+                        y="346.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        1k g
                     </text>
                 </g>
-                <g
-                    id="United-Kingdom"
-                    class="bar"
-                    transform="translate(0, 381.5)"
-                >
-                    <g id="Legumes">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(302.2, -5.28125)"
-                            width="1.1999999999999886"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="297.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="297.2" y="3.7462500000000007">
-                            United Kingdom
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(308.4, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        10 g
-                    </text>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-g"
+                    x1="254.20"
+                    y1="390.9"
+                    x2="417.00"
+                    y2="390.9"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="500-g"
+                    x1="254.20"
+                    y1="368.9"
+                    x2="417.00"
+                    y2="368.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1k-g"
+                    x1="254.20"
+                    y1="346.9"
+                    x2="417.00"
+                    y2="346.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__India"
+                    stroke-width="2.5"
+                    d="M335.6 389.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#2c8465"
+                    id="line__India"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M335.6 389.1"
+                ></path>
+                <g id="datapoints__India">
+                    <circle
+                        id="2014"
+                        cx="335.6"
+                        cy="389.1"
+                        r="1.8"
+                        fill="#2c8465"
+                        opacity="1"
+                    ></circle>
                 </g>
-                <g
-                    id="United-States"
-                    class="bar"
-                    transform="translate(0, 397.75)"
-                >
-                    <g id="Legumes">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(302.2, -5.28125)"
-                            width="1.1000000000000227"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="297.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="297.2" y="3.7462500000000007">
-                            United States
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(308.3, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        9.6 g
-                    </text>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Kenya"
+                    stroke-width="2.5"
+                    d="M335.6 389"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#996d39"
+                    id="line__Kenya"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M335.6 389"
+                ></path>
+                <g id="datapoints__Kenya">
+                    <circle
+                        id="2014"
+                        cx="335.6"
+                        cy="389"
+                        r="1.8"
+                        fill="#996d39"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-States"
+                    stroke-width="2.5"
+                    d="M335.6 390.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#b13507"
+                    id="line__United-States"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M335.6 390.5"
+                ></path>
+                <g id="datapoints__United-States">
+                    <circle
+                        id="2014"
+                        cx="335.6"
+                        cy="390.5"
+                        r="1.8"
+                        fill="#b13507"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-Kingdom"
+                    stroke-width="2.5"
+                    d="M335.6 390.4"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__United-Kingdom"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M335.6 390.4"
+                ></path>
+                <g id="datapoints__United-Kingdom">
+                    <circle
+                        id="2014"
+                        cx="335.6"
+                        cy="390.4"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
                 </g>
             </g>
         </g>
         <text
-            x="432"
+            x="462.2"
             y="334.125"
             fill="#5b5b5b"
             font-size="13.5"
@@ -1738,160 +2241,213 @@
             <title>Nuts</title>
         </text>
         <g id="Nuts">
-            <line
-                id="vertical-zero-line"
-                x1="509.95"
-                y1="405.88"
-                x2="509.95"
-                y2="340.88"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <g id="United-States" class="bar" transform="translate(0, 349)">
-                    <g id="Nuts">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(510.2, -5.28125)"
-                            width="1"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2014"
+                        x1="543.6"
+                        y1="390.375"
+                        x2="543.6"
+                        y2="395.875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="505.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
+                        x="543.6"
+                        y="405.875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
                     >
-                        <tspan x="505.2" y="3.7462500000000007">
-                            United States
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(516.2, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        8.8 g
+                        2014
                     </text>
                 </g>
-                <g id="India" class="bar" transform="translate(0, 365.25)">
-                    <g id="Nuts">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(510.2, -5.28125)"
-                            width="0.5"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="505.2"
-                        y="3.7"
+                        x="457.20"
+                        y="390.9"
+                        dy=".32em"
                         text-anchor="end"
-                        fill="#555"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        <tspan x="505.2" y="3.7462500000000007">India</tspan>
+                        0 g
                     </text>
                     <text
-                        transform="translate(515.7, 0)"
+                        x="457.20"
+                        y="368.9"
                         dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        4.3 g
+                        500 g
+                    </text>
+                    <text
+                        x="457.20"
+                        y="346.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        1k g
                     </text>
                 </g>
-                <g
-                    id="United-Kingdom"
-                    class="bar"
-                    transform="translate(0, 381.5)"
-                >
-                    <g id="Nuts">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(510.2, -5.28125)"
-                            width="0.4000000000000341"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="505.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="505.2" y="3.7462500000000007">
-                            United Kingdom
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(515.6, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        3.5 g
-                    </text>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-g"
+                    x1="462.20"
+                    y1="390.9"
+                    x2="625.00"
+                    y2="390.9"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="500-g"
+                    x1="462.20"
+                    y1="368.9"
+                    x2="625.00"
+                    y2="368.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1k-g"
+                    x1="462.20"
+                    y1="346.9"
+                    x2="625.00"
+                    y2="346.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__India"
+                    stroke-width="2.5"
+                    d="M543.6 390.7"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#2c8465"
+                    id="line__India"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M543.6 390.7"
+                ></path>
+                <g id="datapoints__India">
+                    <circle
+                        id="2014"
+                        cx="543.6"
+                        cy="390.7"
+                        r="1.8"
+                        fill="#2c8465"
+                        opacity="1"
+                    ></circle>
                 </g>
-                <g id="Kenya" class="bar" transform="translate(0, 397.75)">
-                    <g id="Nuts">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(510.2, -5.28125)"
-                            width="0.19999999999998863"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="505.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="505.2" y="3.7462500000000007">Kenya</tspan>
-                    </text>
-                    <text
-                        transform="translate(515.4, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        2.3 g
-                    </text>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Kenya"
+                    stroke-width="2.5"
+                    d="M543.6 390.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#996d39"
+                    id="line__Kenya"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M543.6 390.8"
+                ></path>
+                <g id="datapoints__Kenya">
+                    <circle
+                        id="2014"
+                        cx="543.6"
+                        cy="390.8"
+                        r="1.8"
+                        fill="#996d39"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-States"
+                    stroke-width="2.5"
+                    d="M543.6 390.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#b13507"
+                    id="line__United-States"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M543.6 390.5"
+                ></path>
+                <g id="datapoints__United-States">
+                    <circle
+                        id="2014"
+                        cx="543.6"
+                        cy="390.5"
+                        r="1.8"
+                        fill="#b13507"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-Kingdom"
+                    stroke-width="2.5"
+                    d="M543.6 390.7"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__United-Kingdom"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M543.6 390.7"
+                ></path>
+                <g id="datapoints__United-Kingdom">
+                    <circle
+                        id="2014"
+                        cx="543.6"
+                        cy="390.7"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
                 </g>
             </g>
         </g>
         <text
-            x="640"
+            x="670.2"
             y="334.125"
             fill="#5b5b5b"
             font-size="13.5"
@@ -1901,160 +2457,213 @@
             <title>Oils (added fats)</title>
         </text>
         <g id="Oils-(added-fats)">
-            <line
-                id="vertical-zero-line"
-                x1="717.95"
-                y1="405.88"
-                x2="717.95"
-                y2="340.88"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <g id="United-States" class="bar" transform="translate(0, 349)">
-                    <g id="Oils-(added-fats)">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(718.2, -5.28125)"
-                            width="7.7999999999999545"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2014"
+                        x1="751.6"
+                        y1="390.375"
+                        x2="751.6"
+                        y2="395.875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="713.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
+                        x="751.6"
+                        y="405.875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
                     >
-                        <tspan x="713.2" y="3.7462500000000007">
-                            United States
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(731, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        62 g
+                        2014
                     </text>
                 </g>
-                <g
-                    id="United-Kingdom"
-                    class="bar"
-                    transform="translate(0, 365.25)"
-                >
-                    <g id="Oils-(added-fats)">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(718.2, -5.28125)"
-                            width="6.699999999999932"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="713.2"
-                        y="3.7"
+                        x="665.20"
+                        y="390.9"
+                        dy=".32em"
                         text-anchor="end"
-                        fill="#555"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        <tspan x="713.2" y="3.7462500000000007">
-                            United Kingdom
-                        </tspan>
+                        0 g
                     </text>
                     <text
-                        transform="translate(729.9, 0)"
+                        x="665.20"
+                        y="368.9"
                         dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        53 g
+                        500 g
+                    </text>
+                    <text
+                        x="665.20"
+                        y="346.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        1k g
                     </text>
                 </g>
-                <g id="India" class="bar" transform="translate(0, 381.5)">
-                    <g id="Oils-(added-fats)">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(718.2, -5.28125)"
-                            width="2.599999999999909"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="713.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="713.2" y="3.7462500000000007">India</tspan>
-                    </text>
-                    <text
-                        transform="translate(725.8, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        21 g
-                    </text>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-g"
+                    x1="670.20"
+                    y1="390.9"
+                    x2="833.00"
+                    y2="390.9"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="500-g"
+                    x1="670.20"
+                    y1="368.9"
+                    x2="833.00"
+                    y2="368.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1k-g"
+                    x1="670.20"
+                    y1="346.9"
+                    x2="833.00"
+                    y2="346.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__India"
+                    stroke-width="2.5"
+                    d="M751.6 390"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#2c8465"
+                    id="line__India"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M751.6 390"
+                ></path>
+                <g id="datapoints__India">
+                    <circle
+                        id="2014"
+                        cx="751.6"
+                        cy="390"
+                        r="1.8"
+                        fill="#2c8465"
+                        opacity="1"
+                    ></circle>
                 </g>
-                <g id="Kenya" class="bar" transform="translate(0, 397.75)">
-                    <g id="Oils-(added-fats)">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(718.2, -5.28125)"
-                            width="2"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="713.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="713.2" y="3.7462500000000007">Kenya</tspan>
-                    </text>
-                    <text
-                        transform="translate(725.2, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        16 g
-                    </text>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Kenya"
+                    stroke-width="2.5"
+                    d="M751.6 390.2"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#996d39"
+                    id="line__Kenya"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M751.6 390.2"
+                ></path>
+                <g id="datapoints__Kenya">
+                    <circle
+                        id="2014"
+                        cx="751.6"
+                        cy="390.2"
+                        r="1.8"
+                        fill="#996d39"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-States"
+                    stroke-width="2.5"
+                    d="M751.6 388.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#b13507"
+                    id="line__United-States"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M751.6 388.1"
+                ></path>
+                <g id="datapoints__United-States">
+                    <circle
+                        id="2014"
+                        cx="751.6"
+                        cy="388.1"
+                        r="1.8"
+                        fill="#b13507"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-Kingdom"
+                    stroke-width="2.5"
+                    d="M751.6 388.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__United-Kingdom"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M751.6 388.5"
+                ></path>
+                <g id="datapoints__United-Kingdom">
+                    <circle
+                        id="2014"
+                        cx="751.6"
+                        cy="388.5"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
                 </g>
             </g>
         </g>
         <text
-            x="16"
+            x="46.2"
             y="435.125"
             fill="#5b5b5b"
             font-size="13.5"
@@ -2064,159 +2673,208 @@
             <title>Sugar</title>
         </text>
         <g id="Sugar">
-            <line
-                id="vertical-zero-line"
-                x1="93.95"
-                y1="506.88"
-                x2="93.95"
-                y2="441.88"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <g
-                    id="United-Kingdom"
-                    class="bar"
-                    transform="translate(0, 450)"
-                >
-                    <g id="Sugar">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(94.2, -5.28125)"
-                            width="12.099999999999994"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2014"
+                        x1="127.6"
+                        y1="491.375"
+                        x2="127.6"
+                        y2="496.875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="89.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
+                        x="127.6"
+                        y="506.875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
                     >
-                        <tspan x="89.2" y="3.7462500000000007">
-                            United Kingdom
-                        </tspan>
-                    </text>
-                    <text
-                        transform="translate(111.3, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        97 g
+                        2014
                     </text>
                 </g>
-                <g
-                    id="United-States"
-                    class="bar"
-                    transform="translate(0, 466.25)"
-                >
-                    <g id="Sugar">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(94.2, -5.28125)"
-                            width="11.200000000000003"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="89.2"
-                        y="3.7"
+                        x="41.20"
+                        y="491.9"
+                        dy=".32em"
                         text-anchor="end"
-                        fill="#555"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        <tspan x="89.2" y="3.7462500000000007">
-                            United States
-                        </tspan>
+                        0 g
                     </text>
                     <text
-                        transform="translate(110.4, 0)"
+                        x="41.20"
+                        y="469.9"
                         dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        90 g
+                        500 g
+                    </text>
+                    <text
+                        x="41.20"
+                        y="447.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        1k g
                     </text>
                 </g>
-                <g id="India" class="bar" transform="translate(0, 482.5)">
-                    <g id="Sugar">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(94.2, -5.28125)"
-                            width="6.3999999999999915"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="89.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="89.2" y="3.7462500000000007">India</tspan>
-                    </text>
-                    <text
-                        transform="translate(105.6, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        51 g
-                    </text>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-g"
+                    x1="46.20"
+                    y1="491.9"
+                    x2="209.00"
+                    y2="491.9"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="500-g"
+                    x1="46.20"
+                    y1="469.9"
+                    x2="209.00"
+                    y2="469.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1k-g"
+                    x1="46.20"
+                    y1="447.9"
+                    x2="209.00"
+                    y2="447.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__India"
+                    stroke-width="2.5"
+                    d="M127.6 489.6"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#2c8465"
+                    id="line__India"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M127.6 489.6"
+                ></path>
+                <g id="datapoints__India">
+                    <circle
+                        id="2014"
+                        cx="127.6"
+                        cy="489.6"
+                        r="1.8"
+                        fill="#2c8465"
+                        opacity="1"
+                    ></circle>
                 </g>
-                <g id="Kenya" class="bar" transform="translate(0, 498.75)">
-                    <g id="Sugar">
-                        <rect
-                            id="bar"
-                            x="0"
-                            y="0"
-                            transform="translate(94.2, -5.28125)"
-                            width="5.099999999999994"
-                            height="10.5625"
-                            fill="#4c6a9c"
-                            opacity="0.8"
-                            style="transition: height 200ms ease"
-                        ></rect>
-                    </g>
-                    <text
-                        font-size="10.13"
-                        font-weight="700"
-                        x="89.2"
-                        y="3.7"
-                        text-anchor="end"
-                        fill="#555"
-                    >
-                        <tspan x="89.2" y="3.7462500000000007">Kenya</tspan>
-                    </text>
-                    <text
-                        transform="translate(104.3, 0)"
-                        dy=".32em"
-                        fill="#555"
-                        font-size="10.125"
-                    >
-                        41 g
-                    </text>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Kenya"
+                    stroke-width="2.5"
+                    d="M127.6 490.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#996d39"
+                    id="line__Kenya"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M127.6 490.1"
+                ></path>
+                <g id="datapoints__Kenya">
+                    <circle
+                        id="2014"
+                        cx="127.6"
+                        cy="490.1"
+                        r="1.8"
+                        fill="#996d39"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-States"
+                    stroke-width="2.5"
+                    d="M127.6 487.9"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#b13507"
+                    id="line__United-States"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M127.6 487.9"
+                ></path>
+                <g id="datapoints__United-States">
+                    <circle
+                        id="2014"
+                        cx="127.6"
+                        cy="487.9"
+                        r="1.8"
+                        fill="#b13507"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__United-Kingdom"
+                    stroke-width="2.5"
+                    d="M127.6 487.6"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__United-Kingdom"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M127.6 487.6"
+                ></path>
+                <g id="datapoints__United-Kingdom">
+                    <circle
+                        id="2014"
+                        cx="127.6"
+                        cy="487.6"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
                 </g>
             </g>
         </g>

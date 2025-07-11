@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -85,122 +74,278 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="72.85"
-            y1="552.40"
-            x2="72.85"
-            y2="119.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Niger"
-                x="0"
-                y="0"
-                transform="translate(73.1, 144.28166666666667)"
-                width="712.4"
-                height="93.90333333333332"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Romania"
-                x="0"
-                y="0"
-                transform="translate(73.1, 288.7483333333333)"
-                width="270.5"
-                height="93.90333333333332"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Serbia"
-                x="0"
-                y="0"
-                transform="translate(73.1, 433.215)"
-                width="184.1"
-                height="93.90333333333332"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2022"
+                    x1="400"
+                    y1="531.9"
+                    x2="400"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="400"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2022
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(790.5, 191.23333333333332)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                50.3%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(348.6, 335.69999999999993)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                19.1%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(262.2, 480.16666666666663)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                13%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="42.13"
+                    y="451.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="370.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="42.13"
+                    y="289.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    30%
+                </text>
+                <text
+                    x="42.13"
+                    y="208.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="42.13"
+                    y="127.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    50%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="68.1"
-                y="196.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="68.1" y="196.2283333333333">Niger</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="68.1"
-                y="340.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="68.1" y="340.69499999999994">Romania</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="68.1"
-                y="485.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="68.1" y="485.16166666666663">Serbia</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="47.13"
+                y1="532.4"
+                x2="752.87"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="451.4"
+                x2="752.87"
+                y2="451.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="370.4"
+                x2="752.87"
+                y2="370.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30%"
+                x1="47.13"
+                y1="289.4"
+                x2="752.87"
+                y2="289.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="47.13"
+                y1="208.4"
+                x2="752.87"
+                y2="208.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="50%"
+                x1="47.13"
+                y1="127.4"
+                x2="752.87"
+                y2="127.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Niger"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="756.9"
+                    y="131.0"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="756.87" y="130.96">Niger</tspan>
+                </text>
+                <text
+                    id="label__Romania"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="756.9"
+                    y="382.5"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="756.87" y="382.51">Romania</tspan>
+                </text>
+                <text
+                    id="label__Serbia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="756.9"
+                    y="431.9"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="756.87" y="431.91">Serbia</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Serbia"
+                stroke-width="2.5"
+                d="M400 427.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Serbia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M400 427.1"
+            ></path>
+            <g id="datapoints__Serbia">
+                <circle
+                    id="2022"
+                    cx="400"
+                    cy="427.1"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Romania"
+                stroke-width="2.5"
+                d="M400 377.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Romania"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M400 377.7"
+            ></path>
+            <g id="datapoints__Romania">
+                <circle
+                    id="2022"
+                    cx="400"
+                    cy="377.7"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Niger"
+                stroke-width="2.5"
+                d="M400 125"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Niger"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M400 125"
+            ></path>
+            <g id="datapoints__Niger">
+                <circle
+                    id="2022"
+                    cx="400"
+                    cy="125"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -75,88 +64,239 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="119.95"
-            y1="532.30"
-            x2="119.95"
-            y2="86.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="United-Kingdom"
-                x="0"
-                y="0"
-                transform="translate(120.2, 125.05124999999998)"
-                width="669.5"
-                height="145.0475"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="World"
-                x="0"
-                y="0"
-                transform="translate(120.2, 348.20125)"
-                width="8.299999999999997"
-                height="145.0475"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="1750"
+                    x1="379.33"
+                    y1="511.79999999999995"
+                    x2="379.33"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="379.33"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    1750
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(794.7, 197.575)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1 t
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(133.5, 420.725)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                &lt;0.1 t
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="41.48"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0 t
+                </text>
+                <text
+                    x="41.48"
+                    y="428.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.2 t
+                </text>
+                <text
+                    x="41.48"
+                    y="344.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.4 t
+                </text>
+                <text
+                    x="41.48"
+                    y="260.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.6 t
+                </text>
+                <text
+                    x="41.48"
+                    y="176.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.8 t
+                </text>
+                <text
+                    x="41.48"
+                    y="92.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1 t
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="202.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="202.57">United Kingdom</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="425.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="425.72">World</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-t"
+                x1="46.48"
+                y1="512.3"
+                x2="712.18"
+                y2="512.3"
+                stroke="#999"
+            ></line>
+            <line
+                id="0.2-t"
+                x1="46.48"
+                y1="428.4"
+                x2="712.18"
+                y2="428.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="0.4-t"
+                x1="46.48"
+                y1="344.5"
+                x2="712.18"
+                y2="344.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="0.6-t"
+                x1="46.48"
+                y1="260.6"
+                x2="712.18"
+                y2="260.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="0.8-t"
+                x1="46.48"
+                y1="176.7"
+                x2="712.18"
+                y2="176.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1-t"
+                x1="46.48"
+                y1="92.8"
+                x2="712.18"
+                y2="92.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__United-Kingdom"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="716.2"
+                    y="98.0"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="716.18" y="97.96000000000001">
+                        United Kingdom
+                    </tspan>
+                </text>
+                <text
+                    id="label__World"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="716.2"
+                    y="511.9"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="716.18" y="511.91">World</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World"
+                stroke-width="2.5"
+                d="M379.3 507.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__World"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M379.3 507.1"
+            ></path>
+            <g id="datapoints__World">
+                <circle
+                    id="1750"
+                    cx="379.3"
+                    cy="507.1"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom"
+                stroke-width="2.5"
+                d="M379.3 92"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__United-Kingdom"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M379.3 92"
+            ></path>
+            <g id="datapoints__United-Kingdom">
+                <circle
+                    id="1750"
+                    cx="379.3"
+                    cy="92"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

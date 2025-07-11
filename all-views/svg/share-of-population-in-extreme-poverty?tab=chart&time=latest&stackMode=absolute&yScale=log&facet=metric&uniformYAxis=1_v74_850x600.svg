@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -78,224 +67,545 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="97.55"
-            y1="516.70"
-            x2="97.55"
-            y2="104.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Mozambique"
-                x="0"
-                y="0"
-                transform="translate(97.8, 116.03708333333334)"
-                width="639.4000000000001"
-                height="44.70916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Zambia"
-                x="0"
-                y="0"
-                transform="translate(97.8, 184.8204166666667)"
-                width="552.1"
-                height="44.70916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Kenya"
-                x="0"
-                y="0"
-                transform="translate(97.8, 253.60375000000005)"
-                width="310.09999999999997"
-                height="44.70916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Nigeria"
-                x="0"
-                y="0"
-                transform="translate(97.8, 322.38708333333335)"
-                width="264.8"
-                height="44.70916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Bangladesh"
-                x="0"
-                y="0"
-                transform="translate(97.8, 391.17041666666665)"
-                width="43.000000000000014"
-                height="44.70916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Bolivia"
-                x="0"
-                y="0"
-                transform="translate(97.8, 459.95374999999996)"
-                width="16.900000000000006"
-                height="44.70916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2018"
+                    x1="47.1"
+                    y1="496.2"
+                    x2="47.1"
+                    y2="501.7"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2022"
+                    x1="730.4"
+                    y1="496.2"
+                    x2="730.4"
+                    y2="501.7"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2019"
+                    x1="217.9"
+                    y1="496.2"
+                    x2="217.9"
+                    y2="501.7"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2020"
+                    x1="388.8"
+                    y1="496.2"
+                    x2="388.8"
+                    y2="501.7"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2021"
+                    x1="559.6"
+                    y1="496.2"
+                    x2="559.6"
+                    y2="501.7"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="47.13"
+                    y="514.7"
+                    fill="#5b5b5b"
+                    text-anchor="start"
+                    font-size="13"
+                >
+                    2018
+                </text>
+                <text
+                    x="730.38"
+                    y="514.7"
+                    fill="#5b5b5b"
+                    text-anchor="end"
+                    font-size="13"
+                >
+                    2022
+                </text>
+                <text
+                    x="217.9"
+                    y="514.7"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2019
+                </text>
+                <text
+                    x="388.8"
+                    y="514.7"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2020
+                </text>
+                <text
+                    x="559.6"
+                    y="514.7"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2021
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(742.2, 138.39166666666668)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                74.5%
-                <tspan fill="#999">in 2019</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(654.9, 207.175)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                64.3%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(412.9, 275.95833333333337)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                36.1%
-                <tspan fill="#999">in 2021</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(367.6, 344.7416666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                30.9%
-                <tspan fill="#999">in 2018</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(145.8, 413.525)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                5%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(119.7, 482.3083333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                2%
-                <tspan fill="#999">in 2021</tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="323.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="494.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2%
+                </text>
+                <text
+                    x="42.13"
+                    y="397.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    5%
+                </text>
+                <text
+                    x="42.13"
+                    y="249.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="42.13"
+                    y="152.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    50%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="92.8"
-                y="143.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="92.8" y="143.38666666666666">Mozambique</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="92.8"
-                y="212.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="92.8" y="212.17000000000002">Zambia</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="92.8"
-                y="281.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="92.8" y="280.9533333333334">Kenya</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="92.8"
-                y="349.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="92.8" y="349.7366666666667">Nigeria</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="92.8"
-                y="418.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="92.8" y="418.52">Bangladesh</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="92.8"
-                y="487.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="92.8" y="487.3033333333333">Bolivia</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="2%"
+                x1="47.13"
+                y1="494.8"
+                x2="730.38"
+                y2="494.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="3%"
+                x1="47.13"
+                y1="451.7"
+                x2="730.38"
+                y2="451.7"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="4%"
+                x1="47.13"
+                y1="421.1"
+                x2="730.38"
+                y2="421.1"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="5%"
+                x1="47.13"
+                y1="397.3"
+                x2="730.38"
+                y2="397.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="6%"
+                x1="47.13"
+                y1="378"
+                x2="730.38"
+                y2="378"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="7%"
+                x1="47.13"
+                y1="361.6"
+                x2="730.38"
+                y2="361.6"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="8%"
+                x1="47.13"
+                y1="347.4"
+                x2="730.38"
+                y2="347.4"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="9%"
+                x1="47.13"
+                y1="334.8"
+                x2="730.38"
+                y2="334.8"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="323.6"
+                x2="730.38"
+                y2="323.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="249.9"
+                x2="730.38"
+                y2="249.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30%"
+                x1="47.13"
+                y1="206.8"
+                x2="730.38"
+                y2="206.8"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="47.13"
+                y1="176.2"
+                x2="730.38"
+                y2="176.2"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="50%"
+                x1="47.13"
+                y1="152.5"
+                x2="730.38"
+                y2="152.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60%"
+                x1="47.13"
+                y1="133.1"
+                x2="730.38"
+                y2="133.1"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="70%"
+                x1="47.13"
+                y1="116.7"
+                x2="730.38"
+                y2="116.7"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Mozambique"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="734.4"
+                    y="116.0"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="734.38" y="115.96000000000001">Mozambique</tspan>
+                </text>
+                <text
+                    id="label__Zambia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="734.4"
+                    y="130.4"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="734.38" y="130.41">Zambia</tspan>
+                </text>
+                <text
+                    id="label__Kenya"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="734.4"
+                    y="191.8"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="734.38" y="191.81">Kenya</tspan>
+                </text>
+                <text
+                    id="label__Nigeria"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="734.4"
+                    y="208.6"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="734.38" y="208.61">Nigeria</tspan>
+                </text>
+                <text
+                    id="label__Bangladesh"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="734.4"
+                    y="402.0"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="734.38" y="402.01">Bangladesh</tspan>
+                </text>
+                <text
+                    id="label__Bolivia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="734.4"
+                    y="501.5"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="734.38" y="501.51">Bolivia</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Zambia"
+                stroke-width="2.5"
+                d="M730.4 125.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Zambia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M730.4 125.6"
+            ></path>
+            <g id="datapoints__Zambia">
+                <circle
+                    id="2022"
+                    cx="730.4"
+                    cy="125.6"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Bangladesh"
+                stroke-width="2.5"
+                d="M730.4 397.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Bangladesh"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M730.4 397.2"
+            ></path>
+            <g id="datapoints__Bangladesh">
+                <circle
+                    id="2022"
+                    cx="730.4"
+                    cy="397.2"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Kenya"
+                stroke-width="2.5"
+                d="M559.6 187"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Kenya"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M559.6 187"
+            ></path>
+            <g id="datapoints__Kenya">
+                <circle
+                    id="2021"
+                    cx="559.6"
+                    cy="187"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Bolivia"
+                stroke-width="2.5"
+                d="M559.6 496.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Bolivia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M559.6 496.7"
+            ></path>
+            <g id="datapoints__Bolivia">
+                <circle
+                    id="2021"
+                    cx="559.6"
+                    cy="496.7"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Mozambique"
+                stroke-width="2.5"
+                d="M217.9 110"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Mozambique"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M217.9 110"
+            ></path>
+            <g id="datapoints__Mozambique">
+                <circle
+                    id="2019"
+                    cx="217.9"
+                    cy="110"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Nigeria"
+                stroke-width="2.5"
+                d="M47.1 203.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Nigeria"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 203.8"
+            ></path>
+            <g id="datapoints__Nigeria">
+                <circle
+                    id="2018"
+                    cx="47.1"
+                    cy="203.8"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

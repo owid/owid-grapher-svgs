@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -75,54 +64,196 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="119.95"
-            y1="552.40"
-            x2="119.95"
-            y2="86.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="United-Kingdom"
-                x="0"
-                y="0"
-                transform="translate(120.2, 167.62)"
-                width="627.8"
-                height="303.15999999999997"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="1750"
+                    x1="397.72499999999997"
+                    y1="531.9"
+                    x2="397.72499999999997"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="397.72499999999997"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    1750
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(753, 319.2)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9.31 million t
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="78.27"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0 t
+                </text>
+                <text
+                    x="78.27"
+                    y="444.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2 million t
+                </text>
+                <text
+                    x="78.27"
+                    y="356.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    4 million t
+                </text>
+                <text
+                    x="78.27"
+                    y="268.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    6 million t
+                </text>
+                <text
+                    x="78.27"
+                    y="180.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    8 million t
+                </text>
+                <text
+                    x="78.27"
+                    y="92"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10 million t
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="324.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="324.195">United Kingdom</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-t"
+                x1="83.27"
+                y1="532.4"
+                x2="712.18"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="2-million-t"
+                x1="83.27"
+                y1="444.3"
+                x2="712.18"
+                y2="444.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="4-million-t"
+                x1="83.27"
+                y1="356.2"
+                x2="712.18"
+                y2="356.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="6-million-t"
+                x1="83.27"
+                y1="268.2"
+                x2="712.18"
+                y2="268.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="8-million-t"
+                x1="83.27"
+                y1="180.1"
+                x2="712.18"
+                y2="180.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10-million-t"
+                x1="83.27"
+                y1="92"
+                x2="712.18"
+                y2="92"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__United-Kingdom"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="716.2"
+                    y="127.4"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="716.18" y="127.41">United Kingdom</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom"
+                stroke-width="2.5"
+                d="M397.7 122.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__United-Kingdom"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M397.7 122.6"
+            ></path>
+            <g id="datapoints__United-Kingdom">
+                <circle
+                    id="1750"
+                    cx="397.7"
+                    cy="122.6"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

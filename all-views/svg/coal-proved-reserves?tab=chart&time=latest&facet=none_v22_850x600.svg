@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -77,122 +66,259 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="90.95"
-            y1="552.40"
-            x2="90.95"
-            y2="122.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="CIS-(EI)"
-                x="0"
-                y="0"
-                transform="translate(91.2, 147.10666666666665)"
-                width="645.3"
-                height="93.25333333333333"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Kazakhstan"
-                x="0"
-                y="0"
-                transform="translate(91.2, 290.5733333333333)"
-                width="86.7"
-                height="93.25333333333333"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Turkey"
-                x="0"
-                y="0"
-                transform="translate(91.2, 434.03999999999996)"
-                width="38.999999999999986"
-                height="93.25333333333333"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2020"
+                    x1="411.895"
+                    y1="531.9"
+                    x2="411.895"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="411.895"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2020
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(741.5, 193.73333333333332)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                190.66 billion t
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(182.9, 337.2)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                25.61 billion t
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(135.2, 480.66666666666663)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                11.53 billion t
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="82.04"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0 t
+                </text>
+                <text
+                    x="82.04"
+                    y="431.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    50 billion t
+                </text>
+                <text
+                    x="82.04"
+                    y="330.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100 billion t
+                </text>
+                <text
+                    x="82.04"
+                    y="229.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    150 billion t
+                </text>
+                <text
+                    x="82.04"
+                    y="128"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    200 billion t
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="86.2"
-                y="198.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="86.2" y="198.7283333333333">CIS (EI)</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="86.2"
-                y="342.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="86.2" y="342.195">Kazakhstan</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="86.2"
-                y="485.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="86.2" y="485.66166666666663">Turkey</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-t"
+                x1="87.04"
+                y1="532.4"
+                x2="736.75"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="50-billion-t"
+                x1="87.04"
+                y1="431.3"
+                x2="736.75"
+                y2="431.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100-billion-t"
+                x1="87.04"
+                y1="330.2"
+                x2="736.75"
+                y2="330.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="150-billion-t"
+                x1="87.04"
+                y1="229.1"
+                x2="736.75"
+                y2="229.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="200-billion-t"
+                x1="87.04"
+                y1="128"
+                x2="736.75"
+                y2="128"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__CIS-(EI)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="740.8"
+                    y="151.7"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="740.75" y="151.71">CIS (EI)</tspan>
+                </text>
+                <text
+                    id="label__Kazakhstan"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="740.8"
+                    y="485.4"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="740.75" y="485.41">Kazakhstan</tspan>
+                </text>
+                <text
+                    id="label__Turkey"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="740.8"
+                    y="513.9"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="740.75" y="513.9100000000001">Turkey</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Turkey"
+                stroke-width="2.5"
+                d="M411.9 509.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Turkey"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M411.9 509.1"
+            ></path>
+            <g id="datapoints__Turkey">
+                <circle
+                    id="2020"
+                    cx="411.9"
+                    cy="509.1"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Kazakhstan"
+                stroke-width="2.5"
+                d="M411.9 480.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Kazakhstan"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M411.9 480.6"
+            ></path>
+            <g id="datapoints__Kazakhstan">
+                <circle
+                    id="2020"
+                    cx="411.9"
+                    cy="480.6"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__CIS-(EI)"
+                stroke-width="2.5"
+                d="M411.9 146.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__CIS-(EI)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M411.9 146.9"
+            ></path>
+            <g id="datapoints__CIS-(EI)">
+                <circle
+                    id="2020"
+                    cx="411.9"
+                    cy="146.9"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">
