@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -83,54 +72,196 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="47.35"
-            y1="532.30"
-            x2="47.35"
-            y2="121.40"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="India"
-                x="0"
-                y="0"
-                transform="translate(47.6, 193.3075)"
-                width="749.3"
-                height="267.08500000000004"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="1975"
+                    x1="415.53499999999997"
+                    y1="511.80000000000007"
+                    x2="415.53499999999997"
+                    y2="517.3000000000001"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="415.53499999999997"
+                    y="530.3000000000001"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    1975
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(801.9, 326.85)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                93%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="49.41"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="49.41"
+                    y="435.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="49.41"
+                    y="358.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="49.41"
+                    y="281.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60%
+                </text>
+                <text
+                    x="49.41"
+                    y="204.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    80%
+                </text>
+                <text
+                    x="49.41"
+                    y="127.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="42.6"
-                y="331.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="42.6" y="331.845">India</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="54.41"
+                y1="512.3"
+                x2="776.66"
+                y2="512.3"
+                stroke="#999"
+            ></line>
+            <line
+                id="20%"
+                x1="54.41"
+                y1="435.3"
+                x2="776.66"
+                y2="435.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="54.41"
+                y1="358.3"
+                x2="776.66"
+                y2="358.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60%"
+                x1="54.41"
+                y1="281.4"
+                x2="776.66"
+                y2="281.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80%"
+                x1="54.41"
+                y1="204.4"
+                x2="776.66"
+                y2="204.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100%"
+                x1="54.41"
+                y1="127.4"
+                x2="776.66"
+                y2="127.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__India"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="780.7"
+                    y="159.1"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="780.66" y="159.11">India</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India"
+                stroke-width="2.5"
+                d="M415.5 154.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__India"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M415.5 154.3"
+            ></path>
+            <g id="datapoints__India">
+                <circle
+                    id="1975"
+                    cx="415.5"
+                    cy="154.3"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

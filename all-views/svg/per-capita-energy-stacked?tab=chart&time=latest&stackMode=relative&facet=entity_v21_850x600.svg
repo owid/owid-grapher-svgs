@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -84,15 +73,6 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="119.95"
-            y1="530.30"
-            x2="119.95"
-            y2="108.50"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
         <g id="categorical-color-legend" class="categoricalColorLegend">
             <g id="swatches">
                 <rect
@@ -105,17 +85,8 @@
                     stroke-width="0.4"
                 ></rect>
                 <rect
-                    id="Oil"
-                    x="76.164"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#c15065"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
                     id="Gas"
-                    x="124.232"
+                    x="76.164"
                     y="86"
                     width="13.5"
                     height="13.5"
@@ -123,17 +94,8 @@
                     stroke-width="0.4"
                 ></rect>
                 <rect
-                    id="Nuclear"
-                    x="181.228"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#00847e"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
                     id="Hydropower"
-                    x="261.408"
+                    x="133.16"
                     y="86"
                     width="13.5"
                     height="13.5"
@@ -141,17 +103,35 @@
                     stroke-width="0.4"
                 ></rect>
                 <rect
-                    id="Wind"
+                    id="Nuclear"
+                    x="241.42000000000002"
+                    y="86"
+                    width="13.5"
+                    height="13.5"
+                    fill="#00847e"
+                    stroke-width="0.4"
+                ></rect>
+                <rect
+                    id="Oil"
+                    x="321.6"
+                    y="86"
+                    width="13.5"
+                    height="13.5"
+                    fill="#c15065"
+                    stroke-width="0.4"
+                ></rect>
+                <rect
+                    id="Other-renewables"
                     x="369.668"
                     y="86"
                     width="13.5"
                     height="13.5"
-                    fill="#00295b"
+                    fill="#578145"
                     stroke-width="0.4"
                 ></rect>
                 <rect
                     id="Solar"
-                    x="433"
+                    x="514.216"
                     y="86"
                     width="13.5"
                     height="13.5"
@@ -159,12 +139,12 @@
                     stroke-width="0.4"
                 ></rect>
                 <rect
-                    id="Other-renewables"
-                    x="497.196"
+                    id="Wind"
+                    x="578.412"
                     y="86"
                     width="13.5"
                     height="13.5"
-                    fill="#578145"
+                    fill="#00295b"
                     stroke-width="0.4"
                 ></rect>
             </g>
@@ -185,28 +165,10 @@
                     font-size="14.4"
                     opacity="1"
                 >
-                    Oil
-                </text>
-                <text
-                    x="142.732"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
-                    opacity="1"
-                >
                     Gas
                 </text>
                 <text
-                    x="199.728"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
-                    opacity="1"
-                >
-                    Nuclear
-                </text>
-                <text
-                    x="279.908"
+                    x="151.66"
                     y="92.75"
                     dy=".32em"
                     font-size="14.4"
@@ -215,16 +177,34 @@
                     Hydropower
                 </text>
                 <text
+                    x="259.92"
+                    y="92.75"
+                    dy=".32em"
+                    font-size="14.4"
+                    opacity="1"
+                >
+                    Nuclear
+                </text>
+                <text
+                    x="340.1"
+                    y="92.75"
+                    dy=".32em"
+                    font-size="14.4"
+                    opacity="1"
+                >
+                    Oil
+                </text>
+                <text
                     x="388.168"
                     y="92.75"
                     dy=".32em"
                     font-size="14.4"
                     opacity="1"
                 >
-                    Wind
+                    Other renewables
                 </text>
                 <text
-                    x="451.5"
+                    x="532.716"
                     y="92.75"
                     dy=".32em"
                     font-size="14.4"
@@ -233,1604 +213,3666 @@
                     Solar
                 </text>
                 <text
-                    x="515.696"
+                    x="596.912"
                     y="92.75"
                     dy=".32em"
                     font-size="14.4"
                     opacity="1"
                 >
-                    Other renewables
+                    Wind
                 </text>
             </g>
         </g>
-        <g id="bars">
-            <g
-                id="United-States"
-                class="bar"
-                transform="translate(0, 127.67272727272727)"
-            >
-                <g id="Coal">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.462272727272728)"
-                        width="55.999999999999986"
-                        height="24.924545454545456"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
+        <text
+            x="60"
+            y="125.375"
+            fill="#5b5b5b"
+            font-size="13.5"
+            style="font-weight: 700"
+        >
+            United States
+            <title>United States</title>
+        </text>
+        <g id="United-States">
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2023"
+                        x1="169"
+                        y1="188.625"
+                        x2="169"
+                        y2="194.125"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
                 </g>
-                <g id="Oil">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(176.2, -12.462272727272728)"
-                        width="244.8"
-                        height="24.924545454545456"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
+                <g id="tick-labels">
                     <text
-                        x="298.6"
-                        y="0"
-                        width="244.8"
-                        height="24.924545454545456"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
+                        x="169"
+                        y="204.125"
+                        fill="#5b5b5b"
                         text-anchor="middle"
-                        dy=".32em"
+                        font-size="10"
                     >
-                        29,296 kWh
+                        2023
                     </text>
                 </g>
-                <g id="Gas">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(421, -12.462272727272728)"
-                        width="217.90000000000003"
-                        height="24.924545454545456"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="529.95"
-                        y="0"
-                        width="217.90000000000003"
-                        height="24.924545454545456"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        26,073 kWh
-                    </text>
-                </g>
-                <g id="Nuclear">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(638.8, -12.462272727272728)"
-                        width="49.999999999999986"
-                        height="24.924545454545456"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Hydropower">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(688.8, -12.462272727272728)"
-                        width="15.100000000000009"
-                        height="24.924545454545456"
-                        fill="#286bbb"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Wind">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(703.9, -12.462272727272728)"
-                        width="27.39999999999999"
-                        height="24.924545454545456"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Solar">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(731.3, -12.462272727272728)"
-                        width="15.399999999999991"
-                        height="24.924545454545456"
-                        fill="#e56e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Other-renewables">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(746.7, -12.462272727272728)"
-                        width="5"
-                        height="24.924545454545456"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">United States</tspan>
-                </text>
-                <text
-                    transform="translate(756.6, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    75,571 kWh
-                </text>
             </g>
-            <g
-                id="Sweden"
-                class="bar"
-                transform="translate(0, 166.0181818181818)"
-            >
-                <g id="Coal">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.462272727272728)"
-                        width="14.299999999999997"
-                        height="24.924545454545456"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Oil">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(134.5, -12.462272727272728)"
-                        width="101.99999999999999"
-                        height="24.924545454545456"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        x="185.5"
-                        y="0"
-                        width="101.99999999999999"
-                        height="24.924545454545456"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
+                        x="55.00"
+                        y="189.1"
                         dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        12,203 kWh
+                        0 kWh
+                    </text>
+                    <text
+                        x="55.00"
+                        y="163.6"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        20k kWh
+                    </text>
+                    <text
+                        x="55.00"
+                        y="138.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        40k kWh
                     </text>
                 </g>
-                <g id="Gas">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(236.4, -12.462272727272728)"
-                        width="5.700000000000003"
-                        height="24.924545454545456"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Nuclear">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(242.1, -12.462272727272728)"
-                        width="95.10000000000001"
-                        height="24.924545454545456"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="289.65"
-                        y="0"
-                        width="95.10000000000001"
-                        height="24.924545454545456"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        11,377 kWh
-                    </text>
-                </g>
-                <g id="Hydropower">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(337.1, -12.462272727272728)"
-                        width="135.10000000000002"
-                        height="24.924545454545456"
-                        fill="#286bbb"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="404.65000000000003"
-                        y="0"
-                        width="135.10000000000002"
-                        height="24.924545454545456"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        16,165 kWh
-                    </text>
-                </g>
-                <g id="Wind">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(472.2, -12.462272727272728)"
-                        width="70.2"
-                        height="24.924545454545456"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Solar">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(542.4, -12.462272727272728)"
-                        width="6.3999999999999915"
-                        height="24.924545454545456"
-                        fill="#e56e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Other-renewables">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(548.7, -12.462272727272728)"
-                        width="28.499999999999986"
-                        height="24.924545454545456"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Sweden</tspan>
-                </text>
-                <text
-                    transform="translate(582.2, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    54,699 kWh
-                </text>
             </g>
-            <g
-                id="Japan"
-                class="bar"
-                transform="translate(0, 204.36363636363637)"
-            >
-                <g id="Coal">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.462272727272728)"
-                        width="85.39999999999999"
-                        height="24.924545454545456"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="162.9"
-                        y="0"
-                        width="85.39999999999999"
-                        height="24.924545454545456"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        10,220 kWh
-                    </text>
-                </g>
-                <g id="Oil">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(205.6, -12.462272727272728)"
-                        width="125.3"
-                        height="24.924545454545456"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="268.25"
-                        y="0"
-                        width="125.3"
-                        height="24.924545454545456"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        14,993 kWh
-                    </text>
-                </g>
-                <g id="Gas">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(330.9, -12.462272727272728)"
-                        width="62.7"
-                        height="24.924545454545456"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Nuclear">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(393.5, -12.462272727272728)"
-                        width="13.100000000000009"
-                        height="24.924545454545456"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Hydropower">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(406.6, -12.462272727272728)"
-                        width="13.100000000000009"
-                        height="24.924545454545456"
-                        fill="#286bbb"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Wind">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(419.7, -12.462272727272728)"
-                        width="1.7999999999999972"
-                        height="24.924545454545456"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Solar">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(421.5, -12.462272727272728)"
-                        width="17.10000000000001"
-                        height="24.924545454545456"
-                        fill="#e56e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Other-renewables">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(438.6, -12.462272727272728)"
-                        width="8.999999999999986"
-                        height="24.924545454545456"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Japan</tspan>
-                </text>
-                <text
-                    transform="translate(452.5, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    39,170 kWh
-                </text>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-kWh"
+                    x1="60.00"
+                    y1="189.1"
+                    x2="278.00"
+                    y2="189.1"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="20k-kWh"
+                    x1="60.00"
+                    y1="163.6"
+                    x2="278.00"
+                    y2="163.6"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="40k-kWh"
+                    x1="60.00"
+                    y1="138.1"
+                    x2="278.00"
+                    y2="138.1"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
             </g>
-            <g
-                id="Germany"
-                class="bar"
-                transform="translate(0, 242.7090909090909)"
-            >
-                <g id="Coal">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.462272727272728)"
-                        width="50.89999999999999"
-                        height="24.924545454545456"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Oil">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(171.1, -12.462272727272728)"
-                        width="111.8"
-                        height="24.924545454545456"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="227"
-                        y="0"
-                        width="111.8"
-                        height="24.924545454545456"
-                        fill="#fff"
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Other-renewables"
+                    stroke-width="2.5"
+                    d="M169 188.4"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#578145"
+                    id="line__Other-renewables"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 188.4"
+                ></path>
+                <g id="datapoints__Other-renewables">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="188.4"
+                        r="1.8"
+                        fill="#578145"
                         opacity="1"
-                        font-size="13.5"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Solar"
+                    stroke-width="2.5"
+                    d="M169 186.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#e56e5a"
+                    id="line__Solar"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 186.8"
+                ></path>
+                <g id="datapoints__Solar">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="186.8"
+                        r="1.8"
+                        fill="#e56e5a"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Wind"
+                    stroke-width="2.5"
+                    d="M169 184.9"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00295b"
+                    id="line__Wind"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 184.9"
+                ></path>
+                <g id="datapoints__Wind">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="184.9"
+                        r="1.8"
+                        fill="#00295b"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Hydropower"
+                    stroke-width="2.5"
+                    d="M169 186.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#286bbb"
+                    id="line__Hydropower"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 186.8"
+                ></path>
+                <g id="datapoints__Hydropower">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="186.8"
+                        r="1.8"
+                        fill="#286bbb"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Nuclear"
+                    stroke-width="2.5"
+                    d="M169 181.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00847e"
+                    id="line__Nuclear"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 181.5"
+                ></path>
+                <g id="datapoints__Nuclear">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="181.5"
+                        r="1.8"
+                        fill="#00847e"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Gas"
+                    stroke-width="2.5"
+                    d="M169 155.9"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#6d3e91"
+                    id="line__Gas"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 155.9"
+                ></path>
+                <g id="datapoints__Gas">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="155.9"
+                        r="1.8"
+                        fill="#6d3e91"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Oil"
+                    stroke-width="2.5"
+                    d="M169 151.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#c15065"
+                    id="line__Oil"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 151.8"
+                ></path>
+                <g id="datapoints__Oil">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="151.8"
+                        r="1.8"
+                        fill="#c15065"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Coal"
+                    stroke-width="2.5"
+                    d="M169 180.6"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#883039"
+                    id="line__Coal"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 180.6"
+                ></path>
+                <g id="datapoints__Coal">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="180.6"
+                        r="1.8"
+                        fill="#883039"
+                        opacity="1"
+                    ></circle>
+                </g>
+            </g>
+        </g>
+        <text
+            x="337"
+            y="125.375"
+            fill="#5b5b5b"
+            font-size="13.5"
+            style="font-weight: 700"
+        >
+            United Kingdom
+            <title>United Kingdom</title>
+        </text>
+        <g id="United-Kingdom">
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2023"
+                        x1="446"
+                        y1="188.625"
+                        x2="446"
+                        y2="194.125"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
+                    <text
+                        x="446"
+                        y="204.125"
+                        fill="#5b5b5b"
                         text-anchor="middle"
-                        dy=".32em"
+                        font-size="10"
                     >
-                        13,380 kWh
+                        2023
                     </text>
                 </g>
-                <g id="Gas">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(282.9, -12.462272727272728)"
-                        width="75.89999999999999"
-                        height="24.924545454545456"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Nuclear">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(358.8, -12.462272727272728)"
-                        width="1.7999999999999972"
-                        height="24.924545454545456"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Hydropower">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(360.6, -12.462272727272728)"
-                        width="5.099999999999994"
-                        height="24.924545454545456"
-                        fill="#286bbb"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Wind">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(365.7, -12.462272727272728)"
-                        width="36.999999999999986"
-                        height="24.924545454545456"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Solar">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(402.7, -12.462272727272728)"
-                        width="15.999999999999986"
-                        height="24.924545454545456"
-                        fill="#e56e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Other-renewables">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(418.7, -12.462272727272728)"
-                        width="15.899999999999991"
-                        height="24.924545454545456"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Germany</tspan>
-                </text>
-                <text
-                    transform="translate(439.5, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    37,618 kWh
-                </text>
             </g>
-            <g
-                id="France"
-                class="bar"
-                transform="translate(0, 281.05454545454546)"
-            >
-                <g id="Coal">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.462272727272728)"
-                        width="6.3999999999999915"
-                        height="24.924545454545456"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Oil">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(126.6, -12.462272727272728)"
-                        width="99.10000000000001"
-                        height="24.924545454545456"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        x="176.15"
-                        y="0"
-                        width="99.10000000000001"
-                        height="24.924545454545456"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
+                        x="332.00"
+                        y="189.1"
                         dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        11,858 kWh
+                        0 kWh
+                    </text>
+                    <text
+                        x="332.00"
+                        y="163.6"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        20k kWh
+                    </text>
+                    <text
+                        x="332.00"
+                        y="138.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        40k kWh
                     </text>
                 </g>
-                <g id="Gas">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(225.7, -12.462272727272728)"
-                        width="43.7"
-                        height="24.924545454545456"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Nuclear">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(269.4, -12.462272727272728)"
-                        width="108.8"
-                        height="24.924545454545456"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="323.79999999999995"
-                        y="0"
-                        width="108.8"
-                        height="24.924545454545456"
-                        fill="#fff"
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-kWh"
+                    x1="337.00"
+                    y1="189.1"
+                    x2="555.00"
+                    y2="189.1"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="20k-kWh"
+                    x1="337.00"
+                    y1="163.6"
+                    x2="555.00"
+                    y2="163.6"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="40k-kWh"
+                    x1="337.00"
+                    y1="138.1"
+                    x2="555.00"
+                    y2="138.1"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Other-renewables"
+                    stroke-width="2.5"
+                    d="M446 187.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#578145"
+                    id="line__Other-renewables"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 187.1"
+                ></path>
+                <g id="datapoints__Other-renewables">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="187.1"
+                        r="1.8"
+                        fill="#578145"
                         opacity="1"
-                        font-size="13.5"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Solar"
+                    stroke-width="2.5"
+                    d="M446 188.4"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#e56e5a"
+                    id="line__Solar"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 188.4"
+                ></path>
+                <g id="datapoints__Solar">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="188.4"
+                        r="1.8"
+                        fill="#e56e5a"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Wind"
+                    stroke-width="2.5"
+                    d="M446 185.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00295b"
+                    id="line__Wind"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 185.1"
+                ></path>
+                <g id="datapoints__Wind">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="185.1"
+                        r="1.8"
+                        fill="#00295b"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Hydropower"
+                    stroke-width="2.5"
+                    d="M446 188.9"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#286bbb"
+                    id="line__Hydropower"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 188.9"
+                ></path>
+                <g id="datapoints__Hydropower">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="188.9"
+                        r="1.8"
+                        fill="#286bbb"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Nuclear"
+                    stroke-width="2.5"
+                    d="M446 187.2"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00847e"
+                    id="line__Nuclear"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 187.2"
+                ></path>
+                <g id="datapoints__Nuclear">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="187.2"
+                        r="1.8"
+                        fill="#00847e"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Gas"
+                    stroke-width="2.5"
+                    d="M446 177.2"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#6d3e91"
+                    id="line__Gas"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 177.2"
+                ></path>
+                <g id="datapoints__Gas">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="177.2"
+                        r="1.8"
+                        fill="#6d3e91"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Oil"
+                    stroke-width="2.5"
+                    d="M446 175.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#c15065"
+                    id="line__Oil"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 175.1"
+                ></path>
+                <g id="datapoints__Oil">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="175.1"
+                        r="1.8"
+                        fill="#c15065"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Coal"
+                    stroke-width="2.5"
+                    d="M446 188.2"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#883039"
+                    id="line__Coal"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 188.2"
+                ></path>
+                <g id="datapoints__Coal">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="188.2"
+                        r="1.8"
+                        fill="#883039"
+                        opacity="1"
+                    ></circle>
+                </g>
+            </g>
+        </g>
+        <text
+            x="614"
+            y="125.375"
+            fill="#5b5b5b"
+            font-size="13.5"
+            style="font-weight: 700"
+        >
+            World
+            <title>World</title>
+        </text>
+        <g id="World">
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2023"
+                        x1="723"
+                        y1="188.625"
+                        x2="723"
+                        y2="194.125"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
+                    <text
+                        x="723"
+                        y="204.125"
+                        fill="#5b5b5b"
                         text-anchor="middle"
-                        dy=".32em"
+                        font-size="10"
                     >
-                        13,019 kWh
+                        2023
                     </text>
                 </g>
-                <g id="Hydropower">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(378.1, -12.462272727272728)"
-                        width="18.60000000000001"
-                        height="24.924545454545456"
-                        fill="#286bbb"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Wind">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(396.7, -12.462272727272728)"
-                        width="17.60000000000001"
-                        height="24.924545454545456"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Solar">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(414.3, -12.462272727272728)"
-                        width="7.5"
-                        height="24.924545454545456"
-                        fill="#e56e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Other-renewables">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(421.7, -12.462272727272728)"
-                        width="4"
-                        height="24.924545454545456"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">France</tspan>
-                </text>
-                <text
-                    transform="translate(430.7, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    36,565 kWh
-                </text>
             </g>
-            <g id="China" class="bar" transform="translate(0, 319.4)">
-                <g id="Coal">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.462272727272728)"
-                        width="149.7"
-                        height="24.924545454545456"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        x="195.05"
-                        y="0"
-                        width="149.7"
-                        height="24.924545454545456"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
+                        x="609.00"
+                        y="189.1"
                         dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        17,913 kWh
+                        0 kWh
+                    </text>
+                    <text
+                        x="609.00"
+                        y="163.6"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        20k kWh
+                    </text>
+                    <text
+                        x="609.00"
+                        y="138.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        40k kWh
                     </text>
                 </g>
-                <g id="Oil">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(269.9, -12.462272727272728)"
-                        width="53.3"
-                        height="24.924545454545456"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Gas">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(323.2, -12.462272727272728)"
-                        width="23.700000000000003"
-                        height="24.924545454545456"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Nuclear">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(346.9, -12.462272727272728)"
-                        width="6.3999999999999915"
-                        height="24.924545454545456"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Hydropower">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(353.2, -12.462272727272728)"
-                        width="18.700000000000003"
-                        height="24.924545454545456"
-                        fill="#286bbb"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Wind">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(371.9, -12.462272727272728)"
-                        width="13.499999999999986"
-                        height="24.924545454545456"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Solar">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(385.4, -12.462272727272728)"
-                        width="8.899999999999991"
-                        height="24.924545454545456"
-                        fill="#e56e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Other-renewables">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(394.3, -12.462272727272728)"
-                        width="3.700000000000003"
-                        height="24.924545454545456"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">China</tspan>
-                </text>
-                <text
-                    transform="translate(403, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    33,245 kWh
-                </text>
             </g>
-            <g
-                id="United-Kingdom"
-                class="bar"
-                transform="translate(0, 357.74545454545455)"
-            >
-                <g id="Coal">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.462272727272728)"
-                        width="6.299999999999997"
-                        height="24.924545454545456"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Oil">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(126.5, -12.462272727272728)"
-                        width="92.10000000000001"
-                        height="24.924545454545456"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="172.55"
-                        y="0"
-                        width="92.10000000000001"
-                        height="24.924545454545456"
-                        fill="#fff"
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-kWh"
+                    x1="614.00"
+                    y1="189.1"
+                    x2="832.00"
+                    y2="189.1"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="20k-kWh"
+                    x1="614.00"
+                    y1="163.6"
+                    x2="832.00"
+                    y2="163.6"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="40k-kWh"
+                    x1="614.00"
+                    y1="138.1"
+                    x2="832.00"
+                    y2="138.1"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Other-renewables"
+                    stroke-width="2.5"
+                    d="M723 188.7"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#578145"
+                    id="line__Other-renewables"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 188.7"
+                ></path>
+                <g id="datapoints__Other-renewables">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="188.7"
+                        r="1.8"
+                        fill="#578145"
                         opacity="1"
-                        font-size="13.5"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Solar"
+                    stroke-width="2.5"
+                    d="M723 188.4"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#e56e5a"
+                    id="line__Solar"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 188.4"
+                ></path>
+                <g id="datapoints__Solar">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="188.4"
+                        r="1.8"
+                        fill="#e56e5a"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Wind"
+                    stroke-width="2.5"
+                    d="M723 188.2"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00295b"
+                    id="line__Wind"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 188.2"
+                ></path>
+                <g id="datapoints__Wind">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="188.2"
+                        r="1.8"
+                        fill="#00295b"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Hydropower"
+                    stroke-width="2.5"
+                    d="M723 187.4"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#286bbb"
+                    id="line__Hydropower"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 187.4"
+                ></path>
+                <g id="datapoints__Hydropower">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="187.4"
+                        r="1.8"
+                        fill="#286bbb"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Nuclear"
+                    stroke-width="2.5"
+                    d="M723 188"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00847e"
+                    id="line__Nuclear"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 188"
+                ></path>
+                <g id="datapoints__Nuclear">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="188"
+                        r="1.8"
+                        fill="#00847e"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Gas"
+                    stroke-width="2.5"
+                    d="M723 182.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#6d3e91"
+                    id="line__Gas"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 182.8"
+                ></path>
+                <g id="datapoints__Gas">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="182.8"
+                        r="1.8"
+                        fill="#6d3e91"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Oil"
+                    stroke-width="2.5"
+                    d="M723 180.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#c15065"
+                    id="line__Oil"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 180.5"
+                ></path>
+                <g id="datapoints__Oil">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="180.5"
+                        r="1.8"
+                        fill="#c15065"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Coal"
+                    stroke-width="2.5"
+                    d="M723 181.9"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#883039"
+                    id="line__Coal"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 181.9"
+                ></path>
+                <g id="datapoints__Coal">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="181.9"
+                        r="1.8"
+                        fill="#883039"
+                        opacity="1"
+                    ></circle>
+                </g>
+            </g>
+        </g>
+        <text
+            x="60"
+            y="233.375"
+            fill="#5b5b5b"
+            font-size="13.5"
+            style="font-weight: 700"
+        >
+            China
+            <title>China</title>
+        </text>
+        <g id="China">
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2023"
+                        x1="169"
+                        y1="296.625"
+                        x2="169"
+                        y2="302.125"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
+                    <text
+                        x="169"
+                        y="312.125"
+                        fill="#5b5b5b"
                         text-anchor="middle"
-                        dy=".32em"
+                        font-size="10"
                     >
-                        11,025 kWh
+                        2023
                     </text>
                 </g>
-                <g id="Gas">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(218.6, -12.462272727272728)"
-                        width="78.39999999999999"
-                        height="24.924545454545456"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
                     <text
-                        x="257.8"
-                        y="0"
-                        width="78.39999999999999"
-                        height="24.924545454545456"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
+                        x="55.00"
+                        y="297.1"
                         dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
                     >
-                        9,375 kWh
+                        0 kWh
+                    </text>
+                    <text
+                        x="55.00"
+                        y="271.6"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        20k kWh
+                    </text>
+                    <text
+                        x="55.00"
+                        y="246.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        40k kWh
                     </text>
                 </g>
-                <g id="Nuclear">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(297, -12.462272727272728)"
-                        width="12.499999999999986"
-                        height="24.924545454545456"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Hydropower">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(309.5, -12.462272727272728)"
-                        width="1.7000000000000028"
-                        height="24.924545454545456"
-                        fill="#286bbb"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Wind">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(311.2, -12.462272727272728)"
-                        width="26.299999999999997"
-                        height="24.924545454545456"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Solar">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(337.4, -12.462272727272728)"
-                        width="4.5"
-                        height="24.924545454545456"
-                        fill="#e56e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Other-renewables">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(341.9, -12.462272727272728)"
-                        width="13.399999999999991"
-                        height="24.924545454545456"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">
-                        United Kingdom
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(360.2, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    28,128 kWh
-                </text>
             </g>
-            <g
-                id="South-Africa"
-                class="bar"
-                transform="translate(0, 396.09090909090907)"
-            >
-                <g id="Coal">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.462272727272728)"
-                        width="127.8"
-                        height="24.924545454545456"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="184.1"
-                        y="0"
-                        width="127.8"
-                        height="24.924545454545456"
-                        fill="#fff"
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-kWh"
+                    x1="60.00"
+                    y1="297.1"
+                    x2="278.00"
+                    y2="297.1"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="20k-kWh"
+                    x1="60.00"
+                    y1="271.6"
+                    x2="278.00"
+                    y2="271.6"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="40k-kWh"
+                    x1="60.00"
+                    y1="246.1"
+                    x2="278.00"
+                    y2="246.1"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Other-renewables"
+                    stroke-width="2.5"
+                    d="M169 296.6"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#578145"
+                    id="line__Other-renewables"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 296.6"
+                ></path>
+                <g id="datapoints__Other-renewables">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="296.6"
+                        r="1.8"
+                        fill="#578145"
                         opacity="1"
-                        font-size="13.5"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Solar"
+                    stroke-width="2.5"
+                    d="M169 295.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#e56e5a"
+                    id="line__Solar"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 295.8"
+                ></path>
+                <g id="datapoints__Solar">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="295.8"
+                        r="1.8"
+                        fill="#e56e5a"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Wind"
+                    stroke-width="2.5"
+                    d="M169 295.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00295b"
+                    id="line__Wind"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 295.1"
+                ></path>
+                <g id="datapoints__Wind">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="295.1"
+                        r="1.8"
+                        fill="#00295b"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Hydropower"
+                    stroke-width="2.5"
+                    d="M169 294.3"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#286bbb"
+                    id="line__Hydropower"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 294.3"
+                ></path>
+                <g id="datapoints__Hydropower">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="294.3"
+                        r="1.8"
+                        fill="#286bbb"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Nuclear"
+                    stroke-width="2.5"
+                    d="M169 296.2"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00847e"
+                    id="line__Nuclear"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 296.2"
+                ></path>
+                <g id="datapoints__Nuclear">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="296.2"
+                        r="1.8"
+                        fill="#00847e"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Gas"
+                    stroke-width="2.5"
+                    d="M169 293.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#6d3e91"
+                    id="line__Gas"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 293.5"
+                ></path>
+                <g id="datapoints__Gas">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="293.5"
+                        r="1.8"
+                        fill="#6d3e91"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Oil"
+                    stroke-width="2.5"
+                    d="M169 289"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#c15065"
+                    id="line__Oil"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 289"
+                ></path>
+                <g id="datapoints__Oil">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="289"
+                        r="1.8"
+                        fill="#c15065"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Coal"
+                    stroke-width="2.5"
+                    d="M169 274.3"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#883039"
+                    id="line__Coal"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 274.3"
+                ></path>
+                <g id="datapoints__Coal">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="274.3"
+                        r="1.8"
+                        fill="#883039"
+                        opacity="1"
+                    ></circle>
+                </g>
+            </g>
+        </g>
+        <text
+            x="337"
+            y="233.375"
+            fill="#5b5b5b"
+            font-size="13.5"
+            style="font-weight: 700"
+        >
+            India
+            <title>India</title>
+        </text>
+        <g id="India">
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2023"
+                        x1="446"
+                        y1="296.625"
+                        x2="446"
+                        y2="302.125"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
+                    <text
+                        x="446"
+                        y="312.125"
+                        fill="#5b5b5b"
                         text-anchor="middle"
-                        dy=".32em"
+                        font-size="10"
                     >
-                        15,289 kWh
+                        2023
                     </text>
                 </g>
-                <g id="Oil">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(248, -12.462272727272728)"
-                        width="41.7"
-                        height="24.924545454545456"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Gas">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(289.7, -12.462272727272728)"
-                        width="6.599999999999994"
-                        height="24.924545454545456"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Nuclear">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(296.2, -12.462272727272728)"
-                        width="3.0999999999999943"
-                        height="24.924545454545456"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Hydropower">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(299.3, -12.462272727272728)"
-                        width="0.5999999999999943"
-                        height="24.924545454545456"
-                        fill="#286bbb"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Wind">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(299.9, -12.462272727272728)"
-                        width="4.200000000000003"
-                        height="24.924545454545456"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Solar">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(304.1, -12.462272727272728)"
-                        width="2.299999999999997"
-                        height="24.924545454545456"
-                        fill="#e56e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Other-renewables">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(306.4, -12.462272727272728)"
-                        width="0.20000000000000284"
-                        height="24.924545454545456"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">South Africa</tspan>
-                </text>
-                <text
-                    transform="translate(311.6, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    22,302 kWh
-                </text>
             </g>
-            <g
-                id="World"
-                class="bar"
-                transform="translate(0, 434.43636363636364)"
-            >
-                <g id="Coal">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.462272727272728)"
-                        width="47.3"
-                        height="24.924545454545456"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
+                    <text
+                        x="332.00"
+                        y="297.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        0 kWh
+                    </text>
+                    <text
+                        x="332.00"
+                        y="271.6"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        20k kWh
+                    </text>
+                    <text
+                        x="332.00"
+                        y="246.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        40k kWh
+                    </text>
                 </g>
-                <g id="Oil">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(167.5, -12.462272727272728)"
-                        width="56.7"
-                        height="24.924545454545456"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Gas">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(224.2, -12.462272727272728)"
-                        width="41.7"
-                        height="24.924545454545456"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Nuclear">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(265.9, -12.462272727272728)"
-                        width="7.099999999999994"
-                        height="24.924545454545456"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Hydropower">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(272.9, -12.462272727272728)"
-                        width="11.499999999999986"
-                        height="24.924545454545456"
-                        fill="#286bbb"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Wind">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(284.4, -12.462272727272728)"
-                        width="6.299999999999997"
-                        height="24.924545454545456"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Solar">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(290.7, -12.462272727272728)"
-                        width="4.3999999999999915"
-                        height="24.924545454545456"
-                        fill="#e56e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Other-renewables">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(295.1, -12.462272727272728)"
-                        width="2.5"
-                        height="24.924545454545456"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">World</tspan>
-                </text>
-                <text
-                    transform="translate(302.6, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    21,230 kWh
-                </text>
             </g>
-            <g
-                id="Brazil"
-                class="bar"
-                transform="translate(0, 472.7818181818182)"
-            >
-                <g id="Coal">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.462272727272728)"
-                        width="6.200000000000003"
-                        height="24.924545454545456"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Oil">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(126.4, -12.462272727272728)"
-                        width="54.8"
-                        height="24.924545454545456"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Gas">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(181.1, -12.462272727272728)"
-                        width="11.600000000000009"
-                        height="24.924545454545456"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Nuclear">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(192.7, -12.462272727272728)"
-                        width="1.3999999999999915"
-                        height="24.924545454545456"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Hydropower">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(194.1, -12.462272727272728)"
-                        width="42.999999999999986"
-                        height="24.924545454545456"
-                        fill="#286bbb"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Wind">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(237.1, -12.462272727272728)"
-                        width="9.600000000000009"
-                        height="24.924545454545456"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Solar">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(246.7, -12.462272727272728)"
-                        width="5.200000000000003"
-                        height="24.924545454545456"
-                        fill="#e56e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Other-renewables">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(251.8, -12.462272727272728)"
-                        width="6.8999999999999915"
-                        height="24.924545454545456"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Brazil</tspan>
-                </text>
-                <text
-                    transform="translate(263.7, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    16,577 kWh
-                </text>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-kWh"
+                    x1="337.00"
+                    y1="297.1"
+                    x2="555.00"
+                    y2="297.1"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="20k-kWh"
+                    x1="337.00"
+                    y1="271.6"
+                    x2="555.00"
+                    y2="271.6"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="40k-kWh"
+                    x1="337.00"
+                    y1="246.1"
+                    x2="555.00"
+                    y2="246.1"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
             </g>
-            <g
-                id="India"
-                class="bar"
-                transform="translate(0, 511.1272727272727)"
-            >
-                <g id="Coal">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.462272727272728)"
-                        width="35.7"
-                        height="24.924545454545456"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Oil">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(155.9, -12.462272727272728)"
-                        width="17.200000000000003"
-                        height="24.924545454545456"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Gas">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(173.1, -12.462272727272728)"
-                        width="3.700000000000003"
-                        height="24.924545454545456"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Nuclear">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(176.8, -12.462272727272728)"
-                        width="0.7000000000000028"
-                        height="24.924545454545456"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Hydropower">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(177.5, -12.462272727272728)"
-                        width="2.299999999999997"
-                        height="24.924545454545456"
-                        fill="#286bbb"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Wind">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(179.7, -12.462272727272728)"
-                        width="1.2999999999999972"
-                        height="24.924545454545456"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Solar">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(181, -12.462272727272728)"
-                        width="1.7000000000000028"
-                        height="24.924545454545456"
-                        fill="#e56e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Other-renewables">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(182.7, -12.462272727272728)"
-                        width="0.7000000000000028"
-                        height="24.924545454545456"
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Other-renewables"
+                    stroke-width="2.5"
+                    d="M446 297"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#578145"
+                    id="line__Other-renewables"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 297"
+                ></path>
+                <g id="datapoints__Other-renewables">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="297"
+                        r="1.8"
                         fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
+                        opacity="1"
+                    ></circle>
                 </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">India</tspan>
-                </text>
-                <text
-                    transform="translate(188.4, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    7,562 kWh
-                </text>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Solar"
+                    stroke-width="2.5"
+                    d="M446 296.9"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#e56e5a"
+                    id="line__Solar"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 296.9"
+                ></path>
+                <g id="datapoints__Solar">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="296.9"
+                        r="1.8"
+                        fill="#e56e5a"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Wind"
+                    stroke-width="2.5"
+                    d="M446 296.9"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00295b"
+                    id="line__Wind"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 296.9"
+                ></path>
+                <g id="datapoints__Wind">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="296.9"
+                        r="1.8"
+                        fill="#00295b"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Hydropower"
+                    stroke-width="2.5"
+                    d="M446 296.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#286bbb"
+                    id="line__Hydropower"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 296.8"
+                ></path>
+                <g id="datapoints__Hydropower">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="296.8"
+                        r="1.8"
+                        fill="#286bbb"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Nuclear"
+                    stroke-width="2.5"
+                    d="M446 297"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00847e"
+                    id="line__Nuclear"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 297"
+                ></path>
+                <g id="datapoints__Nuclear">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="297"
+                        r="1.8"
+                        fill="#00847e"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Gas"
+                    stroke-width="2.5"
+                    d="M446 296.6"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#6d3e91"
+                    id="line__Gas"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 296.6"
+                ></path>
+                <g id="datapoints__Gas">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="296.6"
+                        r="1.8"
+                        fill="#6d3e91"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Oil"
+                    stroke-width="2.5"
+                    d="M446 294.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#c15065"
+                    id="line__Oil"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 294.5"
+                ></path>
+                <g id="datapoints__Oil">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="294.5"
+                        r="1.8"
+                        fill="#c15065"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Coal"
+                    stroke-width="2.5"
+                    d="M446 291.7"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#883039"
+                    id="line__Coal"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 291.7"
+                ></path>
+                <g id="datapoints__Coal">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="291.7"
+                        r="1.8"
+                        fill="#883039"
+                        opacity="1"
+                    ></circle>
+                </g>
+            </g>
+        </g>
+        <text
+            x="614"
+            y="233.375"
+            fill="#5b5b5b"
+            font-size="13.5"
+            style="font-weight: 700"
+        >
+            France
+            <title>France</title>
+        </text>
+        <g id="France">
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2023"
+                        x1="723"
+                        y1="296.625"
+                        x2="723"
+                        y2="302.125"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
+                    <text
+                        x="723"
+                        y="312.125"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
+                    >
+                        2023
+                    </text>
+                </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
+                    <text
+                        x="609.00"
+                        y="297.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        0 kWh
+                    </text>
+                    <text
+                        x="609.00"
+                        y="271.6"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        20k kWh
+                    </text>
+                    <text
+                        x="609.00"
+                        y="246.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        40k kWh
+                    </text>
+                </g>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-kWh"
+                    x1="614.00"
+                    y1="297.1"
+                    x2="832.00"
+                    y2="297.1"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="20k-kWh"
+                    x1="614.00"
+                    y1="271.6"
+                    x2="832.00"
+                    y2="271.6"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="40k-kWh"
+                    x1="614.00"
+                    y1="246.1"
+                    x2="832.00"
+                    y2="246.1"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Other-renewables"
+                    stroke-width="2.5"
+                    d="M723 296.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#578145"
+                    id="line__Other-renewables"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 296.5"
+                ></path>
+                <g id="datapoints__Other-renewables">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="296.5"
+                        r="1.8"
+                        fill="#578145"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Solar"
+                    stroke-width="2.5"
+                    d="M723 296"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#e56e5a"
+                    id="line__Solar"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 296"
+                ></path>
+                <g id="datapoints__Solar">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="296"
+                        r="1.8"
+                        fill="#e56e5a"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Wind"
+                    stroke-width="2.5"
+                    d="M723 294.4"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00295b"
+                    id="line__Wind"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 294.4"
+                ></path>
+                <g id="datapoints__Wind">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="294.4"
+                        r="1.8"
+                        fill="#00295b"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Hydropower"
+                    stroke-width="2.5"
+                    d="M723 294.3"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#286bbb"
+                    id="line__Hydropower"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 294.3"
+                ></path>
+                <g id="datapoints__Hydropower">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="294.3"
+                        r="1.8"
+                        fill="#286bbb"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Nuclear"
+                    stroke-width="2.5"
+                    d="M723 280.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00847e"
+                    id="line__Nuclear"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 280.5"
+                ></path>
+                <g id="datapoints__Nuclear">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="280.5"
+                        r="1.8"
+                        fill="#00847e"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Gas"
+                    stroke-width="2.5"
+                    d="M723 290.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#6d3e91"
+                    id="line__Gas"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 290.5"
+                ></path>
+                <g id="datapoints__Gas">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="290.5"
+                        r="1.8"
+                        fill="#6d3e91"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Oil"
+                    stroke-width="2.5"
+                    d="M723 282"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#c15065"
+                    id="line__Oil"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 282"
+                ></path>
+                <g id="datapoints__Oil">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="282"
+                        r="1.8"
+                        fill="#c15065"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Coal"
+                    stroke-width="2.5"
+                    d="M723 296.2"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#883039"
+                    id="line__Coal"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 296.2"
+                ></path>
+                <g id="datapoints__Coal">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="296.2"
+                        r="1.8"
+                        fill="#883039"
+                        opacity="1"
+                    ></circle>
+                </g>
+            </g>
+        </g>
+        <text
+            x="60"
+            y="341.375"
+            fill="#5b5b5b"
+            font-size="13.5"
+            style="font-weight: 700"
+        >
+            Germany
+            <title>Germany</title>
+        </text>
+        <g id="Germany">
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2023"
+                        x1="169"
+                        y1="404.625"
+                        x2="169"
+                        y2="410.125"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
+                    <text
+                        x="169"
+                        y="420.125"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
+                    >
+                        2023
+                    </text>
+                </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
+                    <text
+                        x="55.00"
+                        y="405.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        0 kWh
+                    </text>
+                    <text
+                        x="55.00"
+                        y="379.6"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        20k kWh
+                    </text>
+                    <text
+                        x="55.00"
+                        y="354.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        40k kWh
+                    </text>
+                </g>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-kWh"
+                    x1="60.00"
+                    y1="405.1"
+                    x2="278.00"
+                    y2="405.1"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="20k-kWh"
+                    x1="60.00"
+                    y1="379.6"
+                    x2="278.00"
+                    y2="379.6"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="40k-kWh"
+                    x1="60.00"
+                    y1="354.1"
+                    x2="278.00"
+                    y2="354.1"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Other-renewables"
+                    stroke-width="2.5"
+                    d="M169 402.7"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#578145"
+                    id="line__Other-renewables"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 402.7"
+                ></path>
+                <g id="datapoints__Other-renewables">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="402.7"
+                        r="1.8"
+                        fill="#578145"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Solar"
+                    stroke-width="2.5"
+                    d="M169 402.7"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#e56e5a"
+                    id="line__Solar"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 402.7"
+                ></path>
+                <g id="datapoints__Solar">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="402.7"
+                        r="1.8"
+                        fill="#e56e5a"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Wind"
+                    stroke-width="2.5"
+                    d="M169 399.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00295b"
+                    id="line__Wind"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 399.5"
+                ></path>
+                <g id="datapoints__Wind">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="399.5"
+                        r="1.8"
+                        fill="#00295b"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Hydropower"
+                    stroke-width="2.5"
+                    d="M169 404.3"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#286bbb"
+                    id="line__Hydropower"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 404.3"
+                ></path>
+                <g id="datapoints__Hydropower">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="404.3"
+                        r="1.8"
+                        fill="#286bbb"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Nuclear"
+                    stroke-width="2.5"
+                    d="M169 404.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00847e"
+                    id="line__Nuclear"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 404.8"
+                ></path>
+                <g id="datapoints__Nuclear">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="404.8"
+                        r="1.8"
+                        fill="#00847e"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Gas"
+                    stroke-width="2.5"
+                    d="M169 393.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#6d3e91"
+                    id="line__Gas"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 393.5"
+                ></path>
+                <g id="datapoints__Gas">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="393.5"
+                        r="1.8"
+                        fill="#6d3e91"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Oil"
+                    stroke-width="2.5"
+                    d="M169 388.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#c15065"
+                    id="line__Oil"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 388.1"
+                ></path>
+                <g id="datapoints__Oil">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="388.1"
+                        r="1.8"
+                        fill="#c15065"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Coal"
+                    stroke-width="2.5"
+                    d="M169 397.4"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#883039"
+                    id="line__Coal"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 397.4"
+                ></path>
+                <g id="datapoints__Coal">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="397.4"
+                        r="1.8"
+                        fill="#883039"
+                        opacity="1"
+                    ></circle>
+                </g>
+            </g>
+        </g>
+        <text
+            x="337"
+            y="341.375"
+            fill="#5b5b5b"
+            font-size="13.5"
+            style="font-weight: 700"
+        >
+            Sweden
+            <title>Sweden</title>
+        </text>
+        <g id="Sweden">
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2023"
+                        x1="446"
+                        y1="404.625"
+                        x2="446"
+                        y2="410.125"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
+                    <text
+                        x="446"
+                        y="420.125"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
+                    >
+                        2023
+                    </text>
+                </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
+                    <text
+                        x="332.00"
+                        y="405.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        0 kWh
+                    </text>
+                    <text
+                        x="332.00"
+                        y="379.6"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        20k kWh
+                    </text>
+                    <text
+                        x="332.00"
+                        y="354.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        40k kWh
+                    </text>
+                </g>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-kWh"
+                    x1="337.00"
+                    y1="405.1"
+                    x2="555.00"
+                    y2="405.1"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="20k-kWh"
+                    x1="337.00"
+                    y1="379.6"
+                    x2="555.00"
+                    y2="379.6"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="40k-kWh"
+                    x1="337.00"
+                    y1="354.1"
+                    x2="555.00"
+                    y2="354.1"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Other-renewables"
+                    stroke-width="2.5"
+                    d="M446 400.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#578145"
+                    id="line__Other-renewables"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 400.8"
+                ></path>
+                <g id="datapoints__Other-renewables">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="400.8"
+                        r="1.8"
+                        fill="#578145"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Solar"
+                    stroke-width="2.5"
+                    d="M446 404.2"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#e56e5a"
+                    id="line__Solar"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 404.2"
+                ></path>
+                <g id="datapoints__Solar">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="404.2"
+                        r="1.8"
+                        fill="#e56e5a"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Wind"
+                    stroke-width="2.5"
+                    d="M446 394.4"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00295b"
+                    id="line__Wind"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 394.4"
+                ></path>
+                <g id="datapoints__Wind">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="394.4"
+                        r="1.8"
+                        fill="#00295b"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Hydropower"
+                    stroke-width="2.5"
+                    d="M446 384.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#286bbb"
+                    id="line__Hydropower"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 384.5"
+                ></path>
+                <g id="datapoints__Hydropower">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="384.5"
+                        r="1.8"
+                        fill="#286bbb"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Nuclear"
+                    stroke-width="2.5"
+                    d="M446 390.6"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00847e"
+                    id="line__Nuclear"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 390.6"
+                ></path>
+                <g id="datapoints__Nuclear">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="390.6"
+                        r="1.8"
+                        fill="#00847e"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Gas"
+                    stroke-width="2.5"
+                    d="M446 404.3"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#6d3e91"
+                    id="line__Gas"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 404.3"
+                ></path>
+                <g id="datapoints__Gas">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="404.3"
+                        r="1.8"
+                        fill="#6d3e91"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Oil"
+                    stroke-width="2.5"
+                    d="M446 389.6"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#c15065"
+                    id="line__Oil"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 389.6"
+                ></path>
+                <g id="datapoints__Oil">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="389.6"
+                        r="1.8"
+                        fill="#c15065"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Coal"
+                    stroke-width="2.5"
+                    d="M446 402.9"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#883039"
+                    id="line__Coal"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 402.9"
+                ></path>
+                <g id="datapoints__Coal">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="402.9"
+                        r="1.8"
+                        fill="#883039"
+                        opacity="1"
+                    ></circle>
+                </g>
+            </g>
+        </g>
+        <text
+            x="614"
+            y="341.375"
+            fill="#5b5b5b"
+            font-size="13.5"
+            style="font-weight: 700"
+        >
+            South Africa
+            <title>South Africa</title>
+        </text>
+        <g id="South-Africa">
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2023"
+                        x1="723"
+                        y1="404.625"
+                        x2="723"
+                        y2="410.125"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
+                    <text
+                        x="723"
+                        y="420.125"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
+                    >
+                        2023
+                    </text>
+                </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
+                    <text
+                        x="609.00"
+                        y="405.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        0 kWh
+                    </text>
+                    <text
+                        x="609.00"
+                        y="379.6"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        20k kWh
+                    </text>
+                    <text
+                        x="609.00"
+                        y="354.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        40k kWh
+                    </text>
+                </g>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-kWh"
+                    x1="614.00"
+                    y1="405.1"
+                    x2="832.00"
+                    y2="405.1"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="20k-kWh"
+                    x1="614.00"
+                    y1="379.6"
+                    x2="832.00"
+                    y2="379.6"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="40k-kWh"
+                    x1="614.00"
+                    y1="354.1"
+                    x2="832.00"
+                    y2="354.1"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Other-renewables"
+                    stroke-width="2.5"
+                    d="M723 405.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#578145"
+                    id="line__Other-renewables"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 405.1"
+                ></path>
+                <g id="datapoints__Other-renewables">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="405.1"
+                        r="1.8"
+                        fill="#578145"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Solar"
+                    stroke-width="2.5"
+                    d="M723 404.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#e56e5a"
+                    id="line__Solar"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 404.8"
+                ></path>
+                <g id="datapoints__Solar">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="404.8"
+                        r="1.8"
+                        fill="#e56e5a"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Wind"
+                    stroke-width="2.5"
+                    d="M723 404.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00295b"
+                    id="line__Wind"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 404.5"
+                ></path>
+                <g id="datapoints__Wind">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="404.5"
+                        r="1.8"
+                        fill="#00295b"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Hydropower"
+                    stroke-width="2.5"
+                    d="M723 405"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#286bbb"
+                    id="line__Hydropower"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 405"
+                ></path>
+                <g id="datapoints__Hydropower">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="405"
+                        r="1.8"
+                        fill="#286bbb"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Nuclear"
+                    stroke-width="2.5"
+                    d="M723 404.7"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00847e"
+                    id="line__Nuclear"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 404.7"
+                ></path>
+                <g id="datapoints__Nuclear">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="404.7"
+                        r="1.8"
+                        fill="#00847e"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Gas"
+                    stroke-width="2.5"
+                    d="M723 404.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#6d3e91"
+                    id="line__Gas"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 404.1"
+                ></path>
+                <g id="datapoints__Gas">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="404.1"
+                        r="1.8"
+                        fill="#6d3e91"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Oil"
+                    stroke-width="2.5"
+                    d="M723 398.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#c15065"
+                    id="line__Oil"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 398.8"
+                ></path>
+                <g id="datapoints__Oil">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="398.8"
+                        r="1.8"
+                        fill="#c15065"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Coal"
+                    stroke-width="2.5"
+                    d="M723 385.6"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#883039"
+                    id="line__Coal"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M723 385.6"
+                ></path>
+                <g id="datapoints__Coal">
+                    <circle
+                        id="2023"
+                        cx="723"
+                        cy="385.6"
+                        r="1.8"
+                        fill="#883039"
+                        opacity="1"
+                    ></circle>
+                </g>
+            </g>
+        </g>
+        <text
+            x="60"
+            y="449.375"
+            fill="#5b5b5b"
+            font-size="13.5"
+            style="font-weight: 700"
+        >
+            Japan
+            <title>Japan</title>
+        </text>
+        <g id="Japan">
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2023"
+                        x1="169"
+                        y1="512.625"
+                        x2="169"
+                        y2="518.125"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
+                    <text
+                        x="169"
+                        y="528.125"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
+                    >
+                        2023
+                    </text>
+                </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
+                    <text
+                        x="55.00"
+                        y="513.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        0 kWh
+                    </text>
+                    <text
+                        x="55.00"
+                        y="487.6"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        20k kWh
+                    </text>
+                    <text
+                        x="55.00"
+                        y="462.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        40k kWh
+                    </text>
+                </g>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-kWh"
+                    x1="60.00"
+                    y1="513.1"
+                    x2="278.00"
+                    y2="513.1"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="20k-kWh"
+                    x1="60.00"
+                    y1="487.6"
+                    x2="278.00"
+                    y2="487.6"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="40k-kWh"
+                    x1="60.00"
+                    y1="462.1"
+                    x2="278.00"
+                    y2="462.1"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Other-renewables"
+                    stroke-width="2.5"
+                    d="M169 511.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#578145"
+                    id="line__Other-renewables"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 511.8"
+                ></path>
+                <g id="datapoints__Other-renewables">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="511.8"
+                        r="1.8"
+                        fill="#578145"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Solar"
+                    stroke-width="2.5"
+                    d="M169 510.5"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#e56e5a"
+                    id="line__Solar"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 510.5"
+                ></path>
+                <g id="datapoints__Solar">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="510.5"
+                        r="1.8"
+                        fill="#e56e5a"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Wind"
+                    stroke-width="2.5"
+                    d="M169 512.9"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00295b"
+                    id="line__Wind"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 512.9"
+                ></path>
+                <g id="datapoints__Wind">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="512.9"
+                        r="1.8"
+                        fill="#00295b"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Hydropower"
+                    stroke-width="2.5"
+                    d="M169 511.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#286bbb"
+                    id="line__Hydropower"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 511.1"
+                ></path>
+                <g id="datapoints__Hydropower">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="511.1"
+                        r="1.8"
+                        fill="#286bbb"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Nuclear"
+                    stroke-width="2.5"
+                    d="M169 511.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00847e"
+                    id="line__Nuclear"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 511.1"
+                ></path>
+                <g id="datapoints__Nuclear">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="511.1"
+                        r="1.8"
+                        fill="#00847e"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Gas"
+                    stroke-width="2.5"
+                    d="M169 503.6"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#6d3e91"
+                    id="line__Gas"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 503.6"
+                ></path>
+                <g id="datapoints__Gas">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="503.6"
+                        r="1.8"
+                        fill="#6d3e91"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Oil"
+                    stroke-width="2.5"
+                    d="M169 494"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#c15065"
+                    id="line__Oil"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 494"
+                ></path>
+                <g id="datapoints__Oil">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="494"
+                        r="1.8"
+                        fill="#c15065"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Coal"
+                    stroke-width="2.5"
+                    d="M169 500.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#883039"
+                    id="line__Coal"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M169 500.1"
+                ></path>
+                <g id="datapoints__Coal">
+                    <circle
+                        id="2023"
+                        cx="169"
+                        cy="500.1"
+                        r="1.8"
+                        fill="#883039"
+                        opacity="1"
+                    ></circle>
+                </g>
+            </g>
+        </g>
+        <text
+            x="337"
+            y="449.375"
+            fill="#5b5b5b"
+            font-size="13.5"
+            style="font-weight: 700"
+        >
+            Brazil
+            <title>Brazil</title>
+        </text>
+        <g id="Brazil">
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2023"
+                        x1="446"
+                        y1="512.625"
+                        x2="446"
+                        y2="518.125"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
+                    <text
+                        x="446"
+                        y="528.125"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="10"
+                    >
+                        2023
+                    </text>
+                </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
+                    <text
+                        x="332.00"
+                        y="513.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        0 kWh
+                    </text>
+                    <text
+                        x="332.00"
+                        y="487.6"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        20k kWh
+                    </text>
+                    <text
+                        x="332.00"
+                        y="462.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="10"
+                    >
+                        40k kWh
+                    </text>
+                </g>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0-kWh"
+                    x1="337.00"
+                    y1="513.1"
+                    x2="555.00"
+                    y2="513.1"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="20k-kWh"
+                    x1="337.00"
+                    y1="487.6"
+                    x2="555.00"
+                    y2="487.6"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="40k-kWh"
+                    x1="337.00"
+                    y1="462.1"
+                    x2="555.00"
+                    y2="462.1"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Other-renewables"
+                    stroke-width="2.5"
+                    d="M446 512.1"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#578145"
+                    id="line__Other-renewables"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 512.1"
+                ></path>
+                <g id="datapoints__Other-renewables">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="512.1"
+                        r="1.8"
+                        fill="#578145"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Solar"
+                    stroke-width="2.5"
+                    d="M446 512.3"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#e56e5a"
+                    id="line__Solar"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 512.3"
+                ></path>
+                <g id="datapoints__Solar">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="512.3"
+                        r="1.8"
+                        fill="#e56e5a"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Wind"
+                    stroke-width="2.5"
+                    d="M446 511.7"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00295b"
+                    id="line__Wind"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 511.7"
+                ></path>
+                <g id="datapoints__Wind">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="511.7"
+                        r="1.8"
+                        fill="#00295b"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Hydropower"
+                    stroke-width="2.5"
+                    d="M446 506.6"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#286bbb"
+                    id="line__Hydropower"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 506.6"
+                ></path>
+                <g id="datapoints__Hydropower">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="506.6"
+                        r="1.8"
+                        fill="#286bbb"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Nuclear"
+                    stroke-width="2.5"
+                    d="M446 512.9"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#00847e"
+                    id="line__Nuclear"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 512.9"
+                ></path>
+                <g id="datapoints__Nuclear">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="512.9"
+                        r="1.8"
+                        fill="#00847e"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Gas"
+                    stroke-width="2.5"
+                    d="M446 511.4"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#6d3e91"
+                    id="line__Gas"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 511.4"
+                ></path>
+                <g id="datapoints__Gas">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="511.4"
+                        r="1.8"
+                        fill="#6d3e91"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Oil"
+                    stroke-width="2.5"
+                    d="M446 504.8"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#c15065"
+                    id="line__Oil"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 504.8"
+                ></path>
+                <g id="datapoints__Oil">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="504.8"
+                        r="1.8"
+                        fill="#c15065"
+                        opacity="1"
+                    ></circle>
+                </g>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Coal"
+                    stroke-width="2.5"
+                    d="M446 512.2"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#883039"
+                    id="line__Coal"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M446 512.2"
+                ></path>
+                <g id="datapoints__Coal">
+                    <circle
+                        id="2023"
+                        cx="446"
+                        cy="512.2"
+                        r="1.8"
+                        fill="#883039"
+                        opacity="1"
+                    ></circle>
+                </g>
             </g>
         </g>
     </g>

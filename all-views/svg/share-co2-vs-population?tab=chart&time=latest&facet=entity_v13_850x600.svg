@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -78,7 +67,7 @@
     </g>
     <g id="chart-area" style="pointer-events: none">
         <text
-            x="16"
+            x="43.11"
             y="97.8125"
             fill="#5b5b5b"
             font-size="15.75"
@@ -88,59 +77,183 @@
             <title>High-income countries</title>
         </text>
         <g id="High-income-countries">
-            <line
-                id="vertical-zero-line"
-                x1="76.15"
-                y1="298.69"
-                x2="76.15"
-                y2="105.69"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <rect
-                    id="Share-of-population"
-                    x="0"
-                    y="0"
-                    transform="translate(76.4, 139.4625)"
-                    width="72.79999999999998"
-                    height="125.45"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2100"
+                        x1="229.555"
+                        y1="280.1875"
+                        x2="229.555"
+                        y2="285.6875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
+                    <text
+                        x="229.555"
+                        y="296.6875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="11"
+                    >
+                        2100
+                    </text>
+                </g>
             </g>
-            <g id="value-labels">
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(154.2, 202.1875)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    12.3%
-                    <tspan fill="#999"></tspan>
-                </text>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
+                    <text
+                        x="38.11"
+                        y="280.7"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        0%
+                    </text>
+                    <text
+                        x="38.11"
+                        y="246.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        10%
+                    </text>
+                    <text
+                        x="38.11"
+                        y="213.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        20%
+                    </text>
+                    <text
+                        x="38.11"
+                        y="179.3"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        30%
+                    </text>
+                    <text
+                        x="38.11"
+                        y="145.5"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        40%
+                    </text>
+                    <text
+                        x="38.11"
+                        y="111.7"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        50%
+                    </text>
+                </g>
             </g>
-            <g id="entity-labels">
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="71.4"
-                    y="200.1"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="71.4" y="200.06125">Share of</tspan>
-                    <tspan x="71.4" y="213.055">population</tspan>
-                </text>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0%"
+                    x1="43.11"
+                    y1="280.7"
+                    x2="416.00"
+                    y2="280.7"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="10%"
+                    x1="43.11"
+                    y1="246.9"
+                    x2="416.00"
+                    y2="246.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="20%"
+                    x1="43.11"
+                    y1="213.1"
+                    x2="416.00"
+                    y2="213.1"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="30%"
+                    x1="43.11"
+                    y1="179.3"
+                    x2="416.00"
+                    y2="179.3"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="40%"
+                    x1="43.11"
+                    y1="145.5"
+                    x2="416.00"
+                    y2="145.5"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="50%"
+                    x1="43.11"
+                    y1="111.7"
+                    x2="416.00"
+                    y2="111.7"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Share-of-population"
+                    stroke-width="2.5"
+                    d="M229.6 239.2"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__Share-of-population"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M229.6 239.2"
+                ></path>
+                <g id="datapoints__Share-of-population">
+                    <circle
+                        id="2100"
+                        cx="229.6"
+                        cy="239.2"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
+                </g>
             </g>
         </g>
         <text
-            x="433"
+            x="460.11"
             y="97.8125"
             fill="#5b5b5b"
             font-size="15.75"
@@ -150,59 +263,183 @@
             <title>Upper-middle-income countries</title>
         </text>
         <g id="Upper-middle-income-countries">
-            <line
-                id="vertical-zero-line"
-                x1="493.15"
-                y1="298.69"
-                x2="493.15"
-                y2="105.69"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <rect
-                    id="Share-of-population"
-                    x="0"
-                    y="0"
-                    transform="translate(493.4, 139.4625)"
-                    width="119.89999999999998"
-                    height="125.45"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2100"
+                        x1="646.5550000000001"
+                        y1="280.1875"
+                        x2="646.5550000000001"
+                        y2="285.6875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
+                    <text
+                        x="646.5550000000001"
+                        y="296.6875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="11"
+                    >
+                        2100
+                    </text>
+                </g>
             </g>
-            <g id="value-labels">
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(618.3, 202.1875)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    20.2%
-                    <tspan fill="#999"></tspan>
-                </text>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
+                    <text
+                        x="455.11"
+                        y="280.7"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        0%
+                    </text>
+                    <text
+                        x="455.11"
+                        y="246.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        10%
+                    </text>
+                    <text
+                        x="455.11"
+                        y="213.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        20%
+                    </text>
+                    <text
+                        x="455.11"
+                        y="179.3"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        30%
+                    </text>
+                    <text
+                        x="455.11"
+                        y="145.5"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        40%
+                    </text>
+                    <text
+                        x="455.11"
+                        y="111.7"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        50%
+                    </text>
+                </g>
             </g>
-            <g id="entity-labels">
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="488.4"
-                    y="200.1"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="488.4" y="200.06125">Share of</tspan>
-                    <tspan x="488.4" y="213.055">population</tspan>
-                </text>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0%"
+                    x1="460.11"
+                    y1="280.7"
+                    x2="833.00"
+                    y2="280.7"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="10%"
+                    x1="460.11"
+                    y1="246.9"
+                    x2="833.00"
+                    y2="246.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="20%"
+                    x1="460.11"
+                    y1="213.1"
+                    x2="833.00"
+                    y2="213.1"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="30%"
+                    x1="460.11"
+                    y1="179.3"
+                    x2="833.00"
+                    y2="179.3"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="40%"
+                    x1="460.11"
+                    y1="145.5"
+                    x2="833.00"
+                    y2="145.5"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="50%"
+                    x1="460.11"
+                    y1="111.7"
+                    x2="833.00"
+                    y2="111.7"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Share-of-population"
+                    stroke-width="2.5"
+                    d="M646.6 212.4"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__Share-of-population"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M646.6 212.4"
+                ></path>
+                <g id="datapoints__Share-of-population">
+                    <circle
+                        id="2100"
+                        cx="646.6"
+                        cy="212.4"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
+                </g>
             </g>
         </g>
         <text
-            x="16"
+            x="43.11"
             y="329.8125"
             fill="#5b5b5b"
             font-size="15.75"
@@ -212,59 +449,183 @@
             <title>Lower-middle-income countries</title>
         </text>
         <g id="Lower-middle-income-countries">
-            <line
-                id="vertical-zero-line"
-                x1="76.15"
-                y1="530.69"
-                x2="76.15"
-                y2="337.69"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <rect
-                    id="Share-of-population"
-                    x="0"
-                    y="0"
-                    transform="translate(76.4, 371.4625)"
-                    width="275.4"
-                    height="125.45"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2100"
+                        x1="229.555"
+                        y1="512.1875"
+                        x2="229.555"
+                        y2="517.6875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
+                    <text
+                        x="229.555"
+                        y="528.6875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="11"
+                    >
+                        2100
+                    </text>
+                </g>
             </g>
-            <g id="value-labels">
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(356.8, 434.1875)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    46.4%
-                    <tspan fill="#999"></tspan>
-                </text>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
+                    <text
+                        x="38.11"
+                        y="512.7"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        0%
+                    </text>
+                    <text
+                        x="38.11"
+                        y="478.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        10%
+                    </text>
+                    <text
+                        x="38.11"
+                        y="445.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        20%
+                    </text>
+                    <text
+                        x="38.11"
+                        y="411.3"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        30%
+                    </text>
+                    <text
+                        x="38.11"
+                        y="377.5"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        40%
+                    </text>
+                    <text
+                        x="38.11"
+                        y="343.7"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        50%
+                    </text>
+                </g>
             </g>
-            <g id="entity-labels">
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="71.4"
-                    y="432.1"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="71.4" y="432.06125000000003">Share of</tspan>
-                    <tspan x="71.4" y="445.055">population</tspan>
-                </text>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0%"
+                    x1="43.11"
+                    y1="512.7"
+                    x2="416.00"
+                    y2="512.7"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="10%"
+                    x1="43.11"
+                    y1="478.9"
+                    x2="416.00"
+                    y2="478.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="20%"
+                    x1="43.11"
+                    y1="445.1"
+                    x2="416.00"
+                    y2="445.1"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="30%"
+                    x1="43.11"
+                    y1="411.3"
+                    x2="416.00"
+                    y2="411.3"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="40%"
+                    x1="43.11"
+                    y1="377.5"
+                    x2="416.00"
+                    y2="377.5"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="50%"
+                    x1="43.11"
+                    y1="343.7"
+                    x2="416.00"
+                    y2="343.7"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Share-of-population"
+                    stroke-width="2.5"
+                    d="M229.6 356"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__Share-of-population"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M229.6 356"
+                ></path>
+                <g id="datapoints__Share-of-population">
+                    <circle
+                        id="2100"
+                        cx="229.6"
+                        cy="356"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
+                </g>
             </g>
         </g>
         <text
-            x="433"
+            x="460.11"
             y="329.8125"
             fill="#5b5b5b"
             font-size="15.75"
@@ -274,55 +635,179 @@
             <title>Low-income countries</title>
         </text>
         <g id="Low-income-countries">
-            <line
-                id="vertical-zero-line"
-                x1="493.15"
-                y1="530.69"
-                x2="493.15"
-                y2="337.69"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <rect
-                    id="Share-of-population"
-                    x="0"
-                    y="0"
-                    transform="translate(493.4, 371.4625)"
-                    width="125.5"
-                    height="125.45"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2100"
+                        x1="646.5550000000001"
+                        y1="512.1875"
+                        x2="646.5550000000001"
+                        y2="517.6875"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
+                    <text
+                        x="646.5550000000001"
+                        y="528.6875"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="11"
+                    >
+                        2100
+                    </text>
+                </g>
             </g>
-            <g id="value-labels">
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(623.9, 434.1875)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    21.1%
-                    <tspan fill="#999"></tspan>
-                </text>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels">
+                    <text
+                        x="455.11"
+                        y="512.7"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        0%
+                    </text>
+                    <text
+                        x="455.11"
+                        y="478.9"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        10%
+                    </text>
+                    <text
+                        x="455.11"
+                        y="445.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        20%
+                    </text>
+                    <text
+                        x="455.11"
+                        y="411.3"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        30%
+                    </text>
+                    <text
+                        x="455.11"
+                        y="377.5"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        40%
+                    </text>
+                    <text
+                        x="455.11"
+                        y="343.7"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="11"
+                    >
+                        50%
+                    </text>
+                </g>
             </g>
-            <g id="entity-labels">
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="488.4"
-                    y="432.1"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="488.4" y="432.06125000000003">Share of</tspan>
-                    <tspan x="488.4" y="445.055">population</tspan>
-                </text>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="0%"
+                    x1="460.11"
+                    y1="512.7"
+                    x2="833.00"
+                    y2="512.7"
+                    stroke="#999"
+                ></line>
+                <line
+                    id="10%"
+                    x1="460.11"
+                    y1="478.9"
+                    x2="833.00"
+                    y2="478.9"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="20%"
+                    x1="460.11"
+                    y1="445.1"
+                    x2="833.00"
+                    y2="445.1"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="30%"
+                    x1="460.11"
+                    y1="411.3"
+                    x2="833.00"
+                    y2="411.3"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="40%"
+                    x1="460.11"
+                    y1="377.5"
+                    x2="833.00"
+                    y2="377.5"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="50%"
+                    x1="460.11"
+                    y1="343.7"
+                    x2="833.00"
+                    y2="343.7"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g id="lines">
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#ffffff"
+                    id="outline__Share-of-population"
+                    stroke-width="2.5"
+                    d="M646.6 441.2"
+                ></path>
+                <path
+                    fill="none"
+                    stroke-linecap="butt"
+                    stroke-linejoin="round"
+                    stroke="#4c6a9c"
+                    id="line__Share-of-population"
+                    stroke-width="1.5"
+                    stroke-opacity="1"
+                    d="M646.6 441.2"
+                ></path>
+                <g id="datapoints__Share-of-population">
+                    <circle
+                        id="2100"
+                        cx="646.6"
+                        cy="441.2"
+                        r="1.8"
+                        fill="#4c6a9c"
+                        opacity="1"
+                    ></circle>
+                </g>
             </g>
         </g>
     </g>

@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -54,9 +43,7 @@
                 y="40.3"
                 fill="#2d2e2d"
             >
-                <tspan x="16" y="40.25">
-                    Change in population, World, 1950
-                </tspan>
+                <tspan x="16" y="40.25">Change in population, 1950</tspan>
             </text>
         </a>
         <g id="subtitle" class="markdown-text-wrap">
@@ -77,44 +64,102 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="15.75"
-            y1="552.40"
-            x2="15.75"
-            y2="86.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id=""
-                x="0"
-                y="0"
-                transform="translate(16, 167.62)"
-                width="743.2"
-                height="303.15999999999997"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="1950"
+                    x1="409.23"
+                    y1="531.9"
+                    x2="409.23"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="409.23"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    1950
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(764.2, 319.2)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                2.49 billion
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.39"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    +0%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels"></g>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="+0%"
+                x1="47.39"
+                y1="532.4"
+                x2="771.07"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__World"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="775.1"
+                    y="537.2"
+                    fill="#18470f"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="775.07" y="537.21">World</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World"
+                stroke-width="2.5"
+                d="M409.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#18470f"
+                id="line__World"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M409.2 532.4"
+            ></path>
+            <g id="datapoints__World">
+                <circle
+                    id="1950"
+                    cx="409.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#18470f"
+                    opacity="1"
+                ></circle>
+            </g>
+        </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">
         <g id="sources" class="markdown-text-wrap">

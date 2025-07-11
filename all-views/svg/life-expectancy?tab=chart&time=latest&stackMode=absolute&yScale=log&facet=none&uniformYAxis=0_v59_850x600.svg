@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -75,224 +64,484 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="76.75"
-            y1="552.40"
-            x2="76.75"
-            y2="86.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Oceania"
-                x="0"
-                y="0"
-                transform="translate(77, 99.60333333333334)"
-                width="683.7"
-                height="50.526666666666664"
-                fill="#9a5129"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Europe"
-                x="0"
-                y="0"
-                transform="translate(77, 177.3366666666667)"
-                width="682.9"
-                height="50.526666666666664"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Americas"
-                x="0"
-                y="0"
-                transform="translate(77, 255.07000000000005)"
-                width="667.7"
-                height="50.526666666666664"
-                fill="#c4523e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Asia"
-                x="0"
-                y="0"
-                transform="translate(77, 332.80333333333334)"
-                width="644.1"
-                height="50.526666666666664"
-                fill="#00847e"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="World"
-                x="0"
-                y="0"
-                transform="translate(77, 410.5366666666667)"
-                width="632.1"
-                height="50.526666666666664"
-                fill="#18470f"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Africa"
-                x="0"
-                y="0"
-                transform="translate(77, 488.27)"
-                width="551.5"
-                height="50.526666666666664"
-                fill="#a2559c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2023"
+                    x1="410.91999999999996"
+                    y1="531.9"
+                    x2="410.91999999999996"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="410.91999999999996"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2023
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(765.7, 124.86666666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                79.1 years
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(764.9, 202.60000000000002)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                79.1 years
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(749.7, 280.33333333333337)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                77.3 years
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(726.1, 358.06666666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                74.6 years
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(714.1, 435.8)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                73.2 years
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(633.5, 513.5333333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                63.8 years
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="66.05"
+                    y="527.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    64 years
+                </text>
+                <text
+                    x="66.05"
+                    y="464.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    66 years
+                </text>
+                <text
+                    x="66.05"
+                    y="403.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    68 years
+                </text>
+                <text
+                    x="66.05"
+                    y="343.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    70 years
+                </text>
+                <text
+                    x="66.05"
+                    y="286"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    72 years
+                </text>
+                <text
+                    x="66.05"
+                    y="229.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    74 years
+                </text>
+                <text
+                    x="66.05"
+                    y="175.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    76 years
+                </text>
+                <text
+                    x="66.05"
+                    y="121.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    78 years
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="72.0"
-                y="129.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="72" y="129.86166666666668">Oceania</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="72.0"
-                y="207.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="72" y="207.59500000000003">Europe</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="72.0"
-                y="285.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="72" y="285.3283333333334">Americas</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="72.0"
-                y="363.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="72" y="363.06166666666667">Asia</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="72.0"
-                y="440.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="72" y="440.795">World</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="72.0"
-                y="518.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="72" y="518.5283333333333">Africa</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="64-years"
+                x1="71.05"
+                y1="527.4"
+                x2="750.79"
+                y2="527.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="66-years"
+                x1="71.05"
+                y1="464.3"
+                x2="750.79"
+                y2="464.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="68-years"
+                x1="71.05"
+                y1="403.1"
+                x2="750.79"
+                y2="403.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="70-years"
+                x1="71.05"
+                y1="343.7"
+                x2="750.79"
+                y2="343.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="72-years"
+                x1="71.05"
+                y1="286"
+                x2="750.79"
+                y2="286"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="74-years"
+                x1="71.05"
+                y1="229.8"
+                x2="750.79"
+                y2="229.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="76-years"
+                x1="71.05"
+                y1="175.1"
+                x2="750.79"
+                y2="175.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="78-years"
+                x1="71.05"
+                y1="121.9"
+                x2="750.79"
+                y2="121.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Oceania"
+                    d="M754.79,92 H766.1233333333332 V93.15 H771.79"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Europe"
+                    d="M754.79,94.3 H760.4566666666666 V111.45 H771.79"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Americas"
+                    d="M754.79,140.6 H763.29 V140.6 H771.79"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Asia"
+                    d="M754.79,214.2 H763.29 V214.2 H771.79"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="World"
+                    d="M754.79,252.9 H763.29 V252.9 H771.79"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Africa"
+                    d="M754.79,532.4 H763.29 V532.4 H771.79"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Oceania"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="775.8"
+                    y="98.0"
+                    fill="#9a5129"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="775.79" y="97.96000000000001">Oceania</tspan>
+                </text>
+                <text
+                    id="label__Europe"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="775.8"
+                    y="116.3"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="775.79" y="116.25999999999999">Europe</tspan>
+                </text>
+                <text
+                    id="label__Americas"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="775.8"
+                    y="145.4"
+                    fill="#c4523e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="775.79" y="145.41">Americas</tspan>
+                </text>
+                <text
+                    id="label__Asia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="775.8"
+                    y="219.0"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="775.79" y="219.01">Asia</tspan>
+                </text>
+                <text
+                    id="label__World"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="775.8"
+                    y="257.7"
+                    fill="#18470f"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="775.79" y="257.71">World</tspan>
+                </text>
+                <text
+                    id="label__Africa"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="775.8"
+                    y="537.2"
+                    fill="#a2559c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="775.79" y="537.21">Africa</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World"
+                stroke-width="2.5"
+                d="M410.9 252.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#18470f"
+                id="line__World"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M410.9 252.9"
+            ></path>
+            <g id="datapoints__World">
+                <circle
+                    id="2023"
+                    cx="410.9"
+                    cy="252.9"
+                    r="1.8"
+                    fill="#18470f"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Oceania"
+                stroke-width="2.5"
+                d="M410.9 92"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__Oceania"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M410.9 92"
+            ></path>
+            <g id="datapoints__Oceania">
+                <circle
+                    id="2023"
+                    cx="410.9"
+                    cy="92"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Europe"
+                stroke-width="2.5"
+                d="M410.9 94.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Europe"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M410.9 94.3"
+            ></path>
+            <g id="datapoints__Europe">
+                <circle
+                    id="2023"
+                    cx="410.9"
+                    cy="94.3"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Asia"
+                stroke-width="2.5"
+                d="M410.9 214.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Asia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M410.9 214.2"
+            ></path>
+            <g id="datapoints__Asia">
+                <circle
+                    id="2023"
+                    cx="410.9"
+                    cy="214.2"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Americas"
+                stroke-width="2.5"
+                d="M410.9 140.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c4523e"
+                id="line__Americas"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M410.9 140.6"
+            ></path>
+            <g id="datapoints__Americas">
+                <circle
+                    id="2023"
+                    cx="410.9"
+                    cy="140.6"
+                    r="1.8"
+                    fill="#c4523e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Africa"
+                stroke-width="2.5"
+                d="M410.9 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__Africa"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M410.9 532.4"
+            ></path>
+            <g id="datapoints__Africa">
+                <circle
+                    id="2023"
+                    cx="410.9"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

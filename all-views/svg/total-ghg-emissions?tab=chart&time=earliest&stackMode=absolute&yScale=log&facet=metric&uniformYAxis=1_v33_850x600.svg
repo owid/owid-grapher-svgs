@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -82,158 +71,345 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="147.95"
-            y1="532.30"
-            x2="147.95"
-            y2="104.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="United-States"
-                x="0"
-                y="0"
-                transform="translate(148.2, 122.738125)"
-                width="584.7"
-                height="69.59875"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="European-Union-(28)"
-                x="0"
-                y="0"
-                transform="translate(148.2, 229.81312499999996)"
-                width="507.09999999999997"
-                height="69.59875"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="China"
-                x="0"
-                y="0"
-                transform="translate(148.2, 336.888125)"
-                width="291.1"
-                height="69.59875"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="United-Kingdom"
-                x="0"
-                y="0"
-                transform="translate(148.2, 443.96312499999993)"
-                width="133.40000000000003"
-                height="69.59875"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="1850"
+                    x1="387.19499999999994"
+                    y1="511.79999999999995"
+                    x2="387.19499999999994"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="387.19499999999994"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    1850
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(737.9, 157.5375)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                868.7 million t
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(660.3, 264.61249999999995)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                753.38 million t
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(444.3, 371.6875)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                432.47 million t
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(286.6, 478.76249999999993)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                198.29 million t
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="85.55"
+                    y="510"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    200 million t
+                </text>
+                <text
+                    x="85.55"
+                    y="260.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    500 million t
+                </text>
+                <text
+                    x="85.55"
+                    y="399.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    300 million t
+                </text>
+                <text
+                    x="85.55"
+                    y="321.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    400 million t
+                </text>
+                <text
+                    x="85.55"
+                    y="210.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    600 million t
+                </text>
+                <text
+                    x="85.55"
+                    y="168.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    700 million t
+                </text>
+                <text
+                    x="85.55"
+                    y="132.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    800 million t
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="143.2"
-                y="162.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="143.2" y="162.53249999999997">United States</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="143.2"
-                y="269.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="143.2" y="269.60749999999996">
-                    European Union (28)
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="143.2"
-                y="376.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="143.2" y="376.6825">China</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="143.2"
-                y="483.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="143.2" y="483.75749999999994">United Kingdom</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="200-million-t"
+                x1="90.55"
+                y1="510"
+                x2="683.84"
+                y2="510"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="300-million-t"
+                x1="90.55"
+                y1="399.5"
+                x2="683.84"
+                y2="399.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="400-million-t"
+                x1="90.55"
+                y1="321.2"
+                x2="683.84"
+                y2="321.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="500-million-t"
+                x1="90.55"
+                y1="260.4"
+                x2="683.84"
+                y2="260.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="600-million-t"
+                x1="90.55"
+                y1="210.8"
+                x2="683.84"
+                y2="210.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="700-million-t"
+                x1="90.55"
+                y1="168.8"
+                x2="683.84"
+                y2="168.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="800-million-t"
+                x1="90.55"
+                y1="132.4"
+                x2="683.84"
+                y2="132.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__United-States"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="687.8"
+                    y="116.0"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="687.8399999999999" y="115.96000000000001">
+                        United States
+                    </tspan>
+                </text>
+                <text
+                    id="label__European-Union-(28)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="687.8"
+                    y="153.6"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="687.8399999999999" y="153.61">
+                        European Union (28)
+                    </tspan>
+                </text>
+                <text
+                    id="label__China"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="687.8"
+                    y="304.7"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="687.8399999999999" y="304.71">China</tspan>
+                </text>
+                <text
+                    id="label__United-Kingdom"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="687.8"
+                    y="517.1"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="687.8399999999999" y="517.11">
+                        United Kingdom
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States"
+                stroke-width="2.5"
+                d="M387.2 110"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__United-States"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M387.2 110"
+            ></path>
+            <g id="datapoints__United-States">
+                <circle
+                    id="1850"
+                    cx="387.2"
+                    cy="110"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom"
+                stroke-width="2.5"
+                d="M387.2 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__United-Kingdom"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M387.2 512.3"
+            ></path>
+            <g id="datapoints__United-Kingdom">
+                <circle
+                    id="1850"
+                    cx="387.2"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__European-Union-(28)"
+                stroke-width="2.5"
+                d="M387.2 148.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__European-Union-(28)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M387.2 148.8"
+            ></path>
+            <g id="datapoints__European-Union-(28)">
+                <circle
+                    id="1850"
+                    cx="387.2"
+                    cy="148.8"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China"
+                stroke-width="2.5"
+                d="M387.2 299.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__China"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M387.2 299.9"
+            ></path>
+            <g id="datapoints__China">
+                <circle
+                    id="1850"
+                    cx="387.2"
+                    cy="299.9"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

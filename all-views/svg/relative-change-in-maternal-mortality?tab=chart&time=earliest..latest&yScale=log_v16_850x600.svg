@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -82,48 +71,59 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <g id="grid-lines"></g>
-        <g id="vertical-axis" class="VerticalAxis"><g id="tick-labels"></g></g>
-        <g class="no-data">
-            <rect
-                x="16"
-                y="104"
-                width="818"
-                height="448.4"
-                fill="#fff"
-                opacity="0.6"
-            ></rect>
-            <text
-                x="425"
-                y="328.2"
-                dy=".32em"
-                text-anchor="middle"
-                font-size="16"
-                font-weight="500"
-                fill="#5b5b5b"
-                id="no-data-message"
-                style="
-                    fill: #fff;
-                    stroke: #fff;
-                    stroke-linecap: round;
-                    stroke-linejoin: round;
-                    user-select: none;
-                    stroke-width: 4;
-                "
-            >
-                No matching data
-            </text>
-            <text
-                x="425"
-                y="328.2"
-                dy=".32em"
-                text-anchor="middle"
-                font-size="16"
-                font-weight="500"
-                fill="#5b5b5b"
-            >
-                No matching data
-            </text>
+        <g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks"></g>
+                <g id="tick-labels"></g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels"></g>
+            </g>
+            <g
+                id="horizontal-grid-lines"
+                class="AxisGridLines horizontalLines"
+            ></g>
+            <g class="no-data">
+                <rect
+                    x="16"
+                    y="110"
+                    width="789"
+                    height="440.4"
+                    fill="#fff"
+                    opacity="0.6"
+                ></rect>
+                <text
+                    x="410.5"
+                    y="330.2"
+                    dy=".32em"
+                    text-anchor="middle"
+                    font-size="16"
+                    font-weight="500"
+                    fill="#5b5b5b"
+                    id="no-data-message"
+                    style="
+                        fill: #fff;
+                        stroke: #fff;
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                        user-select: none;
+                        stroke-width: 4;
+                    "
+                >
+                    No matching data
+                </text>
+                <text
+                    x="410.5"
+                    y="330.2"
+                    dy=".32em"
+                    text-anchor="middle"
+                    font-size="16"
+                    font-weight="500"
+                    fill="#5b5b5b"
+                >
+                    No matching data
+                </text>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

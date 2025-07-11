@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -83,224 +72,519 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="119.95"
-            y1="516.70"
-            x2="119.95"
-            y2="86.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="United-States"
-                x="0"
-                y="0"
-                transform="translate(120.2, 98.56208333333333)"
-                width="631.4"
-                height="46.65916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Canada"
-                x="0"
-                y="0"
-                transform="translate(120.2, 170.34541666666667)"
-                width="585.3"
-                height="46.65916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="United-Kingdom"
-                x="0"
-                y="0"
-                transform="translate(120.2, 242.12874999999997)"
-                width="354.3"
-                height="46.65916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="France"
-                x="0"
-                y="0"
-                transform="translate(120.2, 313.9120833333333)"
-                width="232"
-                height="46.65916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="China"
-                x="0"
-                y="0"
-                transform="translate(120.2, 385.69541666666663)"
-                width="17.60000000000001"
-                height="46.65916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="India"
-                x="0"
-                y="0"
-                transform="translate(120.2, 457.47874999999993)"
-                width="10.299999999999997"
-                height="46.65916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="1965"
+                    x1="401.43000000000006"
+                    y1="496.2"
+                    x2="401.43000000000006"
+                    y2="501.7"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="401.43000000000006"
+                    y="514.7"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    1965
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(756.6, 121.89166666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                76,117 kWh
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(710.5, 193.675)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                70,550 kWh
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(479.5, 265.4583333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                42,711 kWh
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(357.2, 337.2416666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                27,968 kWh
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(142.8, 409.025)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                2,122 kWh
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(135.5, 480.8083333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1,239 kWh
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="85.68"
+                    y="291.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10,000 kWh
+                </text>
+                <text
+                    x="85.68"
+                    y="449.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2,000 kWh
+                </text>
+                <text
+                    x="85.68"
+                    y="359.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    5,000 kWh
+                </text>
+                <text
+                    x="85.68"
+                    y="223.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20,000 kWh
+                </text>
+                <text
+                    x="85.68"
+                    y="133.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    50,000 kWh
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="126.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="126.88666666666667">United States</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="198.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="198.67000000000002">Canada</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="270.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="270.4533333333333">United Kingdom</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="342.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="342.2366666666667">France</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="414.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="414.02">China</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="485.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="485.8033333333333">India</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="2,000-kWh"
+                x1="90.68"
+                y1="449.6"
+                x2="712.18"
+                y2="449.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="3,000-kWh"
+                x1="90.68"
+                y1="409.8"
+                x2="712.18"
+                y2="409.8"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="4,000-kWh"
+                x1="90.68"
+                y1="381.5"
+                x2="712.18"
+                y2="381.5"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="5,000-kWh"
+                x1="90.68"
+                y1="359.6"
+                x2="712.18"
+                y2="359.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="6,000-kWh"
+                x1="90.68"
+                y1="341.7"
+                x2="712.18"
+                y2="341.7"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="7,000-kWh"
+                x1="90.68"
+                y1="326.5"
+                x2="712.18"
+                y2="326.5"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="8,000-kWh"
+                x1="90.68"
+                y1="313.4"
+                x2="712.18"
+                y2="313.4"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="9,000-kWh"
+                x1="90.68"
+                y1="301.8"
+                x2="712.18"
+                y2="301.8"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10,000-kWh"
+                x1="90.68"
+                y1="291.5"
+                x2="712.18"
+                y2="291.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20,000-kWh"
+                x1="90.68"
+                y1="223.3"
+                x2="712.18"
+                y2="223.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30,000-kWh"
+                x1="90.68"
+                y1="183.5"
+                x2="712.18"
+                y2="183.5"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40,000-kWh"
+                x1="90.68"
+                y1="155.2"
+                x2="712.18"
+                y2="155.2"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="50,000-kWh"
+                x1="90.68"
+                y1="133.3"
+                x2="712.18"
+                y2="133.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60,000-kWh"
+                x1="90.68"
+                y1="115.4"
+                x2="712.18"
+                y2="115.4"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="70,000-kWh"
+                x1="90.68"
+                y1="100.2"
+                x2="712.18"
+                y2="100.2"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="United-States"
+                    d="M716.18,92 H727.5133333333332 V93.15 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Canada"
+                    d="M716.18,99.5 H721.8466666666666 V111.45 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-Kingdom"
+                    d="M716.18,148.8 H724.68 V148.8 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="France"
+                    d="M716.18,190.4 H724.68 V190.4 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="China"
+                    d="M716.18,443.8 H724.68 V443.8 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="India"
+                    d="M716.18,496.7 H724.68 V496.7 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__United-States"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="98.0"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="97.96000000000001">
+                        United States
+                    </tspan>
+                </text>
+                <text
+                    id="label__Canada"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="116.3"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="116.25999999999999">Canada</tspan>
+                </text>
+                <text
+                    id="label__United-Kingdom"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="153.6"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="153.61">United Kingdom</tspan>
+                </text>
+                <text
+                    id="label__France"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="195.2"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="195.21">France</tspan>
+                </text>
+                <text
+                    id="label__China"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="448.6"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="448.61">China</tspan>
+                </text>
+                <text
+                    id="label__India"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="501.5"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="501.51">India</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States"
+                stroke-width="2.5"
+                d="M401.4 92"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__United-States"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M401.4 92"
+            ></path>
+            <g id="datapoints__United-States">
+                <circle
+                    id="1965"
+                    cx="401.4"
+                    cy="92"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom"
+                stroke-width="2.5"
+                d="M401.4 148.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__United-Kingdom"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M401.4 148.8"
+            ></path>
+            <g id="datapoints__United-Kingdom">
+                <circle
+                    id="1965"
+                    cx="401.4"
+                    cy="148.8"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India"
+                stroke-width="2.5"
+                d="M401.4 496.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__India"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M401.4 496.7"
+            ></path>
+            <g id="datapoints__India">
+                <circle
+                    id="1965"
+                    cx="401.4"
+                    cy="496.7"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__France"
+                stroke-width="2.5"
+                d="M401.4 190.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__France"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M401.4 190.4"
+            ></path>
+            <g id="datapoints__France">
+                <circle
+                    id="1965"
+                    cx="401.4"
+                    cy="190.4"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China"
+                stroke-width="2.5"
+                d="M401.4 443.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__China"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M401.4 443.8"
+            ></path>
+            <g id="datapoints__China">
+                <circle
+                    id="1965"
+                    cx="401.4"
+                    cy="443.8"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Canada"
+                stroke-width="2.5"
+                d="M401.4 99.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Canada"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M401.4 99.5"
+            ></path>
+            <g id="datapoints__Canada">
+                <circle
+                    id="1965"
+                    cx="401.4"
+                    cy="99.5"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

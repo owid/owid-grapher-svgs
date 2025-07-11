@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -82,76 +71,125 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <g id="grid-lines">
-            <line
-                id="-60%"
-                x1="51.42"
-                y1="532.1"
-                x2="824"
-                y2="532.1"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="-50%"
-                x1="51.42"
-                y1="461.8"
-                x2="824"
-                y2="461.8"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="-40%"
-                x1="51.42"
-                y1="391.4"
-                x2="824"
-                y2="391.4"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="-30%"
-                x1="51.42"
-                y1="321.1"
-                x2="824"
-                y2="321.1"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="-20%"
-                x1="51.42"
-                y1="250.7"
-                x2="824"
-                y2="250.7"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="-10%"
-                x1="51.42"
-                y1="180.4"
-                x2="824"
-                y2="180.4"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="0%"
-                x1="51.42"
-                y1="110"
-                x2="824"
-                y2="110"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="1990"
+                    x1="51.4"
+                    y1="531.9"
+                    x2="51.4"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2015"
+                    x1="681.1"
+                    y1="531.9"
+                    x2="681.1"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="1995"
+                    x1="177.4"
+                    y1="531.9"
+                    x2="177.4"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2000"
+                    x1="303.3"
+                    y1="531.9"
+                    x2="303.3"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2005"
+                    x1="429.2"
+                    y1="531.9"
+                    x2="429.2"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2010"
+                    x1="555.2"
+                    y1="531.9"
+                    x2="555.2"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="51.42"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="start"
+                    font-size="13"
+                >
+                    1990
+                </text>
+                <text
+                    x="681.11"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="end"
+                    font-size="13"
+                >
+                    2015
+                </text>
+                <text
+                    x="177.4"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    1995
+                </text>
+                <text
+                    x="303.3"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2000
+                </text>
+                <text
+                    x="429.2"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2005
+                </text>
+                <text
+                    x="555.2"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2010
+                </text>
+            </g>
         </g>
         <g id="vertical-axis" class="VerticalAxis">
             <g id="tick-labels">
                 <text
                     x="46.42"
-                    y="532.1"
+                    y="532.4"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -161,7 +199,7 @@
                 </text>
                 <text
                     x="46.42"
-                    y="461.8"
+                    y="462"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -171,7 +209,7 @@
                 </text>
                 <text
                     x="46.42"
-                    y="391.4"
+                    y="391.6"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -181,7 +219,7 @@
                 </text>
                 <text
                     x="46.42"
-                    y="321.1"
+                    y="321.2"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -191,7 +229,7 @@
                 </text>
                 <text
                     x="46.42"
-                    y="250.7"
+                    y="250.8"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -221,643 +259,371 @@
                 </text>
             </g>
         </g>
-        <g id="horizontal-axis">
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
             <line
-                id="1990"
-                x1="230.8"
+                id="-60%"
+                x1="51.42"
+                y1="532.4"
+                x2="681.11"
+                y2="532.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="-50%"
+                x1="51.42"
+                y1="462"
+                x2="681.11"
+                y2="462"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="-40%"
+                x1="51.42"
+                y1="391.6"
+                x2="681.11"
+                y2="391.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="-30%"
+                x1="51.42"
+                y1="321.2"
+                x2="681.11"
+                y2="321.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="-20%"
+                x1="51.42"
+                y1="250.8"
+                x2="681.11"
+                y2="250.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="-10%"
+                x1="51.42"
+                y1="180.4"
+                x2="681.11"
+                y2="180.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="0%"
+                x1="51.42"
                 y1="110"
-                x2="230.8"
-                y2="532.15"
+                x2="681.11"
+                y2="110"
                 stroke="#999"
             ></line>
-            <text
-                x="230.8"
-                y="540.15"
-                dy=".71em"
-                text-anchor="middle"
-                fill="#5b5b5b"
-                font-size="13"
-            >
-                1990
-            </text>
-            <line
-                id="2015"
-                x1="622"
-                y1="110"
-                x2="622"
-                y2="532.15"
-                stroke="#999"
-            ></line>
-            <text
-                x="622"
-                y="540.15"
-                dy=".71em"
-                text-anchor="middle"
-                fill="#5b5b5b"
-                font-size="13"
-            >
-                2015
-            </text>
         </g>
-        <g id="slopes">
-            <g id="outline__Low-income" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="230.8"
-                    cy="110"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="460.3"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="230.8"
-                    y1="110"
-                    x2="622"
-                    y2="460.3"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Low-income" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="230.8"
-                    cy="110"
-                    r="3.5"
-                    fill="#4c6a9c"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="460.3"
-                    r="3.5"
-                    fill="#4c6a9c"
-                ></circle>
-                <line
-                    id="line"
-                    x1="230.8"
-                    y1="110"
-                    x2="622"
-                    y2="460.3"
-                    stroke="#4c6a9c"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__High-income" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="230.8"
-                    cy="110"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="305.4"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="230.8"
-                    y1="110"
-                    x2="622"
-                    y2="305.4"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__High-income" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="230.8"
-                    cy="110"
-                    r="3.5"
-                    fill="#b13507"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="305.4"
-                    r="3.5"
-                    fill="#b13507"
-                ></circle>
-                <line
-                    id="line"
-                    x1="230.8"
-                    y1="110"
-                    x2="622"
-                    y2="305.4"
-                    stroke="#b13507"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Middle-income" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="230.8"
-                    cy="110"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="452.8"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="230.8"
-                    y1="110"
-                    x2="622"
-                    y2="452.8"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Middle-income" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="230.8"
-                    cy="110"
-                    r="3.5"
-                    fill="#996d39"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="452.8"
-                    r="3.5"
-                    fill="#996d39"
-                ></circle>
-                <line
-                    id="line"
-                    x1="230.8"
-                    y1="110"
-                    x2="622"
-                    y2="452.8"
-                    stroke="#996d39"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Low-&amp;-middle-income" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="230.8"
-                    cy="110"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="422.3"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="230.8"
-                    y1="110"
-                    x2="622"
-                    y2="422.3"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Low-&amp;-middle-income" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="230.8"
-                    cy="110"
-                    r="3.5"
-                    fill="#2c8465"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="422.3"
-                    r="3.5"
-                    fill="#2c8465"
-                ></circle>
-                <line
-                    id="line"
-                    x1="230.8"
-                    y1="110"
-                    x2="622"
-                    y2="422.3"
-                    stroke="#2c8465"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Lower-middle-income" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="230.8"
-                    cy="110"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="481.8"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="230.8"
-                    y1="110"
-                    x2="622"
-                    y2="481.8"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Lower-middle-income" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="230.8"
-                    cy="110"
-                    r="3.5"
-                    fill="#6d3e91"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="481.8"
-                    r="3.5"
-                    fill="#6d3e91"
-                ></circle>
-                <line
-                    id="line"
-                    x1="230.8"
-                    y1="110"
-                    x2="622"
-                    y2="481.8"
-                    stroke="#6d3e91"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Upper-middle-income" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="230.8"
-                    cy="110"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="530.8"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="230.8"
-                    y1="110"
-                    x2="622"
-                    y2="530.8"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Upper-middle-income" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="230.8"
-                    cy="110"
-                    r="3.5"
-                    fill="#883039"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="530.8"
-                    r="3.5"
-                    fill="#883039"
-                ></circle>
-                <line
-                    id="line"
-                    x1="230.8"
-                    y1="110"
-                    x2="622"
-                    y2="530.8"
-                    stroke="#883039"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-        </g>
-        <text
-            x="230.8"
-            y="110"
-            text-anchor="end"
-            dx="-8"
-            dy=".32em"
-            font-size="13"
-            id="x-axis-zero-label"
-            style="
-                fill: #ffffff;
-                stroke: #ffffff;
-                stroke-linecap: round;
-                stroke-linejoin: round;
-                user-select: none;
-                stroke-width: 3.25;
-            "
-        >
-            0%
-        </text>
-        <text
-            x="230.8"
-            y="110"
-            text-anchor="end"
-            dx="-8"
-            dy=".32em"
-            font-size="13"
-        >
-            0%
-        </text>
         <g id="line-labels" class="LineLabels">
             <g id="text-annotations"></g>
             <g id="text-labels">
-                <g
-                    id="outline__High-income"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
+                <text
+                    id="label__High-income"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="685.1"
+                    y="310.4"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <text
-                        x="630.0"
-                        y="310.2"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#b13507"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="310.2">
-                            <tspan style="font-weight: 700">High income</tspan>
-                            -28%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__High-income" class="markdown-text-wrap">
-                    <text
-                        x="630.0"
-                        y="310.2"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#b13507"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="310.2">
-                            <tspan style="font-weight: 700">High income</tspan>
-                            -28%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Low-&amp;-middle-income"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="630.0"
-                        y="427.1"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#2c8465"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="427.1">
-                            <tspan style="font-weight: 700">
-                                Low &amp; middle income
-                            </tspan>
-                            -44%
-                        </tspan>
-                    </text>
-                </g>
-                <g
+                    <tspan x="685.11" y="310.41">High income</tspan>
+                </text>
+                <text
                     id="label__Low-&amp;-middle-income"
-                    class="markdown-text-wrap"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="685.1"
+                    y="427.3"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <text
-                        x="630.0"
-                        y="427.1"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#2c8465"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="427.1">
-                            <tspan style="font-weight: 700">
-                                Low &amp; middle income
-                            </tspan>
-                            -44%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Middle-income"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
+                    <tspan x="685.11" y="427.31">Low &amp; middle income</tspan>
+                </text>
+                <text
+                    id="label__Middle-income"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="685.1"
+                    y="452.4"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <text
-                        x="630.0"
-                        y="452.2"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#996d39"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="452.2">
-                            <tspan style="font-weight: 700">
-                                Middle income
-                            </tspan>
-                            -49%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Middle-income" class="markdown-text-wrap">
-                    <text
-                        x="630.0"
-                        y="452.2"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#996d39"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="452.2">
-                            <tspan style="font-weight: 700">
-                                Middle income
-                            </tspan>
-                            -49%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Low-income"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
+                    <tspan x="685.11" y="452.41">Middle income</tspan>
+                </text>
+                <text
+                    id="label__Low-income"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="685.1"
+                    y="470.7"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <text
-                        x="630.0"
-                        y="470.5"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#4c6a9c"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="470.5">
-                            <tspan style="font-weight: 700">Low income</tspan>
-                            -50%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Low-income" class="markdown-text-wrap">
-                    <text
-                        x="630.0"
-                        y="470.5"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#4c6a9c"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="470.5">
-                            <tspan style="font-weight: 700">Low income</tspan>
-                            -50%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Lower-middle-income"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
+                    <tspan x="685.11" y="470.71000000000004">Low income</tspan>
+                </text>
+                <text
+                    id="label__Lower-middle-income"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="685.1"
+                    y="486.8"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <text
-                        x="630.0"
-                        y="486.6"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#6d3e91"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="486.6">
-                            <tspan style="font-weight: 700">
-                                Lower middle income
-                            </tspan>
-                            -53%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Lower-middle-income" class="markdown-text-wrap">
-                    <text
-                        x="630.0"
-                        y="486.6"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#6d3e91"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="486.6">
-                            <tspan style="font-weight: 700">
-                                Lower middle income
-                            </tspan>
-                            -53%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Upper-middle-income"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
+                    <tspan x="685.11" y="486.81">Lower middle income</tspan>
+                </text>
+                <text
+                    id="label__Upper-middle-income"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="685.1"
+                    y="535.8"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <text
-                        x="630.0"
-                        y="535.6"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#883039"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="535.6">
-                            <tspan style="font-weight: 700">
-                                Upper middle income
-                            </tspan>
-                            -60%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Upper-middle-income" class="markdown-text-wrap">
-                    <text
-                        x="630.0"
-                        y="535.6"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#883039"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="535.6">
-                            <tspan style="font-weight: 700">
-                                Upper middle income
-                            </tspan>
-                            -60%
-                        </tspan>
-                    </text>
-                </g>
+                    <tspan x="685.11" y="535.8100000000001">
+                        Upper middle income
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Upper-middle-income"
+                stroke-width="2.5"
+                d="M51.4 110L681.1 531"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Upper-middle-income"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M51.4 110L681.1 531"
+            ></path>
+            <g id="datapoints__Upper-middle-income">
+                <circle
+                    id="1990"
+                    cx="51.4"
+                    cy="110"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2015"
+                    cx="681.1"
+                    cy="531"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Middle-income"
+                stroke-width="2.5"
+                d="M51.4 110L681.1 453"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Middle-income"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M51.4 110L681.1 453"
+            ></path>
+            <g id="datapoints__Middle-income">
+                <circle
+                    id="1990"
+                    cx="51.4"
+                    cy="110"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2015"
+                    cx="681.1"
+                    cy="453"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Low-&amp;-middle-income"
+                stroke-width="2.5"
+                d="M51.4 110L681.1 422.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Low-&amp;-middle-income"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M51.4 110L681.1 422.5"
+            ></path>
+            <g id="datapoints__Low-&amp;-middle-income">
+                <circle
+                    id="1990"
+                    cx="51.4"
+                    cy="110"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2015"
+                    cx="681.1"
+                    cy="422.5"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Lower-middle-income"
+                stroke-width="2.5"
+                d="M51.4 110L681.1 482"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Lower-middle-income"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M51.4 110L681.1 482"
+            ></path>
+            <g id="datapoints__Lower-middle-income">
+                <circle
+                    id="1990"
+                    cx="51.4"
+                    cy="110"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2015"
+                    cx="681.1"
+                    cy="482"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Low-income"
+                stroke-width="2.5"
+                d="M51.4 110L681.1 460.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Low-income"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M51.4 110L681.1 460.5"
+            ></path>
+            <g id="datapoints__Low-income">
+                <circle
+                    id="1990"
+                    cx="51.4"
+                    cy="110"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2015"
+                    cx="681.1"
+                    cy="460.5"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__High-income"
+                stroke-width="2.5"
+                d="M51.4 110L681.1 305.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__High-income"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M51.4 110L681.1 305.6"
+            ></path>
+            <g id="datapoints__High-income">
+                <circle
+                    id="1990"
+                    cx="51.4"
+                    cy="110"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2015"
+                    cx="681.1"
+                    cy="305.6"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>

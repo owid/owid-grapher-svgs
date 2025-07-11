@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -80,67 +69,89 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <g id="grid-lines">
-            <line
-                id="1,000"
-                x1="61.04"
-                y1="318.1"
-                x2="824"
-                y2="318.1"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="10,000"
-                x1="61.04"
-                y1="137.3"
-                x2="824"
-                y2="137.3"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="200"
-                x1="61.04"
-                y1="444.4"
-                x2="824"
-                y2="444.4"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="500"
-                x1="61.04"
-                y1="372.5"
-                x2="824"
-                y2="372.5"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="2,000"
-                x1="61.04"
-                y1="263.7"
-                x2="824"
-                y2="263.7"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="5,000"
-                x1="61.04"
-                y1="191.7"
-                x2="824"
-                y2="191.7"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2014"
+                    x1="61"
+                    y1="496.19999999999993"
+                    x2="61"
+                    y2="501.69999999999993"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2017"
+                    x1="604.8"
+                    y1="496.19999999999993"
+                    x2="604.8"
+                    y2="501.69999999999993"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2015"
+                    x1="242.3"
+                    y1="496.19999999999993"
+                    x2="242.3"
+                    y2="501.69999999999993"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2016"
+                    x1="423.5"
+                    y1="496.19999999999993"
+                    x2="423.5"
+                    y2="501.69999999999993"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="61.04"
+                    y="514.6999999999999"
+                    fill="#5b5b5b"
+                    text-anchor="start"
+                    font-size="13"
+                >
+                    2014
+                </text>
+                <text
+                    x="604.8"
+                    y="514.6999999999999"
+                    fill="#5b5b5b"
+                    text-anchor="end"
+                    font-size="13"
+                >
+                    2017
+                </text>
+                <text
+                    x="242.3"
+                    y="514.6999999999999"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2015
+                </text>
+                <text
+                    x="423.5"
+                    y="514.6999999999999"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2016
+                </text>
+            </g>
         </g>
         <g id="vertical-axis" class="VerticalAxis">
             <g id="tick-labels">
                 <text
                     x="56.04"
-                    y="318.1"
+                    y="318.2"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -150,7 +161,7 @@
                 </text>
                 <text
                     x="56.04"
-                    y="137.3"
+                    y="137.4"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -160,7 +171,7 @@
                 </text>
                 <text
                     x="56.04"
-                    y="444.4"
+                    y="444.6"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -170,7 +181,7 @@
                 </text>
                 <text
                     x="56.04"
-                    y="372.5"
+                    y="372.6"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -180,7 +191,7 @@
                 </text>
                 <text
                     x="56.04"
-                    y="263.7"
+                    y="263.8"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -190,7 +201,7 @@
                 </text>
                 <text
                     x="56.04"
-                    y="191.7"
+                    y="191.8"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -200,634 +211,238 @@
                 </text>
             </g>
         </g>
-        <g id="horizontal-axis">
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
             <line
-                id="2014"
-                x1="244.00500000000002"
-                y1="131.6"
-                x2="244.00500000000002"
-                y2="496.44999999999993"
-                stroke="#999"
+                id="200"
+                x1="61.04"
+                y1="444.6"
+                x2="604.80"
+                y2="444.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
             ></line>
-            <text
-                x="244.00500000000002"
-                y="504.44999999999993"
-                dy=".71em"
-                text-anchor="middle"
-                fill="#5b5b5b"
-                font-size="13"
-            >
-                2014
-            </text>
             <line
-                id="2017"
-                x1="595.995"
-                y1="131.6"
-                x2="595.995"
-                y2="496.44999999999993"
-                stroke="#999"
+                id="300"
+                x1="61.04"
+                y1="412.7"
+                x2="604.80"
+                y2="412.7"
+                stroke="#eee"
+                stroke-dasharray="4,4"
             ></line>
-            <text
-                x="595.995"
-                y="504.44999999999993"
-                dy=".71em"
-                text-anchor="middle"
-                fill="#5b5b5b"
-                font-size="13"
-            >
-                2017
-            </text>
-        </g>
-        <g id="slopes">
-            <g id="outline__Banking-and-finance" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="496.4"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="338.1"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="496.4"
-                    x2="595.995"
-                    y2="338.1"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Banking-and-finance" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="496.4"
-                    r="3.5"
-                    fill="#4c6a9c"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="338.1"
-                    r="3.5"
-                    fill="#4c6a9c"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="496.4"
-                    x2="595.995"
-                    y2="338.1"
-                    stroke="#4c6a9c"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Business" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="372.3"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="249.8"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="372.3"
-                    x2="595.995"
-                    y2="249.8"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Business" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="372.3"
-                    r="3.5"
-                    fill="#b13507"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="249.8"
-                    r="3.5"
-                    fill="#b13507"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="372.3"
-                    x2="595.995"
-                    y2="249.8"
-                    stroke="#b13507"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Energy-management" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="415.5"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="338.4"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="415.5"
-                    x2="595.995"
-                    y2="338.4"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Energy-management" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="415.5"
-                    r="3.5"
-                    fill="#996d39"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="338.4"
-                    r="3.5"
-                    fill="#996d39"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="415.5"
-                    x2="595.995"
-                    y2="338.4"
-                    stroke="#996d39"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g
-                id="outline__Industry-and-manufacturing"
-                opacity="1"
-                class="slope"
-            >
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="457.1"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="310.9"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="457.1"
-                    x2="595.995"
-                    y2="310.9"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Industry-and-manufacturing" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="457.1"
-                    r="3.5"
-                    fill="#2c8465"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="310.9"
-                    r="3.5"
-                    fill="#2c8465"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="457.1"
-                    x2="595.995"
-                    y2="310.9"
-                    stroke="#2c8465"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Life-sciences" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="342.1"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="239.4"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="342.1"
-                    x2="595.995"
-                    y2="239.4"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Life-sciences" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="342.1"
-                    r="3.5"
-                    fill="#6d3e91"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="239.4"
-                    r="3.5"
-                    fill="#6d3e91"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="342.1"
-                    x2="595.995"
-                    y2="239.4"
-                    stroke="#6d3e91"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g
-                id="outline__Physical-sciences-and-engineering"
-                opacity="1"
-                class="slope"
-            >
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="459.9"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="355.2"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="459.9"
-                    x2="595.995"
-                    y2="355.2"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g
-                id="slope__Physical-sciences-and-engineering"
-                opacity="1"
-                class="slope"
-            >
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="459.9"
-                    r="3.5"
-                    fill="#883039"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="355.2"
-                    r="3.5"
-                    fill="#883039"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="459.9"
-                    x2="595.995"
-                    y2="355.2"
-                    stroke="#883039"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Security" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="441.7"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="311.3"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="441.7"
-                    x2="595.995"
-                    y2="311.3"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Security" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="441.7"
-                    r="3.5"
-                    fill="#00295b"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="311.3"
-                    r="3.5"
-                    fill="#00295b"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="441.7"
-                    x2="595.995"
-                    y2="311.3"
-                    stroke="#00295b"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Telecommunications" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="339.3"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="207.2"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="339.3"
-                    x2="595.995"
-                    y2="207.2"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Telecommunications" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="339.3"
-                    r="3.5"
-                    fill="#a2559c"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="207.2"
-                    r="3.5"
-                    fill="#a2559c"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="339.3"
-                    x2="595.995"
-                    y2="207.2"
-                    stroke="#a2559c"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Transportation" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="388.2"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="248.5"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="388.2"
-                    x2="595.995"
-                    y2="248.5"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Transportation" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="388.2"
-                    r="3.5"
-                    fill="#9a5129"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="248.5"
-                    r="3.5"
-                    fill="#9a5129"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="388.2"
-                    x2="595.995"
-                    y2="248.5"
-                    stroke="#9a5129"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g
-                id="outline__Personal-devices-and-computing"
-                opacity="1"
-                class="slope"
-            >
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="270.5"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="131.6"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="270.5"
-                    x2="595.995"
-                    y2="131.6"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g
-                id="slope__Personal-devices-and-computing"
-                opacity="1"
-                class="slope"
-            >
-                <circle
-                    id="start-point"
-                    cx="244.00500000000002"
-                    cy="270.5"
-                    r="3.5"
-                    fill="#008291"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="595.995"
-                    cy="131.6"
-                    r="3.5"
-                    fill="#008291"
-                ></circle>
-                <line
-                    id="line"
-                    x1="244.00500000000002"
-                    y1="270.5"
-                    x2="595.995"
-                    y2="131.6"
-                    stroke="#008291"
-                    stroke-width="1.5"
-                ></line>
-            </g>
+            <line
+                id="400"
+                x1="61.04"
+                y1="390.1"
+                x2="604.80"
+                y2="390.1"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="500"
+                x1="61.04"
+                y1="372.6"
+                x2="604.80"
+                y2="372.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="600"
+                x1="61.04"
+                y1="358.3"
+                x2="604.80"
+                y2="358.3"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="700"
+                x1="61.04"
+                y1="346.2"
+                x2="604.80"
+                y2="346.2"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="800"
+                x1="61.04"
+                y1="335.7"
+                x2="604.80"
+                y2="335.7"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="900"
+                x1="61.04"
+                y1="326.5"
+                x2="604.80"
+                y2="326.5"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1,000"
+                x1="61.04"
+                y1="318.2"
+                x2="604.80"
+                y2="318.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="2,000"
+                x1="61.04"
+                y1="263.8"
+                x2="604.80"
+                y2="263.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="3,000"
+                x1="61.04"
+                y1="231.9"
+                x2="604.80"
+                y2="231.9"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="4,000"
+                x1="61.04"
+                y1="209.3"
+                x2="604.80"
+                y2="209.3"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="5,000"
+                x1="61.04"
+                y1="191.8"
+                x2="604.80"
+                y2="191.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="6,000"
+                x1="61.04"
+                y1="177.5"
+                x2="604.80"
+                y2="177.5"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="7,000"
+                x1="61.04"
+                y1="165.4"
+                x2="604.80"
+                y2="165.4"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="8,000"
+                x1="61.04"
+                y1="154.9"
+                x2="604.80"
+                y2="154.9"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="9,000"
+                x1="61.04"
+                y1="145.6"
+                x2="604.80"
+                y2="145.6"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10,000"
+                x1="61.04"
+                y1="137.4"
+                x2="604.80"
+                y2="137.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
         </g>
         <g id="line-labels" class="LineLabels">
             <g id="connectors">
                 <path
                     id="Personal-devices-and-computing"
-                    d="M236.00500000000002,270.5 H227.50500000000002 V270.5 H219.00500000000002"
+                    d="M608.8,131.6 H617.3 V132.75 H625.8"
                     stroke="#999"
                     stroke-width="0.5"
                     fill="none"
                 ></path>
                 <path
                     id="Telecommunications"
-                    d="M236.00500000000002,339.3 H227.50500000000002 V331.55 H219.00500000000002"
+                    d="M608.8,207.2 H617.3 V207.2 H625.8"
                     stroke="#999"
                     stroke-width="0.5"
                     fill="none"
                 ></path>
                 <path
                     id="Life-sciences"
-                    d="M236.00500000000002,342.1 H227.50500000000002 V349.85 H219.00500000000002"
-                    stroke="#999"
-                    stroke-width="0.5"
-                    fill="none"
-                ></path>
-                <path
-                    id="Business"
-                    d="M236.00500000000002,372.3 H227.50500000000002 V372.3 H219.00500000000002"
+                    d="M608.8,239.5 H614.4666666666666 V227.7 H625.8"
                     stroke="#999"
                     stroke-width="0.5"
                     fill="none"
                 ></path>
                 <path
                     id="Transportation"
-                    d="M236.00500000000002,388.2 H227.50500000000002 V388.2 H219.00500000000002"
+                    d="M608.8,248.6 H620.1333333333332 V246 H625.8"
                     stroke="#999"
                     stroke-width="0.5"
                     fill="none"
                 ></path>
                 <path
-                    id="Energy-management"
-                    d="M236.00500000000002,415.5 H227.50500000000002 V415.5 H219.00500000000002"
-                    stroke="#999"
-                    stroke-width="0.5"
-                    fill="none"
-                ></path>
-                <path
-                    id="Security"
-                    d="M236.00500000000002,441.7 H230.33833333333337 V434.6 H219.00500000000002"
+                    id="Business"
+                    d="M608.8,249.9 H620.1333333333332 V264.29999999999995 H625.8"
                     stroke="#999"
                     stroke-width="0.5"
                     fill="none"
                 ></path>
                 <path
                     id="Industry-and-manufacturing"
-                    d="M236.00500000000002,457.1 H224.6716666666667 V452.90000000000003 H219.00500000000002"
+                    d="M608.8,311 H620.1333333333332 V294.29999999999995 H625.8"
                     stroke="#999"
                     stroke-width="0.5"
                     fill="none"
                 ></path>
                 <path
-                    id="Physical-sciences-and-engineering"
-                    d="M236.00500000000002,459.9 H224.6716666666667 V471.20000000000005 H219.00500000000002"
+                    id="Security"
+                    d="M608.8,311.4 H620.1333333333332 V312.59999999999997 H625.8"
                     stroke="#999"
                     stroke-width="0.5"
                     fill="none"
                 ></path>
                 <path
                     id="Banking-and-finance"
-                    d="M236.00500000000002,496.4 H227.50500000000002 V495.7999999999999 H219.00500000000002"
+                    d="M608.8,338.2 H620.1333333333332 V330.9 H625.8"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Energy-management"
+                    d="M608.8,338.5 H620.1333333333332 V349.2 H625.8"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Physical-sciences-and-engineering"
+                    d="M608.8,355.4 H614.4666666666666 V367.5 H625.8"
                     stroke="#999"
                     stroke-width="0.5"
                     fill="none"
@@ -836,877 +451,503 @@
             <g id="text-annotations"></g>
             <g id="text-labels">
                 <text
-                    id="outline__Personal-devices-and-computing"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="215.0"
-                    y="275.3"
-                    fill="#008291"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="215.00500000000002" y="275.31">1.83k</tspan>
-                </text>
-                <text
                     id="label__Personal-devices-and-computing"
                     font-size="13.00"
                     font-weight="400"
-                    x="215.0"
-                    y="275.3"
+                    x="629.8"
+                    y="137.6"
                     fill="#008291"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="215.00500000000002" y="275.31">1.83k</tspan>
-                </text>
-                <text
-                    id="outline__Telecommunications"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="215.0"
-                    y="336.4"
-                    fill="#a2559c"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="215.00500000000002" y="336.36">763</tspan>
+                    <tspan x="629.8" y="137.56">
+                        Personal devices and computing
+                    </tspan>
                 </text>
                 <text
                     id="label__Telecommunications"
                     font-size="13.00"
                     font-weight="400"
-                    x="215.0"
-                    y="336.4"
+                    x="629.8"
+                    y="212.0"
                     fill="#a2559c"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="215.00500000000002" y="336.36">763</tspan>
-                </text>
-                <text
-                    id="outline__Life-sciences"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="215.0"
-                    y="354.7"
-                    fill="#6d3e91"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="215.00500000000002" y="354.66">736</tspan>
+                    <tspan x="629.8" y="212.01">Telecommunications</tspan>
                 </text>
                 <text
                     id="label__Life-sciences"
                     font-size="13.00"
                     font-weight="400"
-                    x="215.0"
-                    y="354.7"
+                    x="629.8"
+                    y="232.5"
                     fill="#6d3e91"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="215.00500000000002" y="354.66">736</tspan>
-                </text>
-                <text
-                    id="outline__Business"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="215.0"
-                    y="377.1"
-                    fill="#b13507"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="215.00500000000002" y="377.11">501</tspan>
-                </text>
-                <text
-                    id="label__Business"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="215.0"
-                    y="377.1"
-                    fill="#b13507"
-                    opacity="1"
-                    text-anchor="end"
-                >
-                    <tspan x="215.00500000000002" y="377.11">501</tspan>
-                </text>
-                <text
-                    id="outline__Transportation"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="215.0"
-                    y="393.0"
-                    fill="#9a5129"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="215.00500000000002" y="393.01">409</tspan>
+                    <tspan x="629.8" y="232.51">Life sciences</tspan>
                 </text>
                 <text
                     id="label__Transportation"
                     font-size="13.00"
                     font-weight="400"
-                    x="215.0"
-                    y="393.0"
+                    x="629.8"
+                    y="250.8"
                     fill="#9a5129"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="215.00500000000002" y="393.01">409</tspan>
+                    <tspan x="629.8" y="250.81">Transportation</tspan>
                 </text>
                 <text
-                    id="outline__Energy-management"
+                    id="label__Business"
                     font-size="13.00"
                     font-weight="400"
-                    x="215.0"
-                    y="420.3"
-                    fill="#996d39"
+                    x="629.8"
+                    y="269.1"
+                    fill="#b13507"
                     opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
+                    text-anchor="start"
                 >
-                    <tspan x="215.00500000000002" y="420.31">289</tspan>
+                    <tspan x="629.8" y="269.10999999999996">Business</tspan>
                 </text>
                 <text
-                    id="label__Energy-management"
+                    id="label__Industry-and-manufacturing"
                     font-size="13.00"
                     font-weight="400"
-                    x="215.0"
-                    y="420.3"
-                    fill="#996d39"
+                    x="629.8"
+                    y="299.1"
+                    fill="#2c8465"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="215.00500000000002" y="420.31">289</tspan>
-                </text>
-                <text
-                    id="outline__Security"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="215.0"
-                    y="439.4"
-                    fill="#00295b"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="215.00500000000002" y="439.41">207</tspan>
+                    <tspan x="629.8" y="299.10999999999996">
+                        Industry and manufacturing
+                    </tspan>
                 </text>
                 <text
                     id="label__Security"
                     font-size="13.00"
                     font-weight="400"
-                    x="215.0"
-                    y="439.4"
+                    x="629.8"
+                    y="317.4"
                     fill="#00295b"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="215.00500000000002" y="439.41">207</tspan>
-                </text>
-                <text
-                    id="outline__Industry-and-manufacturing"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="215.0"
-                    y="457.7"
-                    fill="#2c8465"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="215.00500000000002" y="457.71000000000004">
-                        170
-                    </tspan>
-                </text>
-                <text
-                    id="label__Industry-and-manufacturing"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="215.0"
-                    y="457.7"
-                    fill="#2c8465"
-                    opacity="1"
-                    text-anchor="end"
-                >
-                    <tspan x="215.00500000000002" y="457.71000000000004">
-                        170
-                    </tspan>
-                </text>
-                <text
-                    id="outline__Physical-sciences-and-engineering"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="215.0"
-                    y="476.0"
-                    fill="#883039"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="215.00500000000002" y="476.01000000000005">
-                        164
-                    </tspan>
-                </text>
-                <text
-                    id="label__Physical-sciences-and-engineering"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="215.0"
-                    y="476.0"
-                    fill="#883039"
-                    opacity="1"
-                    text-anchor="end"
-                >
-                    <tspan x="215.00500000000002" y="476.01000000000005">
-                        164
-                    </tspan>
-                </text>
-                <text
-                    id="outline__Banking-and-finance"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="215.0"
-                    y="500.6"
-                    fill="#4c6a9c"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="215.00500000000002" y="500.6099999999999">
-                        103
-                    </tspan>
+                    <tspan x="629.8" y="317.40999999999997">Security</tspan>
                 </text>
                 <text
                     id="label__Banking-and-finance"
                     font-size="13.00"
                     font-weight="400"
-                    x="215.0"
-                    y="500.6"
+                    x="629.8"
+                    y="335.7"
                     fill="#4c6a9c"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="215.00500000000002" y="500.6099999999999">
-                        103
+                    <tspan x="629.8" y="335.71">Banking and finance</tspan>
+                </text>
+                <text
+                    id="label__Energy-management"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="629.8"
+                    y="354.0"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="629.8" y="354.01">Energy management</tspan>
+                </text>
+                <text
+                    id="label__Physical-sciences-and-engineering"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="629.8"
+                    y="372.3"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="629.8" y="372.31">
+                        Physical sciences and engineering
                     </tspan>
                 </text>
             </g>
         </g>
-        <g id="line-labels" class="LineLabels">
-            <g id="connectors">
-                <path
-                    id="Personal-devices-and-computing"
-                    d="M603.995,131.6 H612.495 V139.9 H620.995"
-                    stroke="#999"
-                    stroke-width="0.5"
-                    fill="none"
-                ></path>
-                <path
-                    id="Telecommunications"
-                    d="M603.995,207.2 H612.495 V207.2 H620.995"
-                    stroke="#999"
-                    stroke-width="0.5"
-                    fill="none"
-                ></path>
-                <path
-                    id="Life-sciences"
-                    d="M603.995,239.4 H609.6616666666666 V227.6 H620.995"
-                    stroke="#999"
-                    stroke-width="0.5"
-                    fill="none"
-                ></path>
-                <path
-                    id="Transportation"
-                    d="M603.995,248.5 H615.3283333333333 V245.9 H620.995"
-                    stroke="#999"
-                    stroke-width="0.5"
-                    fill="none"
-                ></path>
-                <path
-                    id="Business"
-                    d="M603.995,249.8 H615.3283333333333 V264.2 H620.995"
-                    stroke="#999"
-                    stroke-width="0.5"
-                    fill="none"
-                ></path>
-                <path
-                    id="Industry-and-manufacturing"
-                    d="M603.995,310.9 H615.3283333333333 V289.89000000000004 H620.995"
-                    stroke="#999"
-                    stroke-width="0.5"
-                    fill="none"
-                ></path>
-                <path
-                    id="Security"
-                    d="M603.995,311.3 H615.3283333333333 V315.34000000000003 H620.995"
-                    stroke="#999"
-                    stroke-width="0.5"
-                    fill="none"
-                ></path>
-                <path
-                    id="Banking-and-finance"
-                    d="M603.995,338.1 H615.3283333333333 V333.64000000000004 H620.995"
-                    stroke="#999"
-                    stroke-width="0.5"
-                    fill="none"
-                ></path>
-                <path
-                    id="Energy-management"
-                    d="M603.995,338.4 H615.3283333333333 V351.94000000000005 H620.995"
-                    stroke="#999"
-                    stroke-width="0.5"
-                    fill="none"
-                ></path>
-                <path
-                    id="Physical-sciences-and-engineering"
-                    d="M603.995,355.2 H609.6616666666666 V377.3900000000001 H620.995"
-                    stroke="#999"
-                    stroke-width="0.5"
-                    fill="none"
-                ></path>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Personal-devices-and-computing"
+                stroke-width="2.5"
+                d="M61 270.6L604.8 131.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#008291"
+                id="line__Personal-devices-and-computing"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M61 270.6L604.8 131.6"
+            ></path>
+            <g id="datapoints__Personal-devices-and-computing">
+                <circle
+                    id="2014"
+                    cx="61"
+                    cy="270.6"
+                    r="1.8"
+                    fill="#008291"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2017"
+                    cx="604.8"
+                    cy="131.6"
+                    r="1.8"
+                    fill="#008291"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="text-annotations"></g>
-            <g id="text-labels">
-                <g
-                    id="outline__Personal-devices-and-computing"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="625.0"
-                        y="137.6"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#008291"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="137.6">
-                            <tspan style="font-weight: 700">
-                                Personal devices and
-                            </tspan>
-                        </tspan>
-                        <tspan x="624.995" y="151.9">
-                            <tspan style="font-weight: 700">computing</tspan>
-                            10.76k
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="label__Personal-devices-and-computing"
-                    class="markdown-text-wrap"
-                >
-                    <text
-                        x="625.0"
-                        y="137.6"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#008291"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="137.6">
-                            <tspan style="font-weight: 700">
-                                Personal devices and
-                            </tspan>
-                        </tspan>
-                        <tspan x="624.995" y="151.9">
-                            <tspan style="font-weight: 700">computing</tspan>
-                            10.76k
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Telecommunications"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="625.0"
-                        y="212.0"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#a2559c"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="212.0">
-                            <tspan style="font-weight: 700">
-                                Telecommunications
-                            </tspan>
-                            4.11k
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Telecommunications" class="markdown-text-wrap">
-                    <text
-                        x="625.0"
-                        y="212.0"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#a2559c"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="212.0">
-                            <tspan style="font-weight: 700">
-                                Telecommunications
-                            </tspan>
-                            4.11k
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Life-sciences"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="625.0"
-                        y="232.4"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#6d3e91"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="232.4">
-                            <tspan style="font-weight: 700">
-                                Life sciences
-                            </tspan>
-                            2.73k
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Life-sciences" class="markdown-text-wrap">
-                    <text
-                        x="625.0"
-                        y="232.4"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#6d3e91"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="232.4">
-                            <tspan style="font-weight: 700">
-                                Life sciences
-                            </tspan>
-                            2.73k
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Transportation"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="625.0"
-                        y="250.7"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#9a5129"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="250.7">
-                            <tspan style="font-weight: 700">
-                                Transportation
-                            </tspan>
-                            2.43k
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Transportation" class="markdown-text-wrap">
-                    <text
-                        x="625.0"
-                        y="250.7"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#9a5129"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="250.7">
-                            <tspan style="font-weight: 700">
-                                Transportation
-                            </tspan>
-                            2.43k
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Business"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="625.0"
-                        y="269.0"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#b13507"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="269.0">
-                            <tspan style="font-weight: 700">Business</tspan>
-                            2.39k
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Business" class="markdown-text-wrap">
-                    <text
-                        x="625.0"
-                        y="269.0"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#b13507"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="269.0">
-                            <tspan style="font-weight: 700">Business</tspan>
-                            2.39k
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Industry-and-manufacturing"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="625.0"
-                        y="287.6"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#2c8465"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="287.6">
-                            <tspan style="font-weight: 700">
-                                Industry and manufacturing
-                            </tspan>
-                        </tspan>
-                        <tspan x="624.995" y="301.9">1.1k</tspan>
-                    </text>
-                </g>
-                <g
-                    id="label__Industry-and-manufacturing"
-                    class="markdown-text-wrap"
-                >
-                    <text
-                        x="625.0"
-                        y="287.6"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#2c8465"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="287.6">
-                            <tspan style="font-weight: 700">
-                                Industry and manufacturing
-                            </tspan>
-                        </tspan>
-                        <tspan x="624.995" y="301.9">1.1k</tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Security"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="625.0"
-                        y="320.2"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#00295b"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="320.2">
-                            <tspan style="font-weight: 700">Security</tspan>
-                            1.09k
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Security" class="markdown-text-wrap">
-                    <text
-                        x="625.0"
-                        y="320.2"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#00295b"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="320.2">
-                            <tspan style="font-weight: 700">Security</tspan>
-                            1.09k
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Banking-and-finance"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="625.0"
-                        y="338.5"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#4c6a9c"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="338.5">
-                            <tspan style="font-weight: 700">
-                                Banking and finance
-                            </tspan>
-                            775
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Banking-and-finance" class="markdown-text-wrap">
-                    <text
-                        x="625.0"
-                        y="338.5"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#4c6a9c"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="338.5">
-                            <tspan style="font-weight: 700">
-                                Banking and finance
-                            </tspan>
-                            775
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Energy-management"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="625.0"
-                        y="356.8"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#996d39"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="356.8">
-                            <tspan style="font-weight: 700">
-                                Energy management
-                            </tspan>
-                            772
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Energy-management" class="markdown-text-wrap">
-                    <text
-                        x="625.0"
-                        y="356.8"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#996d39"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="356.8">
-                            <tspan style="font-weight: 700">
-                                Energy management
-                            </tspan>
-                            772
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Physical-sciences-and-engineering"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="625.0"
-                        y="375.1"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#883039"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="375.1">
-                            <tspan style="font-weight: 700">
-                                Physical sciences and
-                            </tspan>
-                        </tspan>
-                        <tspan x="624.995" y="389.4">
-                            <tspan style="font-weight: 700">engineering</tspan>
-                            623
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="label__Physical-sciences-and-engineering"
-                    class="markdown-text-wrap"
-                >
-                    <text
-                        x="625.0"
-                        y="375.1"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#883039"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="624.995" y="375.1">
-                            <tspan style="font-weight: 700">
-                                Physical sciences and
-                            </tspan>
-                        </tspan>
-                        <tspan x="624.995" y="389.4">
-                            <tspan style="font-weight: 700">engineering</tspan>
-                            623
-                        </tspan>
-                    </text>
-                </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Transportation"
+                stroke-width="2.5"
+                d="M61 388.4L604.8 248.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__Transportation"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M61 388.4L604.8 248.6"
+            ></path>
+            <g id="datapoints__Transportation">
+                <circle
+                    id="2014"
+                    cx="61"
+                    cy="388.4"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2017"
+                    cx="604.8"
+                    cy="248.6"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Telecommunications"
+                stroke-width="2.5"
+                d="M61 339.4L604.8 207.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__Telecommunications"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M61 339.4L604.8 207.2"
+            ></path>
+            <g id="datapoints__Telecommunications">
+                <circle
+                    id="2014"
+                    cx="61"
+                    cy="339.4"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2017"
+                    cx="604.8"
+                    cy="207.2"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Security"
+                stroke-width="2.5"
+                d="M61 441.9L604.8 311.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__Security"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M61 441.9L604.8 311.4"
+            ></path>
+            <g id="datapoints__Security">
+                <circle
+                    id="2014"
+                    cx="61"
+                    cy="441.9"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2017"
+                    cx="604.8"
+                    cy="311.4"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Physical-sciences-and-engineering"
+                stroke-width="2.5"
+                d="M61 460.2L604.8 355.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Physical-sciences-and-engineering"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M61 460.2L604.8 355.4"
+            ></path>
+            <g id="datapoints__Physical-sciences-and-engineering">
+                <circle
+                    id="2014"
+                    cx="61"
+                    cy="460.2"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2017"
+                    cx="604.8"
+                    cy="355.4"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Life-sciences"
+                stroke-width="2.5"
+                d="M61 342.3L604.8 239.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Life-sciences"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M61 342.3L604.8 239.5"
+            ></path>
+            <g id="datapoints__Life-sciences">
+                <circle
+                    id="2014"
+                    cx="61"
+                    cy="342.3"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2017"
+                    cx="604.8"
+                    cy="239.5"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Industry-and-manufacturing"
+                stroke-width="2.5"
+                d="M61 457.3L604.8 311"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Industry-and-manufacturing"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M61 457.3L604.8 311"
+            ></path>
+            <g id="datapoints__Industry-and-manufacturing">
+                <circle
+                    id="2014"
+                    cx="61"
+                    cy="457.3"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2017"
+                    cx="604.8"
+                    cy="311"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Energy-management"
+                stroke-width="2.5"
+                d="M61 415.7L604.8 338.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Energy-management"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M61 415.7L604.8 338.5"
+            ></path>
+            <g id="datapoints__Energy-management">
+                <circle
+                    id="2014"
+                    cx="61"
+                    cy="415.7"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2017"
+                    cx="604.8"
+                    cy="338.5"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Business"
+                stroke-width="2.5"
+                d="M61 372.5L604.8 249.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Business"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M61 372.5L604.8 249.9"
+            ></path>
+            <g id="datapoints__Business">
+                <circle
+                    id="2014"
+                    cx="61"
+                    cy="372.5"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2017"
+                    cx="604.8"
+                    cy="249.9"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Banking-and-finance"
+                stroke-width="2.5"
+                d="M61 496.7L604.8 338.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Banking-and-finance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M61 496.7L604.8 338.2"
+            ></path>
+            <g id="datapoints__Banking-and-finance">
+                <circle
+                    id="2014"
+                    cx="61"
+                    cy="496.7"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2017"
+                    cx="604.8"
+                    cy="338.2"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>

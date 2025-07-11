@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -78,40 +67,125 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <g id="grid-lines">
-            <line
-                id="10%"
-                x1="47.13"
-                y1="357.2"
-                x2="824"
-                y2="357.2"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="5%"
-                x1="47.13"
-                y1="474.3"
-                x2="824"
-                y2="474.3"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="20%"
-                x1="47.13"
-                y1="240.1"
-                x2="824"
-                y2="240.1"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="Jan-14,-2021"
+                    x1="47.1"
+                    y1="511.79999999999995"
+                    x2="47.1"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="Jan-9,-2025"
+                    x1="707.2"
+                    y1="511.79999999999995"
+                    x2="707.2"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="Mar-31,-2022"
+                    x1="247.1"
+                    y1="511.79999999999995"
+                    x2="247.1"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="Oct-17,-2022"
+                    x1="337.7"
+                    y1="511.79999999999995"
+                    x2="337.7"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="May-5,-2023"
+                    x1="428.4"
+                    y1="511.79999999999995"
+                    x2="428.4"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="Nov-21,-2023"
+                    x1="519.1"
+                    y1="511.79999999999995"
+                    x2="519.1"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="47.13"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="start"
+                    font-size="13"
+                >
+                    Jan 14, 2021
+                </text>
+                <text
+                    x="707.24"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="end"
+                    font-size="13"
+                >
+                    Jan 9, 2025
+                </text>
+                <text
+                    x="247.1"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    Mar 31, 2022
+                </text>
+                <text
+                    x="337.7"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    Oct 17, 2022
+                </text>
+                <text
+                    x="428.4"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    May 5, 2023
+                </text>
+                <text
+                    x="519.1"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    Nov 21, 2023
+                </text>
+            </g>
         </g>
         <g id="vertical-axis" class="VerticalAxis">
             <g id="tick-labels">
                 <text
                     x="42.13"
-                    y="357.2"
+                    y="357.4"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -121,7 +195,7 @@
                 </text>
                 <text
                     x="42.13"
-                    y="474.3"
+                    y="474.6"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -141,685 +215,339 @@
                 </text>
             </g>
         </g>
-        <g id="horizontal-axis">
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
             <line
-                id="Jan-14,-2021"
-                x1="236.985"
-                y1="131.6"
-                x2="236.985"
-                y2="512.05"
-                stroke="#999"
+                id="4%"
+                x1="47.13"
+                y1="512.3"
+                x2="707.24"
+                y2="512.3"
+                stroke="#eee"
+                stroke-dasharray="4,4"
             ></line>
-            <text
-                x="236.985"
-                y="520.05"
-                dy=".71em"
-                text-anchor="middle"
-                fill="#5b5b5b"
-                font-size="13"
-            >
-                Jan 14, 2021
-            </text>
             <line
-                id="Jan-9,-2025"
-                x1="603.015"
-                y1="131.6"
-                x2="603.015"
-                y2="512.05"
-                stroke="#999"
+                id="5%"
+                x1="47.13"
+                y1="474.6"
+                x2="707.24"
+                y2="474.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
             ></line>
-            <text
-                x="603.015"
-                y="520.05"
-                dy=".71em"
-                text-anchor="middle"
-                fill="#5b5b5b"
-                font-size="13"
-            >
-                Jan 9, 2025
-            </text>
-        </g>
-        <g id="slopes">
-            <g id="outline__Don&#x27;t-know" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.985"
-                    cy="417.5"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.015"
-                    cy="512"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.985"
-                    y1="417.5"
-                    x2="603.015"
-                    y2="512"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Don&#x27;t-know" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.985"
-                    cy="417.5"
-                    r="3.5"
-                    fill="#b4b4b4"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.015"
-                    cy="512"
-                    r="3.5"
-                    fill="#b4b4b4"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.985"
-                    y1="417.5"
-                    x2="603.015"
-                    y2="512"
-                    stroke="#b4b4b4"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Not-very-worried" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.985"
-                    cy="160.6"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.015"
-                    cy="136.1"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.985"
-                    y1="160.6"
-                    x2="603.015"
-                    y2="136.1"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Not-very-worried" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.985"
-                    cy="160.6"
-                    r="3.5"
-                    fill="#008291"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.015"
-                    cy="136.1"
-                    r="3.5"
-                    fill="#008291"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.985"
-                    y1="160.6"
-                    x2="603.015"
-                    y2="136.1"
-                    stroke="#008291"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Not-worried-at-all" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.985"
-                    cy="131.6"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.015"
-                    cy="189.4"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.985"
-                    y1="131.6"
-                    x2="603.015"
-                    y2="189.4"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Not-worried-at-all" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.985"
-                    cy="131.6"
-                    r="3.5"
-                    fill="#00295b"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.015"
-                    cy="189.4"
-                    r="3.5"
-                    fill="#00295b"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.985"
-                    y1="131.6"
-                    x2="603.015"
-                    y2="189.4"
-                    stroke="#00295b"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Very-worried" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.985"
-                    cy="375"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.015"
-                    cy="341.1"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.985"
-                    y1="375"
-                    x2="603.015"
-                    y2="341.1"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Very-worried" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.985"
-                    cy="375"
-                    r="3.5"
-                    fill="#d73c50"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.015"
-                    cy="341.1"
-                    r="3.5"
-                    fill="#d73c50"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.985"
-                    y1="375"
-                    x2="603.015"
-                    y2="341.1"
-                    stroke="#d73c50"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Fairly-worried" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.985"
-                    cy="300.3"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.015"
-                    cy="240.1"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.985"
-                    y1="300.3"
-                    x2="603.015"
-                    y2="240.1"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Fairly-worried" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.985"
-                    cy="300.3"
-                    r="3.5"
-                    fill="#b16214"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.015"
-                    cy="240.1"
-                    r="3.5"
-                    fill="#b16214"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.985"
-                    y1="300.3"
-                    x2="603.015"
-                    y2="240.1"
-                    stroke="#b16214"
-                    stroke-width="1.5"
-                ></line>
-            </g>
+            <line
+                id="6%"
+                x1="47.13"
+                y1="443.7"
+                x2="707.24"
+                y2="443.7"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="7%"
+                x1="47.13"
+                y1="417.7"
+                x2="707.24"
+                y2="417.7"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="8%"
+                x1="47.13"
+                y1="395.1"
+                x2="707.24"
+                y2="395.1"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="9%"
+                x1="47.13"
+                y1="375.2"
+                x2="707.24"
+                y2="375.2"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="357.4"
+                x2="707.24"
+                y2="357.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="240.1"
+                x2="707.24"
+                y2="240.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30%"
+                x1="47.13"
+                y1="171.6"
+                x2="707.24"
+                y2="171.6"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
         </g>
         <g id="line-labels" class="LineLabels">
             <g id="text-annotations"></g>
             <g id="text-labels">
                 <text
-                    id="outline__Not-worried-at-all"
+                    id="label__Not-very-worried"
                     font-size="13.00"
                     font-weight="400"
-                    x="229.0"
-                    y="137.6"
-                    fill="#00295b"
+                    x="711.2"
+                    y="140.9"
+                    fill="#008291"
                     opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
+                    text-anchor="start"
                 >
-                    <tspan x="228.985" y="137.56">38%</tspan>
+                    <tspan x="711.24" y="140.91">Not very worried</tspan>
                 </text>
                 <text
                     id="label__Not-worried-at-all"
                     font-size="13.00"
                     font-weight="400"
-                    x="229.0"
-                    y="137.6"
+                    x="711.2"
+                    y="194.2"
                     fill="#00295b"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="228.985" y="137.56">38%</tspan>
-                </text>
-                <text
-                    id="outline__Not-very-worried"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="229.0"
-                    y="165.4"
-                    fill="#008291"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="228.985" y="165.41">32%</tspan>
-                </text>
-                <text
-                    id="label__Not-very-worried"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="229.0"
-                    y="165.4"
-                    fill="#008291"
-                    opacity="1"
-                    text-anchor="end"
-                >
-                    <tspan x="228.985" y="165.41">32%</tspan>
-                </text>
-                <text
-                    id="outline__Fairly-worried"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="229.0"
-                    y="305.1"
-                    fill="#b16214"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="228.985" y="305.11">14%</tspan>
+                    <tspan x="711.24" y="194.21">Not worried at all</tspan>
                 </text>
                 <text
                     id="label__Fairly-worried"
                     font-size="13.00"
                     font-weight="400"
-                    x="229.0"
-                    y="305.1"
+                    x="711.2"
+                    y="244.9"
                     fill="#b16214"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="228.985" y="305.11">14%</tspan>
-                </text>
-                <text
-                    id="outline__Very-worried"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="229.0"
-                    y="379.8"
-                    fill="#d73c50"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="228.985" y="379.81">9%</tspan>
+                    <tspan x="711.24" y="244.91">Fairly worried</tspan>
                 </text>
                 <text
                     id="label__Very-worried"
                     font-size="13.00"
                     font-weight="400"
-                    x="229.0"
-                    y="379.8"
+                    x="711.2"
+                    y="346.0"
                     fill="#d73c50"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="228.985" y="379.81">9%</tspan>
-                </text>
-                <text
-                    id="outline__Don&#x27;t-know"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="229.0"
-                    y="422.3"
-                    fill="#9a9a9a"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="228.985" y="422.31">7%</tspan>
+                    <tspan x="711.24" y="346.01">Very worried</tspan>
                 </text>
                 <text
                     id="label__Don&#x27;t-know"
                     font-size="13.00"
                     font-weight="400"
-                    x="229.0"
-                    y="422.3"
+                    x="711.2"
+                    y="517.1"
                     fill="#9a9a9a"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="228.985" y="422.31">7%</tspan>
+                    <tspan x="711.24" y="517.11">Don&#x27;t know</tspan>
                 </text>
             </g>
         </g>
-        <g id="line-labels" class="LineLabels">
-            <g id="text-annotations"></g>
-            <g id="text-labels">
-                <g
-                    id="outline__Not-very-worried"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="611.0"
-                        y="140.9"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#008291"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.015" y="140.9">
-                            <tspan style="font-weight: 700">
-                                Not very worried
-                            </tspan>
-                            37%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Not-very-worried" class="markdown-text-wrap">
-                    <text
-                        x="611.0"
-                        y="140.9"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#008291"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.015" y="140.9">
-                            <tspan style="font-weight: 700">
-                                Not very worried
-                            </tspan>
-                            37%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Not-worried-at-all"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="611.0"
-                        y="194.2"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#00295b"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.015" y="194.2">
-                            <tspan style="font-weight: 700">
-                                Not worried at all
-                            </tspan>
-                            27%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Not-worried-at-all" class="markdown-text-wrap">
-                    <text
-                        x="611.0"
-                        y="194.2"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#00295b"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.015" y="194.2">
-                            <tspan style="font-weight: 700">
-                                Not worried at all
-                            </tspan>
-                            27%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Fairly-worried"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="611.0"
-                        y="244.9"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#b16214"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.015" y="244.9">
-                            <tspan style="font-weight: 700">
-                                Fairly worried
-                            </tspan>
-                            20%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Fairly-worried" class="markdown-text-wrap">
-                    <text
-                        x="611.0"
-                        y="244.9"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#b16214"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.015" y="244.9">
-                            <tspan style="font-weight: 700">
-                                Fairly worried
-                            </tspan>
-                            20%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Very-worried"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="611.0"
-                        y="345.9"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#d73c50"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.015" y="345.9">
-                            <tspan style="font-weight: 700">Very worried</tspan>
-                            11%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Very-worried" class="markdown-text-wrap">
-                    <text
-                        x="611.0"
-                        y="345.9"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#d73c50"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.015" y="345.9">
-                            <tspan style="font-weight: 700">Very worried</tspan>
-                            11%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Don&#x27;t-know"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="611.0"
-                        y="516.2"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#9a9a9a"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.015" y="516.2">
-                            <tspan style="font-weight: 700">
-                                Don&#x27;t know
-                            </tspan>
-                            4%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Don&#x27;t-know" class="markdown-text-wrap">
-                    <text
-                        x="611.0"
-                        y="516.2"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#9a9a9a"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.015" y="516.2">
-                            <tspan style="font-weight: 700">
-                                Don&#x27;t know
-                            </tspan>
-                            4%
-                        </tspan>
-                    </text>
-                </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Fairly-worried"
+                stroke-width="2.5"
+                d="M47.1 300.5L707.2 240.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b16214"
+                id="line__Fairly-worried"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 300.5L707.2 240.1"
+            ></path>
+            <g id="datapoints__Fairly-worried">
+                <circle
+                    id="Jan-14,-2021"
+                    cx="47.1"
+                    cy="300.5"
+                    r="1.8"
+                    fill="#b16214"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="Jan-9,-2025"
+                    cx="707.2"
+                    cy="240.1"
+                    r="1.8"
+                    fill="#b16214"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Very-worried"
+                stroke-width="2.5"
+                d="M47.1 375.2L707.2 341.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d73c50"
+                id="line__Very-worried"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 375.2L707.2 341.2"
+            ></path>
+            <g id="datapoints__Very-worried">
+                <circle
+                    id="Jan-14,-2021"
+                    cx="47.1"
+                    cy="375.2"
+                    r="1.8"
+                    fill="#d73c50"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="Jan-9,-2025"
+                    cx="707.2"
+                    cy="341.2"
+                    r="1.8"
+                    fill="#d73c50"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Not-worried-at-all"
+                stroke-width="2.5"
+                d="M47.1 131.6L707.2 189.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__Not-worried-at-all"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 131.6L707.2 189.4"
+            ></path>
+            <g id="datapoints__Not-worried-at-all">
+                <circle
+                    id="Jan-14,-2021"
+                    cx="47.1"
+                    cy="131.6"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="Jan-9,-2025"
+                    cx="707.2"
+                    cy="189.4"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Not-very-worried"
+                stroke-width="2.5"
+                d="M47.1 160.7L707.2 136.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#008291"
+                id="line__Not-very-worried"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 160.7L707.2 136.1"
+            ></path>
+            <g id="datapoints__Not-very-worried">
+                <circle
+                    id="Jan-14,-2021"
+                    cx="47.1"
+                    cy="160.7"
+                    r="1.8"
+                    fill="#008291"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="Jan-9,-2025"
+                    cx="707.2"
+                    cy="136.1"
+                    r="1.8"
+                    fill="#008291"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Don&#x27;t-know"
+                stroke-width="2.5"
+                d="M47.1 417.7L707.2 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b4b4b4"
+                id="line__Don&#x27;t-know"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 417.7L707.2 512.3"
+            ></path>
+            <g id="datapoints__Don&#x27;t-know">
+                <circle
+                    id="Jan-14,-2021"
+                    cx="47.1"
+                    cy="417.7"
+                    r="1.8"
+                    fill="#b4b4b4"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="Jan-9,-2025"
+                    cx="707.2"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#b4b4b4"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>

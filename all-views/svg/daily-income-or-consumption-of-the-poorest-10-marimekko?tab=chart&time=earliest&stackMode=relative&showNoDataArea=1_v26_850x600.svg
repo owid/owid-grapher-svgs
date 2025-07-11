@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -55,7 +44,7 @@
                 fill="#2d2e2d"
             >
                 <tspan x="16" y="40.25">
-                    Income or consumption of the poorest 10%, 1963
+                    Income or consumption of the poorest 10%
                 </tspan>
             </text>
         </a>
@@ -78,328 +67,58 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <g id="marimekko-chart" class="MarimekkoChart">
-            <rect
-                x="16"
-                y="104"
-                width="808"
-                height="412.7"
-                opacity="0"
-                fill="rgba(255,255,255,0)"
-            ></rect>
+        <g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks"></g>
+                <g id="tick-labels"></g>
+            </g>
             <g id="vertical-axis" class="VerticalAxis">
-                <g id="tick-labels">
-                    <text
-                        x="63.16"
-                        y="421.5"
-                        dy=".32em"
-                        text-anchor="end"
-                        fill="#5b5b5b"
-                        font-size="13"
-                    >
-                        $0
-                    </text>
-                    <text
-                        x="63.16"
-                        y="367.6"
-                        dy=".32em"
-                        text-anchor="end"
-                        fill="#5b5b5b"
-                        font-size="13"
-                    >
-                        $2
-                    </text>
-                    <text
-                        x="63.16"
-                        y="313.7"
-                        dy=".32em"
-                        text-anchor="end"
-                        fill="#5b5b5b"
-                        font-size="13"
-                    >
-                        $4
-                    </text>
-                    <text
-                        x="63.16"
-                        y="259.8"
-                        dy=".32em"
-                        text-anchor="end"
-                        fill="#5b5b5b"
-                        font-size="13"
-                    >
-                        $6
-                    </text>
-                    <text
-                        x="63.16"
-                        y="205.9"
-                        dy=".32em"
-                        text-anchor="end"
-                        fill="#5b5b5b"
-                        font-size="13"
-                    >
-                        $8
-                    </text>
-                    <text
-                        x="63.16"
-                        y="152.1"
-                        dy=".32em"
-                        text-anchor="end"
-                        fill="#5b5b5b"
-                        font-size="13"
-                    >
-                        $10
-                    </text>
-                </g>
-            </g>
-            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
-                <line
-                    id="$0"
-                    x1="68.16"
-                    y1="421.5"
-                    x2="824.00"
-                    y2="421.5"
-                    stroke="#999"
-                ></line>
-                <line
-                    id="$2"
-                    x1="68.16"
-                    y1="367.6"
-                    x2="824.00"
-                    y2="367.6"
-                    stroke="#ddd"
-                    stroke-dasharray="4,4"
-                ></line>
-                <line
-                    id="$4"
-                    x1="68.16"
-                    y1="313.7"
-                    x2="824.00"
-                    y2="313.7"
-                    stroke="#ddd"
-                    stroke-dasharray="4,4"
-                ></line>
-                <line
-                    id="$6"
-                    x1="68.16"
-                    y1="259.8"
-                    x2="824.00"
-                    y2="259.8"
-                    stroke="#ddd"
-                    stroke-dasharray="4,4"
-                ></line>
-                <line
-                    id="$8"
-                    x1="68.16"
-                    y1="205.9"
-                    x2="824.00"
-                    y2="205.9"
-                    stroke="#ddd"
-                    stroke-dasharray="4,4"
-                ></line>
-                <line
-                    id="$10"
-                    x1="68.16"
-                    y1="152.1"
-                    x2="824.00"
-                    y2="152.1"
-                    stroke="#ddd"
-                    stroke-dasharray="4,4"
-                ></line>
-            </g>
-            <g id="categorical-color-legend" class="categoricalColorLegend">
-                <g id="swatches">
-                    <rect
-                        id="Africa"
-                        x="16"
-                        y="104"
-                        width="13.5"
-                        height="13.5"
-                        fill="#a2559c"
-                        stroke-width="0.4"
-                        opacity="0.7"
-                    ></rect>
-                    <rect
-                        id="Asia"
-                        x="83.364"
-                        y="104"
-                        width="13.5"
-                        height="13.5"
-                        fill="#00847e"
-                        stroke-width="0.4"
-                        opacity="0.7"
-                    ></rect>
-                    <rect
-                        id="Europe"
-                        x="141.94400000000002"
-                        y="104"
-                        width="13.5"
-                        height="13.5"
-                        fill="#4c6a9c"
-                        stroke-width="0.4"
-                        opacity="0.7"
-                    ></rect>
-                    <rect
-                        id="North-America"
-                        x="219.10000000000002"
-                        y="104"
-                        width="13.5"
-                        height="13.5"
-                        fill="#e56e5a"
-                        stroke-width="0.4"
-                        opacity="0.7"
-                    ></rect>
-                    <rect
-                        id="Oceania"
-                        x="341.76000000000005"
-                        y="104"
-                        width="13.5"
-                        height="13.5"
-                        fill="#38aaba"
-                        stroke-width="0.4"
-                        opacity="0.7"
-                    ></rect>
-                    <rect
-                        id="South-America"
-                        x="426.11600000000004"
-                        y="104"
-                        width="13.5"
-                        height="13.5"
-                        fill="#883039"
-                        stroke-width="0.4"
-                        opacity="0.7"
-                    ></rect>
-                </g>
-                <g id="labels">
-                    <text
-                        x="34.5"
-                        y="110.75"
-                        dy=".32em"
-                        font-size="14.4"
-                        opacity="1"
-                    >
-                        Africa
-                    </text>
-                    <text
-                        x="101.864"
-                        y="110.75"
-                        dy=".32em"
-                        font-size="14.4"
-                        opacity="1"
-                    >
-                        Asia
-                    </text>
-                    <text
-                        x="160.44400000000002"
-                        y="110.75"
-                        dy=".32em"
-                        font-size="14.4"
-                        opacity="1"
-                    >
-                        Europe
-                    </text>
-                    <text
-                        x="237.60000000000002"
-                        y="110.75"
-                        dy=".32em"
-                        font-size="14.4"
-                        opacity="1"
-                    >
-                        North America
-                    </text>
-                    <text
-                        x="360.26000000000005"
-                        y="110.75"
-                        dy=".32em"
-                        font-size="14.4"
-                        opacity="1"
-                    >
-                        Oceania
-                    </text>
-                    <text
-                        x="444.61600000000004"
-                        y="110.75"
-                        dy=".32em"
-                        font-size="14.4"
-                        opacity="1"
-                    >
-                        South America
-                    </text>
-                </g>
+                <g id="tick-labels"></g>
             </g>
             <g
-                id="bar__United-States"
-                class="bar"
-                transform="translate(68.2, 0)"
-            >
-                <g>
-                    <rect
-                        x="0"
-                        y="0"
-                        transform="translate(0, 135.5)"
-                        width="377.90000000000003"
-                        height="286"
-                        fill="#e56e5a"
-                        fill-opacity="0.7"
-                        stroke="#e56e5a"
-                        stroke-width="0.5px"
-                        stroke-opacity="1"
-                        opacity="1"
-                        style="transition: translate 200ms ease"
-                    ></rect>
-                </g>
-            </g>
-            <g
-                id="bar__United-Kingdom"
-                class="bar"
-                transform="translate(446.1, 0)"
-            >
-                <g>
-                    <rect
-                        x="0"
-                        y="0"
-                        transform="translate(0, 136.89999999999998)"
-                        width="377.90000000000003"
-                        height="284.6"
-                        fill="#4c6a9c"
-                        fill-opacity="0.7"
-                        stroke="#4c6a9c"
-                        stroke-width="0.5px"
-                        stroke-opacity="1"
-                        opacity="1"
-                        style="transition: translate 200ms ease"
-                    ></rect>
-                </g>
-            </g>
-            <g
-                id="label__United-Kingdom"
-                class="bar-label"
-                transform="translate(635.0500000000001, 25)"
-            >
-                <g transform="translate(0, 421.5)">
-                    <text
-                        x="-96.39"
-                        y="0"
-                        width="96.39"
-                        height="13.5"
-                        font-weight="400"
-                        fill="#4c6a9c"
-                        transform="rotate(-45, 0, 0)"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="right"
-                        dy=".32em"
-                    >
-                        United Kingdom
-                    </text>
-                </g>
-            </g>
-            <g id="label-line__United-Kingdom" class="indicator">
-                <path
-                    d="M635.0500000000001,425.5 V442.5"
-                    stroke="#bbb"
-                    stroke-width="1"
-                    fill="none"
-                ></path>
+                id="horizontal-grid-lines"
+                class="AxisGridLines horizontalLines"
+            ></g>
+            <g class="no-data">
+                <rect
+                    x="16"
+                    y="155.5"
+                    width="789"
+                    height="359.2"
+                    fill="#fff"
+                    opacity="0.6"
+                ></rect>
+                <text
+                    x="410.5"
+                    y="335.1"
+                    dy=".32em"
+                    text-anchor="middle"
+                    font-size="16"
+                    font-weight="500"
+                    fill="#5b5b5b"
+                    id="no-data-message"
+                    style="
+                        fill: #fff;
+                        stroke: #fff;
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                        user-select: none;
+                        stroke-width: 4;
+                    "
+                >
+                    No country or region selected
+                </text>
+                <text
+                    x="410.5"
+                    y="335.1"
+                    dy=".32em"
+                    text-anchor="middle"
+                    font-size="16"
+                    font-weight="500"
+                    fill="#5b5b5b"
+                >
+                    No country or region selected
+                </text>
             </g>
         </g>
     </g>

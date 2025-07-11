@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -78,88 +67,237 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="85.65"
-            y1="532.30"
-            x2="85.65"
-            y2="104.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Uruguay"
-                x="0"
-                y="0"
-                transform="translate(85.9, 141.47625)"
-                width="692.1"
-                height="139.1975"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Costa-Rica"
-                x="0"
-                y="0"
-                transform="translate(85.9, 355.62624999999997)"
-                width="141.7"
-                height="139.1975"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="1989"
+                    x1="394.215"
+                    y1="511.79999999999995"
+                    x2="394.215"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="394.215"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    1989
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(783, 211.075)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                22.22%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(232.6, 425.22499999999997)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                4.55%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="42.13"
+                    y="431.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    5%
+                </text>
+                <text
+                    x="42.13"
+                    y="351.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="270.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    15%
+                </text>
+                <text
+                    x="42.13"
+                    y="190.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="42.13"
+                    y="110"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    25%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="80.9"
-                y="216.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="80.9" y="216.07">Uruguay</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="80.9"
-                y="430.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="80.9" y="430.21999999999997">Costa Rica</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="47.13"
+                y1="512.3"
+                x2="741.30"
+                y2="512.3"
+                stroke="#999"
+            ></line>
+            <line
+                id="5%"
+                x1="47.13"
+                y1="431.8"
+                x2="741.30"
+                y2="431.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="351.4"
+                x2="741.30"
+                y2="351.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="15%"
+                x1="47.13"
+                y1="270.9"
+                x2="741.30"
+                y2="270.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="190.5"
+                x2="741.30"
+                y2="190.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="25%"
+                x1="47.13"
+                y1="110"
+                x2="741.30"
+                y2="110"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Uruguay"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="745.3"
+                    y="159.5"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="745.3" y="159.51">Uruguay</tspan>
+                </text>
+                <text
+                    id="label__Costa-Rica"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="745.3"
+                    y="443.9"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="745.3" y="443.91">Costa Rica</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Costa-Rica"
+                stroke-width="2.5"
+                d="M394.2 439.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Costa-Rica"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M394.2 439.1"
+            ></path>
+            <g id="datapoints__Costa-Rica">
+                <circle
+                    id="1989"
+                    cx="394.2"
+                    cy="439.1"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Uruguay"
+                stroke-width="2.5"
+                d="M394.2 154.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Uruguay"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M394.2 154.7"
+            ></path>
+            <g id="datapoints__Uruguay">
+                <circle
+                    id="1989"
+                    cx="394.2"
+                    cy="154.7"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -85,88 +74,218 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="72.85"
-            y1="552.40"
-            x2="72.85"
-            y2="119.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Romania"
-                x="0"
-                y="0"
-                transform="translate(73.1, 156.92249999999999)"
-                width="712.4"
-                height="140.85500000000002"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Serbia"
-                x="0"
-                y="0"
-                transform="translate(73.1, 373.62249999999995)"
-                width="420.79999999999995"
-                height="140.85500000000002"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2015"
+                    x1="400"
+                    y1="531.9"
+                    x2="400"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="400"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2015
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(790.5, 227.35)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                19.3%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(498.9, 444.04999999999995)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                11.4%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="42.13"
+                    y="430.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    5%
+                </text>
+                <text
+                    x="42.13"
+                    y="328.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="226.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    15%
+                </text>
+                <text
+                    x="42.13"
+                    y="125"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="68.1"
-                y="232.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="68.1" y="232.34499999999997">Romania</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="68.1"
-                y="449.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="68.1" y="449.04499999999996">Serbia</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="47.13"
+                y1="532.4"
+                x2="752.87"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="5%"
+                x1="47.13"
+                y1="430.5"
+                x2="752.87"
+                y2="430.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="328.7"
+                x2="752.87"
+                y2="328.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="15%"
+                x1="47.13"
+                y1="226.8"
+                x2="752.87"
+                y2="226.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="125"
+                x2="752.87"
+                y2="125"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Romania"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="756.9"
+                    y="144.1"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="756.87" y="144.11">Romania</tspan>
+                </text>
+                <text
+                    id="label__Serbia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="756.9"
+                    y="305.0"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="756.87" y="305.01">Serbia</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Serbia"
+                stroke-width="2.5"
+                d="M400 300.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Serbia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M400 300.2"
+            ></path>
+            <g id="datapoints__Serbia">
+                <circle
+                    id="2015"
+                    cx="400"
+                    cy="300.2"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Romania"
+                stroke-width="2.5"
+                d="M400 139.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Romania"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M400 139.3"
+            ></path>
+            <g id="datapoints__Romania">
+                <circle
+                    id="2015"
+                    cx="400"
+                    cy="139.3"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

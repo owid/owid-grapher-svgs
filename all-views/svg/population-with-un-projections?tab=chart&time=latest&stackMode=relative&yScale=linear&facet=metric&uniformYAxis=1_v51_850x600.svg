@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -54,9 +43,7 @@
                 y="40.3"
                 fill="#2d2e2d"
             >
-                <tspan x="16" y="40.25">
-                    Change in population, World, 2100
-                </tspan>
+                <tspan x="16" y="40.25">Change in population, 2100</tspan>
             </text>
         </a>
         <g id="subtitle" class="markdown-text-wrap">
@@ -77,109 +64,103 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <defs>
-            <pattern
-                id="DiscreteBarChart_stripes_#4c6a9c"
-                patternUnits="userSpaceOnUse"
-                width="7"
-                height="7"
-                patternTransform="rotate(45)"
-            >
-                <rect width="7" height="7" fill="#4c6a9c" opacity="0.5"></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
                 <line
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="7"
-                    stroke="#4c6a9c"
-                    stroke-width="10"
-                ></line>
-            </pattern>
-            <pattern
-                id="DiscreteBarChart_stripes_#4c6a9c"
-                patternUnits="userSpaceOnUse"
-                width="7"
-                height="7"
-                patternTransform="rotate(45)"
-            >
-                <rect width="7" height="7" fill="#4c6a9c" opacity="0.5"></rect>
-                <line
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="7"
-                    stroke="#4c6a9c"
-                    stroke-width="10"
-                ></line>
-            </pattern>
-        </defs>
-        <g id="numeric-color-legend" class="numericColorLegend">
-            <g id="lines">
-                <line
-                    id="Projected-data"
-                    x1="410"
-                    y1="100.5"
-                    x2="410"
-                    y2="99.5"
-                    stroke="#fff"
+                    id="2100"
+                    x1="409.23"
+                    y1="531.9"
+                    x2="409.23"
+                    y2="537.4"
+                    stroke="#999"
                     stroke-width="1"
                 ></line>
             </g>
-            <g id="swatches">
-                <rect
-                    x="366.26"
-                    y="100.5"
-                    width="87.48"
-                    height="10"
-                    fill="url(#DiscreteBarChart_stripes_#4c6a9c)"
-                    stroke="#fff"
-                    stroke-width="1"
-                ></rect>
-            </g>
-            <g id="labels">
-                <text x="366.26" y="86" dy=".71em" font-size="13.5" fill="#555">
-                    Projected data
+            <g id="tick-labels">
+                <text
+                    x="409.23"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2100
                 </text>
             </g>
         </g>
-        <line
-            id="vertical-zero-line"
-            x1="15.75"
-            y1="552.40"
-            x2="15.75"
-            y2="111.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id=""
-                x="0"
-                y="0"
-                transform="translate(16, 188.245)"
-                width="735.6"
-                height="286.90999999999997"
-                fill="url(#DiscreteBarChart_stripes_#4c6a9c)"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.39"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    +0%
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(756.6, 331.7)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                10.18 billion
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="+0%"
+                x1="47.39"
+                y1="532.4"
+                x2="771.07"
+                y2="532.4"
+                stroke="#999"
+            ></line>
         </g>
-        <g id="entity-labels"></g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__World"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="775.1"
+                    y="537.2"
+                    fill="#18470f"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="775.07" y="537.21">World</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World"
+                stroke-width="2.5"
+                d="M409.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#18470f"
+                id="line__World"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                stroke-dasharray="2,3"
+                d="M409.2 532.4"
+            ></path>
+            <g id="datapoints__World">
+                <circle
+                    id="2100"
+                    cx="409.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#18470f"
+                    opacity="1"
+                ></circle>
+            </g>
+        </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">
         <g id="sources" class="markdown-text-wrap">

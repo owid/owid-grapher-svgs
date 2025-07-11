@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -83,67 +72,143 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <g id="grid-lines">
-            <line
-                id="0%"
-                x1="54.410000000000004"
-                y1="532.1"
-                x2="824"
-                y2="532.1"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="20%"
-                x1="54.410000000000004"
-                y1="455.6"
-                x2="824"
-                y2="455.6"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="40%"
-                x1="54.410000000000004"
-                y1="379.1"
-                x2="824"
-                y2="379.1"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="60%"
-                x1="54.410000000000004"
-                y1="302.6"
-                x2="824"
-                y2="302.6"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="80%"
-                x1="54.410000000000004"
-                y1="226.1"
-                x2="824"
-                y2="226.1"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="100%"
-                x1="54.410000000000004"
-                y1="149.6"
-                x2="824"
-                y2="149.6"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="1980"
+                    x1="54.4"
+                    y1="531.9"
+                    x2="54.4"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2010"
+                    x1="672.3"
+                    y1="531.9"
+                    x2="672.3"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="1985"
+                    x1="157.4"
+                    y1="531.9"
+                    x2="157.4"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="1990"
+                    x1="260.4"
+                    y1="531.9"
+                    x2="260.4"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="1995"
+                    x1="363.3"
+                    y1="531.9"
+                    x2="363.3"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2000"
+                    x1="466.3"
+                    y1="531.9"
+                    x2="466.3"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2005"
+                    x1="569.3"
+                    y1="531.9"
+                    x2="569.3"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="54.410000000000004"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="start"
+                    font-size="13"
+                >
+                    1980
+                </text>
+                <text
+                    x="672.27"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="end"
+                    font-size="13"
+                >
+                    2010
+                </text>
+                <text
+                    x="157.4"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    1985
+                </text>
+                <text
+                    x="260.4"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    1990
+                </text>
+                <text
+                    x="363.3"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    1995
+                </text>
+                <text
+                    x="466.3"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2000
+                </text>
+                <text
+                    x="569.3"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2005
+                </text>
+            </g>
         </g>
         <g id="vertical-axis" class="VerticalAxis">
             <g id="tick-labels">
                 <text
                     x="49.41"
-                    y="532.1"
+                    y="532.4"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -153,7 +218,7 @@
                 </text>
                 <text
                     x="49.41"
-                    y="455.6"
+                    y="455.8"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -163,7 +228,7 @@
                 </text>
                 <text
                     x="49.41"
-                    y="379.1"
+                    y="379.3"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -173,7 +238,7 @@
                 </text>
                 <text
                     x="49.41"
-                    y="302.6"
+                    y="302.7"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -183,7 +248,7 @@
                 </text>
                 <text
                     x="49.41"
-                    y="226.1"
+                    y="226.2"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -203,930 +268,409 @@
                 </text>
             </g>
         </g>
-        <g id="horizontal-axis">
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
             <line
-                id="1980"
-                x1="236.04000000000002"
-                y1="149.6"
-                x2="236.04000000000002"
-                y2="532.15"
+                id="0%"
+                x1="54.41"
+                y1="532.4"
+                x2="672.27"
+                y2="532.4"
                 stroke="#999"
             ></line>
-            <text
-                x="236.04000000000002"
-                y="540.15"
-                dy=".71em"
-                text-anchor="middle"
-                fill="#5b5b5b"
-                font-size="13"
-            >
-                1980
-            </text>
             <line
-                id="2010"
-                x1="603.96"
-                y1="149.6"
-                x2="603.96"
-                y2="532.15"
-                stroke="#999"
+                id="20%"
+                x1="54.41"
+                y1="455.8"
+                x2="672.27"
+                y2="455.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
             ></line>
-            <text
-                x="603.96"
-                y="540.15"
-                dy=".71em"
-                text-anchor="middle"
-                fill="#5b5b5b"
-                font-size="13"
-            >
-                2010
-            </text>
-        </g>
-        <g id="slopes">
-            <g id="outline__Southeast-Asia" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.04000000000002"
-                    cy="168.7"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.96"
-                    cy="298.8"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.04000000000002"
-                    y1="168.7"
-                    x2="603.96"
-                    y2="298.8"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Southeast-Asia" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.04000000000002"
-                    cy="168.7"
-                    r="3.5"
-                    fill="#6d3e91"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.96"
-                    cy="298.8"
-                    r="3.5"
-                    fill="#6d3e91"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.04000000000002"
-                    y1="168.7"
-                    x2="603.96"
-                    y2="298.8"
-                    stroke="#6d3e91"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Africa" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.04000000000002"
-                    cy="199.3"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.96"
-                    cy="237.6"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.04000000000002"
-                    y1="199.3"
-                    x2="603.96"
-                    y2="237.6"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Africa" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.04000000000002"
-                    cy="199.3"
-                    r="3.5"
-                    fill="#c05917"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.96"
-                    cy="237.6"
-                    r="3.5"
-                    fill="#c05917"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.04000000000002"
-                    y1="199.3"
-                    x2="603.96"
-                    y2="237.6"
-                    stroke="#c05917"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Europe" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.04000000000002"
-                    cy="386.8"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.96"
-                    cy="505.4"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.04000000000002"
-                    y1="386.8"
-                    x2="603.96"
-                    y2="505.4"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Europe" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.04000000000002"
-                    cy="386.8"
-                    r="3.5"
-                    fill="#58ac8c"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.96"
-                    cy="505.4"
-                    r="3.5"
-                    fill="#58ac8c"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.04000000000002"
-                    y1="386.8"
-                    x2="603.96"
-                    y2="505.4"
-                    stroke="#58ac8c"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Western-Pacific" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.04000000000002"
-                    cy="218.5"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.96"
-                    cy="356.2"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.04000000000002"
-                    y1="218.5"
-                    x2="603.96"
-                    y2="356.2"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Western-Pacific" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.04000000000002"
-                    cy="218.5"
-                    r="3.5"
-                    fill="#cf0a66"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.96"
-                    cy="356.2"
-                    r="3.5"
-                    fill="#cf0a66"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.04000000000002"
-                    y1="218.5"
-                    x2="603.96"
-                    y2="356.2"
-                    stroke="#cf0a66"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Eastern--Mediterranean" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.04000000000002"
-                    cy="302.6"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.96"
-                    cy="398.3"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.04000000000002"
-                    y1="302.6"
-                    x2="603.96"
-                    y2="398.3"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Eastern--Mediterranean" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.04000000000002"
-                    cy="302.6"
-                    r="3.5"
-                    fill="#4c6a9c"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.96"
-                    cy="398.3"
-                    r="3.5"
-                    fill="#4c6a9c"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.04000000000002"
-                    y1="302.6"
-                    x2="603.96"
-                    y2="398.3"
-                    stroke="#4c6a9c"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Americas" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.04000000000002"
-                    cy="371.5"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.96"
-                    cy="478.6"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.04000000000002"
-                    y1="371.5"
-                    x2="603.96"
-                    y2="478.6"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Americas" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.04000000000002"
-                    cy="371.5"
-                    r="3.5"
-                    fill="#38aaba"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.96"
-                    cy="478.6"
-                    r="3.5"
-                    fill="#38aaba"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.04000000000002"
-                    y1="371.5"
-                    x2="603.96"
-                    y2="478.6"
-                    stroke="#38aaba"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__World" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.04000000000002"
-                    cy="295"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.96"
-                    cy="375.3"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.04000000000002"
-                    y1="295"
-                    x2="603.96"
-                    y2="375.3"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__World" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="236.04000000000002"
-                    cy="295"
-                    r="3.5"
-                    fill="#00295b"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="603.96"
-                    cy="375.3"
-                    r="3.5"
-                    fill="#00295b"
-                ></circle>
-                <line
-                    id="line"
-                    x1="236.04000000000002"
-                    y1="295"
-                    x2="603.96"
-                    y2="375.3"
-                    stroke="#00295b"
-                    stroke-width="1.5"
-                ></line>
-            </g>
+            <line
+                id="40%"
+                x1="54.41"
+                y1="379.3"
+                x2="672.27"
+                y2="379.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60%"
+                x1="54.41"
+                y1="302.7"
+                x2="672.27"
+                y2="302.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80%"
+                x1="54.41"
+                y1="226.2"
+                x2="672.27"
+                y2="226.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100%"
+                x1="54.41"
+                y1="149.6"
+                x2="672.27"
+                y2="149.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
         </g>
         <g id="line-labels" class="LineLabels">
             <g id="text-annotations"></g>
             <g id="text-labels">
                 <text
-                    id="outline__Southeast-Asia"
+                    id="label__Africa"
                     font-size="13.00"
                     font-weight="400"
-                    x="228.0"
-                    y="173.5"
-                    fill="#6d3e91"
+                    x="676.3"
+                    y="242.4"
+                    fill="#c05917"
                     opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
+                    text-anchor="start"
                 >
-                    <tspan x="228.04000000000002" y="173.51">95%</tspan>
+                    <tspan x="676.27" y="242.41">Africa</tspan>
                 </text>
                 <text
                     id="label__Southeast-Asia"
                     font-size="13.00"
                     font-weight="400"
-                    x="228.0"
-                    y="173.5"
+                    x="676.3"
+                    y="303.7"
                     fill="#6d3e91"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="228.04000000000002" y="173.51">95%</tspan>
-                </text>
-                <text
-                    id="outline__Africa"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="228.0"
-                    y="204.1"
-                    fill="#c05917"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="228.04000000000002" y="204.11">87%</tspan>
-                </text>
-                <text
-                    id="label__Africa"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="228.0"
-                    y="204.1"
-                    fill="#c05917"
-                    opacity="1"
-                    text-anchor="end"
-                >
-                    <tspan x="228.04000000000002" y="204.11">87%</tspan>
-                </text>
-                <text
-                    id="outline__Western-Pacific"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="228.0"
-                    y="223.3"
-                    fill="#cf0a66"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="228.04000000000002" y="223.31">82%</tspan>
+                    <tspan x="676.27" y="303.71">Southeast Asia</tspan>
                 </text>
                 <text
                     id="label__Western-Pacific"
                     font-size="13.00"
                     font-weight="400"
-                    x="228.0"
-                    y="223.3"
+                    x="676.3"
+                    y="361.1"
                     fill="#cf0a66"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="228.04000000000002" y="223.31">82%</tspan>
-                </text>
-                <text
-                    id="outline__World"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="228.0"
-                    y="294.5"
-                    fill="#00295b"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="228.04000000000002" y="294.46">62%</tspan>
+                    <tspan x="676.27" y="361.11">Western Pacific</tspan>
                 </text>
                 <text
                     id="label__World"
                     font-size="13.00"
                     font-weight="400"
-                    x="228.0"
-                    y="294.5"
+                    x="676.3"
+                    y="380.3"
                     fill="#00295b"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="228.04000000000002" y="294.46">62%</tspan>
-                </text>
-                <text
-                    id="outline__Eastern--Mediterranean"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="228.0"
-                    y="312.8"
-                    fill="#4c6a9c"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="228.04000000000002" y="312.76">60%</tspan>
+                    <tspan x="676.27" y="380.31">World</tspan>
                 </text>
                 <text
                     id="label__Eastern--Mediterranean"
                     font-size="13.00"
                     font-weight="400"
-                    x="228.0"
-                    y="312.8"
+                    x="676.3"
+                    y="403.2"
                     fill="#4c6a9c"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="228.04000000000002" y="312.76">60%</tspan>
-                </text>
-                <text
-                    id="outline__Americas"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="228.0"
-                    y="376.3"
-                    fill="#36a4b3"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="228.04000000000002" y="376.31">42%</tspan>
+                    <tspan x="676.27" y="403.21">Eastern Mediterranean</tspan>
                 </text>
                 <text
                     id="label__Americas"
                     font-size="13.00"
                     font-weight="400"
-                    x="228.0"
-                    y="376.3"
+                    x="676.3"
+                    y="483.6"
                     fill="#36a4b3"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="228.04000000000002" y="376.31">42%</tspan>
-                </text>
-                <text
-                    id="outline__Europe"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="228.0"
-                    y="391.6"
-                    fill="#54a385"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="228.04000000000002" y="391.61">38%</tspan>
+                    <tspan x="676.27" y="483.61">Americas</tspan>
                 </text>
                 <text
                     id="label__Europe"
                     font-size="13.00"
                     font-weight="400"
-                    x="228.0"
-                    y="391.6"
+                    x="676.3"
+                    y="510.4"
                     fill="#54a385"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="228.04000000000002" y="391.61">38%</tspan>
+                    <tspan x="676.27" y="510.41">Europe</tspan>
                 </text>
             </g>
         </g>
-        <g id="line-labels" class="LineLabels">
-            <g id="text-annotations"></g>
-            <g id="text-labels">
-                <g
-                    id="outline__Africa"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="612.0"
-                        y="242.4"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#c05917"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.96" y="242.4">
-                            <tspan style="font-weight: 700">Africa</tspan>
-                            77%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Africa" class="markdown-text-wrap">
-                    <text
-                        x="612.0"
-                        y="242.4"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#c05917"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.96" y="242.4">
-                            <tspan style="font-weight: 700">Africa</tspan>
-                            77%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Southeast-Asia"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="612.0"
-                        y="303.6"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#6d3e91"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.96" y="303.6">
-                            <tspan style="font-weight: 700">
-                                Southeast Asia
-                            </tspan>
-                            61%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Southeast-Asia" class="markdown-text-wrap">
-                    <text
-                        x="612.0"
-                        y="303.6"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#6d3e91"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.96" y="303.6">
-                            <tspan style="font-weight: 700">
-                                Southeast Asia
-                            </tspan>
-                            61%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Western-Pacific"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="612.0"
-                        y="361.0"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#cf0a66"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.96" y="361.0">
-                            <tspan style="font-weight: 700">
-                                Western Pacific
-                            </tspan>
-                            46%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Western-Pacific" class="markdown-text-wrap">
-                    <text
-                        x="612.0"
-                        y="361.0"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#cf0a66"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.96" y="361.0">
-                            <tspan style="font-weight: 700">
-                                Western Pacific
-                            </tspan>
-                            46%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__World"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="612.0"
-                        y="380.1"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#00295b"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.96" y="380.1">
-                            <tspan style="font-weight: 700">World</tspan>
-                            41%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__World" class="markdown-text-wrap">
-                    <text
-                        x="612.0"
-                        y="380.1"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#00295b"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.96" y="380.1">
-                            <tspan style="font-weight: 700">World</tspan>
-                            41%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Eastern--Mediterranean"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="612.0"
-                        y="403.1"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#4c6a9c"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.96" y="403.1">
-                            <tspan style="font-weight: 700">
-                                Eastern Mediterranean
-                            </tspan>
-                            35%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="label__Eastern--Mediterranean"
-                    class="markdown-text-wrap"
-                >
-                    <text
-                        x="612.0"
-                        y="403.1"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#4c6a9c"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.96" y="403.1">
-                            <tspan style="font-weight: 700">
-                                Eastern Mediterranean
-                            </tspan>
-                            35%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Americas"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="612.0"
-                        y="483.4"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#36a4b3"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.96" y="483.4">
-                            <tspan style="font-weight: 700">Americas</tspan>
-                            14%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Americas" class="markdown-text-wrap">
-                    <text
-                        x="612.0"
-                        y="483.4"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#36a4b3"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.96" y="483.4">
-                            <tspan style="font-weight: 700">Americas</tspan>
-                            14%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Europe"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="612.0"
-                        y="510.2"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#54a385"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.96" y="510.2">
-                            <tspan style="font-weight: 700">Europe</tspan>
-                            7%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Europe" class="markdown-text-wrap">
-                    <text
-                        x="612.0"
-                        y="510.2"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#54a385"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="611.96" y="510.2">
-                            <tspan style="font-weight: 700">Europe</tspan>
-                            7%
-                        </tspan>
-                    </text>
-                </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World"
+                stroke-width="2.5"
+                d="M54.4 295.1L672.3 375.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__World"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M54.4 295.1L672.3 375.5"
+            ></path>
+            <g id="datapoints__World">
+                <circle
+                    id="1980"
+                    cx="54.4"
+                    cy="295.1"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2010"
+                    cx="672.3"
+                    cy="375.5"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Americas"
+                stroke-width="2.5"
+                d="M54.4 371.6L672.3 478.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#38aaba"
+                id="line__Americas"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M54.4 371.6L672.3 478.8"
+            ></path>
+            <g id="datapoints__Americas">
+                <circle
+                    id="1980"
+                    cx="54.4"
+                    cy="371.6"
+                    r="1.8"
+                    fill="#38aaba"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2010"
+                    cx="672.3"
+                    cy="478.8"
+                    r="1.8"
+                    fill="#38aaba"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Eastern--Mediterranean"
+                stroke-width="2.5"
+                d="M54.4 302.7L672.3 398.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Eastern--Mediterranean"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M54.4 302.7L672.3 398.4"
+            ></path>
+            <g id="datapoints__Eastern--Mediterranean">
+                <circle
+                    id="1980"
+                    cx="54.4"
+                    cy="302.7"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2010"
+                    cx="672.3"
+                    cy="398.4"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Western-Pacific"
+                stroke-width="2.5"
+                d="M54.4 218.5L672.3 356.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#cf0a66"
+                id="line__Western-Pacific"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M54.4 218.5L672.3 356.3"
+            ></path>
+            <g id="datapoints__Western-Pacific">
+                <circle
+                    id="1980"
+                    cx="54.4"
+                    cy="218.5"
+                    r="1.8"
+                    fill="#cf0a66"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2010"
+                    cx="672.3"
+                    cy="356.3"
+                    r="1.8"
+                    fill="#cf0a66"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Europe"
+                stroke-width="2.5"
+                d="M54.4 386.9L672.3 505.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#58ac8c"
+                id="line__Europe"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M54.4 386.9L672.3 505.6"
+            ></path>
+            <g id="datapoints__Europe">
+                <circle
+                    id="1980"
+                    cx="54.4"
+                    cy="386.9"
+                    r="1.8"
+                    fill="#58ac8c"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2010"
+                    cx="672.3"
+                    cy="505.6"
+                    r="1.8"
+                    fill="#58ac8c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Africa"
+                stroke-width="2.5"
+                d="M54.4 199.4L672.3 237.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c05917"
+                id="line__Africa"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M54.4 199.4L672.3 237.6"
+            ></path>
+            <g id="datapoints__Africa">
+                <circle
+                    id="1980"
+                    cx="54.4"
+                    cy="199.4"
+                    r="1.8"
+                    fill="#c05917"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2010"
+                    cx="672.3"
+                    cy="237.6"
+                    r="1.8"
+                    fill="#c05917"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Southeast-Asia"
+                stroke-width="2.5"
+                d="M54.4 168.7L672.3 298.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Southeast-Asia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M54.4 168.7L672.3 298.9"
+            ></path>
+            <g id="datapoints__Southeast-Asia">
+                <circle
+                    id="1980"
+                    cx="54.4"
+                    cy="168.7"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="2010"
+                    cx="672.3"
+                    cy="298.9"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>

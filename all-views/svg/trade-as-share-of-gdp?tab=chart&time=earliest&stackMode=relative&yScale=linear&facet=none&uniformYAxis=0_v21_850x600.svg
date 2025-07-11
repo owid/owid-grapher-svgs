@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -78,88 +67,142 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="53.25"
-            y1="552.40"
-            x2="53.25"
-            y2="104.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="China"
-                x="0"
-                y="0"
-                transform="translate(53.5, 143.23499999999999)"
-                width="409.5"
-                height="145.73000000000002"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="India"
-                x="0"
-                y="0"
-                transform="translate(53.5, 367.43499999999995)"
-                width="732"
-                height="145.73000000000002"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="1960"
+                    x1="409.165"
+                    y1="531.9"
+                    x2="409.165"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="409.165"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    1960
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(468, 216.1)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                6.3%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(790.5, 440.29999999999995)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                11.3%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.39"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    +0%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="48.5"
-                y="221.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="48.5" y="221.09499999999997">China</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="48.5"
-                y="445.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="48.5" y="445.29499999999996">India</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="+0%"
+                x1="47.39"
+                y1="532.4"
+                x2="770.94"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__China"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.9"
+                    y="528.1"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.94" y="528.0600000000001">China</tspan>
+                </text>
+                <text
+                    id="label__India"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.9"
+                    y="546.4"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.94" y="546.36">India</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India"
+                stroke-width="2.5"
+                d="M409.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__India"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M409.2 532.4"
+            ></path>
+            <g id="datapoints__India">
+                <circle
+                    id="1960"
+                    cx="409.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China"
+                stroke-width="2.5"
+                d="M409.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__China"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M409.2 532.4"
+            ></path>
+            <g id="datapoints__China">
+                <circle
+                    id="1960"
+                    cx="409.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -75,40 +64,89 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <g id="grid-lines">
-            <line
-                id="10%"
-                x1="47.13"
-                y1="372.7"
-                x2="824"
-                y2="372.7"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="5%"
-                x1="47.13"
-                y1="512"
-                x2="824"
-                y2="512"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
-            <line
-                id="20%"
-                x1="47.13"
-                y1="233.3"
-                x2="824"
-                y2="233.3"
-                stroke="#ddd"
-                stroke-dasharray="3,2"
-            ></line>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="Jan-7,-2021"
+                    x1="47.1"
+                    y1="511.79999999999995"
+                    x2="47.1"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="Jan-2,-2025"
+                    x1="580.4"
+                    y1="511.79999999999995"
+                    x2="580.4"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="Mar-31,-2022"
+                    x1="211.2"
+                    y1="511.79999999999995"
+                    x2="211.2"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="May-5,-2023"
+                    x1="357.7"
+                    y1="511.79999999999995"
+                    x2="357.7"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="47.13"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="start"
+                    font-size="13"
+                >
+                    Jan 7, 2021
+                </text>
+                <text
+                    x="580.36"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="end"
+                    font-size="13"
+                >
+                    Jan 2, 2025
+                </text>
+                <text
+                    x="211.2"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    Mar 31, 2022
+                </text>
+                <text
+                    x="357.7"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    May 5, 2023
+                </text>
+            </g>
         </g>
         <g id="vertical-axis" class="VerticalAxis">
             <g id="tick-labels">
                 <text
                     x="42.13"
-                    y="372.7"
+                    y="372.9"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -118,7 +156,7 @@
                 </text>
                 <text
                     x="42.13"
-                    y="512"
+                    y="512.3"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -128,7 +166,7 @@
                 </text>
                 <text
                     x="42.13"
-                    y="233.3"
+                    y="233.4"
                     dy=".32em"
                     text-anchor="end"
                     fill="#5b5b5b"
@@ -138,748 +176,351 @@
                 </text>
             </g>
         </g>
-        <g id="horizontal-axis">
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
             <line
-                id="Jan-7,-2021"
-                x1="218"
-                y1="89"
-                x2="218"
-                y2="512.05"
-                stroke="#999"
+                id="5%"
+                x1="47.13"
+                y1="512.3"
+                x2="580.36"
+                y2="512.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
             ></line>
-            <text
-                x="218"
-                y="520.05"
-                dy=".71em"
-                text-anchor="middle"
-                fill="#5b5b5b"
-                font-size="13"
-            >
-                Jan 7, 2021
-            </text>
             <line
-                id="Jan-2,-2025"
-                x1="622"
-                y1="89"
-                x2="622"
-                y2="512.05"
-                stroke="#999"
+                id="6%"
+                x1="47.13"
+                y1="475.6"
+                x2="580.36"
+                y2="475.6"
+                stroke="#eee"
+                stroke-dasharray="4,4"
             ></line>
-            <text
-                x="622"
-                y="520.05"
-                dy=".71em"
-                text-anchor="middle"
-                fill="#5b5b5b"
-                font-size="13"
-            >
-                Jan 2, 2025
-            </text>
-        </g>
-        <g id="slopes">
-            <g id="outline__None-of-these" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="218"
-                    cy="475.4"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="512"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="218"
-                    y1="475.4"
-                    x2="622"
-                    y2="512"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__None-of-these" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="218"
-                    cy="475.4"
-                    r="3.5"
-                    fill="#4c6a9c"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="512"
-                    r="3.5"
-                    fill="#4c6a9c"
-                ></circle>
-                <line
-                    id="line"
-                    x1="218"
-                    y1="475.4"
-                    x2="622"
-                    y2="512"
-                    stroke="#4c6a9c"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g
-                id="outline__Robots-will-never-surpass-human-intelligence"
-                opacity="1"
-                class="slope"
-            >
-                <circle
-                    id="start-point"
-                    cx="218"
-                    cy="196.7"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="205.2"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="218"
-                    y1="196.7"
-                    x2="622"
-                    y2="205.2"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g
-                id="slope__Robots-will-never-surpass-human-intelligence"
-                opacity="1"
-                class="slope"
-            >
-                <circle
-                    id="start-point"
-                    cx="218"
-                    cy="196.7"
-                    r="3.5"
-                    fill="#b13507"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="205.2"
-                    r="3.5"
-                    fill="#b13507"
-                ></circle>
-                <line
-                    id="line"
-                    x1="218"
-                    y1="196.7"
-                    x2="622"
-                    y2="205.2"
-                    stroke="#b13507"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g
-                id="outline__Robots-smarter-than-humans-now"
-                opacity="1"
-                class="slope"
-            >
-                <circle
-                    id="start-point"
-                    cx="218"
-                    cy="353.5"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="305"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="218"
-                    y1="353.5"
-                    x2="622"
-                    y2="305"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g
-                id="slope__Robots-smarter-than-humans-now"
-                opacity="1"
-                class="slope"
-            >
-                <circle
-                    id="start-point"
-                    cx="218"
-                    cy="353.5"
-                    r="3.5"
-                    fill="#996d39"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="305"
-                    r="3.5"
-                    fill="#996d39"
-                ></circle>
-                <line
-                    id="line"
-                    x1="218"
-                    y1="353.5"
-                    x2="622"
-                    y2="305"
-                    stroke="#996d39"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g id="outline__Don&#x27;t-know" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="218"
-                    cy="243.6"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="278.2"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="218"
-                    y1="243.6"
-                    x2="622"
-                    y2="278.2"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g id="slope__Don&#x27;t-know" opacity="1" class="slope">
-                <circle
-                    id="start-point"
-                    cx="218"
-                    cy="243.6"
-                    r="3.5"
-                    fill="#2c8465"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="278.2"
-                    r="3.5"
-                    fill="#2c8465"
-                ></circle>
-                <line
-                    id="line"
-                    x1="218"
-                    y1="243.6"
-                    x2="622"
-                    y2="278.2"
-                    stroke="#2c8465"
-                    stroke-width="1.5"
-                ></line>
-            </g>
-            <g
-                id="outline__Robots-will-surpass-human-intelligence-in-the-future"
-                opacity="1"
-                class="slope"
-            >
-                <circle
-                    id="start-point"
-                    cx="218"
-                    cy="99.1"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="89"
-                    r="4.5"
-                    fill="#ffffff"
-                ></circle>
-                <line
-                    id="line"
-                    x1="218"
-                    y1="99.1"
-                    x2="622"
-                    y2="89"
-                    stroke="#ffffff"
-                    stroke-width="2.5"
-                ></line>
-            </g>
-            <g
-                id="slope__Robots-will-surpass-human-intelligence-in-the-future"
-                opacity="1"
-                class="slope"
-            >
-                <circle
-                    id="start-point"
-                    cx="218"
-                    cy="99.1"
-                    r="3.5"
-                    fill="#6d3e91"
-                ></circle>
-                <circle
-                    id="end-point"
-                    cx="622"
-                    cy="89"
-                    r="3.5"
-                    fill="#6d3e91"
-                ></circle>
-                <line
-                    id="line"
-                    x1="218"
-                    y1="99.1"
-                    x2="622"
-                    y2="89"
-                    stroke="#6d3e91"
-                    stroke-width="1.5"
-                ></line>
-            </g>
+            <line
+                id="7%"
+                x1="47.13"
+                y1="444.6"
+                x2="580.36"
+                y2="444.6"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="8%"
+                x1="47.13"
+                y1="417.7"
+                x2="580.36"
+                y2="417.7"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="9%"
+                x1="47.13"
+                y1="394.1"
+                x2="580.36"
+                y2="394.1"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="372.9"
+                x2="580.36"
+                y2="372.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="233.4"
+                x2="580.36"
+                y2="233.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30%"
+                x1="47.13"
+                y1="151.8"
+                x2="580.36"
+                y2="151.8"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="47.13"
+                y1="94"
+                x2="580.36"
+                y2="94"
+                stroke="#eee"
+                stroke-dasharray="4,4"
+            ></line>
         </g>
         <g id="line-labels" class="LineLabels">
             <g id="text-annotations"></g>
             <g id="text-labels">
                 <text
-                    id="outline__Robots-will-surpass-human-intelligence-in-the-future"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="210.0"
-                    y="103.9"
-                    fill="#6d3e91"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="210" y="103.91">39%</tspan>
-                </text>
-                <text
                     id="label__Robots-will-surpass-human-intelligence-in-the-future"
                     font-size="13.00"
                     font-weight="400"
-                    x="210.0"
-                    y="103.9"
+                    x="584.4"
+                    y="95.0"
                     fill="#6d3e91"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="210" y="103.91">39%</tspan>
-                </text>
-                <text
-                    id="outline__Robots-will-never-surpass-human-intelligence"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="210.0"
-                    y="201.5"
-                    fill="#b13507"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="210" y="201.51">24%</tspan>
+                    <tspan x="584.36" y="94.96000000000001">
+                        Robots will surpass human intelligence
+                    </tspan>
+                    <tspan x="584.36" y="109.26">in the future</tspan>
                 </text>
                 <text
                     id="label__Robots-will-never-surpass-human-intelligence"
                     font-size="13.00"
                     font-weight="400"
-                    x="210.0"
-                    y="201.5"
+                    x="584.4"
+                    y="210.1"
                     fill="#b13507"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="210" y="201.51">24%</tspan>
-                </text>
-                <text
-                    id="outline__Don&#x27;t-know"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="210.0"
-                    y="248.4"
-                    fill="#2c8465"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="210" y="248.41">19%</tspan>
+                    <tspan x="584.36" y="210.11">
+                        Robots will never surpass human
+                    </tspan>
+                    <tspan x="584.36" y="224.41000000000003">
+                        intelligence
+                    </tspan>
                 </text>
                 <text
                     id="label__Don&#x27;t-know"
                     font-size="13.00"
                     font-weight="400"
-                    x="210.0"
-                    y="248.4"
+                    x="584.4"
+                    y="283.1"
                     fill="#2c8465"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="210" y="248.41">19%</tspan>
-                </text>
-                <text
-                    id="outline__Robots-smarter-than-humans-now"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="210.0"
-                    y="358.3"
-                    fill="#996d39"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="210" y="358.31">11%</tspan>
+                    <tspan x="584.36" y="283.11">Don&#x27;t know</tspan>
                 </text>
                 <text
                     id="label__Robots-smarter-than-humans-now"
                     font-size="13.00"
                     font-weight="400"
-                    x="210.0"
-                    y="358.3"
+                    x="584.4"
+                    y="310.0"
                     fill="#996d39"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="210" y="358.31">11%</tspan>
-                </text>
-                <text
-                    id="outline__None-of-these"
-                    font-size="13.00"
-                    font-weight="400"
-                    x="210.0"
-                    y="480.2"
-                    fill="#4c6a9c"
-                    opacity="1"
-                    text-anchor="end"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <tspan x="210" y="480.21">6%</tspan>
+                    <tspan x="584.36" y="310.01">
+                        Robots smarter than humans now
+                    </tspan>
                 </text>
                 <text
                     id="label__None-of-these"
                     font-size="13.00"
                     font-weight="400"
-                    x="210.0"
-                    y="480.2"
+                    x="584.4"
+                    y="517.1"
                     fill="#4c6a9c"
                     opacity="1"
-                    text-anchor="end"
+                    text-anchor="start"
                 >
-                    <tspan x="210" y="480.21">6%</tspan>
+                    <tspan x="584.36" y="517.11">None of these</tspan>
                 </text>
             </g>
         </g>
-        <g id="line-labels" class="LineLabels">
-            <g id="text-annotations"></g>
-            <g id="text-labels">
-                <g
-                    id="outline__Robots-will-surpass-human-intelligence-in-the-future"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="630.0"
-                        y="95.0"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#6d3e91"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="95.0">
-                            <tspan style="font-weight: 700">
-                                Robots will surpass human
-                            </tspan>
-                        </tspan>
-                        <tspan x="630" y="109.3">
-                            <tspan style="font-weight: 700">
-                                intelligence in the future
-                            </tspan>
-                        </tspan>
-                        <tspan x="630" y="123.6">41%</tspan>
-                    </text>
-                </g>
-                <g
-                    id="label__Robots-will-surpass-human-intelligence-in-the-future"
-                    class="markdown-text-wrap"
-                >
-                    <text
-                        x="630.0"
-                        y="95.0"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#6d3e91"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="95.0">
-                            <tspan style="font-weight: 700">
-                                Robots will surpass human
-                            </tspan>
-                        </tspan>
-                        <tspan x="630" y="109.3">
-                            <tspan style="font-weight: 700">
-                                intelligence in the future
-                            </tspan>
-                        </tspan>
-                        <tspan x="630" y="123.6">41%</tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Robots-will-never-surpass-human-intelligence"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="630.0"
-                        y="210.0"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#b13507"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="210.0">
-                            <tspan style="font-weight: 700">
-                                Robots will never surpass
-                            </tspan>
-                        </tspan>
-                        <tspan x="630" y="224.3">
-                            <tspan style="font-weight: 700">
-                                human intelligence
-                            </tspan>
-                            23%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="label__Robots-will-never-surpass-human-intelligence"
-                    class="markdown-text-wrap"
-                >
-                    <text
-                        x="630.0"
-                        y="210.0"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#b13507"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="210.0">
-                            <tspan style="font-weight: 700">
-                                Robots will never surpass
-                            </tspan>
-                        </tspan>
-                        <tspan x="630" y="224.3">
-                            <tspan style="font-weight: 700">
-                                human intelligence
-                            </tspan>
-                            23%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Don&#x27;t-know"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="630.0"
-                        y="283.0"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#2c8465"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="283.0">
-                            <tspan style="font-weight: 700">
-                                Don&#x27;t know
-                            </tspan>
-                            16%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__Don&#x27;t-know" class="markdown-text-wrap">
-                    <text
-                        x="630.0"
-                        y="283.0"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#2c8465"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="283.0">
-                            <tspan style="font-weight: 700">
-                                Don&#x27;t know
-                            </tspan>
-                            16%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__Robots-smarter-than-humans-now"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="630.0"
-                        y="309.8"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#996d39"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="309.8">
-                            <tspan style="font-weight: 700">
-                                Robots smarter than
-                            </tspan>
-                        </tspan>
-                        <tspan x="630" y="324.1">
-                            <tspan style="font-weight: 700">humans now</tspan>
-                            14%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="label__Robots-smarter-than-humans-now"
-                    class="markdown-text-wrap"
-                >
-                    <text
-                        x="630.0"
-                        y="309.8"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#996d39"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="309.8">
-                            <tspan style="font-weight: 700">
-                                Robots smarter than
-                            </tspan>
-                        </tspan>
-                        <tspan x="630" y="324.1">
-                            <tspan style="font-weight: 700">humans now</tspan>
-                            14%
-                        </tspan>
-                    </text>
-                </g>
-                <g
-                    id="outline__None-of-these"
-                    class="markdown-text-wrap"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.25;
-                    "
-                >
-                    <text
-                        x="630.0"
-                        y="516.2"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#4c6a9c"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="516.2">
-                            <tspan style="font-weight: 700">
-                                None of these
-                            </tspan>
-                            5%
-                        </tspan>
-                    </text>
-                </g>
-                <g id="label__None-of-these" class="markdown-text-wrap">
-                    <text
-                        x="630.0"
-                        y="516.2"
-                        style="font-size: 13px; line-height: 1.1"
-                        fill="#4c6a9c"
-                        opacity="1"
-                        text-anchor="start"
-                    >
-                        <tspan x="630" y="516.2">
-                            <tspan style="font-weight: 700">
-                                None of these
-                            </tspan>
-                            5%
-                        </tspan>
-                    </text>
-                </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Robots-will-surpass-human-intelligence-in-the-future"
+                stroke-width="2.5"
+                d="M47.1 99.1L580.4 89"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Robots-will-surpass-human-intelligence-in-the-future"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 99.1L580.4 89"
+            ></path>
+            <g
+                id="datapoints__Robots-will-surpass-human-intelligence-in-the-future"
+            >
+                <circle
+                    id="Jan-7,-2021"
+                    cx="47.1"
+                    cy="99.1"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="Jan-2,-2025"
+                    cx="580.4"
+                    cy="89"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Don&#x27;t-know"
+                stroke-width="2.5"
+                d="M47.1 243.7L580.4 278.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Don&#x27;t-know"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 243.7L580.4 278.3"
+            ></path>
+            <g id="datapoints__Don&#x27;t-know">
+                <circle
+                    id="Jan-7,-2021"
+                    cx="47.1"
+                    cy="243.7"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="Jan-2,-2025"
+                    cx="580.4"
+                    cy="278.3"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Robots-smarter-than-humans-now"
+                stroke-width="2.5"
+                d="M47.1 353.7L580.4 305.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Robots-smarter-than-humans-now"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 353.7L580.4 305.2"
+            ></path>
+            <g id="datapoints__Robots-smarter-than-humans-now">
+                <circle
+                    id="Jan-7,-2021"
+                    cx="47.1"
+                    cy="353.7"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="Jan-2,-2025"
+                    cx="580.4"
+                    cy="305.2"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Robots-will-never-surpass-human-intelligence"
+                stroke-width="2.5"
+                d="M47.1 196.7L580.4 205.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Robots-will-never-surpass-human-intelligence"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 196.7L580.4 205.3"
+            ></path>
+            <g id="datapoints__Robots-will-never-surpass-human-intelligence">
+                <circle
+                    id="Jan-7,-2021"
+                    cx="47.1"
+                    cy="196.7"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="Jan-2,-2025"
+                    cx="580.4"
+                    cy="205.3"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__None-of-these"
+                stroke-width="2.5"
+                d="M47.1 475.6L580.4 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__None-of-these"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 475.6L580.4 512.3"
+            ></path>
+            <g id="datapoints__None-of-these">
+                <circle
+                    id="Jan-7,-2021"
+                    cx="47.1"
+                    cy="475.6"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+                <circle
+                    id="Jan-2,-2025"
+                    cx="580.4"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>

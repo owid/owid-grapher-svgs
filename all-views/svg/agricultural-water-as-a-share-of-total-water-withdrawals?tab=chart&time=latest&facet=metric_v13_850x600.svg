@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -83,232 +72,449 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="220.15"
-            y1="532.30"
-            x2="220.15"
-            y2="121.40"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Low-income-countries"
-                x="0"
-                y="0"
-                transform="translate(220.4, 133.38458333333332)"
-                width="565.1"
-                height="44.514166666666675"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="India"
-                x="0"
-                y="0"
-                transform="translate(220.4, 201.86791666666667)"
-                width="563"
-                height="44.514166666666675"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Lower-middle-income-countries"
-                x="0"
-                y="0"
-                transform="translate(220.4, 270.35125)"
-                width="553.1"
-                height="44.514166666666675"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Upper-middle-income-countries"
-                x="0"
-                y="0"
-                transform="translate(220.4, 338.83458333333334)"
-                width="449.9"
-                height="44.514166666666675"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="World"
-                x="0"
-                y="0"
-                transform="translate(220.4, 407.3179166666667)"
-                width="445.70000000000005"
-                height="44.514166666666675"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="High-income-countries"
-                x="0"
-                y="0"
-                transform="translate(220.4, 475.80125000000004)"
-                width="266.70000000000005"
-                height="44.514166666666675"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2021"
+                    x1="339.22499999999997"
+                    y1="511.80000000000007"
+                    x2="339.22499999999997"
+                    y2="517.3000000000001"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="339.22499999999997"
+                    y="530.3000000000001"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2021
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(790.5, 155.64166666666665)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                90.8%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(788.4, 224.125)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                90.4%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(778.5, 292.60833333333335)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                88.8%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(675.3, 361.0916666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                72.3%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(671.1, 429.57500000000005)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                71.6%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(492.1, 498.0583333333334)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                42.8%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="49.41"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="49.41"
+                    y="435.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="49.41"
+                    y="358.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="49.41"
+                    y="281.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60%
+                </text>
+                <text
+                    x="49.41"
+                    y="204.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    80%
+                </text>
+                <text
+                    x="49.41"
+                    y="127.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="215.4"
-                y="160.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="215.4" y="160.63666666666666">
-                    Low-income countries
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="215.4"
-                y="229.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="215.4" y="229.12">India</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="215.4"
-                y="297.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="215.4" y="297.60333333333335">
-                    Lower-middle-income countries
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="215.4"
-                y="366.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="215.4" y="366.0866666666667">
-                    Upper-middle-income countries
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="215.4"
-                y="434.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="215.4" y="434.57000000000005">World</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="215.4"
-                y="503.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="215.4" y="503.0533333333334">
-                    High-income countries
-                </tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="54.41"
+                y1="512.3"
+                x2="624.04"
+                y2="512.3"
+                stroke="#999"
+            ></line>
+            <line
+                id="20%"
+                x1="54.41"
+                y1="435.3"
+                x2="624.04"
+                y2="435.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="54.41"
+                y1="358.3"
+                x2="624.04"
+                y2="358.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60%"
+                x1="54.41"
+                y1="281.4"
+                x2="624.04"
+                y2="281.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80%"
+                x1="54.41"
+                y1="204.4"
+                x2="624.04"
+                y2="204.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100%"
+                x1="54.41"
+                y1="127.4"
+                x2="624.04"
+                y2="127.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Low-income-countries"
+                    d="M628.04,163 H639.3733333333332 V147.6 H645.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="India"
+                    d="M628.04,164.3 H639.3733333333332 V165.9 H645.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Lower-middle-income-countries"
+                    d="M628.04,170.4 H633.7066666666666 V184.20000000000002 H645.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Upper-middle-income-countries"
+                    d="M628.04,234.2 H636.54 V226.35 H645.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="World"
+                    d="M628.04,236.8 H636.54 V244.65 H645.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="High-income-countries"
+                    d="M628.04,347.5 H636.54 V347.5 H645.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Low-income-countries"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="649.0"
+                    y="152.4"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="649.04" y="152.41">Low-income countries</tspan>
+                </text>
+                <text
+                    id="label__India"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="649.0"
+                    y="170.7"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="649.04" y="170.71">India</tspan>
+                </text>
+                <text
+                    id="label__Lower-middle-income-countries"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="649.0"
+                    y="189.0"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="649.04" y="189.01000000000002">
+                        Lower-middle-income countries
+                    </tspan>
+                </text>
+                <text
+                    id="label__Upper-middle-income-countries"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="649.0"
+                    y="231.2"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="649.04" y="231.16">
+                        Upper-middle-income countries
+                    </tspan>
+                </text>
+                <text
+                    id="label__World"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="649.0"
+                    y="249.5"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="649.04" y="249.46">World</tspan>
+                </text>
+                <text
+                    id="label__High-income-countries"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="649.0"
+                    y="352.3"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="649.04" y="352.31">High-income countries</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World"
+                stroke-width="2.5"
+                d="M339.2 236.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__World"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M339.2 236.8"
+            ></path>
+            <g id="datapoints__World">
+                <circle
+                    id="2021"
+                    cx="339.2"
+                    cy="236.8"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Upper-middle-income-countries"
+                stroke-width="2.5"
+                d="M339.2 234.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Upper-middle-income-countries"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M339.2 234.2"
+            ></path>
+            <g id="datapoints__Upper-middle-income-countries">
+                <circle
+                    id="2021"
+                    cx="339.2"
+                    cy="234.2"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Lower-middle-income-countries"
+                stroke-width="2.5"
+                d="M339.2 170.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Lower-middle-income-countries"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M339.2 170.4"
+            ></path>
+            <g id="datapoints__Lower-middle-income-countries">
+                <circle
+                    id="2021"
+                    cx="339.2"
+                    cy="170.4"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Low-income-countries"
+                stroke-width="2.5"
+                d="M339.2 163"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Low-income-countries"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M339.2 163"
+            ></path>
+            <g id="datapoints__Low-income-countries">
+                <circle
+                    id="2021"
+                    cx="339.2"
+                    cy="163"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India"
+                stroke-width="2.5"
+                d="M339.2 164.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__India"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M339.2 164.3"
+            ></path>
+            <g id="datapoints__India">
+                <circle
+                    id="2021"
+                    cx="339.2"
+                    cy="164.3"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__High-income-countries"
+                stroke-width="2.5"
+                d="M339.2 347.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__High-income-countries"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M339.2 347.5"
+            ></path>
+            <g id="datapoints__High-income-countries">
+                <circle
+                    id="2021"
+                    cx="339.2"
+                    cy="347.5"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

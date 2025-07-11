@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -78,1416 +67,1977 @@
     </g>
     <g id="chart-area" style="pointer-events: none">
         <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="1993"
+                    x1="318.165"
+                    y1="531.9"
+                    x2="318.165"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
             <g id="tick-labels">
                 <text
-                    x="120.22000000000001"
-                    y="550.4"
-                    fill="#5b5b5b"
-                    text-anchor="start"
-                    font-size="13"
-                >
-                    0%
-                </text>
-                <text
-                    x="261"
+                    x="318.165"
                     y="550.4"
                     fill="#5b5b5b"
                     text-anchor="middle"
                     font-size="13"
                 >
-                    20%
-                </text>
-                <text
-                    x="401.7"
-                    y="550.4"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    40%
-                </text>
-                <text
-                    x="542.5"
-                    y="550.4"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    60%
-                </text>
-                <text
-                    x="683.2"
-                    y="550.4"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    80%
-                </text>
-                <text
-                    x="824"
-                    y="550.4"
-                    fill="#5b5b5b"
-                    text-anchor="end"
-                    font-size="13"
-                >
-                    100%
+                    1993
                 </text>
             </g>
         </g>
-        <g id="vertical-grid-lines" class="AxisGridLines verticalLines">
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.39"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    +0%
+                </text>
+            </g>
+        </g>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
             <line
-                id="0%"
-                x1="120.2"
-                y1="532.40"
-                x2="120.2"
-                y2="108.50"
+                id="+0%"
+                x1="47.39"
+                y1="532.4"
+                x2="588.94"
+                y2="532.4"
                 stroke="#999"
             ></line>
-            <line
-                id="20%"
-                x1="261"
-                y1="532.40"
-                x2="261"
-                y2="108.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="40%"
-                x1="401.7"
-                y1="532.40"
-                x2="401.7"
-                y2="108.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="60%"
-                x1="542.5"
-                y1="532.40"
-                x2="542.5"
-                y2="108.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="80%"
-                x1="683.2"
-                y1="532.40"
-                x2="683.2"
-                y2="108.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="100%"
-                x1="824"
-                y1="532.40"
-                x2="824"
-                y2="108.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
         </g>
-        <line
-            id="vertical-zero-line"
-            x1="119.95"
-            y1="532.40"
-            x2="119.95"
-            y2="108.50"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="categorical-color-legend" class="categoricalColorLegend">
-            <g id="swatches">
-                <rect
-                    id="Very-important"
-                    x="16"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#2c7bb7"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Rather-important"
-                    x="140.388"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#abd9e9"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Not-very-important"
-                    x="278.456"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#fdae61"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Not-at-all-important"
-                    x="426.89200000000005"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#d7191c"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Don&#x27;t-know"
-                    x="578.6400000000001"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Nigeria-–-Not-very-important"
+                    d="M592.94,532.4 H593.62 V106.04999999999988 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Mexico-–-Not-very-important"
+                    d="M592.94,532.4 H594.3 V124.34999999999988 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Japan-–-Not-very-important"
+                    d="M592.94,532.4 H594.98 V142.6499999999999 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-Kingdom-–-Not-very-important"
+                    d="M592.94,532.4 H595.66 V160.9499999999999 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Germany-–-Not-very-important"
+                    d="M592.94,532.4 H596.34 V179.24999999999991 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="China-–-Not-very-important"
+                    d="M592.94,532.4 H597.02 V197.54999999999993 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Brazil-–-Not-very-important"
+                    d="M592.94,532.4 H597.7 V215.84999999999994 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-States-–-Rather-important"
+                    d="M592.94,532.4 H598.38 V234.14999999999995 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Russia-–-Rather-important"
+                    d="M592.94,532.4 H599.0600000000001 V252.44999999999996 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Nigeria-–-Rather-important"
+                    d="M592.94,532.4 H599.74 V270.74999999999994 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Mexico-–-Rather-important"
+                    d="M592.94,532.4 H600.42 V289.04999999999995 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Japan-–-Rather-important"
+                    d="M592.94,532.4 H601.1 V307.34999999999997 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-Kingdom-–-Rather-important"
+                    d="M592.94,532.4 H601.78 V325.65 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Germany-–-Rather-important"
+                    d="M592.94,532.4 H602.46 V343.95 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="China-–-Rather-important"
+                    d="M592.94,532.4 H603.14 V362.25 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Brazil-–-Rather-important"
+                    d="M592.94,532.4 H603.82 V380.55 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-States-–-Very-important"
+                    d="M592.94,532.4 H604.5 V398.85 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Russia-–-Very-important"
+                    d="M592.94,532.4 H605.18 V417.15000000000003 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Nigeria-–-Very-important"
+                    d="M592.94,532.4 H605.86 V435.45000000000005 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Mexico-–-Very-important"
+                    d="M592.94,532.4 H606.54 V453.75000000000006 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Japan-–-Very-important"
+                    d="M592.94,532.4 H607.22 V472.05000000000007 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-Kingdom-–-Very-important"
+                    d="M592.94,532.4 H607.9 V490.3500000000001 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Germany-–-Very-important"
+                    d="M592.94,532.4 H608.58 V508.6500000000001 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="China-–-Very-important"
+                    d="M592.94,532.4 H609.26 V526.95 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Brazil-–-Very-important"
+                    d="M592.94,532.4 H609.26 V545.25 H609.94"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Nigeria-–-Not-very-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="110.9"
+                    fill="#525252"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="613.94" y="110.85999999999987">
+                        Nigeria – Not very important
+                    </tspan>
+                </text>
+                <text
+                    id="label__Mexico-–-Not-very-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="129.2"
                     fill="#252525"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="No-answer"
-                    x="680.1320000000001"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#636363"
-                    stroke-width="0.4"
-                ></rect>
-            </g>
-            <g id="labels">
-                <text
-                    x="34.5"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Very important
+                    <tspan x="613.94" y="129.15999999999988">
+                        Mexico – Not very important
+                    </tspan>
                 </text>
                 <text
-                    x="158.888"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__Japan-–-Not-very-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="147.5"
+                    fill="#000000"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Rather important
+                    <tspan x="613.94" y="147.4599999999999">
+                        Japan – Not very important
+                    </tspan>
                 </text>
                 <text
-                    x="296.956"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__United-Kingdom-–-Not-very-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="165.8"
+                    fill="#d7191c"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Not very important
+                    <tspan x="613.94" y="165.7599999999999">
+                        United Kingdom – Not very important
+                    </tspan>
                 </text>
                 <text
-                    x="445.39200000000005"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__Germany-–-Not-very-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="184.1"
+                    fill="#d39151"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Not at all important
+                    <tspan x="613.94" y="184.05999999999992">
+                        Germany – Not very important
+                    </tspan>
                 </text>
                 <text
-                    x="597.1400000000001"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__China-–-Not-very-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="202.4"
+                    fill="#88adb9"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Don&#x27;t know
+                    <tspan x="613.94" y="202.35999999999993">
+                        China – Not very important
+                    </tspan>
                 </text>
                 <text
-                    x="698.6320000000001"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__Brazil-–-Not-very-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="220.7"
+                    fill="#2c7bb7"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    No answer
+                    <tspan x="613.94" y="220.65999999999994">
+                        Brazil – Not very important
+                    </tspan>
                 </text>
-            </g>
-        </g>
-        <g id="bars">
-            <g id="Brazil" class="bar" transform="translate(0, 132.05)">
-                <g id="Very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.307500000000001)"
-                        width="402.40000000000003"
-                        height="30.615000000000002"
-                        fill="#2c7bb7"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="321.40000000000003"
-                        y="0"
-                        width="402.40000000000003"
-                        height="30.615000000000002"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        57%
-                    </text>
-                </g>
-                <g id="Rather-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(522.6, -15.307500000000001)"
-                        width="235.7"
-                        height="30.615000000000002"
-                        fill="#abd9e9"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="640.45"
-                        y="0"
-                        width="235.7"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        33%
-                    </text>
-                </g>
-                <g id="Not-very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(758.3, -15.307500000000001)"
-                        width="51.3"
-                        height="30.615000000000002"
-                        fill="#fdae61"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="783.9499999999999"
-                        y="0"
-                        width="51.3"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        7.3%
-                    </text>
-                </g>
-                <g id="Not-at-all-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(809.5, -15.307500000000001)"
-                        width="13.399999999999991"
-                        height="30.615000000000002"
-                        fill="#d7191c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Don&#x27;t-know">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(822.9, -15.307500000000001)"
-                        width="1.0999999999999943"
-                        height="30.615000000000002"
-                        fill="#252525"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="No-answer">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(824, -15.307500000000001)"
-                        width="0"
-                        height="30.615000000000002"
-                        fill="#636363"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
+                    id="label__United-States-–-Rather-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="239.0"
+                    fill="#b0b0b0"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="115.2" y="4.995000000000001">Brazil</tspan>
+                    <tspan x="613.94" y="238.95999999999995">
+                        United States – Rather important
+                    </tspan>
                 </text>
-            </g>
-            <g id="United-States" class="bar" transform="translate(0, 179.15)">
-                <g id="Very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.307500000000001)"
-                        width="377.7"
-                        height="30.615000000000002"
-                        fill="#2c7bb7"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="309.05"
-                        y="0"
-                        width="377.7"
-                        height="30.615000000000002"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        54%
-                    </text>
-                </g>
-                <g id="Rather-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(497.9, -15.307500000000001)"
-                        width="278.1"
-                        height="30.615000000000002"
-                        fill="#abd9e9"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="636.95"
-                        y="0"
-                        width="278.1"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        40%
-                    </text>
-                </g>
-                <g id="Not-very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(775.9, -15.307500000000001)"
-                        width="41.8"
-                        height="30.615000000000002"
-                        fill="#fdae61"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="796.8"
-                        y="0"
-                        width="41.8"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        5.9%
-                    </text>
-                </g>
-                <g id="Not-at-all-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(817.8, -15.307500000000001)"
-                        width="1.0999999999999943"
-                        height="30.615000000000002"
-                        fill="#d7191c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Don&#x27;t-know">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(818.9, -15.307500000000001)"
-                        width="0.5"
-                        height="30.615000000000002"
-                        fill="#252525"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="No-answer">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(819.3, -15.307500000000001)"
-                        width="4.700000000000003"
-                        height="30.615000000000002"
-                        fill="#636363"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
+                    id="label__Russia-–-Rather-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="257.3"
+                    fill="#adadad"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="115.2" y="4.995000000000001">United States</tspan>
+                    <tspan x="613.94" y="257.25999999999993">
+                        Russia – Rather important
+                    </tspan>
                 </text>
-            </g>
-            <g id="Nigeria" class="bar" transform="translate(0, 226.25)">
-                <g id="Very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.307500000000001)"
-                        width="369.1"
-                        height="30.615000000000002"
-                        fill="#2c7bb7"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="304.75"
-                        y="0"
-                        width="369.1"
-                        height="30.615000000000002"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        52%
-                    </text>
-                </g>
-                <g id="Rather-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(489.3, -15.307500000000001)"
-                        width="209.5"
-                        height="30.615000000000002"
-                        fill="#abd9e9"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="594.05"
-                        y="0"
-                        width="209.5"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        30%
-                    </text>
-                </g>
-                <g id="Not-very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(698.9, -15.307500000000001)"
-                        width="106.2"
-                        height="30.615000000000002"
-                        fill="#fdae61"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="752"
-                        y="0"
-                        width="106.2"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        15%
-                    </text>
-                </g>
-                <g id="Not-at-all-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(805, -15.307500000000001)"
-                        width="14.799999999999997"
-                        height="30.615000000000002"
-                        fill="#d7191c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Don&#x27;t-know">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(819.8, -15.307500000000001)"
-                        width="4.200000000000003"
-                        height="30.615000000000002"
-                        fill="#252525"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="No-answer">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(824, -15.307500000000001)"
-                        width="0"
-                        height="30.615000000000002"
-                        fill="#636363"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
+                    id="label__Nigeria-–-Rather-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="275.6"
+                    fill="#a7a7a7"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="115.2" y="4.995000000000001">Nigeria</tspan>
+                    <tspan x="613.94" y="275.55999999999995">
+                        Nigeria – Rather important
+                    </tspan>
                 </text>
-            </g>
-            <g id="United-Kingdom" class="bar" transform="translate(0, 273.35)">
-                <g id="Very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.307500000000001)"
-                        width="337.2"
-                        height="30.615000000000002"
-                        fill="#2c7bb7"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="288.8"
-                        y="0"
-                        width="337.2"
-                        height="30.615000000000002"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        48%
-                    </text>
-                </g>
-                <g id="Rather-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(457.4, -15.307500000000001)"
-                        width="310"
-                        height="30.615000000000002"
-                        fill="#abd9e9"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="612.4"
-                        y="0"
-                        width="310"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        44%
-                    </text>
-                </g>
-                <g id="Not-very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(767.4, -15.307500000000001)"
-                        width="54.60000000000001"
-                        height="30.615000000000002"
-                        fill="#fdae61"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="794.6999999999999"
-                        y="0"
-                        width="54.60000000000001"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        7.8%
-                    </text>
-                </g>
-                <g id="Not-at-all-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(821.9, -15.307500000000001)"
-                        width="2"
-                        height="30.615000000000002"
-                        fill="#d7191c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Don&#x27;t-know">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(823.9, -15.307500000000001)"
-                        width="0.09999999999999432"
-                        height="30.615000000000002"
-                        fill="#252525"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="No-answer">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(824, -15.307500000000001)"
-                        width="0"
-                        height="30.615000000000002"
-                        fill="#636363"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
+                    id="label__Mexico-–-Rather-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="293.9"
+                    fill="#9d9d9d"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="115.2" y="4.995000000000001">
-                        United Kingdom
+                    <tspan x="613.94" y="293.85999999999996">
+                        Mexico – Rather important
+                    </tspan>
+                </text>
+                <text
+                    id="label__Japan-–-Rather-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="312.2"
+                    fill="#8c8c8c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="613.94" y="312.15999999999997">
+                        Japan – Rather important
+                    </tspan>
+                </text>
+                <text
+                    id="label__United-Kingdom-–-Rather-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="330.5"
+                    fill="#737373"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="613.94" y="330.46">
+                        United Kingdom – Rather important
+                    </tspan>
+                </text>
+                <text
+                    id="label__Germany-–-Rather-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="348.8"
+                    fill="#525252"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="613.94" y="348.76">
+                        Germany – Rather important
+                    </tspan>
+                </text>
+                <text
+                    id="label__China-–-Rather-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="367.1"
+                    fill="#252525"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="613.94" y="367.06">
+                        China – Rather important
+                    </tspan>
+                </text>
+                <text
+                    id="label__Brazil-–-Rather-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="385.4"
+                    fill="#000000"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="613.94" y="385.36">
+                        Brazil – Rather important
+                    </tspan>
+                </text>
+                <text
+                    id="label__United-States-–-Very-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="403.7"
+                    fill="#b0b0b0"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="613.94" y="403.66">
+                        United States – Very important
+                    </tspan>
+                </text>
+                <text
+                    id="label__Russia-–-Very-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="422.0"
+                    fill="#adadad"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="613.94" y="421.96000000000004">
+                        Russia – Very important
+                    </tspan>
+                </text>
+                <text
+                    id="label__Nigeria-–-Very-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="440.3"
+                    fill="#a7a7a7"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="613.94" y="440.26000000000005">
+                        Nigeria – Very important
+                    </tspan>
+                </text>
+                <text
+                    id="label__Mexico-–-Very-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="458.6"
+                    fill="#9d9d9d"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="613.94" y="458.56000000000006">
+                        Mexico – Very important
+                    </tspan>
+                </text>
+                <text
+                    id="label__Japan-–-Very-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="476.9"
+                    fill="#8c8c8c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="613.94" y="476.86000000000007">
+                        Japan – Very important
+                    </tspan>
+                </text>
+                <text
+                    id="label__United-Kingdom-–-Very-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="495.2"
+                    fill="#737373"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="613.94" y="495.1600000000001">
+                        United Kingdom – Very important
+                    </tspan>
+                </text>
+                <text
+                    id="label__Germany-–-Very-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="513.5"
+                    fill="#525252"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="613.94" y="513.4600000000002">
+                        Germany – Very important
+                    </tspan>
+                </text>
+                <text
+                    id="label__China-–-Very-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="531.8"
+                    fill="#252525"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="613.94" y="531.7600000000001">
+                        China – Very important
+                    </tspan>
+                </text>
+                <text
+                    id="label__Brazil-–-Very-important"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="613.9"
+                    y="550.1"
+                    fill="#000000"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="613.94" y="550.0600000000001">
+                        Brazil – Very important
                     </tspan>
                 </text>
             </g>
-            <g id="Germany" class="bar" transform="translate(0, 320.45)">
-                <g id="Very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.307500000000001)"
-                        width="248.2"
-                        height="30.615000000000002"
-                        fill="#2c7bb7"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="244.3"
-                        y="0"
-                        width="248.2"
-                        height="30.615000000000002"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        35%
-                    </text>
-                </g>
-                <g id="Rather-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(368.4, -15.307500000000001)"
-                        width="364.6"
-                        height="30.615000000000002"
-                        fill="#abd9e9"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="550.7"
-                        y="0"
-                        width="364.6"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        52%
-                    </text>
-                </g>
-                <g id="Not-very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(732.9, -15.307500000000001)"
-                        width="79.2"
-                        height="30.615000000000002"
-                        fill="#fdae61"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="772.5"
-                        y="0"
-                        width="79.2"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        11%
-                    </text>
-                </g>
-                <g id="Not-at-all-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(812.1, -15.307500000000001)"
-                        width="3.5"
-                        height="30.615000000000002"
-                        fill="#d7191c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Don&#x27;t-know">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(815.7, -15.307500000000001)"
-                        width="3.200000000000003"
-                        height="30.615000000000002"
-                        fill="#252525"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="No-answer">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(818.9, -15.307500000000001)"
-                        width="5.099999999999994"
-                        height="30.615000000000002"
-                        fill="#636363"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Germany</tspan>
-                </text>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-No-answer"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d7191c"
+                id="line__United-States-–-No-answer"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__United-States-–-No-answer">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#d7191c"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="Japan"
-                class="bar"
-                transform="translate(0, 367.54999999999995)"
-            >
-                <g id="Very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.307500000000001)"
-                        width="235.3"
-                        height="30.615000000000002"
-                        fill="#2c7bb7"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="237.85000000000002"
-                        y="0"
-                        width="235.3"
-                        height="30.615000000000002"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        33%
-                    </text>
-                </g>
-                <g id="Rather-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(355.5, -15.307500000000001)"
-                        width="394.7"
-                        height="30.615000000000002"
-                        fill="#abd9e9"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="552.85"
-                        y="0"
-                        width="394.7"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        56%
-                    </text>
-                </g>
-                <g id="Not-very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(750.2, -15.307500000000001)"
-                        width="55.7"
-                        height="30.615000000000002"
-                        fill="#fdae61"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="778.0500000000001"
-                        y="0"
-                        width="55.7"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        7.9%
-                    </text>
-                </g>
-                <g id="Not-at-all-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(805.9, -15.307500000000001)"
-                        width="4.8999999999999915"
-                        height="30.615000000000002"
-                        fill="#d7191c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Don&#x27;t-know">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(810.8, -15.307500000000001)"
-                        width="13.200000000000003"
-                        height="30.615000000000002"
-                        fill="#252525"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="No-answer">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(824, -15.307500000000001)"
-                        width="0"
-                        height="30.615000000000002"
-                        fill="#636363"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Japan</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Mexico-–-No-answer"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#fdae61"
+                id="line__Mexico-–-No-answer"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Mexico-–-No-answer">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#fdae61"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="Russia" class="bar" transform="translate(0, 414.65)">
-                <g id="Very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.307500000000001)"
-                        width="200.60000000000002"
-                        height="30.615000000000002"
-                        fill="#2c7bb7"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="220.5"
-                        y="0"
-                        width="200.60000000000002"
-                        height="30.615000000000002"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        29%
-                    </text>
-                </g>
-                <g id="Rather-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(320.8, -15.307500000000001)"
-                        width="326.6"
-                        height="30.615000000000002"
-                        fill="#abd9e9"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="484.1"
-                        y="0"
-                        width="326.6"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        46%
-                    </text>
-                </g>
-                <g id="Not-very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(647.4, -15.307500000000001)"
-                        width="143.90000000000003"
-                        height="30.615000000000002"
-                        fill="#fdae61"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="719.35"
-                        y="0"
-                        width="143.90000000000003"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        20%
-                    </text>
-                </g>
-                <g id="Not-at-all-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(791.3, -15.307500000000001)"
-                        width="15.100000000000009"
-                        height="30.615000000000002"
-                        fill="#d7191c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Don&#x27;t-know">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(806.4, -15.307500000000001)"
-                        width="17.60000000000001"
-                        height="30.615000000000002"
-                        fill="#252525"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="No-answer">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(824, -15.307500000000001)"
-                        width="0"
-                        height="30.615000000000002"
-                        fill="#636363"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Russia</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Germany-–-No-answer"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#abd9e9"
+                id="line__Germany-–-No-answer"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Germany-–-No-answer">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#abd9e9"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="Mexico"
-                class="bar"
-                transform="translate(0, 461.74999999999994)"
-            >
-                <g id="Very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.307500000000001)"
-                        width="173.3"
-                        height="30.615000000000002"
-                        fill="#2c7bb7"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="206.85000000000002"
-                        y="0"
-                        width="173.3"
-                        height="30.615000000000002"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        25%
-                    </text>
-                </g>
-                <g id="Rather-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(293.5, -15.307500000000001)"
-                        width="344.3"
-                        height="30.615000000000002"
-                        fill="#abd9e9"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="465.65"
-                        y="0"
-                        width="344.3"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        49%
-                    </text>
-                </g>
-                <g id="Not-very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(637.8, -15.307500000000001)"
-                        width="156.8"
-                        height="30.615000000000002"
-                        fill="#fdae61"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="716.1999999999999"
-                        y="0"
-                        width="156.8"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        22%
-                    </text>
-                </g>
-                <g id="Not-at-all-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(794.6, -15.307500000000001)"
-                        width="20.700000000000003"
-                        height="30.615000000000002"
-                        fill="#d7191c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Don&#x27;t-know">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(815.3, -15.307500000000001)"
-                        width="2.799999999999997"
-                        height="30.615000000000002"
-                        fill="#252525"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="No-answer">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(818, -15.307500000000001)"
-                        width="6"
-                        height="30.615000000000002"
-                        fill="#636363"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Mexico</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Don&#x27;t-know"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c7bb7"
+                id="line__United-States-–-Don&#x27;t-know"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__United-States-–-Don&#x27;t-know">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#2c7bb7"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="China"
-                class="bar"
-                transform="translate(0, 508.84999999999997)"
-            >
-                <g id="Very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.307500000000001)"
-                        width="150.60000000000002"
-                        height="30.615000000000002"
-                        fill="#2c7bb7"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="195.5"
-                        y="0"
-                        width="150.60000000000002"
-                        height="30.615000000000002"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        21%
-                    </text>
-                </g>
-                <g id="Rather-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(270.8, -15.307500000000001)"
-                        width="363.2"
-                        height="30.615000000000002"
-                        fill="#abd9e9"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="452.4"
-                        y="0"
-                        width="363.2"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        52%
-                    </text>
-                </g>
-                <g id="Not-very-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(634, -15.307500000000001)"
-                        width="176"
-                        height="30.615000000000002"
-                        fill="#fdae61"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="722"
-                        y="0"
-                        width="176"
-                        height="30.615000000000002"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        25%
-                    </text>
-                </g>
-                <g id="Not-at-all-important">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(809.9, -15.307500000000001)"
-                        width="9.200000000000003"
-                        height="30.615000000000002"
-                        fill="#d7191c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Don&#x27;t-know">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(819.1, -15.307500000000001)"
-                        width="4.8999999999999915"
-                        height="30.615000000000002"
-                        fill="#252525"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="No-answer">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(824, -15.307500000000001)"
-                        width="0"
-                        height="30.615000000000002"
-                        fill="#636363"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">China</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Russia-–-Don&#x27;t-know"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="line__Russia-–-Don&#x27;t-know"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Russia-–-Don&#x27;t-know">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#ffffff"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Nigeria-–-Don&#x27;t-know"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#f0f0f0"
+                id="line__Nigeria-–-Don&#x27;t-know"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Nigeria-–-Don&#x27;t-know">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#f0f0f0"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Mexico-–-Don&#x27;t-know"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d9d9d9"
+                id="line__Mexico-–-Don&#x27;t-know"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Mexico-–-Don&#x27;t-know">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#d9d9d9"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Japan-–-Don&#x27;t-know"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#bdbdbd"
+                id="line__Japan-–-Don&#x27;t-know"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Japan-–-Don&#x27;t-know">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#bdbdbd"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom-–-Don&#x27;t-know"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#969696"
+                id="line__United-Kingdom-–-Don&#x27;t-know"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__United-Kingdom-–-Don&#x27;t-know">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#969696"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Germany-–-Don&#x27;t-know"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#737373"
+                id="line__Germany-–-Don&#x27;t-know"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Germany-–-Don&#x27;t-know">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#737373"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Don&#x27;t-know"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#525252"
+                id="line__China-–-Don&#x27;t-know"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__China-–-Don&#x27;t-know">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#525252"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Don&#x27;t-know"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#252525"
+                id="line__Brazil-–-Don&#x27;t-know"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Brazil-–-Don&#x27;t-know">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#252525"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Not-at-all-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#000000"
+                id="line__United-States-–-Not-at-all-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__United-States-–-Not-at-all-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#000000"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Russia-–-Not-at-all-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d7191c"
+                id="line__Russia-–-Not-at-all-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Russia-–-Not-at-all-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#d7191c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Nigeria-–-Not-at-all-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#fdae61"
+                id="line__Nigeria-–-Not-at-all-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Nigeria-–-Not-at-all-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#fdae61"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Mexico-–-Not-at-all-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#abd9e9"
+                id="line__Mexico-–-Not-at-all-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Mexico-–-Not-at-all-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#abd9e9"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Japan-–-Not-at-all-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c7bb7"
+                id="line__Japan-–-Not-at-all-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Japan-–-Not-at-all-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#2c7bb7"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom-–-Not-at-all-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="line__United-Kingdom-–-Not-at-all-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__United-Kingdom-–-Not-at-all-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#ffffff"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Germany-–-Not-at-all-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#f0f0f0"
+                id="line__Germany-–-Not-at-all-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Germany-–-Not-at-all-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#f0f0f0"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Not-at-all-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d9d9d9"
+                id="line__China-–-Not-at-all-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__China-–-Not-at-all-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#d9d9d9"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Not-at-all-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#bdbdbd"
+                id="line__Brazil-–-Not-at-all-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Brazil-–-Not-at-all-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#bdbdbd"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Not-very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#969696"
+                id="line__United-States-–-Not-very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__United-States-–-Not-very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#969696"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Russia-–-Not-very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#737373"
+                id="line__Russia-–-Not-very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Russia-–-Not-very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#737373"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Nigeria-–-Not-very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#525252"
+                id="line__Nigeria-–-Not-very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Nigeria-–-Not-very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#525252"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Mexico-–-Not-very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#252525"
+                id="line__Mexico-–-Not-very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Mexico-–-Not-very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#252525"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Japan-–-Not-very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#000000"
+                id="line__Japan-–-Not-very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Japan-–-Not-very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#000000"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom-–-Not-very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d7191c"
+                id="line__United-Kingdom-–-Not-very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__United-Kingdom-–-Not-very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#d7191c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Germany-–-Not-very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#fdae61"
+                id="line__Germany-–-Not-very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Germany-–-Not-very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#fdae61"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Not-very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#abd9e9"
+                id="line__China-–-Not-very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__China-–-Not-very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#abd9e9"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Not-very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c7bb7"
+                id="line__Brazil-–-Not-very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Brazil-–-Not-very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#2c7bb7"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Rather-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="line__United-States-–-Rather-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__United-States-–-Rather-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#ffffff"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Russia-–-Rather-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#f0f0f0"
+                id="line__Russia-–-Rather-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Russia-–-Rather-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#f0f0f0"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Nigeria-–-Rather-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d9d9d9"
+                id="line__Nigeria-–-Rather-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Nigeria-–-Rather-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#d9d9d9"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Mexico-–-Rather-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#bdbdbd"
+                id="line__Mexico-–-Rather-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Mexico-–-Rather-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#bdbdbd"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Japan-–-Rather-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#969696"
+                id="line__Japan-–-Rather-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Japan-–-Rather-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#969696"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom-–-Rather-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#737373"
+                id="line__United-Kingdom-–-Rather-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__United-Kingdom-–-Rather-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#737373"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Germany-–-Rather-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#525252"
+                id="line__Germany-–-Rather-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Germany-–-Rather-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#525252"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Rather-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#252525"
+                id="line__China-–-Rather-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__China-–-Rather-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#252525"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Rather-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#000000"
+                id="line__Brazil-–-Rather-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Brazil-–-Rather-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#000000"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="line__United-States-–-Very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__United-States-–-Very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#ffffff"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Russia-–-Very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#f0f0f0"
+                id="line__Russia-–-Very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Russia-–-Very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#f0f0f0"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Nigeria-–-Very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d9d9d9"
+                id="line__Nigeria-–-Very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Nigeria-–-Very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#d9d9d9"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Mexico-–-Very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#bdbdbd"
+                id="line__Mexico-–-Very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Mexico-–-Very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#bdbdbd"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Japan-–-Very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#969696"
+                id="line__Japan-–-Very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Japan-–-Very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#969696"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom-–-Very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#737373"
+                id="line__United-Kingdom-–-Very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__United-Kingdom-–-Very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#737373"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Germany-–-Very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#525252"
+                id="line__Germany-–-Very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Germany-–-Very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#525252"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#252525"
+                id="line__China-–-Very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__China-–-Very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#252525"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Very-important"
+                stroke-width="2.5"
+                d="M318.2 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#000000"
+                id="line__Brazil-–-Very-important"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M318.2 532.4"
+            ></path>
+            <g id="datapoints__Brazil-–-Very-important">
+                <circle
+                    id="1993"
+                    cx="318.2"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#000000"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>
