@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -82,428 +71,821 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="127.15"
-            y1="530.30"
-            x2="127.15"
-            y2="144.50"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="categorical-color-legend" class="categoricalColorLegend">
-            <g id="swatches">
-                <rect
-                    id="Metals-and-minerals"
-                    x="16"
-                    y="122"
-                    width="13.5"
-                    height="13.5"
-                    fill="#6d3e91"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Rock"
-                    x="175.668"
-                    y="122"
-                    width="13.5"
-                    height="13.5"
-                    fill="#464748"
-                    stroke-width="0.4"
-                ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2022"
+                    x1="334.025"
+                    y1="511.79999999999995"
+                    x2="334.025"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
             </g>
-            <g id="labels">
+            <g id="tick-labels">
                 <text
-                    x="34.5"
-                    y="128.75"
-                    dy=".32em"
-                    font-size="14.4"
-                    opacity="1"
+                    x="334.025"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
                 >
-                    Metals and minerals
-                </text>
-                <text
-                    x="194.168"
-                    y="128.75"
-                    dy=".32em"
-                    font-size="14.4"
-                    opacity="1"
-                >
-                    Rock
+                    2022
                 </text>
             </g>
         </g>
-        <g id="bars">
-            <g
-                id="Coal"
-                class="bar"
-                transform="translate(0, 172.05714285714288)"
-            >
-                <g id="Metals-and-minerals">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(127.4, -17.912142857142857)"
-                        width="0"
-                        height="35.824285714285715"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Rock">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(127.4, -17.912142857142857)"
-                        width="610.1"
-                        height="35.824285714285715"
-                        fill="#464748"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="432.45000000000005"
-                        y="0"
-                        width="610.1"
-                        height="35.824285714285715"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        1.18 million kg
-                    </text>
-                </g>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="122.4"
-                    y="5.0"
+                    x="92.05"
+                    y="512.3"
+                    dy=".32em"
                     text-anchor="end"
-                    fill="#555"
+                    fill="#5b5b5b"
+                    font-size="13"
                 >
-                    <tspan x="122.4" y="4.995000000000001">Coal</tspan>
+                    0 kg
                 </text>
                 <text
-                    transform="translate(742.5, 0)"
+                    x="92.05"
+                    y="448.2"
                     dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
                 >
-                    1.18 million kg
+                    200,000 kg
+                </text>
+                <text
+                    x="92.05"
+                    y="384.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    400,000 kg
+                </text>
+                <text
+                    x="92.05"
+                    y="320.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    600,000 kg
+                </text>
+                <text
+                    x="92.05"
+                    y="256.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    800,000 kg
+                </text>
+                <text
+                    x="92.05"
+                    y="192"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1 million kg
+                </text>
+                <text
+                    x="92.05"
+                    y="128"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1.2 million kg
                 </text>
             </g>
-            <g
-                id="Wind-(onshore)"
-                class="bar"
-                transform="translate(0, 227.17142857142858)"
-            >
-                <g id="Metals-and-minerals">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(127.4, -17.912142857142857)"
-                        width="3.5999999999999943"
-                        height="35.824285714285715"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Rock">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(131, -17.912142857142857)"
-                        width="27.099999999999994"
-                        height="35.824285714285715"
-                        fill="#464748"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
+        </g>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-kg"
+                x1="97.05"
+                y1="512.3"
+                x2="571.00"
+                y2="512.3"
+                stroke="#999"
+            ></line>
+            <line
+                id="200,000-kg"
+                x1="97.05"
+                y1="448.2"
+                x2="571.00"
+                y2="448.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="400,000-kg"
+                x1="97.05"
+                y1="384.2"
+                x2="571.00"
+                y2="384.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="600,000-kg"
+                x1="97.05"
+                y1="320.1"
+                x2="571.00"
+                y2="320.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="800,000-kg"
+                x1="97.05"
+                y1="256.1"
+                x2="571.00"
+                y2="256.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1-million-kg"
+                x1="97.05"
+                y1="192"
+                x2="571.00"
+                y2="192"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1.2-million-kg"
+                x1="97.05"
+                y1="128"
+                x2="571.00"
+                y2="128"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Coal-–-Rock"
+                    d="M575,134.6 H583.5 V134.6 H592"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Wind-(onshore)-–-Rock"
+                    d="M575,495.5 H576.4166666666666 V323.85 H592"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Solar-PV-–-Rock"
+                    d="M575,498.4 H577.8333333333333 V342.15000000000003 H592"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Battery-storage-–-Rock"
+                    d="M575,499.7 H579.25 V360.45000000000005 H592"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Wind-(offshore)-–-Rock"
+                    d="M575,501.8 H580.6666666666666 V378.75000000000006 H592"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Nuclear-(EPR)-–-Rock"
+                    d="M575,508.4 H582.0833333333333 V397.05000000000007 H592"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Nuclear-(AP1000)-–-Rock"
+                    d="M575,509.3 H583.5 V415.3500000000001 H592"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Wind-(onshore)-–-Metals-and-minerals"
+                    d="M575,510 H584.9166666666666 V433.6500000000001 H592"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Solar-PV-–-Metals-and-minerals"
+                    d="M575,511.7 H586.3333333333333 V451.9500000000001 H592"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Wind-(offshore)-–-Metals-and-minerals"
+                    d="M575,511.7 H587.75 V470.2500000000001 H592"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Nuclear-(EPR)-–-Metals-and-minerals"
+                    d="M575,511.9 H589.1666666666666 V488.5500000000001 H592"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Nuclear-(AP1000)-–-Metals-and-minerals"
+                    d="M575,512.1 H590.5833333333333 V506.85000000000014 H592"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Battery-storage-–-Metals-and-minerals"
+                    d="M575,512.2 H590.5833333333333 V525.1500000000001 H592"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="122.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
+                    id="label__Coal-–-Rock"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="596.0"
+                    y="139.4"
+                    fill="#286bbb"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="122.4" y="4.995000000000001">
-                        Wind (onshore)
+                    <tspan x="596" y="139.41">Coal – Rock</tspan>
+                </text>
+                <text
+                    id="label__Wind-(onshore)-–-Rock"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="596.0"
+                    y="328.7"
+                    fill="#970046"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="596" y="328.66">Wind (onshore) – Rock</tspan>
+                </text>
+                <text
+                    id="label__Solar-PV-–-Rock"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="596.0"
+                    y="347.0"
+                    fill="#008291"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="596" y="346.96000000000004">
+                        Solar PV – Rock
                     </tspan>
                 </text>
                 <text
-                    transform="translate(163.1, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
+                    id="label__Battery-storage-–-Rock"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="596.0"
+                    y="365.3"
+                    fill="#c4523e"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    59,480 kg
-                </text>
-            </g>
-            <g
-                id="Solar-PV"
-                class="bar"
-                transform="translate(0, 282.28571428571433)"
-            >
-                <g id="Metals-and-minerals">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(127.4, -17.912142857142857)"
-                        width="0.9000000000000057"
-                        height="35.824285714285715"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Rock">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(128.3, -17.912142857142857)"
-                        width="22.5"
-                        height="35.824285714285715"
-                        fill="#464748"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="122.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="122.4" y="4.995000000000001">Solar PV</tspan>
-                </text>
-                <text
-                    transform="translate(155.8, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    45,281 kg
-                </text>
-            </g>
-            <g
-                id="Battery-storage"
-                class="bar"
-                transform="translate(0, 337.40000000000003)"
-            >
-                <g id="Metals-and-minerals">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(127.4, -17.912142857142857)"
-                        width="0.19999999999998863"
-                        height="35.824285714285715"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Rock">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(127.6, -17.912142857142857)"
-                        width="20.299999999999983"
-                        height="35.824285714285715"
-                        fill="#464748"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="122.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="122.4" y="4.995000000000001">
-                        Battery storage
+                    <tspan x="596" y="365.26000000000005">
+                        Battery storage – Rock
                     </tspan>
                 </text>
                 <text
-                    transform="translate(152.9, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
+                    id="label__Wind-(offshore)-–-Rock"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="596.0"
+                    y="383.6"
+                    fill="#338711"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    39,719 kg
-                </text>
-            </g>
-            <g
-                id="Wind-(offshore)"
-                class="bar"
-                transform="translate(0, 392.51428571428573)"
-            >
-                <g id="Metals-and-minerals">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(127.4, -17.912142857142857)"
-                        width="1"
-                        height="35.824285714285715"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Rock">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(128.4, -17.912142857142857)"
-                        width="17"
-                        height="35.824285714285715"
-                        fill="#464748"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="122.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="122.4" y="4.995000000000001">
-                        Wind (offshore)
+                    <tspan x="596" y="383.56000000000006">
+                        Wind (offshore) – Rock
                     </tspan>
                 </text>
                 <text
-                    transform="translate(150.4, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
+                    id="label__Nuclear-(EPR)-–-Rock"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="596.0"
+                    y="401.9"
+                    fill="#9a5129"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    34,882 kg
-                </text>
-            </g>
-            <g
-                id="Nuclear-(EPR)"
-                class="bar"
-                transform="translate(0, 447.62857142857143)"
-            >
-                <g id="Metals-and-minerals">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(127.4, -17.912142857142857)"
-                        width="0.6999999999999886"
-                        height="35.824285714285715"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Rock">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(128.1, -17.912142857142857)"
-                        width="6.199999999999989"
-                        height="35.824285714285715"
-                        fill="#464748"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="122.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="122.4" y="4.995000000000001">Nuclear (EPR)</tspan>
-                </text>
-                <text
-                    transform="translate(139.3, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    13,453 kg
-                </text>
-            </g>
-            <g
-                id="Nuclear-(AP1000)"
-                class="bar"
-                transform="translate(0, 502.7428571428572)"
-            >
-                <g id="Metals-and-minerals">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(127.4, -17.912142857142857)"
-                        width="0.29999999999999716"
-                        height="35.824285714285715"
-                        fill="#6d3e91"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Rock">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(127.7, -17.912142857142857)"
-                        width="4.799999999999983"
-                        height="35.824285714285715"
-                        fill="#464748"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="122.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="122.4" y="4.995000000000001">
-                        Nuclear (AP1000)
+                    <tspan x="596" y="401.86000000000007">
+                        Nuclear (EPR) – Rock
                     </tspan>
                 </text>
                 <text
-                    transform="translate(137.5, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
+                    id="label__Nuclear-(AP1000)-–-Rock"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="596.0"
+                    y="420.2"
+                    fill="#a2559c"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    9,956 kg
+                    <tspan x="596" y="420.1600000000001">
+                        Nuclear (AP1000) – Rock
+                    </tspan>
                 </text>
+                <text
+                    id="label__Wind-(onshore)-–-Metals-and-minerals"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="596.0"
+                    y="438.5"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="596" y="438.4600000000001">
+                        Wind (onshore) – Metals and minerals
+                    </tspan>
+                </text>
+                <text
+                    id="label__Solar-PV-–-Metals-and-minerals"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="596.0"
+                    y="456.8"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="596" y="456.7600000000001">
+                        Solar PV – Metals and minerals
+                    </tspan>
+                </text>
+                <text
+                    id="label__Wind-(offshore)-–-Metals-and-minerals"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="596.0"
+                    y="475.1"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="596" y="475.0600000000001">
+                        Wind (offshore) – Metals and minerals
+                    </tspan>
+                </text>
+                <text
+                    id="label__Nuclear-(EPR)-–-Metals-and-minerals"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="596.0"
+                    y="493.4"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="596" y="493.3600000000001">
+                        Nuclear (EPR) – Metals and minerals
+                    </tspan>
+                </text>
+                <text
+                    id="label__Nuclear-(AP1000)-–-Metals-and-minerals"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="596.0"
+                    y="511.7"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="596" y="511.66000000000014">
+                        Nuclear (AP1000) – Metals and minerals
+                    </tspan>
+                </text>
+                <text
+                    id="label__Battery-storage-–-Metals-and-minerals"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="596.0"
+                    y="530.0"
+                    fill="#00295b"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="596" y="529.9600000000002">
+                        Battery storage – Metals and minerals
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Coal-–-Rock"
+                stroke-width="2.5"
+                d="M334 134.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#286bbb"
+                id="line__Coal-–-Rock"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M334 134.6"
+            ></path>
+            <g id="datapoints__Coal-–-Rock">
+                <circle
+                    id="2022"
+                    cx="334"
+                    cy="134.6"
+                    r="1.8"
+                    fill="#286bbb"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Battery-storage-–-Rock"
+                stroke-width="2.5"
+                d="M334 499.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c4523e"
+                id="line__Battery-storage-–-Rock"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M334 499.7"
+            ></path>
+            <g id="datapoints__Battery-storage-–-Rock">
+                <circle
+                    id="2022"
+                    cx="334"
+                    cy="499.7"
+                    r="1.8"
+                    fill="#c4523e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Wind-(offshore)-–-Rock"
+                stroke-width="2.5"
+                d="M334 501.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#338711"
+                id="line__Wind-(offshore)-–-Rock"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M334 501.8"
+            ></path>
+            <g id="datapoints__Wind-(offshore)-–-Rock">
+                <circle
+                    id="2022"
+                    cx="334"
+                    cy="501.8"
+                    r="1.8"
+                    fill="#338711"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Wind-(onshore)-–-Rock"
+                stroke-width="2.5"
+                d="M334 495.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#970046"
+                id="line__Wind-(onshore)-–-Rock"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M334 495.5"
+            ></path>
+            <g id="datapoints__Wind-(onshore)-–-Rock">
+                <circle
+                    id="2022"
+                    cx="334"
+                    cy="495.5"
+                    r="1.8"
+                    fill="#970046"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Solar-PV-–-Rock"
+                stroke-width="2.5"
+                d="M334 498.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#008291"
+                id="line__Solar-PV-–-Rock"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M334 498.4"
+            ></path>
+            <g id="datapoints__Solar-PV-–-Rock">
+                <circle
+                    id="2022"
+                    cx="334"
+                    cy="498.4"
+                    r="1.8"
+                    fill="#008291"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Nuclear-(EPR)-–-Rock"
+                stroke-width="2.5"
+                d="M334 508.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__Nuclear-(EPR)-–-Rock"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M334 508.4"
+            ></path>
+            <g id="datapoints__Nuclear-(EPR)-–-Rock">
+                <circle
+                    id="2022"
+                    cx="334"
+                    cy="508.4"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Nuclear-(AP1000)-–-Rock"
+                stroke-width="2.5"
+                d="M334 509.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__Nuclear-(AP1000)-–-Rock"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M334 509.3"
+            ></path>
+            <g id="datapoints__Nuclear-(AP1000)-–-Rock">
+                <circle
+                    id="2022"
+                    cx="334"
+                    cy="509.3"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Battery-storage-–-Metals-and-minerals"
+                stroke-width="2.5"
+                d="M334 512.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__Battery-storage-–-Metals-and-minerals"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M334 512.2"
+            ></path>
+            <g id="datapoints__Battery-storage-–-Metals-and-minerals">
+                <circle
+                    id="2022"
+                    cx="334"
+                    cy="512.2"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Wind-(offshore)-–-Metals-and-minerals"
+                stroke-width="2.5"
+                d="M334 511.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Wind-(offshore)-–-Metals-and-minerals"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M334 511.7"
+            ></path>
+            <g id="datapoints__Wind-(offshore)-–-Metals-and-minerals">
+                <circle
+                    id="2022"
+                    cx="334"
+                    cy="511.7"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Wind-(onshore)-–-Metals-and-minerals"
+                stroke-width="2.5"
+                d="M334 510"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Wind-(onshore)-–-Metals-and-minerals"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M334 510"
+            ></path>
+            <g id="datapoints__Wind-(onshore)-–-Metals-and-minerals">
+                <circle
+                    id="2022"
+                    cx="334"
+                    cy="510"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Solar-PV-–-Metals-and-minerals"
+                stroke-width="2.5"
+                d="M334 511.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Solar-PV-–-Metals-and-minerals"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M334 511.7"
+            ></path>
+            <g id="datapoints__Solar-PV-–-Metals-and-minerals">
+                <circle
+                    id="2022"
+                    cx="334"
+                    cy="511.7"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Nuclear-(EPR)-–-Metals-and-minerals"
+                stroke-width="2.5"
+                d="M334 511.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Nuclear-(EPR)-–-Metals-and-minerals"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M334 511.9"
+            ></path>
+            <g id="datapoints__Nuclear-(EPR)-–-Metals-and-minerals">
+                <circle
+                    id="2022"
+                    cx="334"
+                    cy="511.9"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Nuclear-(AP1000)-–-Metals-and-minerals"
+                stroke-width="2.5"
+                d="M334 512.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Nuclear-(AP1000)-–-Metals-and-minerals"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M334 512.1"
+            ></path>
+            <g id="datapoints__Nuclear-(AP1000)-–-Metals-and-minerals">
+                <circle
+                    id="2022"
+                    cx="334"
+                    cy="512.1"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>

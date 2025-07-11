@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -48,26 +37,26 @@
             rel="noopener"
         >
             <text
-                font-size="21.50"
+                font-size="22.00"
                 font-weight="600"
                 x="16.0"
-                y="36.9"
+                y="37.3"
                 fill="#2d2e2d"
             >
-                <tspan x="16" y="36.855000000000004">
+                <tspan x="16" y="37.34">
                     Share of the population living in urbanized areas vs. GDP
-                    per capita, 0
+                    per capita
                 </tspan>
             </text>
         </a>
         <g id="subtitle" class="markdown-text-wrap">
             <text
                 x="16.0"
-                y="62.3"
+                y="63.0"
                 style="font-size: 15px; line-height: 1.2"
                 fill="#5b5b5b"
             >
-                <tspan x="16" y="62.3">
+                <tspan x="16" y="63.0">
                     GDP per capita is adjusted for inflation and for differences
                     in living costs between countries.
                 </tspan>
@@ -75,847 +64,59 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <g id="horizontal-axis" class="HorizontalAxis">
-            <g id="horizontal-axis-label" class="markdown-text-wrap">
-                <text
-                    x="391.2"
-                    y="528.6"
-                    style="font-size: 13px; line-height: 1"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                >
-                    <tspan x="391.21099999999996" y="528.6">
-                        <tspan style="font-weight: 700">GDP per capita</tspan>
-                        (international-$ in 2011 prices)
-                    </tspan>
-                </text>
+        <g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks"></g>
+                <g id="tick-labels"></g>
             </g>
-            <g id="tick-labels">
-                <text
-                    x="235.9"
-                    y="507.30000000000007"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    $1,000
-                </text>
-                <text
-                    x="65.33"
-                    y="507.30000000000007"
-                    fill="#5b5b5b"
-                    text-anchor="start"
-                    font-size="13"
-                >
-                    $886
-                </text>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels"></g>
             </g>
-        </g>
-        <g id="vertical-axis" class="VerticalAxis">
-            <g id="vertical-axis-label" class="markdown-text-wrap">
+            <g
+                id="horizontal-grid-lines"
+                class="AxisGridLines horizontalLines"
+            ></g>
+            <g class="no-data">
+                <rect
+                    x="16"
+                    y="133.9"
+                    width="789"
+                    height="396.40000000000003"
+                    fill="#fff"
+                    opacity="0.6"
+                ></rect>
                 <text
-                    x="16.0"
-                    y="93.1"
-                    style="font-size: 13px; font-weight: 700; line-height: 1"
-                    fill="#5b5b5b"
-                    text-anchor="start"
-                >
-                    <tspan x="16" y="93.1">
-                        Population share in urban areas
-                    </tspan>
-                </text>
-            </g>
-            <g id="tick-labels">
-                <text
-                    x="60.33"
-                    y="430.1"
+                    x="410.5"
+                    y="332.1"
                     dy=".32em"
-                    text-anchor="end"
+                    text-anchor="middle"
+                    font-size="16"
+                    font-weight="500"
                     fill="#5b5b5b"
-                    font-size="13"
+                    id="no-data-message"
+                    style="
+                        fill: #fff;
+                        stroke: #fff;
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                        user-select: none;
+                        stroke-width: 4;
+                    "
                 >
-                    0.001%
+                    No country or region selected
                 </text>
                 <text
-                    x="60.33"
-                    y="337.7"
+                    x="410.5"
+                    y="332.1"
                     dy=".32em"
-                    text-anchor="end"
+                    text-anchor="middle"
+                    font-size="16"
+                    font-weight="500"
                     fill="#5b5b5b"
-                    font-size="13"
                 >
-                    0.01%
-                </text>
-                <text
-                    x="60.33"
-                    y="245.3"
-                    dy=".32em"
-                    text-anchor="end"
-                    fill="#5b5b5b"
-                    font-size="13"
-                >
-                    0.1%
-                </text>
-                <text
-                    x="60.33"
-                    y="152.9"
-                    dy=".32em"
-                    text-anchor="end"
-                    fill="#5b5b5b"
-                    font-size="13"
-                >
-                    1%
+                    No country or region selected
                 </text>
             </g>
-        </g>
-        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
-            <line
-                id="0.001%"
-                x1="65.33"
-                y1="430.1"
-                x2="717.09"
-                y2="430.1"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="0.01%"
-                x1="65.33"
-                y1="337.7"
-                x2="717.09"
-                y2="337.7"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="0.1%"
-                x1="65.33"
-                y1="245.3"
-                x2="717.09"
-                y2="245.3"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="1%"
-                x1="65.33"
-                y1="152.9"
-                x2="717.09"
-                y2="152.9"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-        </g>
-        <g id="vertical-grid-lines" class="AxisGridLines verticalLines">
-            <line
-                id="$900"
-                x1="87.4"
-                y1="489.30"
-                x2="87.4"
-                y2="108.80"
-                stroke="#eee"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="$950"
-                x1="163.6"
-                y1="489.30"
-                x2="163.6"
-                y2="108.80"
-                stroke="#eee"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="$1,000"
-                x1="235.9"
-                y1="489.30"
-                x2="235.9"
-                y2="108.80"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="$1,050"
-                x1="304.7"
-                y1="489.30"
-                x2="304.7"
-                y2="108.80"
-                stroke="#eee"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="$1,100"
-                x1="370.2"
-                y1="489.30"
-                x2="370.2"
-                y2="108.80"
-                stroke="#eee"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="$1,150"
-                x1="432.9"
-                y1="489.30"
-                x2="432.9"
-                y2="108.80"
-                stroke="#eee"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="$1,200"
-                x1="492.8"
-                y1="489.30"
-                x2="492.8"
-                y2="108.80"
-                stroke="#eee"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="$1,250"
-                x1="550.4"
-                y1="489.30"
-                x2="550.4"
-                y2="108.80"
-                stroke="#eee"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="$1,300"
-                x1="605.6"
-                y1="489.30"
-                x2="605.6"
-                y2="108.80"
-                stroke="#eee"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="$1,350"
-                x1="658.8"
-                y1="489.30"
-                x2="658.8"
-                y2="108.80"
-                stroke="#eee"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="$1,400"
-                x1="710.1"
-                y1="489.30"
-                x2="710.1"
-                y2="108.80"
-                stroke="#eee"
-                stroke-dasharray="4,4"
-            ></line>
-        </g>
-        <g
-            id="scatter-points"
-            class="PointsWithLabels clickable"
-            clip-path="url(#scatterBounds-1)"
-        >
-            <rect
-                x="65.33"
-                y="108.8"
-                width="651.762"
-                height="380.50000000000006"
-                fill="rgba(255,255,255,0)"
-            ></rect>
-            <defs>
-                <clipPath id="scatterBounds-1">
-                    <rect
-                        x="55.33"
-                        y="98.8"
-                        width="671.762"
-                        height="400.50000000000006"
-                    ></rect>
-                </clipPath>
-            </defs>
-            <g id="points">
-                <g id="Italy__datapoint" class="key-Italy">
-                    <circle
-                        cx="717.00"
-                        cy="108.00"
-                        r="18.00"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        stroke="#333"
-                        stroke-width="0.5"
-                        style="transition: fill 250ms"
-                    ></circle>
-                </g>
-                <g id="Turkey__datapoint" class="key-Turkey">
-                    <circle
-                        cx="82.00"
-                        cy="152.00"
-                        r="16.14"
-                        fill="#00847e"
-                        opacity="0.8"
-                        stroke="#333"
-                        stroke-width="0.5"
-                        style="transition: fill 250ms"
-                    ></circle>
-                </g>
-                <g id="France__datapoint" class="key-France">
-                    <circle
-                        cx="172.00"
-                        cy="489.00"
-                        r="14.65"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        stroke="#333"
-                        stroke-width="0.5"
-                        style="transition: fill 250ms"
-                    ></circle>
-                </g>
-                <g id="Spain__datapoint" class="key-Spain">
-                    <circle
-                        cx="65.00"
-                        cy="222.00"
-                        r="14.14"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        stroke="#333"
-                        stroke-width="0.5"
-                        style="transition: fill 250ms"
-                    ></circle>
-                </g>
-                <g id="Egypt__datapoint" class="key-Egypt">
-                    <circle
-                        cx="390.00"
-                        cy="152.00"
-                        r="13.18"
-                        fill="#a2559c"
-                        opacity="0.8"
-                        stroke="#333"
-                        stroke-width="0.5"
-                        style="transition: fill 250ms"
-                    ></circle>
-                </g>
-                <g id="Iran__datapoint" class="key-Iran">
-                    <circle
-                        cx="390.00"
-                        cy="152.00"
-                        r="13.18"
-                        fill="#00847e"
-                        opacity="0.8"
-                        stroke="#666"
-                        stroke-width="0.5"
-                        style="transition: fill 250ms"
-                    ></circle>
-                </g>
-                <g id="Greece__datapoint" class="key-Greece">
-                    <circle
-                        cx="578.00"
-                        cy="152.00"
-                        r="9.32"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        stroke="#333"
-                        stroke-width="0.5"
-                        style="transition: fill 250ms"
-                    ></circle>
-                </g>
-                <g id="Iraq__datapoint" class="key-Iraq">
-                    <circle
-                        cx="390.00"
-                        cy="152.00"
-                        r="6.59"
-                        fill="#00847e"
-                        opacity="0.8"
-                        stroke="#666"
-                        stroke-width="0.5"
-                        style="transition: fill 250ms"
-                    ></circle>
-                </g>
-                <g id="Tunisia__datapoint" class="key-Tunisia">
-                    <circle
-                        cx="390.00"
-                        cy="152.00"
-                        r="5.89"
-                        fill="#a2559c"
-                        opacity="0.8"
-                        stroke="#666"
-                        stroke-width="0.5"
-                        style="transition: fill 250ms"
-                    ></circle>
-                </g>
-                <g id="Israel__datapoint" class="key-Israel">
-                    <circle
-                        cx="390.00"
-                        cy="163.00"
-                        r="4.42"
-                        fill="#00847e"
-                        opacity="0.8"
-                        stroke="#333"
-                        stroke-width="0.5"
-                        style="transition: fill 250ms"
-                    ></circle>
-                </g>
-                <g id="Portugal__datapoint" class="key-Portugal">
-                    <circle
-                        cx="172.00"
-                        cy="222.00"
-                        r="4.24"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        stroke="#333"
-                        stroke-width="0.5"
-                        style="transition: fill 250ms"
-                    ></circle>
-                </g>
-                <g id="Jordan__datapoint" class="key-Jordan">
-                    <circle
-                        cx="390.00"
-                        cy="152.00"
-                        r="2.40"
-                        fill="#00847e"
-                        opacity="0.8"
-                        stroke="#666"
-                        stroke-width="0.5"
-                        style="transition: fill 250ms"
-                    ></circle>
-                </g>
-            </g>
-            <g id="labels" class="backgroundLabels" fill="#333">
-                <text
-                    id="outline__Italy"
-                    x="687.40"
-                    y="124.89"
-                    font-size="16.09"
-                    font-weight="400"
-                    fill="#4c6a9c"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 4.0218750000000005;
-                    "
-                >
-                    Italy
-                </text>
-                <text
-                    id="label__Italy"
-                    x="687.40"
-                    y="124.89"
-                    font-size="16.09"
-                    font-weight="400"
-                    fill="#4c6a9c"
-                    style="pointer-events: none"
-                >
-                    Italy
-                </text>
-                <text
-                    id="outline__Turkey"
-                    x="82.00"
-                    y="134.86"
-                    font-size="15.70"
-                    font-weight="400"
-                    fill="#00847e"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.926164726370975;
-                    "
-                >
-                    Turkey
-                </text>
-                <text
-                    id="label__Turkey"
-                    x="82.00"
-                    y="134.86"
-                    font-size="15.70"
-                    font-weight="400"
-                    fill="#00847e"
-                    style="pointer-events: none"
-                >
-                    Turkey
-                </text>
-                <text
-                    id="outline__France"
-                    x="172.00"
-                    y="473.35"
-                    font-size="15.40"
-                    font-weight="400"
-                    fill="#4c6a9c"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.848960372691181;
-                    "
-                >
-                    France
-                </text>
-                <text
-                    id="label__France"
-                    x="172.00"
-                    y="473.35"
-                    font-size="15.40"
-                    font-weight="400"
-                    fill="#4c6a9c"
-                    style="pointer-events: none"
-                >
-                    France
-                </text>
-                <text
-                    id="outline__Spain"
-                    x="65.00"
-                    y="206.86"
-                    font-size="15.29"
-                    font-weight="400"
-                    fill="#4c6a9c"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.8226082021130288;
-                    "
-                >
-                    Spain
-                </text>
-                <text
-                    id="label__Spain"
-                    x="65.00"
-                    y="206.86"
-                    font-size="15.29"
-                    font-weight="400"
-                    fill="#4c6a9c"
-                    style="pointer-events: none"
-                >
-                    Spain
-                </text>
-                <text
-                    id="outline__Egypt"
-                    x="390.00"
-                    y="137.82"
-                    font-size="15.09"
-                    font-weight="400"
-                    fill="#a2559c"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.7734137779957893;
-                    "
-                >
-                    Egypt
-                </text>
-                <text
-                    id="label__Egypt"
-                    x="390.00"
-                    y="137.82"
-                    font-size="15.09"
-                    font-weight="400"
-                    fill="#a2559c"
-                    style="pointer-events: none"
-                >
-                    Egypt
-                </text>
-                <text
-                    id="outline__Greece"
-                    x="578.00"
-                    y="141.68"
-                    font-size="14.30"
-                    font-weight="400"
-                    fill="#4c6a9c"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.5743448663476913;
-                    "
-                >
-                    Greece
-                </text>
-                <text
-                    id="label__Greece"
-                    x="578.00"
-                    y="141.68"
-                    font-size="14.30"
-                    font-weight="400"
-                    fill="#4c6a9c"
-                    style="pointer-events: none"
-                >
-                    Greece
-                </text>
-                <text
-                    id="outline__Israel"
-                    x="390.00"
-                    y="157.58"
-                    font-size="13.29"
-                    font-weight="400"
-                    fill="#00847e"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.3218326476933826;
-                    "
-                >
-                    Israel
-                </text>
-                <text
-                    id="label__Israel"
-                    x="390.00"
-                    y="157.58"
-                    font-size="13.29"
-                    font-weight="400"
-                    fill="#00847e"
-                    style="pointer-events: none"
-                >
-                    Israel
-                </text>
-                <text
-                    id="outline__Portugal"
-                    x="172.00"
-                    y="216.76"
-                    font-size="13.25"
-                    font-weight="400"
-                    fill="#4c6a9c"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 3.3121231266981317;
-                    "
-                >
-                    Portugal
-                </text>
-                <text
-                    id="label__Portugal"
-                    x="172.00"
-                    y="216.76"
-                    font-size="13.25"
-                    font-weight="400"
-                    fill="#4c6a9c"
-                    style="pointer-events: none"
-                >
-                    Portugal
-                </text>
-            </g>
-            <g id="points"></g>
-            <g id="labels"></g>
-        </g>
-        <g id="vertical-color-legend" class="ScatterColorLegend clickable">
-            <g id="labels">
-                <text font-size="12.60" x="751.1" y="119.8">
-                    <tspan x="751.092" y="119.762">Africa</tspan>
-                </text>
-                <text font-size="12.60" x="751.1" y="137.4">
-                    <tspan x="751.092" y="137.362">Asia</tspan>
-                </text>
-                <text font-size="12.60" x="751.1" y="155.0">
-                    <tspan x="751.092" y="154.962">Europe</tspan>
-                </text>
-                <text
-                    font-size="12.60"
-                    x="751.1"
-                    y="172.6"
-                    style="font-weight: bold"
-                >
-                    <tspan x="751.092" y="172.56199999999998">
-                        North America
-                    </tspan>
-                </text>
-                <text
-                    font-size="12.60"
-                    x="751.1"
-                    y="190.2"
-                    style="font-weight: bold"
-                >
-                    <tspan x="751.092" y="190.16199999999998">Oceania</tspan>
-                </text>
-                <text
-                    font-size="12.60"
-                    x="751.1"
-                    y="207.8"
-                    style="font-weight: bold"
-                >
-                    <tspan x="751.092" y="207.762">South America</tspan>
-                </text>
-            </g>
-            <g id="swatches">
-                <rect
-                    id="Africa"
-                    x="737.092"
-                    y="110.762"
-                    width="9"
-                    height="9"
-                    fill="#a2559c"
-                ></rect>
-                <rect
-                    id="Asia"
-                    x="737.092"
-                    y="128.362"
-                    width="9"
-                    height="9"
-                    fill="#00847e"
-                ></rect>
-                <rect
-                    id="Europe"
-                    x="737.092"
-                    y="145.962"
-                    width="9"
-                    height="9"
-                    fill="#4c6a9c"
-                ></rect>
-                <rect
-                    id="North-America"
-                    x="737.092"
-                    y="163.56199999999998"
-                    width="9"
-                    height="9"
-                    fill="#ccc"
-                ></rect>
-                <rect
-                    id="Oceania"
-                    x="737.092"
-                    y="181.16199999999998"
-                    width="9"
-                    height="9"
-                    fill="#ccc"
-                ></rect>
-                <rect
-                    id="South-America"
-                    x="737.092"
-                    y="198.762"
-                    width="9"
-                    height="9"
-                    fill="#ccc"
-                ></rect>
-            </g>
-        </g>
-        <line
-            id="separator"
-            x1="737.092"
-            y1="222.39999999999998"
-            x2="834"
-            y2="222.39999999999998"
-            stroke="#e7e7e7"
-        ></line>
-        <g id="size-legend">
-            <g>
-                <circle
-                    cx="785.5459999999999"
-                    cy="250.96270223791055"
-                    r="17.43729776208943"
-                    fill="none"
-                    stroke="#bbb"
-                    stroke-width="1.25"
-                    opacity="1"
-                ></circle>
-                <text
-                    x="785.5459999999999"
-                    y="233.52540447582112"
-                    dy=".47em"
-                    fill="#444"
-                    font-size="10.859324440522357"
-                    font-weight="400"
-                    text-anchor="middle"
-                    id="7M"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 2.7148311101305893;
-                    "
-                >
-                    7M
-                </text>
-                <text
-                    x="785.5459999999999"
-                    y="233.52540447582112"
-                    dy=".47em"
-                    fill="#444"
-                    font-size="10.859324440522357"
-                    font-weight="400"
-                    text-anchor="middle"
-                >
-                    7M
-                </text>
-            </g>
-            <g>
-                <circle
-                    cx="785.5459999999999"
-                    cy="256.98460901282016"
-                    r="11.415390987179839"
-                    fill="none"
-                    stroke="#bbb"
-                    stroke-width="1.25"
-                    opacity="1"
-                ></circle>
-                <text
-                    x="785.5459999999999"
-                    y="245.5692180256403"
-                    dy=".47em"
-                    fill="#444"
-                    font-size="9.353847746794958"
-                    font-weight="400"
-                    text-anchor="middle"
-                    id="3M"
-                    style="
-                        fill: #ffffff;
-                        stroke: #ffffff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        user-select: none;
-                        stroke-width: 2.3384619366987396;
-                    "
-                >
-                    3M
-                </text>
-                <text
-                    x="785.5459999999999"
-                    y="245.5692180256403"
-                    dy=".47em"
-                    fill="#444"
-                    font-size="9.353847746794958"
-                    font-weight="400"
-                    text-anchor="middle"
-                >
-                    3M
-                </text>
-            </g>
-            <text
-                font-size="11.25"
-                x="785.5"
-                y="281.2"
-                fill="#858585"
-                text-anchor="middle"
-            >
-                <tspan x="785.5459999999999" y="281.1875">
-                    Circles sized by
-                </tspan>
-            </text>
-            <text
-                font-size="12.38"
-                font-weight="700"
-                x="785.5"
-                y="295.4"
-                fill="#5b5b5b"
-                text-anchor="middle"
-            >
-                <tspan x="785.5459999999999" y="295.41625">Population</tspan>
-                <tspan x="785.5459999999999" y="307.79125">(historical)</tspan>
-            </text>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

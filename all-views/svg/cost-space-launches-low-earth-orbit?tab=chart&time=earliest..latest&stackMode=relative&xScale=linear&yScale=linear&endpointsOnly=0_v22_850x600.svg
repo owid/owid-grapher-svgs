@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -78,46 +67,76 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <g class="no-data">
-            <rect
-                x="16"
-                y="104"
-                width="818"
-                height="412.7"
-                fill="#fff"
-                opacity="0.6"
-            ></rect>
-            <text
-                x="425"
-                y="310.35"
-                dy=".32em"
-                text-anchor="middle"
-                font-size="16"
-                font-weight="500"
-                fill="#5b5b5b"
-                id="no-data-message"
-                style="
-                    fill: #fff;
-                    stroke: #fff;
-                    stroke-linecap: round;
-                    stroke-linejoin: round;
-                    user-select: none;
-                    stroke-width: 4;
-                "
-            >
-                No entities with data for both X and Y
-            </text>
-            <text
-                x="425"
-                y="310.35"
-                dy=".32em"
-                text-anchor="middle"
-                font-size="16"
-                font-weight="500"
-                fill="#5b5b5b"
-            >
-                No entities with data for both X and Y
-            </text>
+        <g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="horizontal-axis-label" class="markdown-text-wrap">
+                    <text
+                        x="410.5"
+                        y="513.0"
+                        style="
+                            font-size: 13px;
+                            font-weight: 700;
+                            line-height: 1;
+                        "
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                    >
+                        <tspan x="410.5" y="513.0">
+                            Year of first successful launch
+                        </tspan>
+                    </text>
+                </g>
+                <g id="tick-marks"></g>
+                <g id="tick-labels"></g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="tick-labels"></g>
+            </g>
+            <g
+                id="horizontal-grid-lines"
+                class="AxisGridLines horizontalLines"
+            ></g>
+            <g class="no-data">
+                <rect
+                    x="16"
+                    y="155.5"
+                    width="789"
+                    height="336.2"
+                    fill="#fff"
+                    opacity="0.6"
+                ></rect>
+                <text
+                    x="410.5"
+                    y="323.6"
+                    dy=".32em"
+                    text-anchor="middle"
+                    font-size="16"
+                    font-weight="500"
+                    fill="#5b5b5b"
+                    id="no-data-message"
+                    style="
+                        fill: #fff;
+                        stroke: #fff;
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                        user-select: none;
+                        stroke-width: 4;
+                    "
+                >
+                    No launch selected
+                </text>
+                <text
+                    x="410.5"
+                    y="323.6"
+                    dy=".32em"
+                    text-anchor="middle"
+                    font-size="16"
+                    font-weight="500"
+                    fill="#5b5b5b"
+                >
+                    No launch selected
+                </text>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">
