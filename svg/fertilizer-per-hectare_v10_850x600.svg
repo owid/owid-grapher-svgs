@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -74,874 +63,1435 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="119.95"
-            y1="550.40"
-            x2="119.95"
-            y2="108.50"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="categorical-color-legend" class="categoricalColorLegend">
-            <g id="swatches">
-                <rect
-                    id="Nitrogen"
-                    x="16"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#4c6a9c"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Phosphorous"
-                    x="101.07600000000001"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#883039"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Potassium"
-                    x="216.824"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#578145"
-                    stroke-width="0.4"
-                ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2022"
+                    x1="340.85"
+                    y1="531.9"
+                    x2="340.85"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
             </g>
-            <g id="labels">
+            <g id="tick-labels">
                 <text
-                    x="34.5"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
-                    opacity="1"
+                    x="340.85"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
                 >
-                    Nitrogen
-                </text>
-                <text
-                    x="119.57600000000001"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
-                    opacity="1"
-                >
-                    Phosphorous
-                </text>
-                <text
-                    x="235.324"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
-                    opacity="1"
-                >
-                    Potassium
+                    2022
                 </text>
             </g>
         </g>
-        <g id="bars">
-            <g
-                id="China"
-                class="bar"
-                transform="translate(0, 133.04999999999998)"
-            >
-                <g id="Nitrogen">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.957500000000001)"
-                        width="377.7"
-                        height="31.915000000000003"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="309.05"
-                        y="0"
-                        width="377.7"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        192 kg
-                    </text>
-                </g>
-                <g id="Phosphorous">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(497.9, -15.957500000000001)"
-                        width="148.10000000000002"
-                        height="31.915000000000003"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="571.95"
-                        y="0"
-                        width="148.10000000000002"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        75 kg
-                    </text>
-                </g>
-                <g id="Potassium">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(646, -15.957500000000001)"
-                        width="137.3"
-                        height="31.915000000000003"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="714.65"
-                        y="0"
-                        width="137.3"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        70 kg
-                    </text>
-                </g>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
+                    x="55.26"
+                    y="532.4"
+                    dy=".32em"
                     text-anchor="end"
-                    fill="#555"
+                    fill="#5b5b5b"
+                    font-size="13"
                 >
-                    <tspan x="115.2" y="4.995000000000001">China</tspan>
+                    0 kg
                 </text>
                 <text
-                    transform="translate(788.2, 0)"
+                    x="55.26"
+                    y="422.3"
                     dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
                 >
-                    336 kg
+                    50 kg
+                </text>
+                <text
+                    x="55.26"
+                    y="312.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100 kg
+                </text>
+                <text
+                    x="55.26"
+                    y="202.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    150 kg
+                </text>
+                <text
+                    x="55.26"
+                    y="92"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    200 kg
                 </text>
             </g>
-            <g
-                id="Brazil"
-                class="bar"
-                transform="translate(0, 182.14999999999998)"
-            >
-                <g id="Nitrogen">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.957500000000001)"
-                        width="189.7"
-                        height="31.915000000000003"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="215.05"
-                        y="0"
-                        width="189.7"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        96 kg
-                    </text>
-                </g>
-                <g id="Phosphorous">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(309.9, -15.957500000000001)"
-                        width="178.40000000000003"
-                        height="31.915000000000003"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="399.1"
-                        y="0"
-                        width="178.40000000000003"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        90 kg
-                    </text>
-                </g>
-                <g id="Potassium">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(488.2, -15.957500000000001)"
-                        width="227.2"
-                        height="31.915000000000003"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="601.8"
-                        y="0"
-                        width="227.2"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        115 kg
-                    </text>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Brazil</tspan>
-                </text>
-                <text
-                    transform="translate(720.4, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    302 kg
-                </text>
+        </g>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-kg"
+                x1="60.26"
+                y1="532.4"
+                x2="621.44"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="50-kg"
+                x1="60.26"
+                y1="422.3"
+                x2="621.44"
+                y2="422.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100-kg"
+                x1="60.26"
+                y1="312.2"
+                x2="621.44"
+                y2="312.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="150-kg"
+                x1="60.26"
+                y1="202.1"
+                x2="621.44"
+                y2="202.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="200-kg"
+                x1="60.26"
+                y1="92"
+                x2="621.44"
+                y2="92"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="China-–-Nitrogen"
+                    d="M625.44,110.6 H626.1483333333334 V106.04999999999987 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="India-–-Nitrogen"
+                    d="M625.44,267.6 H626.8566666666668 V124.34999999999987 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Brazil-–-Potassium"
+                    d="M625.44,278.7 H627.565 V142.64999999999986 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-Kingdom-–-Nitrogen"
+                    d="M625.44,281 H628.2733333333334 V160.94999999999987 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Brazil-–-Nitrogen"
+                    d="M625.44,320.6 H628.9816666666668 V179.2499999999999 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Brazil-–-Phosphorous"
+                    d="M625.44,333.2 H629.69 V197.5499999999999 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="China-–-Phosphorous"
+                    d="M625.44,367.1 H630.3983333333334 V215.8499999999999 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="China-–-Potassium"
+                    d="M625.44,379.1 H631.1066666666668 V234.14999999999992 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Ecuador-–-Nitrogen"
+                    d="M625.44,379.7 H631.815 V252.44999999999993 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="World-–-Nitrogen"
+                    d="M625.44,388.4 H632.5233333333334 V270.7499999999999 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-States-–-Nitrogen"
+                    d="M625.44,402.3 H633.2316666666668 V289.0499999999999 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Ecuador-–-Potassium"
+                    d="M625.44,419.9 H633.94 V307.3499999999999 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="India-–-Phosphorous"
+                    d="M625.44,428.6 H634.6483333333334 V325.6499999999999 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="World-–-Phosphorous"
+                    d="M625.44,475.1 H635.3566666666668 V343.94999999999993 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-Kingdom-–-Potassium"
+                    d="M625.44,478.5 H636.065 V362.24999999999994 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-States-–-Phosphorous"
+                    d="M625.44,480.1 H636.7733333333334 V380.54999999999995 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="World-–-Potassium"
+                    d="M625.44,484.6 H637.4816666666668 V398.84999999999997 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Ecuador-–-Phosphorous"
+                    d="M625.44,499 H638.19 V417.15 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-Kingdom-–-Phosphorous"
+                    d="M625.44,504.3 H638.8983333333334 V435.45 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Ghana-–-Nitrogen"
+                    d="M625.44,509.3 H639.6066666666668 V453.75 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="India-–-Potassium"
+                    d="M625.44,509.9 H640.315 V472.05 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Ghana-–-Phosphorous"
+                    d="M625.44,514.5 H641.0233333333334 V490.35 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Ghana-–-Potassium"
+                    d="M625.44,521.6 H641.7316666666668 V508.65000000000003 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Nigeria-–-Nitrogen"
+                    d="M625.44,526.4 H641.7316666666668 V526.95 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Nigeria-–-Potassium"
+                    d="M625.44,529.1 H641.0233333333334 V545.25 H642.44"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
             </g>
-            <g
-                id="India"
-                class="bar"
-                transform="translate(0, 231.24999999999997)"
-            >
-                <g id="Nitrogen">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.957500000000001)"
-                        width="237.10000000000002"
-                        height="31.915000000000003"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="238.75"
-                        y="0"
-                        width="237.10000000000002"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        120 kg
-                    </text>
-                </g>
-                <g id="Phosphorous">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(357.3, -15.957500000000001)"
-                        width="92.99999999999999"
-                        height="31.915000000000003"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="403.8"
-                        y="0"
-                        width="92.99999999999999"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        47 kg
-                    </text>
-                </g>
-                <g id="Potassium">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(450.3, -15.957500000000001)"
-                        width="20.200000000000003"
-                        height="31.915000000000003"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
+                    id="label__China-–-Nitrogen"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="110.9"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="115.2" y="4.995000000000001">India</tspan>
-                </text>
-                <text
-                    transform="translate(475.4, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    178 kg
-                </text>
-            </g>
-            <g
-                id="United-Kingdom"
-                class="bar"
-                transform="translate(0, 280.34999999999997)"
-            >
-                <g id="Nitrogen">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.957500000000001)"
-                        width="225.10000000000002"
-                        height="31.915000000000003"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="232.75"
-                        y="0"
-                        width="225.10000000000002"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        114 kg
-                    </text>
-                </g>
-                <g id="Phosphorous">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(345.3, -15.957500000000001)"
-                        width="25.200000000000003"
-                        height="31.915000000000003"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Potassium">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(370.5, -15.957500000000001)"
-                        width="48.3"
-                        height="31.915000000000003"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="394.65"
-                        y="0"
-                        width="48.3"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        24 kg
-                    </text>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">
-                        United Kingdom
+                    <tspan x="646.44" y="110.85999999999987">
+                        China – Nitrogen
                     </tspan>
                 </text>
                 <text
-                    transform="translate(423.7, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
+                    id="label__India-–-Nitrogen"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="129.2"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    151 kg
+                    <tspan x="646.44" y="129.15999999999985">
+                        India – Nitrogen
+                    </tspan>
+                </text>
+                <text
+                    id="label__Brazil-–-Potassium"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="147.5"
+                    fill="#cf0a66"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="147.45999999999987">
+                        Brazil – Potassium
+                    </tspan>
+                </text>
+                <text
+                    id="label__United-Kingdom-–-Nitrogen"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="165.8"
+                    fill="#00295b"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="165.75999999999988">
+                        United Kingdom – Nitrogen
+                    </tspan>
+                </text>
+                <text
+                    id="label__Brazil-–-Nitrogen"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="184.1"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="184.0599999999999">
+                        Brazil – Nitrogen
+                    </tspan>
+                </text>
+                <text
+                    id="label__Brazil-–-Phosphorous"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="202.4"
+                    fill="#008291"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="202.3599999999999">
+                        Brazil – Phosphorous
+                    </tspan>
+                </text>
+                <text
+                    id="label__China-–-Phosphorous"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="220.7"
+                    fill="#970046"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="220.6599999999999">
+                        China – Phosphorous
+                    </tspan>
+                </text>
+                <text
+                    id="label__China-–-Potassium"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="239.0"
+                    fill="#578145"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="238.95999999999992">
+                        China – Potassium
+                    </tspan>
+                </text>
+                <text
+                    id="label__Ecuador-–-Nitrogen"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="257.3"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="257.25999999999993">
+                        Ecuador – Nitrogen
+                    </tspan>
+                </text>
+                <text
+                    id="label__World-–-Nitrogen"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="275.6"
+                    fill="#9a5129"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="275.5599999999999">
+                        World – Nitrogen
+                    </tspan>
+                </text>
+                <text
+                    id="label__United-States-–-Nitrogen"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="293.9"
+                    fill="#a2559c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="293.8599999999999">
+                        United States – Nitrogen
+                    </tspan>
+                </text>
+                <text
+                    id="label__Ecuador-–-Potassium"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="312.2"
+                    fill="#be5915"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="312.1599999999999">
+                        Ecuador – Potassium
+                    </tspan>
+                </text>
+                <text
+                    id="label__India-–-Phosphorous"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="330.5"
+                    fill="#286bbb"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="330.4599999999999">
+                        India – Phosphorous
+                    </tspan>
+                </text>
+                <text
+                    id="label__World-–-Phosphorous"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="348.8"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="348.75999999999993">
+                        World – Phosphorous
+                    </tspan>
+                </text>
+                <text
+                    id="label__United-Kingdom-–-Potassium"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="367.1"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="367.05999999999995">
+                        United Kingdom – Potassium
+                    </tspan>
+                </text>
+                <text
+                    id="label__United-States-–-Phosphorous"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="385.4"
+                    fill="#b16214"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="385.35999999999996">
+                        United States – Phosphorous
+                    </tspan>
+                </text>
+                <text
+                    id="label__World-–-Potassium"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="403.7"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="403.65999999999997">
+                        World – Potassium
+                    </tspan>
+                </text>
+                <text
+                    id="label__Ecuador-–-Phosphorous"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="422.0"
+                    fill="#338711"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="421.96">Ecuador – Phosphorous</tspan>
+                </text>
+                <text
+                    id="label__United-Kingdom-–-Phosphorous"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="440.3"
+                    fill="#d73c50"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="440.26">
+                        United Kingdom – Phosphorous
+                    </tspan>
+                </text>
+                <text
+                    id="label__Ghana-–-Nitrogen"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="458.6"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="458.56">Ghana – Nitrogen</tspan>
+                </text>
+                <text
+                    id="label__India-–-Potassium"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="476.9"
+                    fill="#00875e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="476.86">India – Potassium</tspan>
+                </text>
+                <text
+                    id="label__Ghana-–-Phosphorous"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="495.2"
+                    fill="#c4523e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="495.16">Ghana – Phosphorous</tspan>
+                </text>
+                <text
+                    id="label__Ghana-–-Potassium"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="513.5"
+                    fill="#8c4569"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="513.46">Ghana – Potassium</tspan>
+                </text>
+                <text
+                    id="label__Nigeria-–-Nitrogen"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="531.8"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="531.7600000000001">
+                        Nigeria – Nitrogen
+                    </tspan>
+                </text>
+                <text
+                    id="label__Nigeria-–-Potassium"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="646.4"
+                    y="550.1"
+                    fill="#c15065"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="646.44" y="550.0600000000001">
+                        Nigeria – Potassium
+                    </tspan>
                 </text>
             </g>
-            <g
-                id="Ecuador"
-                class="bar"
-                transform="translate(0, 329.44999999999993)"
-            >
-                <g id="Nitrogen">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.957500000000001)"
-                        width="136.8"
-                        height="31.915000000000003"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="188.60000000000002"
-                        y="0"
-                        width="136.8"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        69 kg
-                    </text>
-                </g>
-                <g id="Phosphorous">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(257, -15.957500000000001)"
-                        width="29.999999999999986"
-                        height="31.915000000000003"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Potassium">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(286.9, -15.957500000000001)"
-                        width="100.8"
-                        height="31.915000000000003"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="337.29999999999995"
-                        y="0"
-                        width="100.8"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        51 kg
-                    </text>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Ecuador</tspan>
-                </text>
-                <text
-                    transform="translate(392.7, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    136 kg
-                </text>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World-–-Potassium"
+                stroke-width="2.5"
+                d="M340.9 484.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__World-–-Potassium"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 484.6"
+            ></path>
+            <g id="datapoints__World-–-Potassium">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="484.6"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="World"
-                class="bar"
-                transform="translate(0, 378.54999999999995)"
-            >
-                <g id="Nitrogen">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.957500000000001)"
-                        width="129"
-                        height="31.915000000000003"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="184.7"
-                        y="0"
-                        width="129"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        65 kg
-                    </text>
-                </g>
-                <g id="Phosphorous">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(249.2, -15.957500000000001)"
-                        width="51.3"
-                        height="31.915000000000003"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="274.84999999999997"
-                        y="0"
-                        width="51.3"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        26 kg
-                    </text>
-                </g>
-                <g id="Potassium">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(300.5, -15.957500000000001)"
-                        width="42.8"
-                        height="31.915000000000003"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="321.9"
-                        y="0"
-                        width="42.8"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        22 kg
-                    </text>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">World</tspan>
-                </text>
-                <text
-                    transform="translate(348.3, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    113 kg
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Potassium"
+                stroke-width="2.5"
+                d="M340.9 477.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__United-States-–-Potassium"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 477.7"
+            ></path>
+            <g id="datapoints__United-States-–-Potassium">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="477.7"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="United-States" class="bar" transform="translate(0, 427.65)">
-                <g id="Nitrogen">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.957500000000001)"
-                        width="116.49999999999999"
-                        height="31.915000000000003"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="178.45"
-                        y="0"
-                        width="116.49999999999999"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        59 kg
-                    </text>
-                </g>
-                <g id="Phosphorous">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(236.7, -15.957500000000001)"
-                        width="46.8"
-                        height="31.915000000000003"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="260.09999999999997"
-                        y="0"
-                        width="46.8"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        24 kg
-                    </text>
-                </g>
-                <g id="Potassium">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(283.5, -15.957500000000001)"
-                        width="48.999999999999986"
-                        height="31.915000000000003"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="308"
-                        y="0"
-                        width="48.999999999999986"
-                        height="31.915000000000003"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        25 kg
-                    </text>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">United States</tspan>
-                </text>
-                <text
-                    transform="translate(337.5, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    108 kg
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom-–-Potassium"
+                stroke-width="2.5"
+                d="M340.9 478.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__United-Kingdom-–-Potassium"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 478.5"
+            ></path>
+            <g id="datapoints__United-Kingdom-–-Potassium">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="478.5"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="Ghana"
-                class="bar"
-                transform="translate(0, 476.7499999999999)"
-            >
-                <g id="Nitrogen">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.957500000000001)"
-                        width="20.700000000000003"
-                        height="31.915000000000003"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Phosphorous">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(140.9, -15.957500000000001)"
-                        width="16.10000000000001"
-                        height="31.915000000000003"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Potassium">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(156.9, -15.957500000000001)"
-                        width="9.700000000000003"
-                        height="31.915000000000003"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Ghana</tspan>
-                </text>
-                <text
-                    transform="translate(171.6, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    24 kg
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Nigeria-–-Potassium"
+                stroke-width="2.5"
+                d="M340.9 529.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c15065"
+                id="line__Nigeria-–-Potassium"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 529.1"
+            ></path>
+            <g id="datapoints__Nigeria-–-Potassium">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="529.1"
+                    r="1.8"
+                    fill="#c15065"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="Nigeria"
-                class="bar"
-                transform="translate(0, 525.8499999999999)"
-            >
-                <g id="Nitrogen">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -15.957500000000001)"
-                        width="5.3999999999999915"
-                        height="31.915000000000003"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Phosphorous">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(125.6, -15.957500000000001)"
-                        width="3.5"
-                        height="31.915000000000003"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Potassium">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(129.1, -15.957500000000001)"
-                        width="3"
-                        height="31.915000000000003"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Nigeria</tspan>
-                </text>
-                <text
-                    transform="translate(137.1, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    6 kg
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India-–-Potassium"
+                stroke-width="2.5"
+                d="M340.9 509.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00875e"
+                id="line__India-–-Potassium"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 509.9"
+            ></path>
+            <g id="datapoints__India-–-Potassium">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="509.9"
+                    r="1.8"
+                    fill="#00875e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Ghana-–-Potassium"
+                stroke-width="2.5"
+                d="M340.9 521.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#8c4569"
+                id="line__Ghana-–-Potassium"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 521.6"
+            ></path>
+            <g id="datapoints__Ghana-–-Potassium">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="521.6"
+                    r="1.8"
+                    fill="#8c4569"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Ecuador-–-Potassium"
+                stroke-width="2.5"
+                d="M340.9 419.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#be5915"
+                id="line__Ecuador-–-Potassium"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 419.9"
+            ></path>
+            <g id="datapoints__Ecuador-–-Potassium">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="419.9"
+                    r="1.8"
+                    fill="#be5915"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Potassium"
+                stroke-width="2.5"
+                d="M340.9 379.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#578145"
+                id="line__China-–-Potassium"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 379.1"
+            ></path>
+            <g id="datapoints__China-–-Potassium">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="379.1"
+                    r="1.8"
+                    fill="#578145"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Potassium"
+                stroke-width="2.5"
+                d="M340.9 278.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#cf0a66"
+                id="line__Brazil-–-Potassium"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 278.7"
+            ></path>
+            <g id="datapoints__Brazil-–-Potassium">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="278.7"
+                    r="1.8"
+                    fill="#cf0a66"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World-–-Phosphorous"
+                stroke-width="2.5"
+                d="M340.9 475.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__World-–-Phosphorous"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 475.1"
+            ></path>
+            <g id="datapoints__World-–-Phosphorous">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="475.1"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Phosphorous"
+                stroke-width="2.5"
+                d="M340.9 480.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b16214"
+                id="line__United-States-–-Phosphorous"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 480.1"
+            ></path>
+            <g id="datapoints__United-States-–-Phosphorous">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="480.1"
+                    r="1.8"
+                    fill="#b16214"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom-–-Phosphorous"
+                stroke-width="2.5"
+                d="M340.9 504.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d73c50"
+                id="line__United-Kingdom-–-Phosphorous"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 504.3"
+            ></path>
+            <g id="datapoints__United-Kingdom-–-Phosphorous">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="504.3"
+                    r="1.8"
+                    fill="#d73c50"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Nigeria-–-Phosphorous"
+                stroke-width="2.5"
+                d="M340.9 528.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#18470f"
+                id="line__Nigeria-–-Phosphorous"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 528.5"
+            ></path>
+            <g id="datapoints__Nigeria-–-Phosphorous">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="528.5"
+                    r="1.8"
+                    fill="#18470f"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India-–-Phosphorous"
+                stroke-width="2.5"
+                d="M340.9 428.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#286bbb"
+                id="line__India-–-Phosphorous"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 428.6"
+            ></path>
+            <g id="datapoints__India-–-Phosphorous">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="428.6"
+                    r="1.8"
+                    fill="#286bbb"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Ghana-–-Phosphorous"
+                stroke-width="2.5"
+                d="M340.9 514.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c4523e"
+                id="line__Ghana-–-Phosphorous"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 514.5"
+            ></path>
+            <g id="datapoints__Ghana-–-Phosphorous">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="514.5"
+                    r="1.8"
+                    fill="#c4523e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Ecuador-–-Phosphorous"
+                stroke-width="2.5"
+                d="M340.9 499"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#338711"
+                id="line__Ecuador-–-Phosphorous"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 499"
+            ></path>
+            <g id="datapoints__Ecuador-–-Phosphorous">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="499"
+                    r="1.8"
+                    fill="#338711"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Phosphorous"
+                stroke-width="2.5"
+                d="M340.9 367.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#970046"
+                id="line__China-–-Phosphorous"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 367.1"
+            ></path>
+            <g id="datapoints__China-–-Phosphorous">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="367.1"
+                    r="1.8"
+                    fill="#970046"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Phosphorous"
+                stroke-width="2.5"
+                d="M340.9 333.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#008291"
+                id="line__Brazil-–-Phosphorous"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 333.2"
+            ></path>
+            <g id="datapoints__Brazil-–-Phosphorous">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="333.2"
+                    r="1.8"
+                    fill="#008291"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World-–-Nitrogen"
+                stroke-width="2.5"
+                d="M340.9 388.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__World-–-Nitrogen"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 388.4"
+            ></path>
+            <g id="datapoints__World-–-Nitrogen">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="388.4"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Nitrogen"
+                stroke-width="2.5"
+                d="M340.9 402.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__United-States-–-Nitrogen"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 402.3"
+            ></path>
+            <g id="datapoints__United-States-–-Nitrogen">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="402.3"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom-–-Nitrogen"
+                stroke-width="2.5"
+                d="M340.9 281"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__United-Kingdom-–-Nitrogen"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 281"
+            ></path>
+            <g id="datapoints__United-Kingdom-–-Nitrogen">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="281"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Nigeria-–-Nitrogen"
+                stroke-width="2.5"
+                d="M340.9 526.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Nigeria-–-Nitrogen"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 526.4"
+            ></path>
+            <g id="datapoints__Nigeria-–-Nitrogen">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="526.4"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India-–-Nitrogen"
+                stroke-width="2.5"
+                d="M340.9 267.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__India-–-Nitrogen"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 267.6"
+            ></path>
+            <g id="datapoints__India-–-Nitrogen">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="267.6"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Ghana-–-Nitrogen"
+                stroke-width="2.5"
+                d="M340.9 509.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Ghana-–-Nitrogen"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 509.3"
+            ></path>
+            <g id="datapoints__Ghana-–-Nitrogen">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="509.3"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Ecuador-–-Nitrogen"
+                stroke-width="2.5"
+                d="M340.9 379.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Ecuador-–-Nitrogen"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 379.7"
+            ></path>
+            <g id="datapoints__Ecuador-–-Nitrogen">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="379.7"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Nitrogen"
+                stroke-width="2.5"
+                d="M340.9 110.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__China-–-Nitrogen"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 110.6"
+            ></path>
+            <g id="datapoints__China-–-Nitrogen">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="110.6"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Nitrogen"
+                stroke-width="2.5"
+                d="M340.9 320.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Brazil-–-Nitrogen"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M340.9 320.6"
+            ></path>
+            <g id="datapoints__Brazil-–-Nitrogen">
+                <circle
+                    id="2022"
+                    cx="340.9"
+                    cy="320.6"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>

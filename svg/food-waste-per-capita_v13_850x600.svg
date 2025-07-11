@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -71,763 +60,1201 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="102.15"
-            y1="550.40"
-            x2="102.15"
-            y2="108.50"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="categorical-color-legend" class="categoricalColorLegend">
-            <g id="swatches">
-                <rect
-                    id="Retail"
-                    x="16"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#4c6a9c"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Out-of-home-consumption"
-                    x="83.364"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#883039"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Household"
-                    x="280.904"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#578145"
-                    stroke-width="0.4"
-                ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2022"
+                    x1="314.78499999999997"
+                    y1="531.9"
+                    x2="314.78499999999997"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
             </g>
-            <g id="labels">
+            <g id="tick-labels">
                 <text
-                    x="34.5"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
-                    opacity="1"
+                    x="314.78499999999997"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
                 >
-                    Retail
-                </text>
-                <text
-                    x="101.864"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
-                    opacity="1"
-                >
-                    Out-of-home consumption
-                </text>
-                <text
-                    x="299.404"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
-                    opacity="1"
-                >
-                    Household
+                    2022
                 </text>
             </g>
         </g>
-        <g id="bars">
-            <g
-                id="United-States"
-                class="bar"
-                transform="translate(0, 140.0642857142857)"
-            >
-                <g id="Retail">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(102.4, -20.516785714285714)"
-                        width="50.900000000000006"
-                        height="41.03357142857143"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="127.85000000000001"
-                        y="0"
-                        width="50.900000000000006"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        12 kg
-                    </text>
-                </g>
-                <g id="Out-of-home-consumption">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(153.3, -20.516785714285714)"
-                        width="316.4"
-                        height="41.03357142857143"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="311.5"
-                        y="0"
-                        width="316.4"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        74 kg
-                    </text>
-                </g>
-                <g id="Household">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(469.7, -20.516785714285714)"
-                        width="313.5"
-                        height="41.03357142857143"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="626.45"
-                        y="0"
-                        width="313.5"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        73 kg
-                    </text>
-                </g>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="97.4"
-                    y="5.0"
+                    x="55.26"
+                    y="532.4"
+                    dy=".32em"
                     text-anchor="end"
-                    fill="#555"
+                    fill="#5b5b5b"
+                    font-size="13"
                 >
-                    <tspan x="97.4" y="4.995000000000001">United States</tspan>
+                    0 kg
                 </text>
                 <text
-                    transform="translate(788.2, 0)"
+                    x="55.26"
+                    y="444.3"
                     dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
                 >
-                    159 kg
+                    20 kg
+                </text>
+                <text
+                    x="55.26"
+                    y="356.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40 kg
+                </text>
+                <text
+                    x="55.26"
+                    y="268.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60 kg
+                </text>
+                <text
+                    x="55.26"
+                    y="180.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    80 kg
+                </text>
+                <text
+                    x="55.26"
+                    y="92"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100 kg
                 </text>
             </g>
-            <g
-                id="Brazil"
-                class="bar"
-                transform="translate(0, 203.19285714285712)"
-            >
-                <g id="Retail">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(102.4, -20.516785714285714)"
-                        width="11.5"
-                        height="41.03357142857143"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Out-of-home-consumption">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(113.9, -20.516785714285714)"
-                        width="204.1"
-                        height="41.03357142857143"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="215.95"
-                        y="0"
-                        width="204.1"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        48 kg
-                    </text>
-                </g>
-                <g id="Household">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(317.9, -20.516785714285714)"
-                        width="404.4"
-                        height="41.03357142857143"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="520.0999999999999"
-                        y="0"
-                        width="404.4"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        94 kg
-                    </text>
-                </g>
+        </g>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-kg"
+                x1="60.26"
+                y1="532.4"
+                x2="569.31"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="20-kg"
+                x1="60.26"
+                y1="444.3"
+                x2="569.31"
+                y2="444.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40-kg"
+                x1="60.26"
+                y1="356.2"
+                x2="569.31"
+                y2="356.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60-kg"
+                x1="60.26"
+                y1="268.2"
+                x2="569.31"
+                y2="268.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80-kg"
+                x1="60.26"
+                y1="180.1"
+                x2="569.31"
+                y2="180.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100-kg"
+                x1="60.26"
+                y1="92"
+                x2="569.31"
+                y2="92"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Brazil-–-Household"
+                    d="M573.31,117.4 H581.81 V117.4 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="World-–-Household"
+                    d="M573.31,184 H578.9766666666666 V168.74999999999997 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="China-–-Household"
+                    d="M573.31,196.8 H584.6433333333332 V187.04999999999998 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-States-–-Out-of-home-consumption"
+                    d="M573.31,207.7 H584.6433333333332 V212.5 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-States-–-Household"
+                    d="M573.31,210.6 H578.9766666666666 V237.95 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Indonesia-–-Household"
+                    d="M573.31,297 H582.7544444444444 V265.0562499999999 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Indonesia-–-Retail"
+                    d="M573.31,312.5 H584.6433333333333 V283.35624999999993 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Brazil-–-Out-of-home-consumption"
+                    d="M573.31,323 H586.5322222222222 V301.65624999999994 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="South-Africa-–-Household"
+                    d="M573.31,325.1 H588.421111111111 V319.95624999999995 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="China-–-Out-of-home-consumption"
+                    d="M573.31,331.4 H588.421111111111 V338.25624999999997 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Indonesia-–-Out-of-home-consumption"
+                    d="M573.31,355.8 H586.5322222222222 V356.55625 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="World-–-Out-of-home-consumption"
+                    d="M573.31,372.4 H584.6433333333333 V374.85625 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Russia-–-Household"
+                    d="M573.31,385.4 H582.7544444444444 V393.15625 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="South-Africa-–-Out-of-home-consumption"
+                    d="M573.31,396.2 H580.8655555555555 V411.45625 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="China-–-Retail"
+                    d="M573.31,445.2 H580.8655555555555 V429.75625 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="World-–-Retail"
+                    d="M573.31,460 H582.7544444444444 V448.05625000000003 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="South-Africa-–-Retail"
+                    d="M573.31,464.8 H582.7544444444444 V466.35625000000005 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Russia-–-Retail"
+                    d="M573.31,472 H580.8655555555555 V484.65625000000006 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-States-–-Retail"
+                    d="M573.31,480.2 H578.9766666666667 V502.95625000000007 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Russia-–-Out-of-home-consumption"
+                    d="M573.31,495.3 H577.0877777777778 V521.25625 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Brazil-–-Retail"
+                    d="M573.31,520.6 H575.1988888888889 V539.55625 H590.31"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="97.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
+                    id="label__Brazil-–-Household"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="122.2"
+                    fill="#578145"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="97.4" y="4.995000000000001">Brazil</tspan>
+                    <tspan x="594.31" y="122.21000000000001">
+                        Brazil – Household
+                    </tspan>
                 </text>
                 <text
-                    transform="translate(727.3, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
+                    id="label__World-–-Household"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="173.6"
+                    fill="#18470f"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    144 kg
+                    <tspan x="594.31" y="173.55999999999997">
+                        World – Household
+                    </tspan>
+                </text>
+                <text
+                    id="label__China-–-Household"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="191.9"
+                    fill="#d73c50"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="191.85999999999999">
+                        China – Household
+                    </tspan>
+                </text>
+                <text
+                    id="label__United-States-–-Out-of-home-consumption"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="210.2"
+                    fill="#286bbb"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="210.16">
+                        United States – Out-of-home
+                    </tspan>
+                    <tspan x="594.31" y="224.46">consumption</tspan>
+                </text>
+                <text
+                    id="label__United-States-–-Household"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="242.8"
+                    fill="#be5915"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="242.76">
+                        United States – Household
+                    </tspan>
+                </text>
+                <text
+                    id="label__Indonesia-–-Household"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="269.9"
+                    fill="#b16214"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="269.8662499999999">
+                        Indonesia – Household
+                    </tspan>
+                </text>
+                <text
+                    id="label__Indonesia-–-Retail"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="288.2"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="288.16624999999993">
+                        Indonesia – Retail
+                    </tspan>
+                </text>
+                <text
+                    id="label__Brazil-–-Out-of-home-consumption"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="306.5"
+                    fill="#c4523e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="306.46624999999995">
+                        Brazil – Out-of-home consumption
+                    </tspan>
+                </text>
+                <text
+                    id="label__South-Africa-–-Household"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="324.8"
+                    fill="#cf0a66"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="324.76624999999996">
+                        South Africa – Household
+                    </tspan>
+                </text>
+                <text
+                    id="label__China-–-Out-of-home-consumption"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="343.1"
+                    fill="#9a5129"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="343.06624999999997">
+                        China – Out-of-home consumption
+                    </tspan>
+                </text>
+                <text
+                    id="label__Indonesia-–-Out-of-home-consumption"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="361.4"
+                    fill="#008291"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="361.36625">
+                        Indonesia – Out-of-home consumption
+                    </tspan>
+                </text>
+                <text
+                    id="label__World-–-Out-of-home-consumption"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="379.7"
+                    fill="#a2559c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="379.66625">
+                        World – Out-of-home consumption
+                    </tspan>
+                </text>
+                <text
+                    id="label__Russia-–-Household"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="398.0"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="397.96625">Russia – Household</tspan>
+                </text>
+                <text
+                    id="label__South-Africa-–-Out-of-home-consumption"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="416.3"
+                    fill="#338711"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="416.26625">
+                        South Africa – Out-of-home consumption
+                    </tspan>
+                </text>
+                <text
+                    id="label__China-–-Retail"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="434.6"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="434.56625">China – Retail</tspan>
+                </text>
+                <text
+                    id="label__World-–-Retail"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="452.9"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="452.86625000000004">
+                        World – Retail
+                    </tspan>
+                </text>
+                <text
+                    id="label__South-Africa-–-Retail"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="471.2"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="471.16625000000005">
+                        South Africa – Retail
+                    </tspan>
+                </text>
+                <text
+                    id="label__Russia-–-Retail"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="489.5"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="489.46625000000006">
+                        Russia – Retail
+                    </tspan>
+                </text>
+                <text
+                    id="label__United-States-–-Retail"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="507.8"
+                    fill="#00295b"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="507.76625000000007">
+                        United States – Retail
+                    </tspan>
+                </text>
+                <text
+                    id="label__Russia-–-Out-of-home-consumption"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="526.1"
+                    fill="#970046"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="526.0662500000001">
+                        Russia – Out-of-home consumption
+                    </tspan>
+                </text>
+                <text
+                    id="label__Brazil-–-Retail"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="594.3"
+                    y="544.4"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="594.31" y="544.36625">Brazil – Retail</tspan>
                 </text>
             </g>
-            <g
-                id="Indonesia"
-                class="bar"
-                transform="translate(0, 266.32142857142856)"
-            >
-                <g id="Retail">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(102.4, -20.516785714285714)"
-                        width="214.29999999999998"
-                        height="41.03357142857143"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="209.55"
-                        y="0"
-                        width="214.29999999999998"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        50 kg
-                    </text>
-                </g>
-                <g id="Out-of-home-consumption">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(316.7, -20.516785714285714)"
-                        width="172.1"
-                        height="41.03357142857143"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="402.75"
-                        y="0"
-                        width="172.1"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        40 kg
-                    </text>
-                </g>
-                <g id="Household">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(488.8, -20.516785714285714)"
-                        width="229.4"
-                        height="41.03357142857143"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="603.5"
-                        y="0"
-                        width="229.4"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        53 kg
-                    </text>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="97.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="97.4" y="4.995000000000001">Indonesia</tspan>
-                </text>
-                <text
-                    transform="translate(723.3, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    144 kg
-                </text>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Household"
+                stroke-width="2.5"
+                d="M314.8 210.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#be5915"
+                id="line__United-States-–-Household"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 210.6"
+            ></path>
+            <g id="datapoints__United-States-–-Household">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="210.6"
+                    r="1.8"
+                    fill="#be5915"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="China"
-                class="bar"
-                transform="translate(0, 329.44999999999993)"
-            >
-                <g id="Retail">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(102.4, -20.516785714285714)"
-                        width="85"
-                        height="41.03357142857143"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="144.9"
-                        y="0"
-                        width="85"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        20 kg
-                    </text>
-                </g>
-                <g id="Out-of-home-consumption">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(187.4, -20.516785714285714)"
-                        width="195.9"
-                        height="41.03357142857143"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="285.35"
-                        y="0"
-                        width="195.9"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        46 kg
-                    </text>
-                </g>
-                <g id="Household">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(383.2, -20.516785714285714)"
-                        width="327.1"
-                        height="41.03357142857143"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="546.75"
-                        y="0"
-                        width="327.1"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        76 kg
-                    </text>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="97.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="97.4" y="4.995000000000001">China</tspan>
-                </text>
-                <text
-                    transform="translate(715.3, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    142 kg
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Household"
+                stroke-width="2.5"
+                d="M314.8 117.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#578145"
+                id="line__Brazil-–-Household"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 117.4"
+            ></path>
+            <g id="datapoints__Brazil-–-Household">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="117.4"
+                    r="1.8"
+                    fill="#578145"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="World"
-                class="bar"
-                transform="translate(0, 392.5785714285714)"
-            >
-                <g id="Retail">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(102.4, -20.516785714285714)"
-                        width="70.6"
-                        height="41.03357142857143"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="137.7"
-                        y="0"
-                        width="70.6"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        16 kg
-                    </text>
-                </g>
-                <g id="Out-of-home-consumption">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(173, -20.516785714285714)"
-                        width="155.99999999999997"
-                        height="41.03357142857143"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="251"
-                        y="0"
-                        width="155.99999999999997"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        36 kg
-                    </text>
-                </g>
-                <g id="Household">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(329, -20.516785714285714)"
-                        width="339.6"
-                        height="41.03357142857143"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="498.8"
-                        y="0"
-                        width="339.6"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        79 kg
-                    </text>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="97.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="97.4" y="4.995000000000001">World</tspan>
-                </text>
-                <text
-                    transform="translate(673.5, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    132 kg
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__South-Africa-–-Household"
+                stroke-width="2.5"
+                d="M314.8 325.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#cf0a66"
+                id="line__South-Africa-–-Household"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 325.1"
+            ></path>
+            <g id="datapoints__South-Africa-–-Household">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="325.1"
+                    r="1.8"
+                    fill="#cf0a66"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="South-Africa"
-                class="bar"
-                transform="translate(0, 455.7071428571428)"
-            >
-                <g id="Retail">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(102.4, -20.516785714285714)"
-                        width="65.9"
-                        height="41.03357142857143"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="135.35000000000002"
-                        y="0"
-                        width="65.9"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        15 kg
-                    </text>
-                </g>
-                <g id="Out-of-home-consumption">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(168.3, -20.516785714285714)"
-                        width="132.7"
-                        height="41.03357142857143"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="234.65"
-                        y="0"
-                        width="132.7"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        31 kg
-                    </text>
-                </g>
-                <g id="Household">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(301, -20.516785714285714)"
-                        width="202.1"
-                        height="41.03357142857143"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="402.05"
-                        y="0"
-                        width="202.1"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        47 kg
-                    </text>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="97.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="97.4" y="4.995000000000001">South Africa</tspan>
-                </text>
-                <text
-                    transform="translate(508.1, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    93 kg
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Russia-–-Household"
+                stroke-width="2.5"
+                d="M314.8 385.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Russia-–-Household"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 385.4"
+            ></path>
+            <g id="datapoints__Russia-–-Household">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="385.4"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="Russia"
-                class="bar"
-                transform="translate(0, 518.8357142857142)"
-            >
-                <g id="Retail">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(102.4, -20.516785714285714)"
-                        width="58.900000000000006"
-                        height="41.03357142857143"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="131.85000000000002"
-                        y="0"
-                        width="58.900000000000006"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        14 kg
-                    </text>
-                </g>
-                <g id="Out-of-home-consumption">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(161.3, -20.516785714285714)"
-                        width="36.19999999999999"
-                        height="41.03357142857143"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Household">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(197.5, -20.516785714285714)"
-                        width="143.2"
-                        height="41.03357142857143"
-                        fill="#578145"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="269.1"
-                        y="0"
-                        width="143.2"
-                        height="41.03357142857143"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        33 kg
-                    </text>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="97.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="97.4" y="4.995000000000001">Russia</tspan>
-                </text>
-                <text
-                    transform="translate(345.7, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    56 kg
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Indonesia-–-Household"
+                stroke-width="2.5"
+                d="M314.8 297"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b16214"
+                id="line__Indonesia-–-Household"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 297"
+            ></path>
+            <g id="datapoints__Indonesia-–-Household">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="297"
+                    r="1.8"
+                    fill="#b16214"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Household"
+                stroke-width="2.5"
+                d="M314.8 196.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d73c50"
+                id="line__China-–-Household"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 196.8"
+            ></path>
+            <g id="datapoints__China-–-Household">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="196.8"
+                    r="1.8"
+                    fill="#d73c50"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World-–-Household"
+                stroke-width="2.5"
+                d="M314.8 184"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#18470f"
+                id="line__World-–-Household"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 184"
+            ></path>
+            <g id="datapoints__World-–-Household">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="184"
+                    r="1.8"
+                    fill="#18470f"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Out-of-home-consumption"
+                stroke-width="2.5"
+                d="M314.8 207.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#286bbb"
+                id="line__United-States-–-Out-of-home-consumption"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 207.7"
+            ></path>
+            <g id="datapoints__United-States-–-Out-of-home-consumption">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="207.7"
+                    r="1.8"
+                    fill="#286bbb"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Out-of-home-consumption"
+                stroke-width="2.5"
+                d="M314.8 323"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c4523e"
+                id="line__Brazil-–-Out-of-home-consumption"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 323"
+            ></path>
+            <g id="datapoints__Brazil-–-Out-of-home-consumption">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="323"
+                    r="1.8"
+                    fill="#c4523e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__South-Africa-–-Out-of-home-consumption"
+                stroke-width="2.5"
+                d="M314.8 396.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#338711"
+                id="line__South-Africa-–-Out-of-home-consumption"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 396.2"
+            ></path>
+            <g id="datapoints__South-Africa-–-Out-of-home-consumption">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="396.2"
+                    r="1.8"
+                    fill="#338711"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Russia-–-Out-of-home-consumption"
+                stroke-width="2.5"
+                d="M314.8 495.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#970046"
+                id="line__Russia-–-Out-of-home-consumption"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 495.3"
+            ></path>
+            <g id="datapoints__Russia-–-Out-of-home-consumption">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="495.3"
+                    r="1.8"
+                    fill="#970046"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Indonesia-–-Out-of-home-consumption"
+                stroke-width="2.5"
+                d="M314.8 355.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#008291"
+                id="line__Indonesia-–-Out-of-home-consumption"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 355.8"
+            ></path>
+            <g id="datapoints__Indonesia-–-Out-of-home-consumption">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="355.8"
+                    r="1.8"
+                    fill="#008291"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Out-of-home-consumption"
+                stroke-width="2.5"
+                d="M314.8 331.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__China-–-Out-of-home-consumption"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 331.4"
+            ></path>
+            <g id="datapoints__China-–-Out-of-home-consumption">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="331.4"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World-–-Out-of-home-consumption"
+                stroke-width="2.5"
+                d="M314.8 372.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__World-–-Out-of-home-consumption"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 372.4"
+            ></path>
+            <g id="datapoints__World-–-Out-of-home-consumption">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="372.4"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Retail"
+                stroke-width="2.5"
+                d="M314.8 480.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__United-States-–-Retail"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 480.2"
+            ></path>
+            <g id="datapoints__United-States-–-Retail">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="480.2"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Retail"
+                stroke-width="2.5"
+                d="M314.8 520.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Brazil-–-Retail"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 520.6"
+            ></path>
+            <g id="datapoints__Brazil-–-Retail">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="520.6"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__South-Africa-–-Retail"
+                stroke-width="2.5"
+                d="M314.8 464.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__South-Africa-–-Retail"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 464.8"
+            ></path>
+            <g id="datapoints__South-Africa-–-Retail">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="464.8"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Russia-–-Retail"
+                stroke-width="2.5"
+                d="M314.8 472"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Russia-–-Retail"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 472"
+            ></path>
+            <g id="datapoints__Russia-–-Retail">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="472"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Indonesia-–-Retail"
+                stroke-width="2.5"
+                d="M314.8 312.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Indonesia-–-Retail"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 312.5"
+            ></path>
+            <g id="datapoints__Indonesia-–-Retail">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="312.5"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Retail"
+                stroke-width="2.5"
+                d="M314.8 445.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__China-–-Retail"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 445.2"
+            ></path>
+            <g id="datapoints__China-–-Retail">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="445.2"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World-–-Retail"
+                stroke-width="2.5"
+                d="M314.8 460"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__World-–-Retail"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M314.8 460"
+            ></path>
+            <g id="datapoints__World-–-Retail">
+                <circle
+                    id="2022"
+                    cx="314.8"
+                    cy="460"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>

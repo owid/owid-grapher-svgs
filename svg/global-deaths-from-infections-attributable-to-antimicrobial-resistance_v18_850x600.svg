@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -86,1139 +75,1749 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="231.65"
-            y1="514.70"
-            x2="231.65"
-            y2="166.10"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="categorical-color-legend" class="categoricalColorLegend">
-            <g id="swatches">
-                <rect
-                    id="Other-deaths"
-                    x="16"
-                    y="143.6"
-                    width="13.5"
-                    height="13.5"
-                    fill="#4c6a9c"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Deaths-attributed-to-antimicrobial-resistance"
-                    x="130.16400000000002"
-                    y="143.6"
-                    width="13.5"
-                    height="13.5"
-                    fill="#883039"
-                    stroke-width="0.4"
-                ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2021"
+                    x1="325.835"
+                    y1="496.19999999999993"
+                    x2="325.835"
+                    y2="501.69999999999993"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
             </g>
-            <g id="labels">
+            <g id="tick-labels">
                 <text
-                    x="34.5"
-                    y="150.35"
-                    dy=".32em"
-                    font-size="14.4"
-                    opacity="1"
+                    x="325.835"
+                    y="514.6999999999999"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
                 >
-                    Other deaths
-                </text>
-                <text
-                    x="148.66400000000002"
-                    y="150.35"
-                    dy=".32em"
-                    font-size="14.4"
-                    opacity="1"
-                >
-                    Deaths attributed to antimicrobial resistance
+                    2021
                 </text>
             </g>
         </g>
-        <g id="bars">
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="74.63"
+                    y="496.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0
+                </text>
+                <text
+                    x="74.63"
+                    y="438.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    200,000
+                </text>
+                <text
+                    x="74.63"
+                    y="381"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    400,000
+                </text>
+                <text
+                    x="74.63"
+                    y="323.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    600,000
+                </text>
+                <text
+                    x="74.63"
+                    y="265.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    800,000
+                </text>
+                <text
+                    x="74.63"
+                    y="207.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1 million
+                </text>
+                <text
+                    x="74.63"
+                    y="149.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1.2 million
+                </text>
+            </g>
+        </g>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0"
+                x1="79.63"
+                y1="496.7"
+                x2="572.04"
+                y2="496.7"
+                stroke="#999"
+            ></line>
+            <line
+                id="200,000"
+                x1="79.63"
+                y1="438.8"
+                x2="572.04"
+                y2="438.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="400,000"
+                x1="79.63"
+                y1="381"
+                x2="572.04"
+                y2="381"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="600,000"
+                x1="79.63"
+                y1="323.1"
+                x2="572.04"
+                y2="323.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="800,000"
+                x1="79.63"
+                y1="265.3"
+                x2="572.04"
+                y2="265.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1-million"
+                x1="79.63"
+                y1="207.4"
+                x2="572.04"
+                y2="207.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1.2-million"
+                x1="79.63"
+                y1="149.6"
+                x2="572.04"
+                y2="149.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Mycobacterium-tuberculosis-–-Other-deaths"
+                    d="M576.04,169.8 H577.1733333333333 V164.3999999999998 H593.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Staphylococcus-aureus-–-Other-deaths"
+                    d="M576.04,224.5 H578.3066666666666 V189.8499999999998 H593.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Streptococcus-pneumoniae-–-Other-deaths"
+                    d="M576.04,244.8 H579.4399999999999 V215.2999999999998 H593.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Escherichia-coli-–-Other-deaths"
+                    d="M576.04,290.3 H580.5733333333333 V240.7499999999998 H593.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Klebsiella-pneumoniae-–-Other-deaths"
+                    d="M576.04,330 H581.7066666666666 V259.0499999999998 H593.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Pseudomonas-aeruginosa-–-Other-deaths"
+                    d="M576.04,336.8 H582.8399999999999 V284.49999999999983 H593.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Acinetobacter-baumannii-–-Other-deaths"
+                    d="M576.04,407.4 H583.9733333333332 V309.9499999999998 H593.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Staphylococcus-aureus-–-Deaths-attributed-to-antimicrobial-resistance"
+                    d="M576.04,440 H585.1066666666666 V335.39999999999986 H593.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Streptococcus-pneumoniae-–-Deaths-attributed-to-antimicrobial-resistance"
+                    d="M576.04,451.9 H586.24 V367.9999999999999 H593.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Serratia-spp.-–-Other-deaths"
+                    d="M576.04,459.8 H587.3733333333333 V393.4499999999999 H593.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Proteus-spp.-–-Other-deaths"
+                    d="M576.04,463.3 H588.5066666666667 V411.7499999999999 H593.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Shigella-spp.-–-Other-deaths"
+                    d="M576.04,474 H589.64 V430.0499999999999 H593.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Mycobacterium-tuberculosis-–-Deaths-attributed-to-antimicrobial-resistance"
+                    d="M576.04,485.2 H590.7733333333333 V455.49999999999994 H593.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Salmonella-enterica-serovar-Paratyphi-–-Deaths-attributed-to-antimicrobial-resistance"
+                    d="M576.04,496.2 H591.9066666666666 V495.24999999999994 H593.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Mycobacterium-tuberculosis-–-Other-deaths"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.0"
+                    y="162.1"
+                    fill="#338711"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.04" y="162.0599999999998">
+                        Mycobacterium tuberculosis – Other
+                    </tspan>
+                    <tspan x="597.04" y="176.35999999999981">deaths</tspan>
+                </text>
+                <text
+                    id="label__Staphylococcus-aureus-–-Other-deaths"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.0"
+                    y="194.7"
+                    fill="#578145"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.04" y="194.6599999999998">
+                        Staphylococcus aureus – Other deaths
+                    </tspan>
+                </text>
+                <text
+                    id="label__Streptococcus-pneumoniae-–-Other-deaths"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.0"
+                    y="213.0"
+                    fill="#be5915"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.04" y="212.9599999999998">
+                        Streptococcus pneumoniae – Other
+                    </tspan>
+                    <tspan x="597.04" y="227.25999999999982">deaths</tspan>
+                </text>
+                <text
+                    id="label__Escherichia-coli-–-Other-deaths"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.0"
+                    y="245.6"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.04" y="245.5599999999998">
+                        Escherichia coli – Other deaths
+                    </tspan>
+                </text>
+                <text
+                    id="label__Klebsiella-pneumoniae-–-Other-deaths"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.0"
+                    y="263.9"
+                    fill="#008291"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.04" y="263.8599999999998">
+                        Klebsiella pneumoniae – Other deaths
+                    </tspan>
+                </text>
+                <text
+                    id="label__Pseudomonas-aeruginosa-–-Other-deaths"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.0"
+                    y="282.2"
+                    fill="#18470f"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.04" y="282.1599999999998">
+                        Pseudomonas aeruginosa – Other
+                    </tspan>
+                    <tspan x="597.04" y="296.4599999999998">deaths</tspan>
+                </text>
+                <text
+                    id="label__Acinetobacter-baumannii-–-Other-deaths"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.0"
+                    y="314.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.04" y="314.7599999999998">
+                        Acinetobacter baumannii – Other deaths
+                    </tspan>
+                </text>
+                <text
+                    id="label__Staphylococcus-aureus-–-Deaths-attributed-to-antimicrobial-resistance"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.0"
+                    y="333.1"
+                    fill="#b16214"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.04" y="333.05999999999983">
+                        Staphylococcus aureus – Deaths
+                    </tspan>
+                    <tspan x="597.04" y="347.35999999999984">
+                        attributed to antimicrobial resistance
+                    </tspan>
+                </text>
+                <text
+                    id="label__Streptococcus-pneumoniae-–-Deaths-attributed-to-antimicrobial-resistance"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.0"
+                    y="365.7"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.04" y="365.65999999999985">
+                        Streptococcus pneumoniae – Deaths
+                    </tspan>
+                    <tspan x="597.04" y="379.95999999999987">
+                        attributed to antimicrobial resistance
+                    </tspan>
+                </text>
+                <text
+                    id="label__Serratia-spp.-–-Other-deaths"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.0"
+                    y="398.3"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.04" y="398.2599999999999">
+                        Serratia spp. – Other deaths
+                    </tspan>
+                </text>
+                <text
+                    id="label__Proteus-spp.-–-Other-deaths"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.0"
+                    y="416.6"
+                    fill="#286bbb"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.04" y="416.5599999999999">
+                        Proteus spp. – Other deaths
+                    </tspan>
+                </text>
+                <text
+                    id="label__Shigella-spp.-–-Other-deaths"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.0"
+                    y="434.9"
+                    fill="#cf0a66"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.04" y="434.8599999999999">
+                        Shigella spp. – Other deaths
+                    </tspan>
+                </text>
+                <text
+                    id="label__Mycobacterium-tuberculosis-–-Deaths-attributed-to-antimicrobial-resistance"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.0"
+                    y="453.2"
+                    fill="#9a5129"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.04" y="453.1599999999999">
+                        Mycobacterium tuberculosis – Deaths
+                    </tspan>
+                    <tspan x="597.04" y="467.4599999999999">
+                        attributed to antimicrobial resistance
+                    </tspan>
+                </text>
+                <text
+                    id="label__Salmonella-enterica-serovar-Paratyphi-–-Deaths-attributed-to-antimicrobial-resistance"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.0"
+                    y="485.8"
+                    fill="#c4523e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.04" y="485.75999999999993">
+                        Salmonella enterica serovar Paratyphi –
+                    </tspan>
+                    <tspan x="597.04" y="500.05999999999995">
+                        Deaths attributed to antimicrobial
+                    </tspan>
+                    <tspan x="597.04" y="514.3599999999999">resistance</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Streptococcus-pneumoniae-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 451.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Streptococcus-pneumoniae-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 451.9"
+            ></path>
             <g
-                id="Mycobacterium-tuberculosis"
-                class="bar"
-                transform="translate(0, 174.4)"
+                id="datapoints__Streptococcus-pneumoniae-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="513.9"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(745.8, -5.395)"
-                        width="18"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Mycobacterium tuberculosis
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(768.8, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    1.17 million
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="451.9"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Staphylococcus-aureus-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 440"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b16214"
+                id="line__Staphylococcus-aureus-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 440"
+            ></path>
             <g
-                id="Staphylococcus-aureus"
-                class="bar"
-                transform="translate(0, 191)"
+                id="datapoints__Staphylococcus-aureus-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="427.9"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(659.8, -5.395)"
-                        width="89.20000000000002"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Staphylococcus aureus
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(753.9, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    1.14 million
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="440"
+                    r="1.8"
+                    fill="#b16214"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Shigella-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 495.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d73c50"
+                id="line__Shigella-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 495.6"
+            ></path>
             <g
-                id="Streptococcus-pneumoniae"
-                class="bar"
-                transform="translate(0, 207.6)"
+                id="datapoints__Shigella-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="396"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(627.9, -5.395)"
-                        width="70.49999999999997"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Streptococcus pneumoniae
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(703.3, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    1.03 million
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="495.6"
+                    r="1.8"
+                    fill="#d73c50"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Serratia-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 491"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#18470f"
+                id="line__Serratia-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 491"
+            ></path>
             <g
-                id="Escherichia-coli"
-                class="bar"
-                transform="translate(0, 224.2)"
+                id="datapoints__Serratia-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="324.4"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(556.3, -5.395)"
-                        width="73.1"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Escherichia coli
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(634.4, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    874,000
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="491"
+                    r="1.8"
+                    fill="#18470f"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Salmonella-enterica-serovar-Typhi-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 495"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#286bbb"
+                id="line__Salmonella-enterica-serovar-Typhi-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 495"
+            ></path>
             <g
-                id="Klebsiella-pneumoniae"
-                class="bar"
-                transform="translate(0, 240.8)"
+                id="datapoints__Salmonella-enterica-serovar-Typhi-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="262"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(493.9, -5.395)"
-                        width="71.99999999999997"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Klebsiella pneumoniae
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(570.9, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    735,000
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="495"
+                    r="1.8"
+                    fill="#286bbb"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Salmonella-enterica-serovar-Paratyphi-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 496.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c4523e"
+                id="line__Salmonella-enterica-serovar-Paratyphi-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 496.2"
+            ></path>
             <g
-                id="Pseudomonas-aeruginosa"
-                class="bar"
-                transform="translate(0, 257.4)"
+                id="datapoints__Salmonella-enterica-serovar-Paratyphi-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="251.29999999999998"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(483.2, -5.395)"
-                        width="48.29999999999998"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Pseudomonas aeruginosa
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(536.5, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    659,000
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="496.2"
+                    r="1.8"
+                    fill="#c4523e"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Pseudomonas-aeruginosa-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 466"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#338711"
+                id="line__Pseudomonas-aeruginosa-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 466"
+            ></path>
             <g
-                id="Acinetobacter-baumannii"
-                class="bar"
-                transform="translate(0, 274)"
+                id="datapoints__Pseudomonas-aeruginosa-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="140.29999999999998"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(372.2, -5.395)"
-                        width="76.99999999999997"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Acinetobacter baumannii
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(454.2, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    478,000
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="466"
+                    r="1.8"
+                    fill="#338711"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Proteus-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 492.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#970046"
+                id="line__Proteus-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 492.5"
+            ></path>
             <g
-                id="Enterobacter-spp."
-                class="bar"
-                transform="translate(0, 290.6)"
+                id="datapoints__Proteus-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="66.70000000000002"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(298.6, -5.395)"
-                        width="14.299999999999983"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Enterobacter spp.
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(317.9, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    178,000
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="492.5"
+                    r="1.8"
+                    fill="#970046"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Non-typhoidal-Salmonella-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 496.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#008291"
+                id="line__Non-typhoidal-Salmonella-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 496.1"
+            ></path>
             <g
-                id="Enterococcus-faecalis"
-                class="bar"
-                transform="translate(0, 307.2)"
+                id="datapoints__Non-typhoidal-Salmonella-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="73.20000000000002"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(305.1, -5.395)"
-                        width="7"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Enterococcus faecalis
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(317.1, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    176,000
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="496.1"
+                    r="1.8"
+                    fill="#008291"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Mycobacterium-tuberculosis-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 485.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__Mycobacterium-tuberculosis-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 485.2"
+            ></path>
             <g
-                id="Group-A-Streptococcus"
-                class="bar"
-                transform="translate(0, 323.79999999999995)"
+                id="datapoints__Mycobacterium-tuberculosis-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="74.79999999999998"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(306.7, -5.395)"
-                        width="1.1999999999999886"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Group A Streptococcus
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(312.9, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    167,000
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="485.2"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Morganella-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 494.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__Morganella-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 494.5"
+            ></path>
             <g
-                id="Group-B-Streptococcus"
-                class="bar"
-                transform="translate(0, 340.4)"
+                id="datapoints__Morganella-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="68.70000000000002"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(300.6, -5.395)"
-                        width="3.799999999999983"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Group B Streptococcus
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(309.4, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    159,000
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="494.5"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="Serratia-spp." class="bar" transform="translate(0, 357)">
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="57.99999999999997"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(289.9, -5.395)"
-                        width="9"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Serratia spp.
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(303.9, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    147,000
-                </text>
-            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Klebsiella-pneumoniae-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 450.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__Klebsiella-pneumoniae-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 450.9"
+            ></path>
             <g
-                id="Haemophilus-influenzae"
-                class="bar"
-                transform="translate(0, 373.6)"
+                id="datapoints__Klebsiella-pneumoniae-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="57.400000000000006"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(289.3, -5.395)"
-                        width="3.5999999999999943"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Haemophilus influenzae
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(297.9, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    134,000
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="450.9"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Haemophilus-influenzae-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 494.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Haemophilus-influenzae-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 494.4"
+            ></path>
             <g
-                id="Enterococcus-faecium"
-                class="bar"
-                transform="translate(0, 390.2)"
+                id="datapoints__Haemophilus-influenzae-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="49.99999999999997"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(281.9, -5.395)"
-                        width="9.799999999999983"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Enterococcus faecium
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(296.7, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    132,000
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="494.4"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Group-B-Streptococcus-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 494.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Group-B-Streptococcus-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 494.3"
+            ></path>
             <g
-                id="Proteus-spp."
-                class="bar"
-                transform="translate(0, 406.79999999999995)"
+                id="datapoints__Group-B-Streptococcus-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="52.49999999999997"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(284.4, -5.395)"
-                        width="6.599999999999994"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">Proteus spp.</tspan>
-                </text>
-                <text
-                    transform="translate(295.9, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    130,000
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="494.3"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Group-A-Streptococcus-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 495.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Group-A-Streptococcus-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 495.9"
+            ></path>
             <g
-                id="Citrobacter-spp."
-                class="bar"
-                transform="translate(0, 423.4)"
+                id="datapoints__Group-A-Streptococcus-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="37.99999999999997"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(269.9, -5.395)"
-                        width="6.099999999999994"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Citrobacter spp.
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(280.9, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    96,900
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="495.9"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Escherichia-coli-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 450.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Escherichia-coli-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 450.2"
+            ></path>
             <g
-                id="Salmonella-enterica-serovar-Typhi"
-                class="bar"
-                transform="translate(0, 440)"
+                id="datapoints__Escherichia-coli-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="39.70000000000002"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(271.6, -5.395)"
-                        width="2.6999999999999886"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Salmonella enterica serovar Typhi
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(279.3, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    93,400
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="450.2"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="Shigella-spp." class="bar" transform="translate(0, 456.6)">
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="35.599999999999994"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(267.5, -5.395)"
-                        width="1.799999999999983"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Shigella spp.
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(274.3, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    82,300
-                </text>
-            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Enterococcus-faecium-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 490.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Enterococcus-faecium-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 490.5"
+            ></path>
             <g
-                id="Non-typhoidal-Salmonella"
-                class="bar"
-                transform="translate(0, 473.19999999999993)"
+                id="datapoints__Enterococcus-faecium-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="35.99999999999997"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(267.9, -5.395)"
-                        width="0.9000000000000057"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Non-typhoidal Salmonella
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(273.8, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    81,200
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="490.5"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Enterococcus-faecalis-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 492.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Enterococcus-faecalis-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 492.2"
+            ></path>
             <g
-                id="Morganella-spp."
-                class="bar"
-                transform="translate(0, 489.79999999999995)"
+                id="datapoints__Enterococcus-faecalis-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="32.49999999999997"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(264.4, -5.395)"
-                        width="3.4000000000000057"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Morganella spp.
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(272.8, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    79,000
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="492.2"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Enterobacter-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 487.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c15065"
+                id="line__Enterobacter-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 487.6"
+            ></path>
             <g
-                id="Salmonella-enterica-serovar-Paratyphi"
-                class="bar"
-                transform="translate(0, 506.4)"
+                id="datapoints__Enterobacter-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
             >
-                <g id="Other-deaths">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(231.9, -5.395)"
-                        width="5.599999999999994"
-                        height="10.79"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Deaths-attributed-to-antimicrobial-resistance">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(237.5, -5.395)"
-                        width="0.799999999999983"
-                        height="10.79"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="11.87"
-                    font-weight="700"
-                    x="226.9"
-                    y="4.4"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="226.9" y="4.3915299999999995">
-                        Salmonella enterica serovar Paratyphi
-                    </tspan>
-                </text>
-                <text
-                    transform="translate(243.3, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="11.869"
-                >
-                    14,100
-                </text>
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="487.6"
+                    r="1.8"
+                    fill="#c15065"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Citrobacter-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 492.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00875e"
+                id="line__Citrobacter-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 492.8"
+            ></path>
+            <g
+                id="datapoints__Citrobacter-spp.-–-Deaths-attributed-to-antimicrobial-resistance"
+            >
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="492.8"
+                    r="1.8"
+                    fill="#00875e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Acinetobacter-baumannii-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="2.5"
+                d="M325.8 447.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#8c4569"
+                id="line__Acinetobacter-baumannii-–-Deaths-attributed-to-antimicrobial-resistance"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 447.7"
+            ></path>
+            <g
+                id="datapoints__Acinetobacter-baumannii-–-Deaths-attributed-to-antimicrobial-resistance"
+            >
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="447.7"
+                    r="1.8"
+                    fill="#8c4569"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Streptococcus-pneumoniae-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 244.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#be5915"
+                id="line__Streptococcus-pneumoniae-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 244.8"
+            ></path>
+            <g id="datapoints__Streptococcus-pneumoniae-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="244.8"
+                    r="1.8"
+                    fill="#be5915"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Staphylococcus-aureus-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 224.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#578145"
+                id="line__Staphylococcus-aureus-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 224.5"
+            ></path>
+            <g id="datapoints__Staphylococcus-aureus-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="224.5"
+                    r="1.8"
+                    fill="#578145"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Shigella-spp.-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 474"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#cf0a66"
+                id="line__Shigella-spp.-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 474"
+            ></path>
+            <g id="datapoints__Shigella-spp.-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="474"
+                    r="1.8"
+                    fill="#cf0a66"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Serratia-spp.-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 459.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Serratia-spp.-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 459.8"
+            ></path>
+            <g id="datapoints__Serratia-spp.-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="459.8"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Salmonella-enterica-serovar-Typhi-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 471.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b16214"
+                id="line__Salmonella-enterica-serovar-Typhi-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 471.4"
+            ></path>
+            <g
+                id="datapoints__Salmonella-enterica-serovar-Typhi-–-Other-deaths"
+            >
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="471.4"
+                    r="1.8"
+                    fill="#b16214"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Salmonella-enterica-serovar-Paratyphi-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 493.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d73c50"
+                id="line__Salmonella-enterica-serovar-Paratyphi-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 493.1"
+            ></path>
+            <g
+                id="datapoints__Salmonella-enterica-serovar-Paratyphi-–-Other-deaths"
+            >
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="493.1"
+                    r="1.8"
+                    fill="#d73c50"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Pseudomonas-aeruginosa-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 336.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#18470f"
+                id="line__Pseudomonas-aeruginosa-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 336.8"
+            ></path>
+            <g id="datapoints__Pseudomonas-aeruginosa-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="336.8"
+                    r="1.8"
+                    fill="#18470f"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Proteus-spp.-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 463.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#286bbb"
+                id="line__Proteus-spp.-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 463.3"
+            ></path>
+            <g id="datapoints__Proteus-spp.-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="463.3"
+                    r="1.8"
+                    fill="#286bbb"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Non-typhoidal-Salmonella-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 473.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c4523e"
+                id="line__Non-typhoidal-Salmonella-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 473.8"
+            ></path>
+            <g id="datapoints__Non-typhoidal-Salmonella-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="473.8"
+                    r="1.8"
+                    fill="#c4523e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Mycobacterium-tuberculosis-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 169.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#338711"
+                id="line__Mycobacterium-tuberculosis-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 169.8"
+            ></path>
+            <g id="datapoints__Mycobacterium-tuberculosis-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="169.8"
+                    r="1.8"
+                    fill="#338711"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Morganella-spp.-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 476"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#970046"
+                id="line__Morganella-spp.-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 476"
+            ></path>
+            <g id="datapoints__Morganella-spp.-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="476"
+                    r="1.8"
+                    fill="#970046"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Klebsiella-pneumoniae-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 330"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#008291"
+                id="line__Klebsiella-pneumoniae-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 330"
+            ></path>
+            <g id="datapoints__Klebsiella-pneumoniae-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="330"
+                    r="1.8"
+                    fill="#008291"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Haemophilus-influenzae-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 460.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__Haemophilus-influenzae-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 460.2"
+            ></path>
+            <g id="datapoints__Haemophilus-influenzae-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="460.2"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Group-B-Streptococcus-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 453"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__Group-B-Streptococcus-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 453"
+            ></path>
+            <g id="datapoints__Group-B-Streptococcus-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="453"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Group-A-Streptococcus-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 449.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__Group-A-Streptococcus-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 449.1"
+            ></path>
+            <g id="datapoints__Group-A-Streptococcus-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="449.1"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Escherichia-coli-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 290.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Escherichia-coli-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 290.3"
+            ></path>
+            <g id="datapoints__Escherichia-coli-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="290.3"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Enterococcus-faecium-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 464.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Enterococcus-faecium-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 464.9"
+            ></path>
+            <g id="datapoints__Enterococcus-faecium-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="464.9"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Enterococcus-faecalis-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 450.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Enterococcus-faecalis-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 450.1"
+            ></path>
+            <g id="datapoints__Enterococcus-faecalis-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="450.1"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Enterobacter-spp.-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 454.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Enterobacter-spp.-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 454.3"
+            ></path>
+            <g id="datapoints__Enterobacter-spp.-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="454.3"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Citrobacter-spp.-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 472.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Citrobacter-spp.-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 472.5"
+            ></path>
+            <g id="datapoints__Citrobacter-spp.-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="472.5"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Acinetobacter-baumannii-–-Other-deaths"
+                stroke-width="2.5"
+                d="M325.8 407.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Acinetobacter-baumannii-–-Other-deaths"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M325.8 407.4"
+            ></path>
+            <g id="datapoints__Acinetobacter-baumannii-–-Other-deaths">
+                <circle
+                    id="2021"
+                    cx="325.8"
+                    cy="407.4"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>

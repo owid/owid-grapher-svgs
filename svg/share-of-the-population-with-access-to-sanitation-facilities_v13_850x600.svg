@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -62,866 +51,1287 @@
     </g>
     <g id="chart-area" style="pointer-events: none">
         <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2022"
+                    x1="311.34"
+                    y1="511.79999999999995"
+                    x2="311.34"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
             <g id="tick-labels">
                 <text
-                    x="220.39000000000001"
+                    x="311.34"
                     y="530.3"
                     fill="#5b5b5b"
-                    text-anchor="start"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2022
+                </text>
+            </g>
+        </g>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="49.41"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
                     font-size="13"
                 >
                     0%
                 </text>
                 <text
-                    x="341.1"
-                    y="530.3"
+                    x="49.41"
+                    y="424.6"
+                    dy=".32em"
+                    text-anchor="end"
                     fill="#5b5b5b"
-                    text-anchor="middle"
                     font-size="13"
                 >
                     20%
                 </text>
                 <text
-                    x="461.8"
-                    y="530.3"
+                    x="49.41"
+                    y="337"
+                    dy=".32em"
+                    text-anchor="end"
                     fill="#5b5b5b"
-                    text-anchor="middle"
                     font-size="13"
                 >
                     40%
                 </text>
                 <text
-                    x="582.6"
-                    y="530.3"
+                    x="49.41"
+                    y="249.3"
+                    dy=".32em"
+                    text-anchor="end"
                     fill="#5b5b5b"
-                    text-anchor="middle"
                     font-size="13"
                 >
                     60%
                 </text>
                 <text
-                    x="703.3"
-                    y="530.3"
+                    x="49.41"
+                    y="161.7"
+                    dy=".32em"
+                    text-anchor="end"
                     fill="#5b5b5b"
-                    text-anchor="middle"
                     font-size="13"
                 >
                     80%
                 </text>
                 <text
-                    x="824"
-                    y="530.3"
-                    fill="#5b5b5b"
+                    x="49.41"
+                    y="74"
+                    dy=".32em"
                     text-anchor="end"
+                    fill="#5b5b5b"
                     font-size="13"
                 >
                     100%
                 </text>
             </g>
         </g>
-        <g id="vertical-grid-lines" class="AxisGridLines verticalLines">
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
             <line
                 id="0%"
-                x1="220.4"
-                y1="512.30"
-                x2="220.4"
-                y2="90.50"
+                x1="54.41"
+                y1="512.3"
+                x2="568.27"
+                y2="512.3"
                 stroke="#999"
             ></line>
             <line
                 id="20%"
-                x1="341.1"
-                y1="512.30"
-                x2="341.1"
-                y2="90.50"
+                x1="54.41"
+                y1="424.6"
+                x2="568.27"
+                y2="424.6"
                 stroke="#ddd"
                 stroke-dasharray="4,4"
             ></line>
             <line
                 id="40%"
-                x1="461.8"
-                y1="512.30"
-                x2="461.8"
-                y2="90.50"
+                x1="54.41"
+                y1="337"
+                x2="568.27"
+                y2="337"
                 stroke="#ddd"
                 stroke-dasharray="4,4"
             ></line>
             <line
                 id="60%"
-                x1="582.6"
-                y1="512.30"
-                x2="582.6"
-                y2="90.50"
+                x1="54.41"
+                y1="249.3"
+                x2="568.27"
+                y2="249.3"
                 stroke="#ddd"
                 stroke-dasharray="4,4"
             ></line>
             <line
                 id="80%"
-                x1="703.3"
-                y1="512.30"
-                x2="703.3"
-                y2="90.50"
+                x1="54.41"
+                y1="161.7"
+                x2="568.27"
+                y2="161.7"
                 stroke="#ddd"
                 stroke-dasharray="4,4"
             ></line>
             <line
                 id="100%"
-                x1="824"
-                y1="512.30"
-                x2="824"
-                y2="90.50"
+                x1="54.41"
+                y1="74"
+                x2="568.27"
+                y2="74"
                 stroke="#ddd"
                 stroke-dasharray="4,4"
             ></line>
         </g>
-        <line
-            id="vertical-zero-line"
-            x1="220.15"
-            y1="512.30"
-            x2="220.15"
-            y2="90.50"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="categorical-color-legend" class="categoricalColorLegend">
-            <g id="swatches">
-                <rect
-                    id="Safely-managed"
-                    x="16"
-                    y="68"
-                    width="13.5"
-                    height="13.5"
-                    fill="#2c7bb6"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Basic"
-                    x="151.044"
-                    y="68"
-                    width="13.5"
-                    height="13.5"
-                    fill="#abd9e9"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Limited"
-                    x="216.824"
-                    y="68"
-                    width="13.5"
-                    height="13.5"
-                    fill="#ffffbf"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Unimproved"
-                    x="293.836"
-                    y="68"
-                    width="13.5"
-                    height="13.5"
-                    fill="#fdae61"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Open-defecation"
-                    x="402.096"
-                    y="68"
-                    width="13.5"
-                    height="13.5"
-                    fill="#d7191c"
-                    stroke-width="0.4"
-                ></rect>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="High-income-countries-–-Safely-managed"
+                    d="M572.27,112.4 H573.1647368421053 V88.49999999999982 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Upper-middle-income-countries-–-Safely-managed"
+                    d="M572.27,248.6 H574.0594736842106 V121.09999999999981 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="World-–-Safely-managed"
+                    d="M572.27,264.2 H574.9542105263158 V146.5499999999998 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Lower-middle-income-countries-–-Safely-managed"
+                    d="M572.27,304 H575.8489473684211 V171.99999999999983 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Low-income-countries-–-Unimproved"
+                    d="M572.27,357.7 H576.7436842105263 V197.44999999999982 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Upper-middle-income-countries-–-Basic"
+                    d="M572.27,366.9 H577.6384210526317 V215.74999999999983 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Lower-middle-income-countries-–-Basic"
+                    d="M572.27,402.9 H578.5331578947369 V234.04999999999984 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="World-–-Basic"
+                    d="M572.27,406.4 H579.4278947368422 V252.34999999999985 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Low-income-countries-–-Open-defecation"
+                    d="M572.27,440.4 H580.3226315789474 V270.6499999999998 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Low-income-countries-–-Limited"
+                    d="M572.27,455.9 H581.2173684210527 V288.9499999999998 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Lower-middle-income-countries-–-Limited"
+                    d="M572.27,458.8 H582.1121052631579 V307.24999999999983 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Low-income-countries-–-Basic"
+                    d="M572.27,463.7 H583.0068421052632 V325.54999999999984 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Lower-middle-income-countries-–-Open-defecation"
+                    d="M572.27,473.4 H583.9015789473684 V350.9999999999999 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="High-income-countries-–-Basic"
+                    d="M572.27,478.3 H584.7963157894737 V376.4499999999999 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Lower-middle-income-countries-–-Unimproved"
+                    d="M572.27,484 H585.6910526315789 V401.8999999999999 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="World-–-Open-defecation"
+                    d="M572.27,489.3 H586.5857894736843 V427.3499999999999 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Upper-middle-income-countries-–-Unimproved"
+                    d="M572.27,499.1 H587.4805263157895 V452.79999999999995 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Upper-middle-income-countries-–-Open-defecation"
+                    d="M572.27,509.2 H588.3752631578948 V485.4 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="High-income-countries-–-Open-defecation"
+                    d="M572.27,512.2 H588.3752631578948 V518 H589.27"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
             </g>
-            <g id="labels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
                 <text
-                    x="34.5"
-                    y="74.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__High-income-countries-–-Safely-managed"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="86.2"
+                    fill="#313695"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Safely managed
+                    <tspan x="593.27" y="86.15999999999983">
+                        High-income countries – Safely
+                    </tspan>
+                    <tspan x="593.27" y="100.45999999999982">managed</tspan>
                 </text>
                 <text
-                    x="169.544"
-                    y="74.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__Upper-middle-income-countries-–-Safely-managed"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="118.8"
+                    fill="#88adb9"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Basic
+                    <tspan x="593.27" y="118.75999999999982">
+                        Upper-middle-income countries – Safely
+                    </tspan>
+                    <tspan x="593.27" y="133.05999999999983">managed</tspan>
                 </text>
                 <text
-                    x="235.324"
-                    y="74.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__World-–-Safely-managed"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="151.4"
+                    fill="#a2b0b4"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Limited
+                    <tspan x="593.27" y="151.35999999999981">
+                        World – Safely managed
+                    </tspan>
                 </text>
                 <text
-                    x="312.336"
-                    y="74.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__Lower-middle-income-countries-–-Safely-managed"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="169.7"
+                    fill="#699dbd"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Unimproved
+                    <tspan x="593.27" y="169.65999999999983">
+                        Lower-middle-income countries – Safely
+                    </tspan>
+                    <tspan x="593.27" y="183.95999999999984">managed</tspan>
                 </text>
                 <text
-                    x="420.596"
-                    y="74.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__Low-income-countries-–-Unimproved"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="202.3"
+                    fill="#b4b487"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Open defecation
+                    <tspan x="593.27" y="202.25999999999982">
+                        Low-income countries – Unimproved
+                    </tspan>
+                </text>
+                <text
+                    id="label__Upper-middle-income-countries-–-Basic"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="220.6"
+                    fill="#e7673f"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="593.27" y="220.55999999999983">
+                        Upper-middle-income countries – Basic
+                    </tspan>
+                </text>
+                <text
+                    id="label__Lower-middle-income-countries-–-Basic"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="238.9"
+                    fill="#d39151"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="593.27" y="238.85999999999984">
+                        Lower-middle-income countries – Basic
+                    </tspan>
+                </text>
+                <text
+                    id="label__World-–-Basic"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="257.2"
+                    fill="#d73027"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="593.27" y="257.15999999999985">
+                        World – Basic
+                    </tspan>
+                </text>
+                <text
+                    id="label__Low-income-countries-–-Open-defecation"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="275.5"
+                    fill="#a50026"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="593.27" y="275.4599999999998">
+                        Low-income countries – Open defecation
+                    </tspan>
+                </text>
+                <text
+                    id="label__Low-income-countries-–-Limited"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="293.8"
+                    fill="#313695"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="593.27" y="293.7599999999998">
+                        Low-income countries – Limited
+                    </tspan>
+                </text>
+                <text
+                    id="label__Lower-middle-income-countries-–-Limited"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="312.1"
+                    fill="#4575b4"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="593.27" y="312.05999999999983">
+                        Lower-middle-income countries – Limited
+                    </tspan>
+                </text>
+                <text
+                    id="label__Low-income-countries-–-Basic"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="330.4"
+                    fill="#c0a96d"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="593.27" y="330.35999999999984">
+                        Low-income countries – Basic
+                    </tspan>
+                </text>
+                <text
+                    id="label__Lower-middle-income-countries-–-Open-defecation"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="348.7"
+                    fill="#313695"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="593.27" y="348.65999999999985">
+                        Lower-middle-income countries – Open
+                    </tspan>
+                    <tspan x="593.27" y="362.95999999999987">defecation</tspan>
+                </text>
+                <text
+                    id="label__High-income-countries-–-Basic"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="381.3"
+                    fill="#b4b487"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="593.27" y="381.2599999999999">
+                        High-income countries – Basic
+                    </tspan>
+                </text>
+                <text
+                    id="label__Lower-middle-income-countries-–-Unimproved"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="399.6"
+                    fill="#c0a96d"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="593.27" y="399.5599999999999">
+                        Lower-middle-income countries –
+                    </tspan>
+                    <tspan x="593.27" y="413.8599999999999">Unimproved</tspan>
+                </text>
+                <text
+                    id="label__World-–-Open-defecation"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="432.2"
+                    fill="#699dbd"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="593.27" y="432.1599999999999">
+                        World – Open defecation
+                    </tspan>
+                </text>
+                <text
+                    id="label__Upper-middle-income-countries-–-Unimproved"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="450.5"
+                    fill="#d39151"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="593.27" y="450.4599999999999">
+                        Upper-middle-income countries –
+                    </tspan>
+                    <tspan x="593.27" y="464.75999999999993">Unimproved</tspan>
+                </text>
+                <text
+                    id="label__Upper-middle-income-countries-–-Open-defecation"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="483.1"
+                    fill="#4575b4"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="593.27" y="483.05999999999995">
+                        Upper-middle-income countries – Open
+                    </tspan>
+                    <tspan x="593.27" y="497.35999999999996">defecation</tspan>
+                </text>
+                <text
+                    id="label__High-income-countries-–-Open-defecation"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="593.3"
+                    y="515.7"
+                    fill="#d73027"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="593.27" y="515.66">
+                        High-income countries – Open
+                    </tspan>
+                    <tspan x="593.27" y="529.9599999999999">defecation</tspan>
                 </text>
             </g>
         </g>
-        <g id="bars">
-            <g
-                id="High-income-countries"
-                class="bar"
-                transform="translate(0, 132.68)"
-            >
-                <g id="Safely-managed">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(220.4, -27.417)"
-                        width="550.7"
-                        height="54.834"
-                        fill="#2c7bb6"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="495.75"
-                        y="0"
-                        width="550.7"
-                        height="54.834"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        91%
-                    </text>
-                </g>
-                <g id="Basic">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(771.1, -27.417)"
-                        width="46.79999999999998"
-                        height="54.834"
-                        fill="#abd9e9"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="794.5"
-                        y="0"
-                        width="46.79999999999998"
-                        height="54.834"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        7.8%
-                    </text>
-                </g>
-                <g id="Limited">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(818, -27.417)"
-                        width="3.1999999999999886"
-                        height="54.834"
-                        fill="#ffffbf"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Unimproved">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(821.1, -27.417)"
-                        width="2.6999999999999886"
-                        height="54.834"
-                        fill="#fdae61"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Open-defecation">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(823.9, -27.417)"
-                        width="0.09999999999999432"
-                        height="54.834"
-                        fill="#d7191c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="215.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="215.4" y="4.995000000000001">
-                        High-income countries
-                    </tspan>
-                </text>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World-–-Open-defecation"
+                stroke-width="2.5"
+                d="M311.3 489.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#74add1"
+                id="line__World-–-Open-defecation"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 489.3"
+            ></path>
+            <g id="datapoints__World-–-Open-defecation">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="489.3"
+                    r="1.8"
+                    fill="#74add1"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="Upper-middle-income-countries"
-                class="bar"
-                transform="translate(0, 217.04000000000002)"
-            >
-                <g id="Safely-managed">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(220.4, -27.417)"
-                        width="363.1"
-                        height="54.834"
-                        fill="#2c7bb6"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="401.95000000000005"
-                        y="0"
-                        width="363.1"
-                        height="54.834"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        60%
-                    </text>
-                </g>
-                <g id="Basic">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(583.5, -27.417)"
-                        width="200.20000000000002"
-                        height="54.834"
-                        fill="#abd9e9"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="683.6"
-                        y="0"
-                        width="200.20000000000002"
-                        height="54.834"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        33%
-                    </text>
-                </g>
-                <g id="Limited">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(783.7, -27.417)"
-                        width="17.900000000000006"
-                        height="54.834"
-                        fill="#ffffbf"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Unimproved">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(801.6, -27.417)"
-                        width="18.19999999999999"
-                        height="54.834"
-                        fill="#fdae61"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Open-defecation">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(819.8, -27.417)"
-                        width="4.199999999999989"
-                        height="54.834"
-                        fill="#d7191c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="215.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="215.4" y="4.995000000000001">
-                        Upper-middle-income countries
-                    </tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Upper-middle-income-countries-–-Open-defecation"
+                stroke-width="2.5"
+                d="M311.3 509.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4575b4"
+                id="line__Upper-middle-income-countries-–-Open-defecation"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 509.2"
+            ></path>
+            <g id="datapoints__Upper-middle-income-countries-–-Open-defecation">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="509.2"
+                    r="1.8"
+                    fill="#4575b4"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="World" class="bar" transform="translate(0, 301.4)">
-                <g id="Safely-managed">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(220.4, -27.417)"
-                        width="341.70000000000005"
-                        height="54.834"
-                        fill="#2c7bb6"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="391.25"
-                        y="0"
-                        width="341.70000000000005"
-                        height="54.834"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        57%
-                    </text>
-                </g>
-                <g id="Basic">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(562.1, -27.417)"
-                        width="145.9"
-                        height="54.834"
-                        fill="#abd9e9"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="635.0500000000001"
-                        y="0"
-                        width="145.9"
-                        height="54.834"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        24%
-                    </text>
-                </g>
-                <g id="Limited">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(707.9, -27.417)"
-                        width="43.099999999999994"
-                        height="54.834"
-                        fill="#ffffbf"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="729.4499999999999"
-                        y="0"
-                        width="43.099999999999994"
-                        height="54.834"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        7.2%
-                    </text>
-                </g>
-                <g id="Unimproved">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(751.1, -27.417)"
-                        width="41.20000000000002"
-                        height="54.834"
-                        fill="#fdae61"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="771.7"
-                        y="0"
-                        width="41.20000000000002"
-                        height="54.834"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        6.8%
-                    </text>
-                </g>
-                <g id="Open-defecation">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(792.3, -27.417)"
-                        width="31.69999999999999"
-                        height="54.834"
-                        fill="#d7191c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="215.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="215.4" y="4.995000000000001">World</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Lower-middle-income-countries-–-Open-defecation"
+                stroke-width="2.5"
+                d="M311.3 473.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#313695"
+                id="line__Lower-middle-income-countries-–-Open-defecation"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 473.4"
+            ></path>
+            <g id="datapoints__Lower-middle-income-countries-–-Open-defecation">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="473.4"
+                    r="1.8"
+                    fill="#313695"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="Lower-middle-income-countries"
-                class="bar"
-                transform="translate(0, 385.76)"
-            >
-                <g id="Safely-managed">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(220.4, -27.417)"
-                        width="286.79999999999995"
-                        height="54.834"
-                        fill="#2c7bb6"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="363.79999999999995"
-                        y="0"
-                        width="286.79999999999995"
-                        height="54.834"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        48%
-                    </text>
-                </g>
-                <g id="Basic">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(507.2, -27.417)"
-                        width="150.6"
-                        height="54.834"
-                        fill="#abd9e9"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="582.5"
-                        y="0"
-                        width="150.6"
-                        height="54.834"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        25%
-                    </text>
-                </g>
-                <g id="Limited">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(657.9, -27.417)"
-                        width="73.70000000000002"
-                        height="54.834"
-                        fill="#ffffbf"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="694.75"
-                        y="0"
-                        width="73.70000000000002"
-                        height="54.834"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        12%
-                    </text>
-                </g>
-                <g id="Unimproved">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(731.6, -27.417)"
-                        width="38.900000000000006"
-                        height="54.834"
-                        fill="#fdae61"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="751.0500000000001"
-                        y="0"
-                        width="38.900000000000006"
-                        height="54.834"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        6.4%
-                    </text>
-                </g>
-                <g id="Open-defecation">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(770.5, -27.417)"
-                        width="53.49999999999997"
-                        height="54.834"
-                        fill="#d7191c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="797.25"
-                        y="0"
-                        width="53.49999999999997"
-                        height="54.834"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        8.9%
-                    </text>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="215.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="215.4" y="4.995000000000001">
-                        Lower-middle-income countries
-                    </tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Low-income-countries-–-Open-defecation"
+                stroke-width="2.5"
+                d="M311.3 440.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a50026"
+                id="line__Low-income-countries-–-Open-defecation"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 440.4"
+            ></path>
+            <g id="datapoints__Low-income-countries-–-Open-defecation">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="440.4"
+                    r="1.8"
+                    fill="#a50026"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="Low-income-countries"
-                class="bar"
-                transform="translate(0, 470.12)"
-            >
-                <g id="Safely-managed">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(220.4, -27.417)"
-                        width="146.99999999999997"
-                        height="54.834"
-                        fill="#2c7bb6"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="293.9"
-                        y="0"
-                        width="146.99999999999997"
-                        height="54.834"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        24%
-                    </text>
-                </g>
-                <g id="Basic">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(367.4, -27.417)"
-                        width="66.99999999999997"
-                        height="54.834"
-                        fill="#abd9e9"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="400.9"
-                        y="0"
-                        width="66.99999999999997"
-                        height="54.834"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        11%
-                    </text>
-                </g>
-                <g id="Limited">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(434.4, -27.417)"
-                        width="77.70000000000002"
-                        height="54.834"
-                        fill="#ffffbf"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="473.25"
-                        y="0"
-                        width="77.70000000000002"
-                        height="54.834"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        13%
-                    </text>
-                </g>
-                <g id="Unimproved">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(512.1, -27.417)"
-                        width="212.9"
-                        height="54.834"
-                        fill="#fdae61"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="618.5500000000001"
-                        y="0"
-                        width="212.9"
-                        height="54.834"
-                        fill="#000"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        35%
-                    </text>
-                </g>
-                <g id="Open-defecation">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(725, -27.417)"
-                        width="98.9"
-                        height="54.834"
-                        fill="#d7191c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="774.45"
-                        y="0"
-                        width="98.9"
-                        height="54.834"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        16%
-                    </text>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="215.4"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="215.4" y="4.995000000000001">
-                        Low-income countries
-                    </tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__High-income-countries-–-Open-defecation"
+                stroke-width="2.5"
+                d="M311.3 512.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d73027"
+                id="line__High-income-countries-–-Open-defecation"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 512.2"
+            ></path>
+            <g id="datapoints__High-income-countries-–-Open-defecation">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="512.2"
+                    r="1.8"
+                    fill="#d73027"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World-–-Unimproved"
+                stroke-width="2.5"
+                d="M311.3 482.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#f46d43"
+                id="line__World-–-Unimproved"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 482.4"
+            ></path>
+            <g id="datapoints__World-–-Unimproved">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="482.4"
+                    r="1.8"
+                    fill="#f46d43"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Upper-middle-income-countries-–-Unimproved"
+                stroke-width="2.5"
+                d="M311.3 499.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#fdae61"
+                id="line__Upper-middle-income-countries-–-Unimproved"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 499.1"
+            ></path>
+            <g id="datapoints__Upper-middle-income-countries-–-Unimproved">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="499.1"
+                    r="1.8"
+                    fill="#fdae61"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Lower-middle-income-countries-–-Unimproved"
+                stroke-width="2.5"
+                d="M311.3 484"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#fee090"
+                id="line__Lower-middle-income-countries-–-Unimproved"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 484"
+            ></path>
+            <g id="datapoints__Lower-middle-income-countries-–-Unimproved">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="484"
+                    r="1.8"
+                    fill="#fee090"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Low-income-countries-–-Unimproved"
+                stroke-width="2.5"
+                d="M311.3 357.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffbf"
+                id="line__Low-income-countries-–-Unimproved"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 357.7"
+            ></path>
+            <g id="datapoints__Low-income-countries-–-Unimproved">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="357.7"
+                    r="1.8"
+                    fill="#ffffbf"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__High-income-countries-–-Unimproved"
+                stroke-width="2.5"
+                d="M311.3 510.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#e0f3f8"
+                id="line__High-income-countries-–-Unimproved"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 510.3"
+            ></path>
+            <g id="datapoints__High-income-countries-–-Unimproved">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="510.3"
+                    r="1.8"
+                    fill="#e0f3f8"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World-–-Limited"
+                stroke-width="2.5"
+                d="M311.3 481"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#abd9e9"
+                id="line__World-–-Limited"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 481"
+            ></path>
+            <g id="datapoints__World-–-Limited">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="481"
+                    r="1.8"
+                    fill="#abd9e9"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Upper-middle-income-countries-–-Limited"
+                stroke-width="2.5"
+                d="M311.3 499.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#74add1"
+                id="line__Upper-middle-income-countries-–-Limited"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 499.3"
+            ></path>
+            <g id="datapoints__Upper-middle-income-countries-–-Limited">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="499.3"
+                    r="1.8"
+                    fill="#74add1"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Lower-middle-income-countries-–-Limited"
+                stroke-width="2.5"
+                d="M311.3 458.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4575b4"
+                id="line__Lower-middle-income-countries-–-Limited"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 458.8"
+            ></path>
+            <g id="datapoints__Lower-middle-income-countries-–-Limited">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="458.8"
+                    r="1.8"
+                    fill="#4575b4"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Low-income-countries-–-Limited"
+                stroke-width="2.5"
+                d="M311.3 455.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#313695"
+                id="line__Low-income-countries-–-Limited"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 455.9"
+            ></path>
+            <g id="datapoints__Low-income-countries-–-Limited">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="455.9"
+                    r="1.8"
+                    fill="#313695"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__High-income-countries-–-Limited"
+                stroke-width="2.5"
+                d="M311.3 510"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a50026"
+                id="line__High-income-countries-–-Limited"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 510"
+            ></path>
+            <g id="datapoints__High-income-countries-–-Limited">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="510"
+                    r="1.8"
+                    fill="#a50026"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World-–-Basic"
+                stroke-width="2.5"
+                d="M311.3 406.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d73027"
+                id="line__World-–-Basic"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 406.4"
+            ></path>
+            <g id="datapoints__World-–-Basic">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="406.4"
+                    r="1.8"
+                    fill="#d73027"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Upper-middle-income-countries-–-Basic"
+                stroke-width="2.5"
+                d="M311.3 366.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#f46d43"
+                id="line__Upper-middle-income-countries-–-Basic"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 366.9"
+            ></path>
+            <g id="datapoints__Upper-middle-income-countries-–-Basic">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="366.9"
+                    r="1.8"
+                    fill="#f46d43"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Lower-middle-income-countries-–-Basic"
+                stroke-width="2.5"
+                d="M311.3 402.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#fdae61"
+                id="line__Lower-middle-income-countries-–-Basic"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 402.9"
+            ></path>
+            <g id="datapoints__Lower-middle-income-countries-–-Basic">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="402.9"
+                    r="1.8"
+                    fill="#fdae61"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Low-income-countries-–-Basic"
+                stroke-width="2.5"
+                d="M311.3 463.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#fee090"
+                id="line__Low-income-countries-–-Basic"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 463.7"
+            ></path>
+            <g id="datapoints__Low-income-countries-–-Basic">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="463.7"
+                    r="1.8"
+                    fill="#fee090"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__High-income-countries-–-Basic"
+                stroke-width="2.5"
+                d="M311.3 478.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffbf"
+                id="line__High-income-countries-–-Basic"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 478.3"
+            ></path>
+            <g id="datapoints__High-income-countries-–-Basic">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="478.3"
+                    r="1.8"
+                    fill="#ffffbf"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World-–-Safely-managed"
+                stroke-width="2.5"
+                d="M311.3 264.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#e0f3f8"
+                id="line__World-–-Safely-managed"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 264.2"
+            ></path>
+            <g id="datapoints__World-–-Safely-managed">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="264.2"
+                    r="1.8"
+                    fill="#e0f3f8"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Upper-middle-income-countries-–-Safely-managed"
+                stroke-width="2.5"
+                d="M311.3 248.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#abd9e9"
+                id="line__Upper-middle-income-countries-–-Safely-managed"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 248.6"
+            ></path>
+            <g id="datapoints__Upper-middle-income-countries-–-Safely-managed">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="248.6"
+                    r="1.8"
+                    fill="#abd9e9"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Lower-middle-income-countries-–-Safely-managed"
+                stroke-width="2.5"
+                d="M311.3 304"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#74add1"
+                id="line__Lower-middle-income-countries-–-Safely-managed"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 304"
+            ></path>
+            <g id="datapoints__Lower-middle-income-countries-–-Safely-managed">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="304"
+                    r="1.8"
+                    fill="#74add1"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Low-income-countries-–-Safely-managed"
+                stroke-width="2.5"
+                d="M311.3 405.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4575b4"
+                id="line__Low-income-countries-–-Safely-managed"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 405.5"
+            ></path>
+            <g id="datapoints__Low-income-countries-–-Safely-managed">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="405.5"
+                    r="1.8"
+                    fill="#4575b4"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__High-income-countries-–-Safely-managed"
+                stroke-width="2.5"
+                d="M311.3 112.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#313695"
+                id="line__High-income-countries-–-Safely-managed"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M311.3 112.4"
+            ></path>
+            <g id="datapoints__High-income-countries-–-Safely-managed">
+                <circle
+                    id="2022"
+                    cx="311.3"
+                    cy="112.4"
+                    r="1.8"
+                    fill="#313695"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>
