@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -80,160 +69,357 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="160.05"
-            y1="516.70"
-            x2="160.05"
-            y2="125.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Losing-more-than-25%"
-                x="0"
-                y="0"
-                transform="translate(160.3, 142.710625)"
-                width="580"
-                height="63.553749999999994"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Losing-more-than-50%"
-                x="0"
-                y="0"
-                transform="translate(160.3, 240.485625)"
-                width="157"
-                height="63.553749999999994"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Losing-more-than-75%"
-                x="0"
-                y="0"
-                transform="translate(160.3, 338.26062499999995)"
-                width="43"
-                height="63.553749999999994"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Losing-more-than-90%"
-                x="0"
-                y="0"
-                transform="translate(160.3, 436.035625)"
-                width="14.699999999999989"
-                height="63.553749999999994"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2050"
+                    x1="387.975"
+                    y1="496.19999999999993"
+                    x2="387.975"
+                    y2="501.69999999999993"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="387.975"
+                    y="514.6999999999999"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2050
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(745.3, 174.48749999999998)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1,267 species
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(322.3, 272.2625)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                343 species
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(208.3, 370.03749999999997)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                94 species
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(180, 467.8125)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                32 species
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="96.60"
+                    y="496.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0 species
+                </text>
+                <text
+                    x="96.60"
+                    y="444.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    200 species
+                </text>
+                <text
+                    x="96.60"
+                    y="392.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    400 species
+                </text>
+                <text
+                    x="96.60"
+                    y="340.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    600 species
+                </text>
+                <text
+                    x="96.60"
+                    y="288.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    800 species
+                </text>
+                <text
+                    x="96.60"
+                    y="235.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1,000 species
+                </text>
+                <text
+                    x="96.60"
+                    y="183.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1,200 species
+                </text>
+                <text
+                    x="96.60"
+                    y="131.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1,400 species
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="155.3"
-                y="179.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="155.3" y="179.48249999999996">
-                    Losing more than 25%
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="155.3"
-                y="277.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="155.3" y="277.2575">Losing more than 50%</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="155.3"
-                y="375.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="155.3" y="375.03249999999997">
-                    Losing more than 75%
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="155.3"
-                y="472.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="155.3" y="472.8075">Losing more than 90%</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-species"
+                x1="101.60"
+                y1="496.7"
+                x2="674.35"
+                y2="496.7"
+                stroke="#999"
+            ></line>
+            <line
+                id="200-species"
+                x1="101.60"
+                y1="444.5"
+                x2="674.35"
+                y2="444.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="400-species"
+                x1="101.60"
+                y1="392.4"
+                x2="674.35"
+                y2="392.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="600-species"
+                x1="101.60"
+                y1="340.2"
+                x2="674.35"
+                y2="340.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="800-species"
+                x1="101.60"
+                y1="288.1"
+                x2="674.35"
+                y2="288.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1,000-species"
+                x1="101.60"
+                y1="235.9"
+                x2="674.35"
+                y2="235.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1,200-species"
+                x1="101.60"
+                y1="183.8"
+                x2="674.35"
+                y2="183.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1,400-species"
+                x1="101.60"
+                y1="131.6"
+                x2="674.35"
+                y2="131.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Losing-more-than-25%"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="678.4"
+                    y="171.1"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="678.35" y="171.11">Losing more than 25%</tspan>
+                </text>
+                <text
+                    id="label__Losing-more-than-50%"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="678.4"
+                    y="412.1"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="678.35" y="412.11">Losing more than 50%</tspan>
+                </text>
+                <text
+                    id="label__Losing-more-than-75%"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="678.4"
+                    y="477.0"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="678.35" y="477.01">Losing more than 75%</tspan>
+                </text>
+                <text
+                    id="label__Losing-more-than-90%"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="678.4"
+                    y="493.2"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="678.35" y="493.21">Losing more than 90%</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Losing-more-than-75%"
+                stroke-width="2.5"
+                d="M388 472.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Losing-more-than-75%"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M388 472.2"
+            ></path>
+            <g id="datapoints__Losing-more-than-75%">
+                <circle
+                    id="2050"
+                    cx="388"
+                    cy="472.2"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Losing-more-than-90%"
+                stroke-width="2.5"
+                d="M388 488.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Losing-more-than-90%"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M388 488.4"
+            ></path>
+            <g id="datapoints__Losing-more-than-90%">
+                <circle
+                    id="2050"
+                    cx="388"
+                    cy="488.4"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Losing-more-than-50%"
+                stroke-width="2.5"
+                d="M388 407.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Losing-more-than-50%"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M388 407.3"
+            ></path>
+            <g id="datapoints__Losing-more-than-50%">
+                <circle
+                    id="2050"
+                    cx="388"
+                    cy="407.3"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Losing-more-than-25%"
+                stroke-width="2.5"
+                d="M388 166.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Losing-more-than-25%"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M388 166.3"
+            ></path>
+            <g id="datapoints__Losing-more-than-25%">
+                <circle
+                    id="2050"
+                    cx="388"
+                    cy="166.3"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

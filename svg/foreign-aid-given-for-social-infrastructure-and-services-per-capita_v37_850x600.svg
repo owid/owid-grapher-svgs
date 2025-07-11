@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -81,237 +70,537 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="241.25"
-            y1="532.30"
-            x2="241.25"
-            y2="125.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Aid-for-government-and-civil-society"
-                x="0"
-                y="0"
-                transform="translate(241.5, 137.46208333333334)"
-                width="540.9"
-                height="44.05916666666667"
-                fill="#b13507"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Aid-for-population-programs-and-reproductive-health"
-                x="0"
-                y="0"
-                transform="translate(241.5, 205.24541666666667)"
-                width="179.2"
-                height="44.05916666666667"
-                fill="#578145"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Aid-for-health"
-                x="0"
-                y="0"
-                transform="translate(241.5, 273.02875)"
-                width="95.89999999999998"
-                height="44.05916666666667"
-                fill="#883039"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Aid-for-education"
-                x="0"
-                y="0"
-                transform="translate(241.5, 340.81208333333336)"
-                width="60.19999999999999"
-                height="44.05916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Aid-for-other-social-infrastructure-and-services"
-                x="0"
-                y="0"
-                transform="translate(241.5, 408.59541666666667)"
-                width="17.100000000000023"
-                height="44.05916666666667"
-                fill="#970046"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Aid-for-water-supply-and-sanitation"
-                x="0"
-                y="0"
-                transform="translate(241.5, 476.37874999999997)"
-                width="14"
-                height="44.05916666666667"
-                fill="#c05917"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2023"
+                    x1="317.32"
+                    y1="511.79999999999995"
+                    x2="317.32"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="317.32"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2023
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(787.4, 159.49166666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $42.24
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(425.7, 227.275)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $14
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(342.4, 295.05833333333334)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $7.49
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(306.7, 362.8416666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $4.71
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(263.6, 430.625)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $1.34
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(260.5, 498.4083333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $1.1
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="37.84"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $0
+                </text>
+                <text
+                    x="37.84"
+                    y="470"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $5
+                </text>
+                <text
+                    x="37.84"
+                    y="427.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $10
+                </text>
+                <text
+                    x="37.84"
+                    y="385.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $15
+                </text>
+                <text
+                    x="37.84"
+                    y="343.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $20
+                </text>
+                <text
+                    x="37.84"
+                    y="300.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $25
+                </text>
+                <text
+                    x="37.84"
+                    y="258.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $30
+                </text>
+                <text
+                    x="37.84"
+                    y="216.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $35
+                </text>
+                <text
+                    x="37.84"
+                    y="173.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $40
+                </text>
+                <text
+                    x="37.84"
+                    y="131.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $45
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="236.5"
-                y="157.1"
-                fill="#555"
-                text-anchor="end"
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="$0"
+                x1="42.84"
+                y1="512.3"
+                x2="591.80"
+                y2="512.3"
+                stroke="#999"
+            ></line>
+            <line
+                id="$5"
+                x1="42.84"
+                y1="470"
+                x2="591.80"
+                y2="470"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$10"
+                x1="42.84"
+                y1="427.7"
+                x2="591.80"
+                y2="427.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$15"
+                x1="42.84"
+                y1="385.4"
+                x2="591.80"
+                y2="385.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$20"
+                x1="42.84"
+                y1="343.1"
+                x2="591.80"
+                y2="343.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$25"
+                x1="42.84"
+                y1="300.8"
+                x2="591.80"
+                y2="300.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$30"
+                x1="42.84"
+                y1="258.5"
+                x2="591.80"
+                y2="258.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$35"
+                x1="42.84"
+                y1="216.2"
+                x2="591.80"
+                y2="216.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$40"
+                x1="42.84"
+                y1="173.9"
+                x2="591.80"
+                y2="173.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$45"
+                x1="42.84"
+                y1="131.6"
+                x2="591.80"
+                y2="131.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Aid-for-government-and-civil-society"
+                    d="M595.8,154.9 H604.3 V154.9 H612.8"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Aid-for-population-programs-and-reproductive-health"
+                    d="M595.8,393.9 H604.3 V401.05 H612.8"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Aid-for-health"
+                    d="M595.8,448.9 H604.3 V448.9 H612.8"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Aid-for-education"
+                    d="M595.8,472.5 H601.4666666666666 V469.09999999999997 H612.8"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Aid-for-other-social-infrastructure-and-services"
+                    d="M595.8,501 H607.1333333333332 V494.55 H612.8"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Aid-for-water-supply-and-sanitation"
+                    d="M595.8,503 H607.1333333333332 V520 H612.8"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Aid-for-government-and-civil-society"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="616.8"
+                    y="159.7"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="616.8" y="159.71">
+                        Aid for government and civil society
+                    </tspan>
+                </text>
+                <text
+                    id="label__Aid-for-population-programs-and-reproductive-health"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="616.8"
+                    y="398.7"
+                    fill="#578145"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="616.8" y="398.71">
+                        Aid for population programs and
+                    </tspan>
+                    <tspan x="616.8" y="413.01">reproductive health</tspan>
+                </text>
+                <text
+                    id="label__Aid-for-health"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="616.8"
+                    y="453.7"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="616.8" y="453.71">Aid for health</tspan>
+                </text>
+                <text
+                    id="label__Aid-for-education"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="616.8"
+                    y="473.9"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="616.8" y="473.90999999999997">
+                        Aid for education
+                    </tspan>
+                </text>
+                <text
+                    id="label__Aid-for-other-social-infrastructure-and-services"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="616.8"
+                    y="492.2"
+                    fill="#970046"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="616.8" y="492.21">
+                        Aid for other social infrastructure and
+                    </tspan>
+                    <tspan x="616.8" y="506.51">services</tspan>
+                </text>
+                <text
+                    id="label__Aid-for-water-supply-and-sanitation"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="616.8"
+                    y="524.8"
+                    fill="#c05917"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="616.8" y="524.8100000000001">
+                        Aid for water supply and sanitation
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Aid-for-education"
+                stroke-width="2.5"
+                d="M317.3 472.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Aid-for-education"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M317.3 472.5"
+            ></path>
+            <g id="datapoints__Aid-for-education">
+                <circle
+                    id="2023"
+                    cx="317.3"
+                    cy="472.5"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Aid-for-health"
+                stroke-width="2.5"
+                d="M317.3 448.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Aid-for-health"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M317.3 448.9"
+            ></path>
+            <g id="datapoints__Aid-for-health">
+                <circle
+                    id="2023"
+                    cx="317.3"
+                    cy="448.9"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Aid-for-population-programs-and-reproductive-health"
+                stroke-width="2.5"
+                d="M317.3 393.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#578145"
+                id="line__Aid-for-population-programs-and-reproductive-health"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M317.3 393.9"
+            ></path>
+            <g
+                id="datapoints__Aid-for-population-programs-and-reproductive-health"
             >
-                <tspan x="236.5" y="157.06166666666667">
-                    Aid for government and civil
-                </tspan>
-                <tspan x="236.5" y="171.91166666666666">society</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="236.5"
-                y="224.8"
-                fill="#555"
-                text-anchor="end"
+                <circle
+                    id="2023"
+                    cx="317.3"
+                    cy="393.9"
+                    r="1.8"
+                    fill="#578145"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Aid-for-water-supply-and-sanitation"
+                stroke-width="2.5"
+                d="M317.3 503"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c05917"
+                id="line__Aid-for-water-supply-and-sanitation"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M317.3 503"
+            ></path>
+            <g id="datapoints__Aid-for-water-supply-and-sanitation">
+                <circle
+                    id="2023"
+                    cx="317.3"
+                    cy="503"
+                    r="1.8"
+                    fill="#c05917"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Aid-for-government-and-civil-society"
+                stroke-width="2.5"
+                d="M317.3 154.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Aid-for-government-and-civil-society"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M317.3 154.9"
+            ></path>
+            <g id="datapoints__Aid-for-government-and-civil-society">
+                <circle
+                    id="2023"
+                    cx="317.3"
+                    cy="154.9"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Aid-for-other-social-infrastructure-and-services"
+                stroke-width="2.5"
+                d="M317.3 501"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#970046"
+                id="line__Aid-for-other-social-infrastructure-and-services"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M317.3 501"
+            ></path>
+            <g
+                id="datapoints__Aid-for-other-social-infrastructure-and-services"
             >
-                <tspan x="236.5" y="224.84500000000003">
-                    Aid for population programs and
-                </tspan>
-                <tspan x="236.5" y="239.69500000000002">
-                    reproductive health
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="236.5"
-                y="300.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="236.5" y="300.05333333333334">Aid for health</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="236.5"
-                y="367.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="236.5" y="367.8366666666667">Aid for education</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="236.5"
-                y="428.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="236.5" y="428.195">
-                    Aid for other social infrastructure
-                </tspan>
-                <tspan x="236.5" y="443.045">and services</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="236.5"
-                y="503.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="236.5" y="503.4033333333333">
-                    Aid for water supply and sanitation
-                </tspan>
-            </text>
+                <circle
+                    id="2023"
+                    cx="317.3"
+                    cy="501"
+                    r="1.8"
+                    fill="#970046"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -75,972 +64,1480 @@
     </g>
     <g id="chart-area" style="pointer-events: none">
         <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2022"
+                    x1="315.955"
+                    y1="531.9"
+                    x2="315.955"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
             <g id="tick-labels">
                 <text
-                    x="120.22000000000001"
-                    y="550.4"
-                    fill="#5b5b5b"
-                    text-anchor="start"
-                    font-size="13"
-                >
-                    0%
-                </text>
-                <text
-                    x="261"
+                    x="315.955"
                     y="550.4"
                     fill="#5b5b5b"
                     text-anchor="middle"
                     font-size="13"
                 >
-                    20%
-                </text>
-                <text
-                    x="401.7"
-                    y="550.4"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    40%
-                </text>
-                <text
-                    x="542.5"
-                    y="550.4"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    60%
-                </text>
-                <text
-                    x="683.2"
-                    y="550.4"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    80%
-                </text>
-                <text
-                    x="824"
-                    y="550.4"
-                    fill="#5b5b5b"
-                    text-anchor="end"
-                    font-size="13"
-                >
-                    100%
+                    2022
                 </text>
             </g>
         </g>
-        <g id="vertical-grid-lines" class="AxisGridLines verticalLines">
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.39"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    +0%
+                </text>
+            </g>
+        </g>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
             <line
-                id="0%"
-                x1="120.2"
-                y1="532.40"
-                x2="120.2"
-                y2="108.50"
+                id="+0%"
+                x1="47.39"
+                y1="532.4"
+                x2="584.52"
+                y2="532.4"
                 stroke="#999"
             ></line>
-            <line
-                id="20%"
-                x1="261"
-                y1="532.40"
-                x2="261"
-                y2="108.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="40%"
-                x1="401.7"
-                y1="532.40"
-                x2="401.7"
-                y2="108.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="60%"
-                x1="542.5"
-                y1="532.40"
-                x2="542.5"
-                y2="108.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="80%"
-                x1="683.2"
-                y1="532.40"
-                x2="683.2"
-                y2="108.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="100%"
-                x1="824"
-                y1="532.40"
-                x2="824"
-                y2="108.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
         </g>
-        <line
-            id="vertical-zero-line"
-            x1="119.95"
-            y1="532.40"
-            x2="119.95"
-            y2="108.50"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="categorical-color-legend" class="categoricalColorLegend">
-            <g id="swatches">
-                <rect
-                    id="10-Mbits/s-and-over"
-                    x="16"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#00847e"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="2-10-Mbit/s"
-                    x="172.644"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#00295b"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="256-kbit/s---2-Mbit/s"
-                    x="274.568"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Germany-–-256-kbit/s---2-Mbit/s"
+                    d="M588.52,532.4 H589.1999999999999 V106.04999999999988 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="China-–-256-kbit/s---2-Mbit/s"
+                    d="M588.52,532.4 H589.8799999999999 V124.34999999999988 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Canada-–-256-kbit/s---2-Mbit/s"
+                    d="M588.52,532.4 H590.56 V142.6499999999999 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-States-–-2-10-Mbit/s"
+                    d="M588.52,532.4 H591.2399999999999 V160.9499999999999 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-Kingdom-–-2-10-Mbit/s"
+                    d="M588.52,532.4 H591.92 V179.24999999999991 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Pakistan-–-2-10-Mbit/s"
+                    d="M588.52,532.4 H592.5999999999999 V197.54999999999993 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Japan-–-2-10-Mbit/s"
+                    d="M588.52,532.4 H593.28 V215.84999999999994 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Italy-–-2-10-Mbit/s"
+                    d="M588.52,532.4 H593.9599999999999 V234.14999999999995 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Indonesia-–-2-10-Mbit/s"
+                    d="M588.52,532.4 H594.64 V252.44999999999996 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="India-–-2-10-Mbit/s"
+                    d="M588.52,532.4 H595.3199999999999 V270.74999999999994 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Germany-–-2-10-Mbit/s"
+                    d="M588.52,532.4 H595.9999999999999 V289.04999999999995 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="France-–-2-10-Mbit/s"
+                    d="M588.52,532.4 H596.68 V307.34999999999997 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="China-–-2-10-Mbit/s"
+                    d="M588.52,532.4 H597.3599999999999 V325.65 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Canada-–-2-10-Mbit/s"
+                    d="M588.52,532.4 H598.04 V343.95 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-States-–-10-Mbits/s-and-over"
+                    d="M588.52,532.4 H598.7199999999999 V362.25 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-Kingdom-–-10-Mbits/s-and-over"
+                    d="M588.52,532.4 H599.4 V380.55 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Pakistan-–-10-Mbits/s-and-over"
+                    d="M588.52,532.4 H600.0799999999999 V398.85 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Japan-–-10-Mbits/s-and-over"
+                    d="M588.52,532.4 H600.7599999999999 V417.15000000000003 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Italy-–-10-Mbits/s-and-over"
+                    d="M588.52,532.4 H601.4399999999999 V435.45000000000005 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Indonesia-–-10-Mbits/s-and-over"
+                    d="M588.52,532.4 H602.1199999999999 V453.75000000000006 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="India-–-10-Mbits/s-and-over"
+                    d="M588.52,532.4 H602.8 V472.05000000000007 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Germany-–-10-Mbits/s-and-over"
+                    d="M588.52,532.4 H603.4799999999999 V490.3500000000001 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="France-–-10-Mbits/s-and-over"
+                    d="M588.52,532.4 H604.16 V508.6500000000001 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="China-–-10-Mbits/s-and-over"
+                    d="M588.52,532.4 H604.8399999999999 V526.95 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Canada-–-10-Mbits/s-and-over"
+                    d="M588.52,532.4 H604.8399999999999 V545.25 H605.52"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Germany-–-256-kbit/s---2-Mbit/s"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="110.9"
+                    fill="#9a5129"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="110.85999999999987">
+                        Germany – 256 kbit/s - 2 Mbit/s
+                    </tspan>
+                </text>
+                <text
+                    id="label__China-–-256-kbit/s---2-Mbit/s"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="129.2"
+                    fill="#54a385"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="129.15999999999988">
+                        China – 256 kbit/s - 2 Mbit/s
+                    </tspan>
+                </text>
+                <text
+                    id="label__Canada-–-256-kbit/s---2-Mbit/s"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="147.5"
+                    fill="#970046"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="147.4599999999999">
+                        Canada – 256 kbit/s - 2 Mbit/s
+                    </tspan>
+                </text>
+                <text
+                    id="label__United-States-–-2-10-Mbit/s"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="165.8"
+                    fill="#286bbb"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="165.7599999999999">
+                        United States – 2-10 Mbit/s
+                    </tspan>
+                </text>
+                <text
+                    id="label__United-Kingdom-–-2-10-Mbit/s"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="184.1"
+                    fill="#af8454"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="184.05999999999992">
+                        United Kingdom – 2-10 Mbit/s
+                    </tspan>
+                </text>
+                <text
+                    id="label__Pakistan-–-2-10-Mbit/s"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="202.4"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="202.35999999999993">
+                        Pakistan – 2-10 Mbit/s
+                    </tspan>
+                </text>
+                <text
+                    id="label__Japan-–-2-10-Mbit/s"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="220.7"
+                    fill="#18470f"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="220.65999999999994">
+                        Japan – 2-10 Mbit/s
+                    </tspan>
+                </text>
+                <text
+                    id="label__Italy-–-2-10-Mbit/s"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="239.0"
+                    fill="#8c4569"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="238.95999999999995">
+                        Italy – 2-10 Mbit/s
+                    </tspan>
+                </text>
+                <text
+                    id="label__Indonesia-–-2-10-Mbit/s"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="257.3"
+                    fill="#36a4b3"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="257.25999999999993">
+                        Indonesia – 2-10 Mbit/s
+                    </tspan>
+                </text>
+                <text
+                    id="label__India-–-2-10-Mbit/s"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="275.6"
                     fill="#c15065"
-                    stroke-width="0.4"
-                ></rect>
-            </g>
-            <g id="labels">
-                <text
-                    x="34.5"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    10 Mbits/s and over
+                    <tspan x="609.52" y="275.55999999999995">
+                        India – 2-10 Mbit/s
+                    </tspan>
                 </text>
                 <text
-                    x="191.144"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__Germany-–-2-10-Mbit/s"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="293.9"
+                    fill="#00295b"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    2-10 Mbit/s
+                    <tspan x="609.52" y="293.85999999999996">
+                        Germany – 2-10 Mbit/s
+                    </tspan>
                 </text>
                 <text
-                    x="293.068"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__France-–-2-10-Mbit/s"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="312.2"
+                    fill="#00847e"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    256 kbit/s - 2 Mbit/s
+                    <tspan x="609.52" y="312.15999999999997">
+                        France – 2-10 Mbit/s
+                    </tspan>
                 </text>
-            </g>
-        </g>
-        <g id="bars">
-            <g
-                id="United-Kingdom"
-                class="bar"
-                transform="translate(0, 127.76818181818183)"
-            >
-                <g id="10-Mbits/s-and-over">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.524318181818183)"
-                        width="699.4"
-                        height="25.048636363636366"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="469.9"
-                        y="0"
-                        width="699.4"
-                        height="25.048636363636366"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        99%
-                    </text>
-                </g>
-                <g id="2-10-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(819.6, -12.524318181818183)"
-                        width="4.3999999999999915"
-                        height="25.048636363636366"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="256-kbit/s---2-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(824, -12.524318181818183)"
-                        width="0"
-                        height="25.048636363636366"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
+                    id="label__China-–-2-10-Mbit/s"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="330.5"
+                    fill="#d96855"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="115.2" y="4.995000000000001">
-                        United Kingdom
+                    <tspan x="609.52" y="330.46">China – 2-10 Mbit/s</tspan>
+                </text>
+                <text
+                    id="label__Canada-–-2-10-Mbit/s"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="348.8"
+                    fill="#9a5129"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="348.76">Canada – 2-10 Mbit/s</tspan>
+                </text>
+                <text
+                    id="label__United-States-–-10-Mbits/s-and-over"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="367.1"
+                    fill="#54a385"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="367.06">
+                        United States – 10 Mbits/s and over
+                    </tspan>
+                </text>
+                <text
+                    id="label__United-Kingdom-–-10-Mbits/s-and-over"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="385.4"
+                    fill="#970046"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="385.36">
+                        United Kingdom – 10 Mbits/s and over
+                    </tspan>
+                </text>
+                <text
+                    id="label__Pakistan-–-10-Mbits/s-and-over"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="403.7"
+                    fill="#286bbb"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="403.66">
+                        Pakistan – 10 Mbits/s and over
+                    </tspan>
+                </text>
+                <text
+                    id="label__Japan-–-10-Mbits/s-and-over"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="422.0"
+                    fill="#af8454"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="421.96000000000004">
+                        Japan – 10 Mbits/s and over
+                    </tspan>
+                </text>
+                <text
+                    id="label__Italy-–-10-Mbits/s-and-over"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="440.3"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="440.26000000000005">
+                        Italy – 10 Mbits/s and over
+                    </tspan>
+                </text>
+                <text
+                    id="label__Indonesia-–-10-Mbits/s-and-over"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="458.6"
+                    fill="#18470f"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="458.56000000000006">
+                        Indonesia – 10 Mbits/s and over
+                    </tspan>
+                </text>
+                <text
+                    id="label__India-–-10-Mbits/s-and-over"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="476.9"
+                    fill="#8c4569"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="476.86000000000007">
+                        India – 10 Mbits/s and over
+                    </tspan>
+                </text>
+                <text
+                    id="label__Germany-–-10-Mbits/s-and-over"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="495.2"
+                    fill="#36a4b3"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="495.1600000000001">
+                        Germany – 10 Mbits/s and over
+                    </tspan>
+                </text>
+                <text
+                    id="label__France-–-10-Mbits/s-and-over"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="513.5"
+                    fill="#c15065"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="513.4600000000002">
+                        France – 10 Mbits/s and over
+                    </tspan>
+                </text>
+                <text
+                    id="label__China-–-10-Mbits/s-and-over"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="531.8"
+                    fill="#00295b"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="531.7600000000001">
+                        China – 10 Mbits/s and over
+                    </tspan>
+                </text>
+                <text
+                    id="label__Canada-–-10-Mbits/s-and-over"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.5"
+                    y="550.1"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.52" y="550.0600000000001">
+                        Canada – 10 Mbits/s and over
                     </tspan>
                 </text>
             </g>
-            <g
-                id="China"
-                class="bar"
-                transform="translate(0, 166.30454545454546)"
-            >
-                <g id="10-Mbits/s-and-over">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.524318181818183)"
-                        width="697.4"
-                        height="25.048636363636366"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="468.9"
-                        y="0"
-                        width="697.4"
-                        height="25.048636363636366"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        99%
-                    </text>
-                </g>
-                <g id="2-10-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(817.6, -12.524318181818183)"
-                        width="6.299999999999997"
-                        height="25.048636363636366"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="256-kbit/s---2-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(823.9, -12.524318181818183)"
-                        width="0.09999999999999432"
-                        height="25.048636363636366"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">China</tspan>
-                </text>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-256-kbit/s---2-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#8c4569"
+                id="line__United-States-–-256-kbit/s---2-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__United-States-–-256-kbit/s---2-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#8c4569"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="France"
-                class="bar"
-                transform="translate(0, 204.8409090909091)"
-            >
-                <g id="10-Mbits/s-and-over">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.524318181818183)"
-                        width="692"
-                        height="25.048636363636366"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="466.2"
-                        y="0"
-                        width="692"
-                        height="25.048636363636366"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        98%
-                    </text>
-                </g>
-                <g id="2-10-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(812.2, -12.524318181818183)"
-                        width="11.899999999999991"
-                        height="25.048636363636366"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="256-kbit/s---2-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(824, -12.524318181818183)"
-                        width="0"
-                        height="25.048636363636366"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">France</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Pakistan-–-256-kbit/s---2-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#38aaba"
+                id="line__Pakistan-–-256-kbit/s---2-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Pakistan-–-256-kbit/s---2-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#38aaba"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="United-States"
-                class="bar"
-                transform="translate(0, 243.37727272727273)"
-            >
-                <g id="10-Mbits/s-and-over">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.524318181818183)"
-                        width="678.8"
-                        height="25.048636363636366"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="459.59999999999997"
-                        y="0"
-                        width="678.8"
-                        height="25.048636363636366"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        96%
-                    </text>
-                </g>
-                <g id="2-10-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(799, -12.524318181818183)"
-                        width="21.499999999999986"
-                        height="25.048636363636366"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="256-kbit/s---2-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(820.5, -12.524318181818183)"
-                        width="3.5"
-                        height="25.048636363636366"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">United States</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Japan-–-256-kbit/s---2-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c15065"
+                id="line__Japan-–-256-kbit/s---2-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Japan-–-256-kbit/s---2-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#c15065"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="Japan"
-                class="bar"
-                transform="translate(0, 281.91363636363633)"
-            >
-                <g id="10-Mbits/s-and-over">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.524318181818183)"
-                        width="678.4"
-                        height="25.048636363636366"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="459.4"
-                        y="0"
-                        width="678.4"
-                        height="25.048636363636366"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        96%
-                    </text>
-                </g>
-                <g id="2-10-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(798.6, -12.524318181818183)"
-                        width="23.89999999999999"
-                        height="25.048636363636366"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="256-kbit/s---2-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(822.5, -12.524318181818183)"
-                        width="1.5"
-                        height="25.048636363636366"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Japan</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Italy-–-256-kbit/s---2-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__Italy-–-256-kbit/s---2-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Italy-–-256-kbit/s---2-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="India" class="bar" transform="translate(0, 320.45)">
-                <g id="10-Mbits/s-and-over">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.524318181818183)"
-                        width="672.4"
-                        height="25.048636363636366"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="456.4"
-                        y="0"
-                        width="672.4"
-                        height="25.048636363636366"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        96%
-                    </text>
-                </g>
-                <g id="2-10-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(792.6, -12.524318181818183)"
-                        width="28.700000000000003"
-                        height="25.048636363636366"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="256-kbit/s---2-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(821.2, -12.524318181818183)"
-                        width="2.799999999999997"
-                        height="25.048636363636366"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">India</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Indonesia-–-256-kbit/s---2-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Indonesia-–-256-kbit/s---2-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Indonesia-–-256-kbit/s---2-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="Germany"
-                class="bar"
-                transform="translate(0, 358.98636363636365)"
-            >
-                <g id="10-Mbits/s-and-over">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.524318181818183)"
-                        width="672.1999999999999"
-                        height="25.048636363636366"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="456.29999999999995"
-                        y="0"
-                        width="672.1999999999999"
-                        height="25.048636363636366"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        96%
-                    </text>
-                </g>
-                <g id="2-10-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(792.4, -12.524318181818183)"
-                        width="26.60000000000001"
-                        height="25.048636363636366"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="256-kbit/s---2-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(819, -12.524318181818183)"
-                        width="5"
-                        height="25.048636363636366"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Germany</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India-–-256-kbit/s---2-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#e56e5a"
+                id="line__India-–-256-kbit/s---2-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__India-–-256-kbit/s---2-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#e56e5a"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="Canada"
-                class="bar"
-                transform="translate(0, 397.52272727272725)"
-            >
-                <g id="10-Mbits/s-and-over">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.524318181818183)"
-                        width="672.0999999999999"
-                        height="25.048636363636366"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="456.24999999999994"
-                        y="0"
-                        width="672.0999999999999"
-                        height="25.048636363636366"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        96%
-                    </text>
-                </g>
-                <g id="2-10-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(792.3, -12.524318181818183)"
-                        width="30.700000000000003"
-                        height="25.048636363636366"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="256-kbit/s---2-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(823, -12.524318181818183)"
-                        width="1"
-                        height="25.048636363636366"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Canada</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Germany-–-256-kbit/s---2-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__Germany-–-256-kbit/s---2-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Germany-–-256-kbit/s---2-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="Italy"
-                class="bar"
-                transform="translate(0, 436.05909090909086)"
-            >
-                <g id="10-Mbits/s-and-over">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.524318181818183)"
-                        width="665.0999999999999"
-                        height="25.048636363636366"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="452.74999999999994"
-                        y="0"
-                        width="665.0999999999999"
-                        height="25.048636363636366"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        95%
-                    </text>
-                </g>
-                <g id="2-10-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(785.3, -12.524318181818183)"
-                        width="37.499999999999986"
-                        height="25.048636363636366"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="804.05"
-                        y="0"
-                        width="37.499999999999986"
-                        height="25.048636363636366"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        5.3%
-                    </text>
-                </g>
-                <g id="256-kbit/s---2-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(822.8, -12.524318181818183)"
-                        width="1.2000000000000028"
-                        height="25.048636363636366"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Italy</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-256-kbit/s---2-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#58ac8c"
+                id="line__China-–-256-kbit/s---2-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__China-–-256-kbit/s---2-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#58ac8c"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="Indonesia"
-                class="bar"
-                transform="translate(0, 474.59545454545446)"
-            >
-                <g id="10-Mbits/s-and-over">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.524318181818183)"
-                        width="612.0999999999999"
-                        height="25.048636363636366"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="426.24999999999994"
-                        y="0"
-                        width="612.0999999999999"
-                        height="25.048636363636366"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        87%
-                    </text>
-                </g>
-                <g id="2-10-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(732.3, -12.524318181818183)"
-                        width="31.10000000000001"
-                        height="25.048636363636366"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="256-kbit/s---2-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(763.3, -12.524318181818183)"
-                        width="60.7"
-                        height="25.048636363636366"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="793.65"
-                        y="0"
-                        width="60.7"
-                        height="25.048636363636366"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        8.6%
-                    </text>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Indonesia</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Canada-–-256-kbit/s---2-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#970046"
+                id="line__Canada-–-256-kbit/s---2-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Canada-–-256-kbit/s---2-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#970046"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="Pakistan"
-                class="bar"
-                transform="translate(0, 513.1318181818182)"
-            >
-                <g id="10-Mbits/s-and-over">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -12.524318181818183)"
-                        width="333.40000000000003"
-                        height="25.048636363636366"
-                        fill="#00847e"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="286.90000000000003"
-                        y="0"
-                        width="333.40000000000003"
-                        height="25.048636363636366"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        47%
-                    </text>
-                </g>
-                <g id="2-10-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(453.6, -12.524318181818183)"
-                        width="353.3"
-                        height="25.048636363636366"
-                        fill="#00295b"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="630.25"
-                        y="0"
-                        width="353.3"
-                        height="25.048636363636366"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        50%
-                    </text>
-                </g>
-                <g id="256-kbit/s---2-Mbit/s">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(807, -12.524318181818183)"
-                        width="17.10000000000001"
-                        height="25.048636363636366"
-                        fill="#c15065"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Pakistan</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-2-10-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#286bbb"
+                id="line__United-States-–-2-10-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__United-States-–-2-10-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#286bbb"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom-–-2-10-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#bc8e5a"
+                id="line__United-Kingdom-–-2-10-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__United-Kingdom-–-2-10-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#bc8e5a"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Pakistan-–-2-10-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Pakistan-–-2-10-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Pakistan-–-2-10-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Japan-–-2-10-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#18470f"
+                id="line__Japan-–-2-10-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Japan-–-2-10-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#18470f"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Italy-–-2-10-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#8c4569"
+                id="line__Italy-–-2-10-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Italy-–-2-10-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#8c4569"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Indonesia-–-2-10-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#38aaba"
+                id="line__Indonesia-–-2-10-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Indonesia-–-2-10-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#38aaba"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India-–-2-10-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c15065"
+                id="line__India-–-2-10-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__India-–-2-10-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#c15065"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Germany-–-2-10-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__Germany-–-2-10-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Germany-–-2-10-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__France-–-2-10-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__France-–-2-10-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__France-–-2-10-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-2-10-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#e56e5a"
+                id="line__China-–-2-10-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__China-–-2-10-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#e56e5a"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Canada-–-2-10-Mbit/s"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__Canada-–-2-10-Mbit/s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Canada-–-2-10-Mbit/s">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-10-Mbits/s-and-over"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#58ac8c"
+                id="line__United-States-–-10-Mbits/s-and-over"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__United-States-–-10-Mbits/s-and-over">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#58ac8c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom-–-10-Mbits/s-and-over"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#970046"
+                id="line__United-Kingdom-–-10-Mbits/s-and-over"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__United-Kingdom-–-10-Mbits/s-and-over">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#970046"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Pakistan-–-10-Mbits/s-and-over"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#286bbb"
+                id="line__Pakistan-–-10-Mbits/s-and-over"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Pakistan-–-10-Mbits/s-and-over">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#286bbb"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Japan-–-10-Mbits/s-and-over"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#bc8e5a"
+                id="line__Japan-–-10-Mbits/s-and-over"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Japan-–-10-Mbits/s-and-over">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#bc8e5a"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Italy-–-10-Mbits/s-and-over"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Italy-–-10-Mbits/s-and-over"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Italy-–-10-Mbits/s-and-over">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Indonesia-–-10-Mbits/s-and-over"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#18470f"
+                id="line__Indonesia-–-10-Mbits/s-and-over"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Indonesia-–-10-Mbits/s-and-over">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#18470f"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India-–-10-Mbits/s-and-over"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#8c4569"
+                id="line__India-–-10-Mbits/s-and-over"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__India-–-10-Mbits/s-and-over">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#8c4569"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Germany-–-10-Mbits/s-and-over"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#38aaba"
+                id="line__Germany-–-10-Mbits/s-and-over"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Germany-–-10-Mbits/s-and-over">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#38aaba"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__France-–-10-Mbits/s-and-over"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c15065"
+                id="line__France-–-10-Mbits/s-and-over"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__France-–-10-Mbits/s-and-over">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#c15065"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-10-Mbits/s-and-over"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__China-–-10-Mbits/s-and-over"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__China-–-10-Mbits/s-and-over">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Canada-–-10-Mbits/s-and-over"
+                stroke-width="2.5"
+                d="M316 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Canada-–-10-Mbits/s-and-over"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316 532.4"
+            ></path>
+            <g id="datapoints__Canada-–-10-Mbits/s-and-over">
+                <circle
+                    id="2022"
+                    cx="316"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>

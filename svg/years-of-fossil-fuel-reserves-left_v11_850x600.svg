@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -83,122 +72,316 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="45.05"
-            y1="552.40"
-            x2="45.05"
-            y2="140.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Coal"
-                x="0"
-                y="0"
-                transform="translate(45.3, 164.05666666666667)"
-                width="719.2"
-                height="89.35333333333334"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Oil"
-                x="0"
-                y="0"
-                transform="translate(45.3, 301.52333333333337)"
-                width="292.8"
-                height="89.35333333333334"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Gas"
-                x="0"
-                y="0"
-                transform="translate(45.3, 438.99)"
-                width="252.5"
-                height="89.35333333333334"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2020"
+                    x1="428.27500000000003"
+                    y1="531.9"
+                    x2="428.27500000000003"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="428.27500000000003"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2020
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(769.5, 208.73333333333335)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                139 years
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(343.1, 346.20000000000005)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                56 years
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(302.8, 483.6666666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                49 years
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="73.33"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0 years
+                </text>
+                <text
+                    x="73.33"
+                    y="477.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20 years
+                </text>
+                <text
+                    x="73.33"
+                    y="422"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40 years
+                </text>
+                <text
+                    x="73.33"
+                    y="366.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60 years
+                </text>
+                <text
+                    x="73.33"
+                    y="311.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    80 years
+                </text>
+                <text
+                    x="73.33"
+                    y="256.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100 years
+                </text>
+                <text
+                    x="73.33"
+                    y="201.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    120 years
+                </text>
+                <text
+                    x="73.33"
+                    y="146"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    140 years
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="40.3"
-                y="213.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="40.3" y="213.72833333333335">Coal</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="40.3"
-                y="351.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="40.3" y="351.19500000000005">Oil</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="40.3"
-                y="488.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="40.3" y="488.6616666666667">Gas</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-years"
+                x1="78.33"
+                y1="532.4"
+                x2="778.22"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="20-years"
+                x1="78.33"
+                y1="477.2"
+                x2="778.22"
+                y2="477.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40-years"
+                x1="78.33"
+                y1="422"
+                x2="778.22"
+                y2="422"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60-years"
+                x1="78.33"
+                y1="366.8"
+                x2="778.22"
+                y2="366.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80-years"
+                x1="78.33"
+                y1="311.6"
+                x2="778.22"
+                y2="311.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100-years"
+                x1="78.33"
+                y1="256.4"
+                x2="778.22"
+                y2="256.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="120-years"
+                x1="78.33"
+                y1="201.2"
+                x2="778.22"
+                y2="201.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="140-years"
+                x1="78.33"
+                y1="146"
+                x2="778.22"
+                y2="146"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Coal"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="782.2"
+                    y="154.7"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="782.22" y="154.71">Coal</tspan>
+                </text>
+                <text
+                    id="label__Oil"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="782.2"
+                    y="381.5"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="782.22" y="381.51">Oil</tspan>
+                </text>
+                <text
+                    id="label__Gas"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="782.2"
+                    y="402.9"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="782.22" y="402.91">Gas</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Oil"
+                stroke-width="2.5"
+                d="M428.3 376.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Oil"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M428.3 376.7"
+            ></path>
+            <g id="datapoints__Oil">
+                <circle
+                    id="2020"
+                    cx="428.3"
+                    cy="376.7"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Coal"
+                stroke-width="2.5"
+                d="M428.3 149.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Coal"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M428.3 149.9"
+            ></path>
+            <g id="datapoints__Coal">
+                <circle
+                    id="2020"
+                    cx="428.3"
+                    cy="149.9"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Gas"
+                stroke-width="2.5"
+                d="M428.3 398.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Gas"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M428.3 398.1"
+            ></path>
+            <g id="datapoints__Gas">
+                <circle
+                    id="2020"
+                    cx="428.3"
+                    cy="398.1"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

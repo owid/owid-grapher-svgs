@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -78,394 +67,794 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="78.75"
-            y1="552.40"
-            x2="78.75"
-            y2="104.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Brazil"
-                x="0"
-                y="0"
-                transform="translate(79, 111.13363636363636)"
-                width="650.6"
-                height="26.49636363636364"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Romania"
-                x="0"
-                y="0"
-                transform="translate(79, 151.8972727272727)"
-                width="634.5"
-                height="26.49636363636364"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Uruguay"
-                x="0"
-                y="0"
-                transform="translate(79, 192.6609090909091)"
-                width="543.4"
-                height="26.49636363636364"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Poland"
-                x="0"
-                y="0"
-                transform="translate(79, 233.42454545454547)"
-                width="457"
-                height="26.49636363636364"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Chile"
-                x="0"
-                y="0"
-                transform="translate(79, 274.1881818181818)"
-                width="365.8"
-                height="26.49636363636364"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Turkey"
-                x="0"
-                y="0"
-                transform="translate(79, 314.95181818181817)"
-                width="213.3"
-                height="26.49636363636364"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Mauritius"
-                x="0"
-                y="0"
-                transform="translate(79, 355.7154545454546)"
-                width="188.5"
-                height="26.49636363636364"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Argentina"
-                x="0"
-                y="0"
-                transform="translate(79, 396.4790909090909)"
-                width="186.89999999999998"
-                height="26.49636363636364"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Ukraine"
-                x="0"
-                y="0"
-                transform="translate(79, 437.2427272727273)"
-                width="121.30000000000001"
-                height="26.49636363636364"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Russia"
-                x="0"
-                y="0"
-                transform="translate(79, 478.00636363636363)"
-                width="59.900000000000006"
-                height="26.49636363636364"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Liberia"
-                x="0"
-                y="0"
-                transform="translate(79, 518.77)"
-                width="44.7"
-                height="26.49636363636364"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2016"
+                    x1="47.1"
+                    y1="531.9"
+                    x2="47.1"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2021"
+                    x1="749.1"
+                    y1="531.9"
+                    x2="749.1"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2017"
+                    x1="187.5"
+                    y1="531.9"
+                    x2="187.5"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2018"
+                    x1="327.9"
+                    y1="531.9"
+                    x2="327.9"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2019"
+                    x1="468.3"
+                    y1="531.9"
+                    x2="468.3"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2020"
+                    x1="608.7"
+                    y1="531.9"
+                    x2="608.7"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="47.13"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="start"
+                    font-size="13"
+                >
+                    2016
+                </text>
+                <text
+                    x="749.1"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="end"
+                    font-size="13"
+                >
+                    2021
+                </text>
+                <text
+                    x="187.5"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2017
+                </text>
+                <text
+                    x="327.9"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2018
+                </text>
+                <text
+                    x="468.3"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2019
+                </text>
+                <text
+                    x="608.7"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2020
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(734.6, 124.38181818181818)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                30.35%
-                <tspan fill="#999">in 2020</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(718.5, 165.14545454545453)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                29.6%
-                <tspan fill="#999">in 2016</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(627.4, 205.9090909090909)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                25.35%
-                <tspan fill="#999">in 2020</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(541, 246.6727272727273)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                21.32%
-                <tspan fill="#999">in 2017</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(449.8, 287.43636363636364)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                17.06%
-                <tspan fill="#999">in 2020</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(297.3, 328.2)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9.95%
-                <tspan fill="#999">in 2019</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(272.5, 368.9636363636364)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                8.79%
-                <tspan fill="#999">in 2017</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(270.9, 409.72727272727275)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                8.72%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(205.3, 450.4909090909091)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                5.66%
-                <tspan fill="#999">in 2018</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(143.9, 491.25454545454545)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                2.79%
-                <tspan fill="#999">in 2017</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(128.7, 532.0181818181818)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                2.08%
-                <tspan fill="#999">in 2016</tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="42.13"
+                    y="462.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    5%
+                </text>
+                <text
+                    x="42.13"
+                    y="393.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="323.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    15%
+                </text>
+                <text
+                    x="42.13"
+                    y="254"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="42.13"
+                    y="184.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    25%
+                </text>
+                <text
+                    x="42.13"
+                    y="114.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    30%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="74.0"
-                y="129.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="74" y="129.37681818181818">Brazil</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="74.0"
-                y="170.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="74" y="170.14045454545453">Romania</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="74.0"
-                y="210.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="74" y="210.90409090909088">Uruguay</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="74.0"
-                y="251.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="74" y="251.6677272727273">Poland</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="74.0"
-                y="292.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="74" y="292.43136363636364">Chile</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="74.0"
-                y="333.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="74" y="333.195">Turkey</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="74.0"
-                y="374.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="74" y="373.9586363636364">Mauritius</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="74.0"
-                y="414.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="74" y="414.72227272727275">Argentina</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="74.0"
-                y="455.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="74" y="455.4859090909091">Ukraine</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="74.0"
-                y="496.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="74" y="496.24954545454545">Russia</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="74.0"
-                y="537.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="74" y="537.0131818181818">Liberia</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="47.13"
+                y1="532.4"
+                x2="749.10"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="5%"
+                x1="47.13"
+                y1="462.8"
+                x2="749.10"
+                y2="462.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="393.2"
+                x2="749.10"
+                y2="393.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="15%"
+                x1="47.13"
+                y1="323.6"
+                x2="749.10"
+                y2="323.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="254"
+                x2="749.10"
+                y2="254"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="25%"
+                x1="47.13"
+                y1="184.4"
+                x2="749.10"
+                y2="184.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30%"
+                x1="47.13"
+                y1="114.9"
+                x2="749.10"
+                y2="114.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Brazil"
+                    d="M753.1,110 H764.4333333333333 V111.15 H770.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Romania"
+                    d="M753.1,120.5 H758.7666666666667 V129.45 H770.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Uruguay"
+                    d="M753.1,179.6 H761.6 V179.6 H770.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Poland"
+                    d="M753.1,235.7 H761.6 V235.7 H770.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Chile"
+                    d="M753.1,294.9 H761.6 V294.9 H770.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Turkey"
+                    d="M753.1,394 H758.7666666666667 V386.7333333333333 H770.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Mauritius"
+                    d="M753.1,410 H764.4333333333333 V405.0333333333333 H770.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Argentina"
+                    d="M753.1,411.1 H764.4333333333333 V423.3333333333333 H770.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Ukraine"
+                    d="M753.1,453.7 H761.6 V453.7 H770.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Russia"
+                    d="M753.1,493.5 H761.6 V489.29999999999995 H770.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Liberia"
+                    d="M753.1,503.4 H761.6 V507.59999999999997 H770.1"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Brazil"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.1"
+                    y="116.0"
+                    fill="#a2559c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.1" y="115.96000000000001">Brazil</tspan>
+                </text>
+                <text
+                    id="label__Romania"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.1"
+                    y="134.3"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.1" y="134.26">Romania</tspan>
+                </text>
+                <text
+                    id="label__Uruguay"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.1"
+                    y="184.4"
+                    fill="#008291"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.1" y="184.41">Uruguay</tspan>
+                </text>
+                <text
+                    id="label__Poland"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.1"
+                    y="240.5"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.1" y="240.51">Poland</tspan>
+                </text>
+                <text
+                    id="label__Chile"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.1"
+                    y="299.7"
+                    fill="#9a5129"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.1" y="299.71">Chile</tspan>
+                </text>
+                <text
+                    id="label__Turkey"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.1"
+                    y="391.5"
+                    fill="#00295b"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.1" y="391.5433333333333">Turkey</tspan>
+                </text>
+                <text
+                    id="label__Mauritius"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.1"
+                    y="409.8"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.1" y="409.8433333333333">Mauritius</tspan>
+                </text>
+                <text
+                    id="label__Argentina"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.1"
+                    y="428.1"
+                    fill="#970046"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.1" y="428.1433333333333">Argentina</tspan>
+                </text>
+                <text
+                    id="label__Ukraine"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.1"
+                    y="458.5"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.1" y="458.51">Ukraine</tspan>
+                </text>
+                <text
+                    id="label__Russia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.1"
+                    y="494.1"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.1" y="494.10999999999996">Russia</tspan>
+                </text>
+                <text
+                    id="label__Liberia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.1"
+                    y="512.4"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.1" y="512.41">Liberia</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Argentina"
+                stroke-width="2.5"
+                d="M749.1 411.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#970046"
+                id="line__Argentina"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M749.1 411.1"
+            ></path>
+            <g id="datapoints__Argentina">
+                <circle
+                    id="2021"
+                    cx="749.1"
+                    cy="411.1"
+                    r="1.8"
+                    fill="#970046"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Uruguay"
+                stroke-width="2.5"
+                d="M608.7 179.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#008291"
+                id="line__Uruguay"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M608.7 179.6"
+            ></path>
+            <g id="datapoints__Uruguay">
+                <circle
+                    id="2020"
+                    cx="608.7"
+                    cy="179.6"
+                    r="1.8"
+                    fill="#008291"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Chile"
+                stroke-width="2.5"
+                d="M608.7 294.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__Chile"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M608.7 294.9"
+            ></path>
+            <g id="datapoints__Chile">
+                <circle
+                    id="2020"
+                    cx="608.7"
+                    cy="294.9"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil"
+                stroke-width="2.5"
+                d="M608.7 110"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__Brazil"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M608.7 110"
+            ></path>
+            <g id="datapoints__Brazil">
+                <circle
+                    id="2020"
+                    cx="608.7"
+                    cy="110"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Turkey"
+                stroke-width="2.5"
+                d="M468.3 394"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__Turkey"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M468.3 394"
+            ></path>
+            <g id="datapoints__Turkey">
+                <circle
+                    id="2019"
+                    cx="468.3"
+                    cy="394"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Ukraine"
+                stroke-width="2.5"
+                d="M327.9 453.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Ukraine"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M327.9 453.7"
+            ></path>
+            <g id="datapoints__Ukraine">
+                <circle
+                    id="2018"
+                    cx="327.9"
+                    cy="453.7"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Russia"
+                stroke-width="2.5"
+                d="M187.5 493.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Russia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M187.5 493.5"
+            ></path>
+            <g id="datapoints__Russia">
+                <circle
+                    id="2017"
+                    cx="187.5"
+                    cy="493.5"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Poland"
+                stroke-width="2.5"
+                d="M187.5 235.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Poland"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M187.5 235.7"
+            ></path>
+            <g id="datapoints__Poland">
+                <circle
+                    id="2017"
+                    cx="187.5"
+                    cy="235.7"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Mauritius"
+                stroke-width="2.5"
+                d="M187.5 410"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Mauritius"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M187.5 410"
+            ></path>
+            <g id="datapoints__Mauritius">
+                <circle
+                    id="2017"
+                    cx="187.5"
+                    cy="410"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Romania"
+                stroke-width="2.5"
+                d="M47.1 120.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Romania"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 120.5"
+            ></path>
+            <g id="datapoints__Romania">
+                <circle
+                    id="2016"
+                    cx="47.1"
+                    cy="120.5"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Liberia"
+                stroke-width="2.5"
+                d="M47.1 503.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Liberia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 503.4"
+            ></path>
+            <g id="datapoints__Liberia">
+                <circle
+                    id="2016"
+                    cx="47.1"
+                    cy="503.4"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

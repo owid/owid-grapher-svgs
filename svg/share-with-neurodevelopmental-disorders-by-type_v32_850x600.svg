@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -78,164 +67,328 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="206.55"
-            y1="552.40"
-            x2="206.55"
-            y2="125.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Developmental-intellectual-disability"
-                x="0"
-                y="0"
-                transform="translate(206.8, 144.27249999999998)"
-                width="258.9"
-                height="69.35499999999999"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Attention-deficit/hyperactivity-disorder-(ADHD)"
-                x="0"
-                y="0"
-                transform="translate(206.8, 250.97249999999997)"
-                width="248.59999999999997"
-                height="69.35499999999999"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Autism-spectrum-disorders"
-                x="0"
-                y="0"
-                transform="translate(206.8, 357.6724999999999)"
-                width="181.2"
-                height="69.35499999999999"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Down-syndrome"
-                x="0"
-                y="0"
-                transform="translate(206.8, 464.37249999999995)"
-                width="4.5"
-                height="69.35499999999999"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2021"
+                    x1="319.53"
+                    y1="531.9"
+                    x2="319.53"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="319.53"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2021
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(470.7, 178.94999999999996)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1.1%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(460.4, 285.65)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1.1%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(393, 392.3499999999999)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                0.8%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(216.3, 499.04999999999995)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                &lt;0.1%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="45.77"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="45.77"
+                    y="452.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.5%
+                </text>
+                <text
+                    x="45.77"
+                    y="372.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1%
+                </text>
+                <text
+                    x="45.77"
+                    y="291.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1.5%
+                </text>
+                <text
+                    x="45.77"
+                    y="211.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2%
+                </text>
+                <text
+                    x="45.77"
+                    y="131.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2.5%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="201.8"
-                y="176.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="201.8" y="176.51999999999998">
-                    Developmental intellectual
-                </tspan>
-                <tspan x="201.8" y="191.36999999999998">disability</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="201.8"
-                y="283.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="201.8" y="283.21999999999997">
-                    Attention-deficit/hyperactivity
-                </tspan>
-                <tspan x="201.8" y="298.07">disorder (ADHD)</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="201.8"
-                y="397.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="201.8" y="397.3449999999999">
-                    Autism spectrum disorders
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="201.8"
-                y="504.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="201.8" y="504.04499999999996">Down syndrome</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="50.77"
+                y1="532.4"
+                x2="588.29"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="0.5%"
+                x1="50.77"
+                y1="452.2"
+                x2="588.29"
+                y2="452.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1%"
+                x1="50.77"
+                y1="372.1"
+                x2="588.29"
+                y2="372.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1.5%"
+                x1="50.77"
+                y1="291.9"
+                x2="588.29"
+                y2="291.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="2%"
+                x1="50.77"
+                y1="211.8"
+                x2="588.29"
+                y2="211.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="2.5%"
+                x1="50.77"
+                y1="131.6"
+                x2="588.29"
+                y2="131.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Developmental-intellectual-disability"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="592.3"
+                    y="352.2"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="592.29" y="352.21">
+                        Developmental intellectual disability
+                    </tspan>
+                </text>
+                <text
+                    id="label__Attention-deficit/hyperactivity-disorder-(ADHD)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="592.3"
+                    y="370.5"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="592.29" y="370.51">
+                        Attention-deficit/hyperactivity disorder
+                    </tspan>
+                    <tspan x="592.29" y="384.81">(ADHD)</tspan>
+                </text>
+                <text
+                    id="label__Autism-spectrum-disorders"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="592.3"
+                    y="411.6"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="592.29" y="411.61">
+                        Autism spectrum disorders
+                    </tspan>
+                </text>
+                <text
+                    id="label__Down-syndrome"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="592.3"
+                    y="534.0"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="592.29" y="534.0100000000001">
+                        Down syndrome
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Developmental-intellectual-disability"
+                stroke-width="2.5"
+                d="M319.5 353"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Developmental-intellectual-disability"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M319.5 353"
+            ></path>
+            <g id="datapoints__Developmental-intellectual-disability">
+                <circle
+                    id="2021"
+                    cx="319.5"
+                    cy="353"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Autism-spectrum-disorders"
+                stroke-width="2.5"
+                d="M319.5 406.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Autism-spectrum-disorders"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M319.5 406.8"
+            ></path>
+            <g id="datapoints__Autism-spectrum-disorders">
+                <circle
+                    id="2021"
+                    cx="319.5"
+                    cy="406.8"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Attention-deficit/hyperactivity-disorder-(ADHD)"
+                stroke-width="2.5"
+                d="M319.5 360.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Attention-deficit/hyperactivity-disorder-(ADHD)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M319.5 360.1"
+            ></path>
+            <g id="datapoints__Attention-deficit/hyperactivity-disorder-(ADHD)">
+                <circle
+                    id="2021"
+                    cx="319.5"
+                    cy="360.1"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Down-syndrome"
+                stroke-width="2.5"
+                d="M319.5 529.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Down-syndrome"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M319.5 529.2"
+            ></path>
+            <g id="datapoints__Down-syndrome">
+                <circle
+                    id="2021"
+                    cx="319.5"
+                    cy="529.2"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

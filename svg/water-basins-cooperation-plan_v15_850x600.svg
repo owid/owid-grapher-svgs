@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -77,126 +66,318 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="240.95"
-            y1="532.30"
-            x2="240.95"
-            y2="107.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="River-and-lake-basins"
-                x="0"
-                y="0"
-                transform="translate(241.2, 132.37416666666667)"
-                width="544.3"
-                height="92.01833333333333"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="All-basins-(rivers,-lakes-&amp;-aquifers)"
-                x="0"
-                y="0"
-                transform="translate(241.2, 273.94083333333333)"
-                width="484.59999999999997"
-                height="92.01833333333333"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Aquifers"
-                x="0"
-                y="0"
-                transform="translate(241.2, 415.5075)"
-                width="379.8"
-                height="92.01833333333333"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2023"
+                    x1="326.16"
+                    y1="511.79999999999995"
+                    x2="326.16"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="326.16"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2023
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(790.5, 178.38333333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                65.8%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(730.8, 319.95)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                58.5%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(626, 461.51666666666665)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                45.9%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="42.13"
+                    y="455.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="398.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="42.13"
+                    y="341.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    30%
+                </text>
+                <text
+                    x="42.13"
+                    y="284.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="42.13"
+                    y="227.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    50%
+                </text>
+                <text
+                    x="42.13"
+                    y="170.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60%
+                </text>
+                <text
+                    x="42.13"
+                    y="113.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    70%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="236.2"
-                y="183.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="236.2" y="183.37833333333333">
-                    River and lake basins
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="236.2"
-                y="324.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="236.2" y="324.945">
-                    All basins (rivers, lakes &amp; aquifers)
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="236.2"
-                y="466.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="236.2" y="466.51166666666666">Aquifers</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="47.13"
+                y1="512.3"
+                x2="605.19"
+                y2="512.3"
+                stroke="#999"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="455.3"
+                x2="605.19"
+                y2="455.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="398.4"
+                x2="605.19"
+                y2="398.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30%"
+                x1="47.13"
+                y1="341.4"
+                x2="605.19"
+                y2="341.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="47.13"
+                y1="284.5"
+                x2="605.19"
+                y2="284.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="50%"
+                x1="47.13"
+                y1="227.5"
+                x2="605.19"
+                y2="227.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60%"
+                x1="47.13"
+                y1="170.6"
+                x2="605.19"
+                y2="170.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="70%"
+                x1="47.13"
+                y1="113.6"
+                x2="605.19"
+                y2="113.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__River-and-lake-basins"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.2"
+                    y="142.6"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.19" y="142.61">River and lake basins</tspan>
+                </text>
+                <text
+                    id="label__All-basins-(rivers,-lakes-&amp;-aquifers)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.2"
+                    y="183.7"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.19" y="183.71">
+                        All basins (rivers, lakes &amp; aquifers)
+                    </tspan>
+                </text>
+                <text
+                    id="label__Aquifers"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="609.2"
+                    y="255.8"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="609.19" y="255.81">Aquifers</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__River-and-lake-basins"
+                stroke-width="2.5"
+                d="M326.2 137.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__River-and-lake-basins"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M326.2 137.8"
+            ></path>
+            <g id="datapoints__River-and-lake-basins">
+                <circle
+                    id="2023"
+                    cx="326.2"
+                    cy="137.8"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Aquifers"
+                stroke-width="2.5"
+                d="M326.2 251"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Aquifers"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M326.2 251"
+            ></path>
+            <g id="datapoints__Aquifers">
+                <circle
+                    id="2023"
+                    cx="326.2"
+                    cy="251"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__All-basins-(rivers,-lakes-&amp;-aquifers)"
+                stroke-width="2.5"
+                d="M326.2 178.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__All-basins-(rivers,-lakes-&amp;-aquifers)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M326.2 178.9"
+            ></path>
+            <g id="datapoints__All-basins-(rivers,-lakes-&amp;-aquifers)">
+                <circle
+                    id="2023"
+                    cx="326.2"
+                    cy="178.9"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

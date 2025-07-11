@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -82,224 +71,324 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="101.25"
-            y1="532.30"
-            x2="101.25"
-            y2="122.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Eggs"
-                x="0"
-                y="0"
-                transform="translate(101.5, 133.96708333333333)"
-                width="684"
-                height="44.44916666666668"
-                fill="#883039"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Whole-Milk"
-                x="0"
-                y="0"
-                transform="translate(101.5, 202.35041666666666)"
-                width="656.7"
-                height="44.44916666666668"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Poultry"
-                x="0"
-                y="0"
-                transform="translate(101.5, 270.73375000000004)"
-                width="536.3"
-                height="44.44916666666668"
-                fill="#578145"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Pork"
-                x="0"
-                y="0"
-                transform="translate(101.5, 339.11708333333337)"
-                width="232.5"
-                height="44.44916666666668"
-                fill="#b13507"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Lamb/mutton"
-                x="0"
-                y="0"
-                transform="translate(101.5, 407.5004166666667)"
-                width="172.3"
-                height="44.44916666666668"
-                fill="#b16214"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Beef"
-                x="0"
-                y="0"
-                transform="translate(101.5, 475.88375)"
-                width="103.9"
-                height="44.44916666666668"
-                fill="#970046"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2013"
+                    x1="440.065"
+                    y1="511.79999999999995"
+                    x2="440.065"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="440.065"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2013
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(790.5, 156.19166666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                25%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(763.2, 224.575)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                24%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(642.8, 292.95833333333337)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                19.6%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(339, 361.3416666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                8.5%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(278.8, 429.725)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                6.3%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(210.4, 498.10833333333335)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                3.8%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="42.13"
+                    y="435.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    5%
+                </text>
+                <text
+                    x="42.13"
+                    y="358.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="281.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    15%
+                </text>
+                <text
+                    x="42.13"
+                    y="204.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="42.13"
+                    y="128"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    25%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="96.5"
-                y="161.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="96.5" y="161.18666666666667">Eggs</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="96.5"
-                y="229.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="96.5" y="229.57">Whole Milk</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="96.5"
-                y="298.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="96.5" y="297.9533333333334">Poultry</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="96.5"
-                y="366.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="96.5" y="366.3366666666667">Pork</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="96.5"
-                y="434.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="96.5" y="434.72">Lamb/mutton</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="96.5"
-                y="503.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="96.5" y="503.10333333333335">Beef</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="47.13"
+                y1="512.3"
+                x2="833.00"
+                y2="512.3"
+                stroke="#999"
+            ></line>
+            <line
+                id="5%"
+                x1="47.13"
+                y1="435.4"
+                x2="833.00"
+                y2="435.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="358.6"
+                x2="833.00"
+                y2="358.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="15%"
+                x1="47.13"
+                y1="281.7"
+                x2="833.00"
+                y2="281.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="204.9"
+                x2="833.00"
+                y2="204.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="25%"
+                x1="47.13"
+                y1="128"
+                x2="833.00"
+                y2="128"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Whole-Milk"
+                stroke-width="2.5"
+                d="M440.1 143.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Whole-Milk"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M440.1 143.4"
+            ></path>
+            <g id="datapoints__Whole-Milk">
+                <circle
+                    id="2013"
+                    cx="440.1"
+                    cy="143.4"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Lamb/mutton"
+                stroke-width="2.5"
+                d="M440.1 415.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b16214"
+                id="line__Lamb/mutton"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M440.1 415.5"
+            ></path>
+            <g id="datapoints__Lamb/mutton">
+                <circle
+                    id="2013"
+                    cx="440.1"
+                    cy="415.5"
+                    r="1.8"
+                    fill="#b16214"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Beef"
+                stroke-width="2.5"
+                d="M440.1 453.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#8c4569"
+                id="line__Beef"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M440.1 453.9"
+            ></path>
+            <g id="datapoints__Beef">
+                <circle
+                    id="2013"
+                    cx="440.1"
+                    cy="453.9"
+                    r="1.8"
+                    fill="#8c4569"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Poultry"
+                stroke-width="2.5"
+                d="M440.1 211"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#3b8e1d"
+                id="line__Poultry"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M440.1 211"
+            ></path>
+            <g id="datapoints__Poultry">
+                <circle
+                    id="2013"
+                    cx="440.1"
+                    cy="211"
+                    r="1.8"
+                    fill="#3b8e1d"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Pork"
+                stroke-width="2.5"
+                d="M440.1 381.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d73c50"
+                id="line__Pork"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M440.1 381.6"
+            ></path>
+            <g id="datapoints__Pork">
+                <circle
+                    id="2013"
+                    cx="440.1"
+                    cy="381.6"
+                    r="1.8"
+                    fill="#d73c50"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Eggs"
+                stroke-width="2.5"
+                d="M440.1 128"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Eggs"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M440.1 128"
+            ></path>
+            <g id="datapoints__Eggs">
+                <circle
+                    id="2013"
+                    cx="440.1"
+                    cy="128"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

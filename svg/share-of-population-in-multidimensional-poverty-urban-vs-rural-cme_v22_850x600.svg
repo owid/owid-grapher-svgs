@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -76,88 +65,294 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="54.75"
-            y1="496.60"
-            x2="54.75"
-            y2="107.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Rural"
-                x="0"
-                y="0"
-                transform="translate(55, 141.6375)"
-                width="730.5"
-                height="126.42500000000001"
-                fill="#4d6a94"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Urban"
-                x="0"
-                y="0"
-                transform="translate(55, 336.13750000000005)"
-                width="254.39999999999998"
-                height="126.42500000000001"
-                fill="#b03700"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2022"
+                    x1="408.32"
+                    y1="476.1"
+                    x2="408.32"
+                    y2="481.6"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="408.32"
+                    y="494.6"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2022
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(790.5, 204.85)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                77.9%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(314.4, 399.35)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                27.1%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="476.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="42.13"
+                    y="431.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="385.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="42.13"
+                    y="340.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    30%
+                </text>
+                <text
+                    x="42.13"
+                    y="295.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="42.13"
+                    y="249.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    50%
+                </text>
+                <text
+                    x="42.13"
+                    y="204.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60%
+                </text>
+                <text
+                    x="42.13"
+                    y="159"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    70%
+                </text>
+                <text
+                    x="42.13"
+                    y="113.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    80%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="50.0"
-                y="209.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="50" y="209.84499999999997">Rural</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="50.0"
-                y="404.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="50" y="404.345">Urban</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="47.13"
+                y1="476.6"
+                x2="769.51"
+                y2="476.6"
+                stroke="#999"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="431.2"
+                x2="769.51"
+                y2="431.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="385.9"
+                x2="769.51"
+                y2="385.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30%"
+                x1="47.13"
+                y1="340.5"
+                x2="769.51"
+                y2="340.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="47.13"
+                y1="295.1"
+                x2="769.51"
+                y2="295.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="50%"
+                x1="47.13"
+                y1="249.7"
+                x2="769.51"
+                y2="249.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60%"
+                x1="47.13"
+                y1="204.3"
+                x2="769.51"
+                y2="204.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="70%"
+                x1="47.13"
+                y1="159"
+                x2="769.51"
+                y2="159"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80%"
+                x1="47.13"
+                y1="113.6"
+                x2="769.51"
+                y2="113.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Rural"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="773.5"
+                    y="127.9"
+                    fill="#4d6a94"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="773.51" y="127.91">Rural</tspan>
+                </text>
+                <text
+                    id="label__Urban"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="773.5"
+                    y="358.3"
+                    fill="#b03700"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="773.51" y="358.31">Urban</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Urban"
+                stroke-width="2.5"
+                d="M408.3 353.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b03700"
+                id="line__Urban"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M408.3 353.5"
+            ></path>
+            <g id="datapoints__Urban">
+                <circle
+                    id="2022"
+                    cx="408.3"
+                    cy="353.5"
+                    r="1.8"
+                    fill="#b03700"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Rural"
+                stroke-width="2.5"
+                d="M408.3 123.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4d6a94"
+                id="line__Rural"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M408.3 123.1"
+            ></path>
+            <g id="datapoints__Rural">
+                <circle
+                    id="2022"
+                    cx="408.3"
+                    cy="123.1"
+                    r="1.8"
+                    fill="#4d6a94"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

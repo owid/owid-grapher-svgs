@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -77,190 +66,399 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="173.75"
-            y1="532.30"
-            x2="173.75"
-            y2="107.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="GP-referral"
-                x="0"
-                y="0"
-                transform="translate(174, 122.46449999999999)"
-                width="611.5"
-                height="55.211"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Urgent-GP-referral-"
-                x="0"
-                y="0"
-                transform="translate(174, 207.40449999999998)"
-                width="591.1"
-                height="55.211"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="All-routes"
-                x="0"
-                y="0"
-                transform="translate(174, 292.3445)"
-                width="574.5"
-                height="55.211"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Other-outpatient"
-                x="0"
-                y="0"
-                transform="translate(174, 377.2845)"
-                width="573.4"
-                height="55.211"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Emergency-presentation"
-                x="0"
-                y="0"
-                transform="translate(174, 462.2245)"
-                width="306.8"
-                height="55.211"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2016"
+                    x1="358.98499999999996"
+                    y1="511.79999999999995"
+                    x2="358.98499999999996"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="358.98499999999996"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2016
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(790.5, 150.07)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                94.2%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(770.1, 235.01)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                91.1%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(753.5, 319.95)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                88.5%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(752.4, 404.89)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                88.4%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(485.8, 489.83)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                47.3%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="49.41"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="49.41"
+                    y="432.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="49.41"
+                    y="352.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="49.41"
+                    y="273.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60%
+                </text>
+                <text
+                    x="49.41"
+                    y="193.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    80%
+                </text>
+                <text
+                    x="49.41"
+                    y="113.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="169.0"
-                y="155.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="169" y="155.065">GP referral</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="169.0"
-                y="240.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="169" y="240.005">Urgent GP referral</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="169.0"
-                y="324.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="169" y="324.945">All routes</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="169.0"
-                y="409.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="169" y="409.885">Other outpatient</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="169.0"
-                y="494.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="169" y="494.825">Emergency presentation</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="54.41"
+                y1="512.3"
+                x2="663.56"
+                y2="512.3"
+                stroke="#999"
+            ></line>
+            <line
+                id="20%"
+                x1="54.41"
+                y1="432.6"
+                x2="663.56"
+                y2="432.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="54.41"
+                y1="352.8"
+                x2="663.56"
+                y2="352.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60%"
+                x1="54.41"
+                y1="273.1"
+                x2="663.56"
+                y2="273.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80%"
+                x1="54.41"
+                y1="193.3"
+                x2="663.56"
+                y2="193.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100%"
+                x1="54.41"
+                y1="113.6"
+                x2="663.56"
+                y2="113.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="GP-referral"
+                    d="M667.56,136.6 H673.2266666666666 V123.79999999999998 H684.56"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Urgent-GP-referral-"
+                    d="M667.56,149.1 H678.8933333333332 V142.1 H684.56"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="All-routes"
+                    d="M667.56,159.3 H678.8933333333332 V160.4 H684.56"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Other-outpatient"
+                    d="M667.56,160 H673.2266666666666 V178.70000000000002 H684.56"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Emergency-presentation"
+                    d="M667.56,323.8 H676.06 V323.8 H684.56"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__GP-referral"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="688.6"
+                    y="128.6"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="688.56" y="128.60999999999999">GP referral</tspan>
+                </text>
+                <text
+                    id="label__Urgent-GP-referral-"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="688.6"
+                    y="146.9"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="688.56" y="146.91">Urgent GP referral</tspan>
+                </text>
+                <text
+                    id="label__All-routes"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="688.6"
+                    y="165.2"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="688.56" y="165.21">All routes</tspan>
+                </text>
+                <text
+                    id="label__Other-outpatient"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="688.6"
+                    y="183.5"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="688.56" y="183.51000000000002">
+                        Other outpatient
+                    </tspan>
+                </text>
+                <text
+                    id="label__Emergency-presentation"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="688.6"
+                    y="328.6"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="688.56" y="328.61">Emergency presentation</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Emergency-presentation"
+                stroke-width="2.5"
+                d="M359 323.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Emergency-presentation"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M359 323.8"
+            ></path>
+            <g id="datapoints__Emergency-presentation">
+                <circle
+                    id="2016"
+                    cx="359"
+                    cy="323.8"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Other-outpatient"
+                stroke-width="2.5"
+                d="M359 160"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Other-outpatient"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M359 160"
+            ></path>
+            <g id="datapoints__Other-outpatient">
+                <circle
+                    id="2016"
+                    cx="359"
+                    cy="160"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Urgent-GP-referral-"
+                stroke-width="2.5"
+                d="M359 149.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Urgent-GP-referral-"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M359 149.1"
+            ></path>
+            <g id="datapoints__Urgent-GP-referral-">
+                <circle
+                    id="2016"
+                    cx="359"
+                    cy="149.1"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__GP-referral"
+                stroke-width="2.5"
+                d="M359 136.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__GP-referral"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M359 136.6"
+            ></path>
+            <g id="datapoints__GP-referral">
+                <circle
+                    id="2016"
+                    cx="359"
+                    cy="136.6"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__All-routes"
+                stroke-width="2.5"
+                d="M359 159.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__All-routes"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M359 159.3"
+            ></path>
+            <g id="datapoints__All-routes">
+                <circle
+                    id="2016"
+                    cx="359"
+                    cy="159.3"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

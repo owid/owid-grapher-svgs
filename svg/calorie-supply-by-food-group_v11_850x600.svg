@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -74,1148 +63,1780 @@
     </g>
     <g id="chart-area" style="pointer-events: none">
         <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2022"
+                    x1="322.78"
+                    y1="511.79999999999995"
+                    x2="322.78"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
             <g id="tick-labels">
                 <text
-                    x="120.22000000000001"
-                    y="530.3"
-                    fill="#5b5b5b"
-                    text-anchor="start"
-                    font-size="13"
-                >
-                    0%
-                </text>
-                <text
-                    x="261"
+                    x="322.78"
                     y="530.3"
                     fill="#5b5b5b"
                     text-anchor="middle"
                     font-size="13"
                 >
-                    20%
-                </text>
-                <text
-                    x="401.7"
-                    y="530.3"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    40%
-                </text>
-                <text
-                    x="542.5"
-                    y="530.3"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    60%
-                </text>
-                <text
-                    x="683.2"
-                    y="530.3"
-                    fill="#5b5b5b"
-                    text-anchor="middle"
-                    font-size="13"
-                >
-                    80%
-                </text>
-                <text
-                    x="824"
-                    y="530.3"
-                    fill="#5b5b5b"
-                    text-anchor="end"
-                    font-size="13"
-                >
-                    100%
+                    2022
                 </text>
             </g>
         </g>
-        <g id="vertical-grid-lines" class="AxisGridLines verticalLines">
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.39"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    +0%
+                </text>
+            </g>
+        </g>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
             <line
-                id="0%"
-                x1="120.2"
-                y1="512.30"
-                x2="120.2"
-                y2="108.50"
+                id="+0%"
+                x1="47.39"
+                y1="512.3"
+                x2="598.17"
+                y2="512.3"
                 stroke="#999"
             ></line>
-            <line
-                id="20%"
-                x1="261"
-                y1="512.30"
-                x2="261"
-                y2="108.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="40%"
-                x1="401.7"
-                y1="512.30"
-                x2="401.7"
-                y2="108.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="60%"
-                x1="542.5"
-                y1="512.30"
-                x2="542.5"
-                y2="108.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="80%"
-                x1="683.2"
-                y1="512.30"
-                x2="683.2"
-                y2="108.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
-            <line
-                id="100%"
-                x1="824"
-                y1="512.30"
-                x2="824"
-                y2="108.50"
-                stroke="#ddd"
-                stroke-dasharray="4,4"
-            ></line>
         </g>
-        <line
-            id="vertical-zero-line"
-            x1="119.95"
-            y1="512.30"
-            x2="119.95"
-            y2="108.50"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="categorical-color-legend" class="categoricalColorLegend">
-            <g id="swatches">
-                <rect
-                    id="Plant-foods"
-                    x="16"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#00823f"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Meat"
-                    x="118.932"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#9a5129"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Dairy"
-                    x="181.544"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#4c6a9c"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Eggs"
-                    x="245.596"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#bc8e5a"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Animal-fats"
-                    x="309.072"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#d7263f"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Fish-and-seafood"
-                    x="410.996"
-                    y="86"
-                    width="13.5"
-                    height="13.5"
-                    fill="#585c64"
-                    stroke-width="0.4"
-                ></rect>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="China-–-Eggs"
+                    d="M602.17,512.3 H602.8783333333333 V104.24999999999979 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Brazil-–-Eggs"
+                    d="M602.17,512.3 H603.5866666666667 V122.54999999999978 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Bangladesh-–-Eggs"
+                    d="M602.17,512.3 H604.295 V140.8499999999998 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-States-–-Dairy"
+                    d="M602.17,512.3 H605.0033333333333 V159.1499999999998 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-Kingdom-–-Dairy"
+                    d="M602.17,512.3 H605.7116666666667 V177.44999999999982 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Sweden-–-Dairy"
+                    d="M602.17,512.3 H606.42 V195.74999999999983 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="India-–-Dairy"
+                    d="M602.17,512.3 H607.1283333333333 V214.04999999999984 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="China-–-Dairy"
+                    d="M602.17,512.3 H607.8366666666667 V232.34999999999985 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Brazil-–-Dairy"
+                    d="M602.17,512.3 H608.545 V250.64999999999986 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Bangladesh-–-Dairy"
+                    d="M602.17,512.3 H609.2533333333333 V268.9499999999998 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-States-–-Meat"
+                    d="M602.17,512.3 H609.9616666666667 V287.24999999999983 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-Kingdom-–-Meat"
+                    d="M602.17,512.3 H610.67 V305.54999999999984 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Sweden-–-Meat"
+                    d="M602.17,512.3 H611.3783333333333 V323.84999999999985 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="India-–-Meat"
+                    d="M602.17,512.3 H612.0866666666667 V342.14999999999986 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="China-–-Meat"
+                    d="M602.17,512.3 H612.795 V360.4499999999999 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Brazil-–-Meat"
+                    d="M602.17,512.3 H613.5033333333333 V378.7499999999999 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Bangladesh-–-Meat"
+                    d="M602.17,512.3 H614.2116666666667 V397.0499999999999 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-States-–-Plant-foods"
+                    d="M602.17,512.3 H614.92 V415.3499999999999 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-Kingdom-–-Plant-foods"
+                    d="M602.17,512.3 H615.6283333333333 V433.6499999999999 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Sweden-–-Plant-foods"
+                    d="M602.17,512.3 H616.3366666666667 V451.94999999999993 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="India-–-Plant-foods"
+                    d="M602.17,512.3 H617.045 V470.24999999999994 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="China-–-Plant-foods"
+                    d="M602.17,512.3 H617.7533333333333 V488.54999999999995 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Brazil-–-Plant-foods"
+                    d="M602.17,512.3 H618.4616666666667 V506.84999999999997 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Bangladesh-–-Plant-foods"
+                    d="M602.17,512.3 H618.4616666666667 V525.15 H619.17"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
             </g>
-            <g id="labels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
                 <text
-                    x="34.5"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__China-–-Eggs"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="109.1"
+                    fill="#996d39"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Plant foods
+                    <tspan x="623.17" y="109.05999999999977">
+                        China – Eggs
+                    </tspan>
                 </text>
                 <text
-                    x="137.43200000000002"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__Brazil-–-Eggs"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="127.4"
+                    fill="#b13507"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Meat
+                    <tspan x="623.17" y="127.35999999999979">
+                        Brazil – Eggs
+                    </tspan>
                 </text>
                 <text
-                    x="200.044"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__Bangladesh-–-Eggs"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="145.7"
+                    fill="#c15065"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Dairy
+                    <tspan x="623.17" y="145.6599999999998">
+                        Bangladesh – Eggs
+                    </tspan>
                 </text>
                 <text
-                    x="264.096"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__United-States-–-Dairy"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="164.0"
+                    fill="#00875e"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Eggs
+                    <tspan x="623.17" y="163.9599999999998">
+                        United States – Dairy
+                    </tspan>
                 </text>
                 <text
-                    x="327.572"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__United-Kingdom-–-Dairy"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="182.3"
+                    fill="#8c4569"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Animal fats
+                    <tspan x="623.17" y="182.25999999999982">
+                        United Kingdom – Dairy
+                    </tspan>
                 </text>
                 <text
-                    x="429.496"
-                    y="92.75"
-                    dy=".32em"
-                    font-size="14.4"
+                    id="label__Sweden-–-Dairy"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="200.6"
+                    fill="#be5915"
                     opacity="1"
+                    text-anchor="start"
                 >
-                    Fish and seafood
+                    <tspan x="623.17" y="200.55999999999983">
+                        Sweden – Dairy
+                    </tspan>
                 </text>
-            </g>
-        </g>
-        <g id="bars">
-            <g
-                id="Bangladesh"
-                class="bar"
-                transform="translate(0, 137.34285714285716)"
-            >
-                <g id="Plant-foods">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -18.747857142857146)"
-                        width="641.8"
-                        height="37.49571428571429"
-                        fill="#00823f"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="441.09999999999997"
-                        y="0"
-                        width="641.8"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        91%
-                    </text>
-                </g>
-                <g id="Meat">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(762, -18.747857142857146)"
-                        width="5.099999999999994"
-                        height="37.49571428571429"
-                        fill="#9a5129"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Dairy">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(767, -18.747857142857146)"
-                        width="37.10000000000001"
-                        height="37.49571428571429"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="785.55"
-                        y="0"
-                        width="37.10000000000001"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        5.3%
-                    </text>
-                </g>
-                <g id="Eggs">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(804.1, -18.747857142857146)"
-                        width="3.700000000000003"
-                        height="37.49571428571429"
-                        fill="#bc8e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Animal-fats">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(807.7, -18.747857142857146)"
-                        width="2.200000000000003"
-                        height="37.49571428571429"
-                        fill="#d7263f"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Fish-and-seafood">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(809.9, -18.747857142857146)"
-                        width="14.200000000000003"
-                        height="37.49571428571429"
-                        fill="#585c64"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
+                    id="label__India-–-Dairy"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="218.9"
+                    fill="#578145"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="115.2" y="4.995000000000001">Bangladesh</tspan>
+                    <tspan x="623.17" y="218.85999999999984">
+                        India – Dairy
+                    </tspan>
                 </text>
-            </g>
-            <g
-                id="India"
-                class="bar"
-                transform="translate(0, 195.02857142857147)"
-            >
-                <g id="Plant-foods">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -18.747857142857146)"
-                        width="610.4"
-                        height="37.49571428571429"
-                        fill="#00823f"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="425.4"
-                        y="0"
-                        width="610.4"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        87%
-                    </text>
-                </g>
-                <g id="Meat">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(730.6, -18.747857142857146)"
-                        width="6.5"
-                        height="37.49571428571429"
-                        fill="#9a5129"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Dairy">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(737, -18.747857142857146)"
-                        width="54.60000000000001"
-                        height="37.49571428571429"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="764.3"
-                        y="0"
-                        width="54.60000000000001"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        7.8%
-                    </text>
-                </g>
-                <g id="Eggs">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(791.7, -18.747857142857146)"
-                        width="4.3999999999999915"
-                        height="37.49571428571429"
-                        fill="#bc8e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Animal-fats">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(796.1, -18.747857142857146)"
-                        width="22.89999999999999"
-                        height="37.49571428571429"
-                        fill="#d7263f"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Fish-and-seafood">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(819, -18.747857142857146)"
-                        width="5"
-                        height="37.49571428571429"
-                        fill="#585c64"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
+                    id="label__China-–-Dairy"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="237.2"
+                    fill="#cf0a66"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="115.2" y="4.995000000000001">India</tspan>
+                    <tspan x="623.17" y="237.15999999999985">
+                        China – Dairy
+                    </tspan>
                 </text>
-            </g>
-            <g
-                id="China"
-                class="bar"
-                transform="translate(0, 252.71428571428575)"
-            >
-                <g id="Plant-foods">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -18.747857142857146)"
-                        width="571.8"
-                        height="37.49571428571429"
-                        fill="#00823f"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="406.09999999999997"
-                        y="0"
-                        width="571.8"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        81%
-                    </text>
-                </g>
-                <g id="Meat">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(692, -18.747857142857146)"
-                        width="81.8"
-                        height="37.49571428571429"
-                        fill="#9a5129"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="732.9"
-                        y="0"
-                        width="81.8"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        12%
-                    </text>
-                </g>
-                <g id="Dairy">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(773.8, -18.747857142857146)"
-                        width="12.600000000000009"
-                        height="37.49571428571429"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Eggs">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(786.4, -18.747857142857146)"
-                        width="16.200000000000003"
-                        height="37.49571428571429"
-                        fill="#bc8e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Animal-fats">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(802.6, -18.747857142857146)"
-                        width="8.100000000000009"
-                        height="37.49571428571429"
-                        fill="#d7263f"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Fish-and-seafood">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(810.7, -18.747857142857146)"
-                        width="13.299999999999997"
-                        height="37.49571428571429"
-                        fill="#585c64"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
+                    id="label__Brazil-–-Dairy"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="255.5"
+                    fill="#00847e"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="115.2" y="4.995000000000001">China</tspan>
+                    <tspan x="623.17" y="255.45999999999987">
+                        Brazil – Dairy
+                    </tspan>
                 </text>
-            </g>
-            <g
-                id="Brazil"
-                class="bar"
-                transform="translate(0, 310.40000000000003)"
-            >
-                <g id="Plant-foods">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -18.747857142857146)"
-                        width="517.4"
-                        height="37.49571428571429"
-                        fill="#00823f"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="378.9"
-                        y="0"
-                        width="517.4"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        74%
-                    </text>
-                </g>
-                <g id="Meat">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(637.6, -18.747857142857146)"
-                        width="93.3"
-                        height="37.49571428571429"
-                        fill="#9a5129"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="684.25"
-                        y="0"
-                        width="93.3"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        13%
-                    </text>
-                </g>
-                <g id="Dairy">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(730.9, -18.747857142857146)"
-                        width="58.7"
-                        height="37.49571428571429"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="760.25"
-                        y="0"
-                        width="58.7"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        8.3%
-                    </text>
-                </g>
-                <g id="Eggs">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(789.6, -18.747857142857146)"
-                        width="9.700000000000003"
-                        height="37.49571428571429"
-                        fill="#bc8e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Animal-fats">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(799.3, -18.747857142857146)"
-                        width="21.700000000000003"
-                        height="37.49571428571429"
-                        fill="#d7263f"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Fish-and-seafood">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(821, -18.747857142857146)"
-                        width="3"
-                        height="37.49571428571429"
-                        fill="#585c64"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
+                    id="label__Bangladesh-–-Dairy"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="273.8"
+                    fill="#b16214"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="115.2" y="4.995000000000001">Brazil</tspan>
+                    <tspan x="623.17" y="273.7599999999998">
+                        Bangladesh – Dairy
+                    </tspan>
                 </text>
-            </g>
-            <g
-                id="United-Kingdom"
-                class="bar"
-                transform="translate(0, 368.08571428571435)"
-            >
-                <g id="Plant-foods">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -18.747857142857146)"
-                        width="510.90000000000003"
-                        height="37.49571428571429"
-                        fill="#00823f"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="375.65000000000003"
-                        y="0"
-                        width="510.90000000000003"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        73%
-                    </text>
-                </g>
-                <g id="Meat">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(631.1, -18.747857142857146)"
-                        width="81.2"
-                        height="37.49571428571429"
-                        fill="#9a5129"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="671.7"
-                        y="0"
-                        width="81.2"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        12%
-                    </text>
-                </g>
-                <g id="Dairy">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(712.2, -18.747857142857146)"
-                        width="75.39999999999999"
-                        height="37.49571428571429"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="749.9000000000001"
-                        y="0"
-                        width="75.39999999999999"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        11%
-                    </text>
-                </g>
-                <g id="Eggs">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(787.7, -18.747857142857146)"
-                        width="6.8999999999999915"
-                        height="37.49571428571429"
-                        fill="#bc8e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Animal-fats">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(794.5, -18.747857142857146)"
-                        width="22.60000000000001"
-                        height="37.49571428571429"
-                        fill="#d7263f"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Fish-and-seafood">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(817.1, -18.747857142857146)"
-                        width="7"
-                        height="37.49571428571429"
-                        fill="#585c64"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
+                    id="label__United-States-–-Meat"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="292.1"
+                    fill="#d73c50"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="115.2" y="4.995000000000001">
-                        United Kingdom
+                    <tspan x="623.17" y="292.05999999999983">
+                        United States – Meat
+                    </tspan>
+                </text>
+                <text
+                    id="label__United-Kingdom-–-Meat"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="310.4"
+                    fill="#18470f"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="623.17" y="310.35999999999984">
+                        United Kingdom – Meat
+                    </tspan>
+                </text>
+                <text
+                    id="label__Sweden-–-Meat"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="328.7"
+                    fill="#286bbb"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="623.17" y="328.65999999999985">
+                        Sweden – Meat
+                    </tspan>
+                </text>
+                <text
+                    id="label__India-–-Meat"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="347.0"
+                    fill="#c4523e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="623.17" y="346.95999999999987">
+                        India – Meat
+                    </tspan>
+                </text>
+                <text
+                    id="label__China-–-Meat"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="365.3"
+                    fill="#338711"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="623.17" y="365.2599999999999">China – Meat</tspan>
+                </text>
+                <text
+                    id="label__Brazil-–-Meat"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="383.6"
+                    fill="#970046"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="623.17" y="383.5599999999999">
+                        Brazil – Meat
+                    </tspan>
+                </text>
+                <text
+                    id="label__Bangladesh-–-Meat"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="401.9"
+                    fill="#008291"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="623.17" y="401.8599999999999">
+                        Bangladesh – Meat
+                    </tspan>
+                </text>
+                <text
+                    id="label__United-States-–-Plant-foods"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="420.2"
+                    fill="#a2559c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="623.17" y="420.1599999999999">
+                        United States – Plant foods
+                    </tspan>
+                </text>
+                <text
+                    id="label__United-Kingdom-–-Plant-foods"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="438.5"
+                    fill="#00295b"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="623.17" y="438.4599999999999">
+                        United Kingdom – Plant foods
+                    </tspan>
+                </text>
+                <text
+                    id="label__Sweden-–-Plant-foods"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="456.8"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="623.17" y="456.75999999999993">
+                        Sweden – Plant foods
+                    </tspan>
+                </text>
+                <text
+                    id="label__India-–-Plant-foods"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="475.1"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="623.17" y="475.05999999999995">
+                        India – Plant foods
+                    </tspan>
+                </text>
+                <text
+                    id="label__China-–-Plant-foods"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="493.4"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="623.17" y="493.35999999999996">
+                        China – Plant foods
+                    </tspan>
+                </text>
+                <text
+                    id="label__Brazil-–-Plant-foods"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="511.7"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="623.17" y="511.65999999999997">
+                        Brazil – Plant foods
+                    </tspan>
+                </text>
+                <text
+                    id="label__Bangladesh-–-Plant-foods"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="623.2"
+                    y="530.0"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="623.17" y="529.96">
+                        Bangladesh – Plant foods
                     </tspan>
                 </text>
             </g>
-            <g
-                id="United-States"
-                class="bar"
-                transform="translate(0, 425.77142857142866)"
-            >
-                <g id="Plant-foods">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -18.747857142857146)"
-                        width="507.09999999999997"
-                        height="37.49571428571429"
-                        fill="#00823f"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="373.75"
-                        y="0"
-                        width="507.09999999999997"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        72%
-                    </text>
-                </g>
-                <g id="Meat">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(627.3, -18.747857142857146)"
-                        width="88.7"
-                        height="37.49571428571429"
-                        fill="#9a5129"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="671.65"
-                        y="0"
-                        width="88.7"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        13%
-                    </text>
-                </g>
-                <g id="Dairy">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(716, -18.747857142857146)"
-                        width="71.89999999999999"
-                        height="37.49571428571429"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="751.95"
-                        y="0"
-                        width="71.89999999999999"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        10%
-                    </text>
-                </g>
-                <g id="Eggs">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(787.9, -18.747857142857146)"
-                        width="9.999999999999986"
-                        height="37.49571428571429"
-                        fill="#bc8e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Animal-fats">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(797.8, -18.747857142857146)"
-                        width="20.799999999999997"
-                        height="37.49571428571429"
-                        fill="#d7263f"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Fish-and-seafood">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(818.6, -18.747857142857146)"
-                        width="5.3999999999999915"
-                        height="37.49571428571429"
-                        fill="#585c64"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">United States</tspan>
-                </text>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Fish-and-seafood"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#8c4569"
+                id="line__United-States-–-Fish-and-seafood"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__United-States-–-Fish-and-seafood">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#8c4569"
+                    opacity="1"
+                ></circle>
             </g>
-            <g
-                id="Sweden"
-                class="bar"
-                transform="translate(0, 483.4571428571429)"
-            >
-                <g id="Plant-foods">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(120.2, -18.747857142857146)"
-                        width="492.50000000000006"
-                        height="37.49571428571429"
-                        fill="#00823f"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="366.45000000000005"
-                        y="0"
-                        width="492.50000000000006"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        70%
-                    </text>
-                </g>
-                <g id="Meat">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(612.7, -18.747857142857146)"
-                        width="65.10000000000001"
-                        height="37.49571428571429"
-                        fill="#9a5129"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="645.25"
-                        y="0"
-                        width="65.10000000000001"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        9.3%
-                    </text>
-                </g>
-                <g id="Dairy">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(677.8, -18.747857142857146)"
-                        width="89.99999999999999"
-                        height="37.49571428571429"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="722.8"
-                        y="0"
-                        width="89.99999999999999"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        13%
-                    </text>
-                </g>
-                <g id="Eggs">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(767.8, -18.747857142857146)"
-                        width="10.299999999999997"
-                        height="37.49571428571429"
-                        fill="#bc8e5a"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Animal-fats">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(778, -18.747857142857146)"
-                        width="34.999999999999986"
-                        height="37.49571428571429"
-                        fill="#d7263f"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="795.5"
-                        y="0"
-                        width="34.999999999999986"
-                        height="37.49571428571429"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        5%
-                    </text>
-                </g>
-                <g id="Fish-and-seafood">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(813, -18.747857142857146)"
-                        width="10.999999999999986"
-                        height="37.49571428571429"
-                        fill="#585c64"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="115.2"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="115.2" y="4.995000000000001">Sweden</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom-–-Fish-and-seafood"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#be5915"
+                id="line__United-Kingdom-–-Fish-and-seafood"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__United-Kingdom-–-Fish-and-seafood">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#be5915"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Sweden-–-Fish-and-seafood"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#578145"
+                id="line__Sweden-–-Fish-and-seafood"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Sweden-–-Fish-and-seafood">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#578145"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India-–-Fish-and-seafood"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#cf0a66"
+                id="line__India-–-Fish-and-seafood"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__India-–-Fish-and-seafood">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#cf0a66"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Fish-and-seafood"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__China-–-Fish-and-seafood"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__China-–-Fish-and-seafood">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Fish-and-seafood"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b16214"
+                id="line__Brazil-–-Fish-and-seafood"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Brazil-–-Fish-and-seafood">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#b16214"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Bangladesh-–-Fish-and-seafood"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d73c50"
+                id="line__Bangladesh-–-Fish-and-seafood"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Bangladesh-–-Fish-and-seafood">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#d73c50"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Animal-fats"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#18470f"
+                id="line__United-States-–-Animal-fats"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__United-States-–-Animal-fats">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#18470f"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom-–-Animal-fats"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#286bbb"
+                id="line__United-Kingdom-–-Animal-fats"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__United-Kingdom-–-Animal-fats">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#286bbb"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Sweden-–-Animal-fats"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c4523e"
+                id="line__Sweden-–-Animal-fats"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Sweden-–-Animal-fats">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#c4523e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India-–-Animal-fats"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#338711"
+                id="line__India-–-Animal-fats"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__India-–-Animal-fats">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#338711"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Animal-fats"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#970046"
+                id="line__China-–-Animal-fats"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__China-–-Animal-fats">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#970046"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Animal-fats"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#008291"
+                id="line__Brazil-–-Animal-fats"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Brazil-–-Animal-fats">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#008291"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Bangladesh-–-Animal-fats"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__Bangladesh-–-Animal-fats"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Bangladesh-–-Animal-fats">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Eggs"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__United-States-–-Eggs"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__United-States-–-Eggs">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom-–-Eggs"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__United-Kingdom-–-Eggs"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__United-Kingdom-–-Eggs">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Sweden-–-Eggs"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Sweden-–-Eggs"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Sweden-–-Eggs">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India-–-Eggs"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__India-–-Eggs"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__India-–-Eggs">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Eggs"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__China-–-Eggs"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__China-–-Eggs">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Eggs"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Brazil-–-Eggs"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Brazil-–-Eggs">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Bangladesh-–-Eggs"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c15065"
+                id="line__Bangladesh-–-Eggs"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Bangladesh-–-Eggs">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#c15065"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Dairy"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00875e"
+                id="line__United-States-–-Dairy"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__United-States-–-Dairy">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#00875e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom-–-Dairy"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#8c4569"
+                id="line__United-Kingdom-–-Dairy"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__United-Kingdom-–-Dairy">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#8c4569"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Sweden-–-Dairy"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#be5915"
+                id="line__Sweden-–-Dairy"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Sweden-–-Dairy">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#be5915"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India-–-Dairy"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#578145"
+                id="line__India-–-Dairy"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__India-–-Dairy">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#578145"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Dairy"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#cf0a66"
+                id="line__China-–-Dairy"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__China-–-Dairy">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#cf0a66"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Dairy"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00847e"
+                id="line__Brazil-–-Dairy"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Brazil-–-Dairy">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#00847e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Bangladesh-–-Dairy"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b16214"
+                id="line__Bangladesh-–-Dairy"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Bangladesh-–-Dairy">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#b16214"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Meat"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d73c50"
+                id="line__United-States-–-Meat"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__United-States-–-Meat">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#d73c50"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom-–-Meat"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#18470f"
+                id="line__United-Kingdom-–-Meat"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__United-Kingdom-–-Meat">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#18470f"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Sweden-–-Meat"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#286bbb"
+                id="line__Sweden-–-Meat"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Sweden-–-Meat">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#286bbb"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India-–-Meat"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c4523e"
+                id="line__India-–-Meat"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__India-–-Meat">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#c4523e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Meat"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#338711"
+                id="line__China-–-Meat"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__China-–-Meat">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#338711"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Meat"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#970046"
+                id="line__Brazil-–-Meat"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Brazil-–-Meat">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#970046"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Bangladesh-–-Meat"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#008291"
+                id="line__Bangladesh-–-Meat"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Bangladesh-–-Meat">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#008291"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States-–-Plant-foods"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__United-States-–-Plant-foods"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__United-States-–-Plant-foods">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom-–-Plant-foods"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__United-Kingdom-–-Plant-foods"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__United-Kingdom-–-Plant-foods">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Sweden-–-Plant-foods"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Sweden-–-Plant-foods"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Sweden-–-Plant-foods">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India-–-Plant-foods"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__India-–-Plant-foods"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__India-–-Plant-foods">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China-–-Plant-foods"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__China-–-Plant-foods"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__China-–-Plant-foods">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Brazil-–-Plant-foods"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Brazil-–-Plant-foods"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Brazil-–-Plant-foods">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Bangladesh-–-Plant-foods"
+                stroke-width="2.5"
+                d="M322.8 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Bangladesh-–-Plant-foods"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M322.8 512.3"
+            ></path>
+            <g id="datapoints__Bangladesh-–-Plant-foods">
+                <circle
+                    id="2022"
+                    cx="322.8"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>

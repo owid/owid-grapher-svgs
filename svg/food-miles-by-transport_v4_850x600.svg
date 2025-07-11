@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -78,156 +67,338 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="53.25"
-            y1="552.40"
-            x2="53.25"
-            y2="104.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Water"
-                x="0"
-                y="0"
-                transform="translate(53.5, 123.6175)"
-                width="676.4"
-                height="72.86500000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Road"
-                x="0"
-                y="0"
-                transform="translate(53.5, 235.71749999999997)"
-                width="355.3"
-                height="72.86500000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Rail"
-                x="0"
-                y="0"
-                transform="translate(53.5, 347.8175)"
-                width="113.6"
-                height="72.86500000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Air"
-                x="0"
-                y="0"
-                transform="translate(53.5, 459.91749999999996)"
-                width="1.8999999999999986"
-                height="72.86500000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2010"
+                    x1="431.84999999999997"
+                    y1="531.9"
+                    x2="431.84999999999997"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="431.84999999999997"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2010
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(734.9, 160.05)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                5.54 billion t km
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(413.8, 272.15)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                2.91 billion t km
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(172.1, 384.25)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                930 million t km
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(60.4, 496.34999999999997)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                15 million t km
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="88.41"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0 t km
+                </text>
+                <text
+                    x="88.41"
+                    y="462"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1 billion t km
+                </text>
+                <text
+                    x="88.41"
+                    y="391.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2 billion t km
+                </text>
+                <text
+                    x="88.41"
+                    y="321.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    3 billion t km
+                </text>
+                <text
+                    x="88.41"
+                    y="250.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    4 billion t km
+                </text>
+                <text
+                    x="88.41"
+                    y="180.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    5 billion t km
+                </text>
+                <text
+                    x="88.41"
+                    y="110"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    6 billion t km
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="48.5"
-                y="165.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="48.5" y="165.04500000000002">Water</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="48.5"
-                y="277.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="48.5" y="277.145">Road</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="48.5"
-                y="389.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="48.5" y="389.245">Rail</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="48.5"
-                y="501.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="48.5" y="501.34499999999997">Air</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-t-km"
+                x1="93.41"
+                y1="532.4"
+                x2="770.29"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="1-billion-t-km"
+                x1="93.41"
+                y1="462"
+                x2="770.29"
+                y2="462"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="2-billion-t-km"
+                x1="93.41"
+                y1="391.6"
+                x2="770.29"
+                y2="391.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="3-billion-t-km"
+                x1="93.41"
+                y1="321.2"
+                x2="770.29"
+                y2="321.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="4-billion-t-km"
+                x1="93.41"
+                y1="250.8"
+                x2="770.29"
+                y2="250.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="5-billion-t-km"
+                x1="93.41"
+                y1="180.4"
+                x2="770.29"
+                y2="180.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="6-billion-t-km"
+                x1="93.41"
+                y1="110"
+                x2="770.29"
+                y2="110"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Water"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.3"
+                    y="147.2"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.29" y="147.21">Water</tspan>
+                </text>
+                <text
+                    id="label__Road"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.3"
+                    y="332.3"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.29" y="332.31">Road</tspan>
+                </text>
+                <text
+                    id="label__Rail"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.3"
+                    y="471.7"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.29" y="471.71">Rail</tspan>
+                </text>
+                <text
+                    id="label__Air"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="774.3"
+                    y="536.1"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="774.29" y="536.11">Air</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Air"
+                stroke-width="2.5"
+                d="M431.9 531.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Air"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M431.9 531.3"
+            ></path>
+            <g id="datapoints__Air">
+                <circle
+                    id="2010"
+                    cx="431.9"
+                    cy="531.3"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Water"
+                stroke-width="2.5"
+                d="M431.9 142.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Water"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M431.9 142.4"
+            ></path>
+            <g id="datapoints__Water">
+                <circle
+                    id="2010"
+                    cx="431.9"
+                    cy="142.4"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Rail"
+                stroke-width="2.5"
+                d="M431.9 466.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Rail"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M431.9 466.9"
+            ></path>
+            <g id="datapoints__Rail">
+                <circle
+                    id="2010"
+                    cx="431.9"
+                    cy="466.9"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Road"
+                stroke-width="2.5"
+                d="M431.9 327.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Road"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M431.9 327.5"
+            ></path>
+            <g id="datapoints__Road">
+                <circle
+                    id="2010"
+                    cx="431.9"
+                    cy="327.5"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -75,158 +64,384 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="224.00"
-            y1="552.40"
-            x2="224.00"
-            y2="104.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Human-capital"
-                x="0"
-                y="0"
-                transform="translate(224, 123.6175)"
-                width="511.79999999999995"
-                height="72.86500000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Produced-capital"
-                x="0"
-                y="0"
-                transform="translate(224, 235.71749999999997)"
-                width="209.39999999999998"
-                height="72.86500000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Natural-capital"
-                x="0"
-                y="0"
-                transform="translate(224, 347.8175)"
-                width="74.10000000000002"
-                height="72.86500000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Net-foreign-assets"
-                x="0"
-                y="0"
-                transform="translate(220.8, 459.91749999999996)"
-                width="3.1999999999999886"
-                height="72.86500000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2014"
+                    x1="393.76"
+                    y1="531.9"
+                    x2="393.76"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="393.76"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2014
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(740.8, 160.05)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $742.07 trillion
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(438.4, 272.15)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $303.55 trillion
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(303.1, 384.25)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                $107.43 trillion
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(215.8, 496.34999999999997)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="end"
-                font-size="13.5"
-                font-weight="400"
-            >
-                -$4.58 trillion
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="82.69"
+                    y="530"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $0
+                </text>
+                <text
+                    x="82.69"
+                    y="477.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $100 trillion
+                </text>
+                <text
+                    x="82.69"
+                    y="425"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $200 trillion
+                </text>
+                <text
+                    x="82.69"
+                    y="372.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $300 trillion
+                </text>
+                <text
+                    x="82.69"
+                    y="320"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $400 trillion
+                </text>
+                <text
+                    x="82.69"
+                    y="267.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $500 trillion
+                </text>
+                <text
+                    x="82.69"
+                    y="215"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $600 trillion
+                </text>
+                <text
+                    x="82.69"
+                    y="162.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $700 trillion
+                </text>
+                <text
+                    x="82.69"
+                    y="110"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    $800 trillion
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="219.0"
-                y="165.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="219" y="165.04500000000002">Human capital</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="219.0"
-                y="277.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="219" y="277.145">Produced capital</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="219.0"
-                y="389.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="219" y="389.245">Natural capital</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="133.3"
-                y="501.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="133.31" y="501.34499999999997">
-                    Net foreign assets
-                </tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="$0"
+                x1="87.69"
+                y1="530"
+                x2="699.83"
+                y2="530"
+                stroke="#999"
+            ></line>
+            <line
+                id="$100-trillion"
+                x1="87.69"
+                y1="477.5"
+                x2="699.83"
+                y2="477.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$200-trillion"
+                x1="87.69"
+                y1="425"
+                x2="699.83"
+                y2="425"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$300-trillion"
+                x1="87.69"
+                y1="372.5"
+                x2="699.83"
+                y2="372.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$400-trillion"
+                x1="87.69"
+                y1="320"
+                x2="699.83"
+                y2="320"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$500-trillion"
+                x1="87.69"
+                y1="267.5"
+                x2="699.83"
+                y2="267.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$600-trillion"
+                x1="87.69"
+                y1="215"
+                x2="699.83"
+                y2="215"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$700-trillion"
+                x1="87.69"
+                y1="162.5"
+                x2="699.83"
+                y2="162.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$800-trillion"
+                x1="87.69"
+                y1="110"
+                x2="699.83"
+                y2="110"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Human-capital"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="703.8"
+                    y="145.2"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="703.8299999999999" y="145.21">
+                        Human capital
+                    </tspan>
+                </text>
+                <text
+                    id="label__Produced-capital"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="703.8"
+                    y="375.4"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="703.8299999999999" y="375.41">
+                        Produced capital
+                    </tspan>
+                </text>
+                <text
+                    id="label__Natural-capital"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="703.8"
+                    y="478.4"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="703.8299999999999" y="478.41">
+                        Natural capital
+                    </tspan>
+                </text>
+                <text
+                    id="label__Net-foreign-assets"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="703.8"
+                    y="537.2"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="703.8299999999999" y="537.21">
+                        Net foreign assets
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Produced-capital"
+                stroke-width="2.5"
+                d="M393.8 370.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Produced-capital"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.8 370.6"
+            ></path>
+            <g id="datapoints__Produced-capital">
+                <circle
+                    id="2014"
+                    cx="393.8"
+                    cy="370.6"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Natural-capital"
+                stroke-width="2.5"
+                d="M393.8 473.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Natural-capital"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.8 473.6"
+            ></path>
+            <g id="datapoints__Natural-capital">
+                <circle
+                    id="2014"
+                    cx="393.8"
+                    cy="473.6"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Human-capital"
+                stroke-width="2.5"
+                d="M393.8 140.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Human-capital"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.8 140.4"
+            ></path>
+            <g id="datapoints__Human-capital">
+                <circle
+                    id="2014"
+                    cx="393.8"
+                    cy="140.4"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Net-foreign-assets"
+                stroke-width="2.5"
+                d="M393.8 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Net-foreign-assets"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.8 532.4"
+            ></path>
+            <g id="datapoints__Net-foreign-assets">
+                <circle
+                    id="2014"
+                    cx="393.8"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

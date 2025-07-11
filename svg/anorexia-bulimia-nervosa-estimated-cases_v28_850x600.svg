@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -85,92 +74,258 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="129.45"
-            y1="552.40"
-            x2="129.45"
-            y2="104.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Bulimia-nervosa"
-                x="0"
-                y="0"
-                transform="translate(129.7, 143.23499999999999)"
-                width="618.3"
-                height="145.73000000000002"
-                fill="#e56e5a"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Anorexia-nervosa"
-                x="0"
-                y="0"
-                transform="translate(129.7, 367.43499999999995)"
-                width="184.90000000000003"
-                height="145.73000000000002"
-                fill="#9a5129"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2021"
+                    x1="389.73"
+                    y1="531.9"
+                    x2="389.73"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="389.73"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2021
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(753, 216.1)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                12.37 million
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(319.6, 440.29999999999995)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                3.7 million
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="70.99"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0
+                </text>
+                <text
+                    x="70.99"
+                    y="464.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2 million
+                </text>
+                <text
+                    x="70.99"
+                    y="395.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    4 million
+                </text>
+                <text
+                    x="70.99"
+                    y="327.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    6 million
+                </text>
+                <text
+                    x="70.99"
+                    y="259.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    8 million
+                </text>
+                <text
+                    x="70.99"
+                    y="190.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10 million
+                </text>
+                <text
+                    x="70.99"
+                    y="122.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    12 million
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="124.7"
-                y="221.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="124.69999999999999" y="221.09499999999997">
-                    Bulimia nervosa
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="124.7"
-                y="445.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="124.69999999999999" y="445.29499999999996">
-                    Anorexia nervosa
-                </tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0"
+                x1="75.99"
+                y1="532.4"
+                x2="703.47"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="2-million"
+                x1="75.99"
+                y1="464.1"
+                x2="703.47"
+                y2="464.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="4-million"
+                x1="75.99"
+                y1="395.8"
+                x2="703.47"
+                y2="395.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="6-million"
+                x1="75.99"
+                y1="327.5"
+                x2="703.47"
+                y2="327.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="8-million"
+                x1="75.99"
+                y1="259.2"
+                x2="703.47"
+                y2="259.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10-million"
+                x1="75.99"
+                y1="190.8"
+                x2="703.47"
+                y2="190.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="12-million"
+                x1="75.99"
+                y1="122.5"
+                x2="703.47"
+                y2="122.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Bulimia-nervosa"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="707.5"
+                    y="116.0"
+                    fill="#d96855"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="707.47" y="115.96000000000001">
+                        Bulimia nervosa
+                    </tspan>
+                </text>
+                <text
+                    id="label__Anorexia-nervosa"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="707.5"
+                    y="410.9"
+                    fill="#9a5129"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="707.47" y="410.91">Anorexia nervosa</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Bulimia-nervosa"
+                stroke-width="2.5"
+                d="M389.7 110"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#e56e5a"
+                id="line__Bulimia-nervosa"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M389.7 110"
+            ></path>
+            <g id="datapoints__Bulimia-nervosa">
+                <circle
+                    id="2021"
+                    cx="389.7"
+                    cy="110"
+                    r="1.8"
+                    fill="#e56e5a"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Anorexia-nervosa"
+                stroke-width="2.5"
+                d="M389.7 406.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__Anorexia-nervosa"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M389.7 406.1"
+            ></path>
+            <g id="datapoints__Anorexia-nervosa">
+                <circle
+                    id="2021"
+                    cx="389.7"
+                    cy="406.1"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

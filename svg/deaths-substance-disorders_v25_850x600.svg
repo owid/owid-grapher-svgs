@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -83,224 +72,502 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="105.15"
-            y1="552.40"
-            x2="105.15"
-            y2="122.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Alcohol"
-                x="0"
-                y="0"
-                transform="translate(105.4, 134.55333333333334)"
-                width="669.5"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Drug-use"
-                x="0"
-                y="0"
-                transform="translate(105.4, 206.2866666666667)"
-                width="579.9"
-                height="46.626666666666665"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Opioids"
-                x="0"
-                y="0"
-                transform="translate(105.4, 278.02000000000004)"
-                width="420.6"
-                height="46.626666666666665"
-                fill="#c05917"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Other-drugs"
-                x="0"
-                y="0"
-                transform="translate(105.4, 349.75333333333333)"
-                width="64.6"
-                height="46.626666666666665"
-                fill="#c05917"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Cocaine"
-                x="0"
-                y="0"
-                transform="translate(105.4, 421.4866666666667)"
-                width="53"
-                height="46.626666666666665"
-                fill="#c05917"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Amphetamine"
-                x="0"
-                y="0"
-                transform="translate(105.4, 493.21999999999997)"
-                width="41.69999999999999"
-                height="46.626666666666665"
-                fill="#c05917"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2021"
+                    x1="396.42499999999995"
+                    y1="531.9"
+                    x2="396.42499999999995"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="396.42499999999995"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2021
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(779.9, 157.86666666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                158,469
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(690.3, 229.60000000000002)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                137,278
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(531, 301.33333333333337)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                99,555
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(175, 373.06666666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                15,287
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(163.4, 444.8)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                12,555
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(152.1, 516.5333333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9,880
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="63.32"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0
+                </text>
+                <text
+                    x="63.32"
+                    y="481.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20,000
+                </text>
+                <text
+                    x="63.32"
+                    y="431.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40,000
+                </text>
+                <text
+                    x="63.32"
+                    y="380.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60,000
+                </text>
+                <text
+                    x="63.32"
+                    y="330.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    80,000
+                </text>
+                <text
+                    x="63.32"
+                    y="279.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100,000
+                </text>
+                <text
+                    x="63.32"
+                    y="229.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    120,000
+                </text>
+                <text
+                    x="63.32"
+                    y="178.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    140,000
+                </text>
+                <text
+                    x="63.32"
+                    y="128"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    160,000
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="100.4"
-                y="162.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="100.4" y="162.86166666666668">Alcohol</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="100.4"
-                y="234.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="100.4" y="234.59500000000003">Drug use</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="100.4"
-                y="306.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="100.4" y="306.3283333333334">Opioids</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="100.4"
-                y="378.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="100.4" y="378.06166666666667">Other drugs</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="100.4"
-                y="449.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="100.4" y="449.795">Cocaine</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="100.4"
-                y="521.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="100.4" y="521.5283333333333">Amphetamine</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0"
+                x1="68.32"
+                y1="532.4"
+                x2="724.53"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="20,000"
+                x1="68.32"
+                y1="481.8"
+                x2="724.53"
+                y2="481.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40,000"
+                x1="68.32"
+                y1="431.3"
+                x2="724.53"
+                y2="431.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60,000"
+                x1="68.32"
+                y1="380.8"
+                x2="724.53"
+                y2="380.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80,000"
+                x1="68.32"
+                y1="330.2"
+                x2="724.53"
+                y2="330.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100,000"
+                x1="68.32"
+                y1="279.6"
+                x2="724.53"
+                y2="279.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="120,000"
+                x1="68.32"
+                y1="229.1"
+                x2="724.53"
+                y2="229.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="140,000"
+                x1="68.32"
+                y1="178.6"
+                x2="724.53"
+                y2="178.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="160,000"
+                x1="68.32"
+                y1="128"
+                x2="724.53"
+                y2="128"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Alcohol"
+                    d="M728.53,131.9 H737.03 V131.9 H745.53"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Drug-use"
+                    d="M728.53,185.4 H737.03 V185.4 H745.53"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Opioids"
+                    d="M728.53,280.8 H737.03 V280.8 H745.53"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Other-drugs"
+                    d="M728.53,493.8 H734.1966666666666 V482.3333333333333 H745.53"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Cocaine"
+                    d="M728.53,500.7 H739.8633333333332 V500.6333333333333 H745.53"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Amphetamine"
+                    d="M728.53,507.4 H739.8633333333332 V518.9333333333334 H745.53"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Alcohol"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="749.5"
+                    y="136.7"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="749.53" y="136.71">Alcohol</tspan>
+                </text>
+                <text
+                    id="label__Drug-use"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="749.5"
+                    y="190.2"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="749.53" y="190.21">Drug use</tspan>
+                </text>
+                <text
+                    id="label__Opioids"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="749.5"
+                    y="285.6"
+                    fill="#c05917"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="749.53" y="285.61">Opioids</tspan>
+                </text>
+                <text
+                    id="label__Other-drugs"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="749.5"
+                    y="487.1"
+                    fill="#c05917"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="749.53" y="487.1433333333333">Other drugs</tspan>
+                </text>
+                <text
+                    id="label__Cocaine"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="749.5"
+                    y="505.4"
+                    fill="#c05917"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="749.53" y="505.4433333333333">Cocaine</tspan>
+                </text>
+                <text
+                    id="label__Amphetamine"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="749.5"
+                    y="523.7"
+                    fill="#c05917"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="749.53" y="523.7433333333333">Amphetamine</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Amphetamine"
+                stroke-width="2.5"
+                d="M396.4 507.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c05917"
+                id="line__Amphetamine"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M396.4 507.4"
+            ></path>
+            <g id="datapoints__Amphetamine">
+                <circle
+                    id="2021"
+                    cx="396.4"
+                    cy="507.4"
+                    r="1.8"
+                    fill="#c05917"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Other-drugs"
+                stroke-width="2.5"
+                d="M396.4 493.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c05917"
+                id="line__Other-drugs"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M396.4 493.8"
+            ></path>
+            <g id="datapoints__Other-drugs">
+                <circle
+                    id="2021"
+                    cx="396.4"
+                    cy="493.8"
+                    r="1.8"
+                    fill="#c05917"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Alcohol"
+                stroke-width="2.5"
+                d="M396.4 131.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Alcohol"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M396.4 131.9"
+            ></path>
+            <g id="datapoints__Alcohol">
+                <circle
+                    id="2021"
+                    cx="396.4"
+                    cy="131.9"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Opioids"
+                stroke-width="2.5"
+                d="M396.4 280.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c05917"
+                id="line__Opioids"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M396.4 280.8"
+            ></path>
+            <g id="datapoints__Opioids">
+                <circle
+                    id="2021"
+                    cx="396.4"
+                    cy="280.8"
+                    r="1.8"
+                    fill="#c05917"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Drug-use"
+                stroke-width="2.5"
+                d="M396.4 185.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Drug-use"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M396.4 185.4"
+            ></path>
+            <g id="datapoints__Drug-use">
+                <circle
+                    id="2021"
+                    cx="396.4"
+                    cy="185.4"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Cocaine"
+                stroke-width="2.5"
+                d="M396.4 500.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c05917"
+                id="line__Cocaine"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M396.4 500.7"
+            ></path>
+            <g id="datapoints__Cocaine">
+                <circle
+                    id="2021"
+                    cx="396.4"
+                    cy="500.7"
+                    r="1.8"
+                    fill="#c05917"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

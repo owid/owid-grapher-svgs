@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -75,190 +64,460 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="113.75"
-            y1="552.40"
-            x2="113.75"
-            y2="83.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Under-5s"
-                x="0"
-                y="0"
-                transform="translate(114, 100.008)"
-                width="683.3"
-                height="60.943999999999996"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="70+-year-olds"
-                x="0"
-                y="0"
-                transform="translate(114, 193.76799999999997)"
-                width="316.3"
-                height="60.943999999999996"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="50-69-years-old"
-                x="0"
-                y="0"
-                transform="translate(114, 287.528)"
-                width="57.099999999999994"
-                height="60.943999999999996"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="5-14-years-old"
-                x="0"
-                y="0"
-                transform="translate(114, 381.288)"
-                width="38.30000000000001"
-                height="60.943999999999996"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="15-49-years-old"
-                x="0"
-                y="0"
-                transform="translate(114, 475.048)"
-                width="20"
-                height="60.943999999999996"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2021"
+                    x1="377.12"
+                    y1="531.9"
+                    x2="377.12"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="377.12"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2021
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(802.3, 130.48)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1.6
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(435.3, 224.23999999999998)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                0.8
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(176.1, 318)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                0.1
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(157.3, 411.76)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                &lt;0.1
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(139, 505.52)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                &lt;0.1
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="34.20"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0
+                </text>
+                <text
+                    x="34.20"
+                    y="478.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.2
+                </text>
+                <text
+                    x="34.20"
+                    y="424.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.4
+                </text>
+                <text
+                    x="34.20"
+                    y="370"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.6
+                </text>
+                <text
+                    x="34.20"
+                    y="315.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.8
+                </text>
+                <text
+                    x="34.20"
+                    y="261.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1
+                </text>
+                <text
+                    x="34.20"
+                    y="207.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1.2
+                </text>
+                <text
+                    x="34.20"
+                    y="153.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1.4
+                </text>
+                <text
+                    x="34.20"
+                    y="99.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1.6
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="109.0"
-                y="135.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="109" y="135.475">Under-5s</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="109.0"
-                y="229.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="109" y="229.23499999999996">70+ year olds</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="109.0"
-                y="323.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="109" y="322.995">50-69 years old</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="109.0"
-                y="416.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="109" y="416.755">5-14 years old</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="109.0"
-                y="510.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="109" y="510.515">15-49 years old</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0"
+                x1="39.20"
+                y1="532.4"
+                x2="715.04"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="0.2"
+                x1="39.20"
+                y1="478.3"
+                x2="715.04"
+                y2="478.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="0.4"
+                x1="39.20"
+                y1="424.1"
+                x2="715.04"
+                y2="424.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="0.6"
+                x1="39.20"
+                y1="370"
+                x2="715.04"
+                y2="370"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="0.8"
+                x1="39.20"
+                y1="315.9"
+                x2="715.04"
+                y2="315.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1"
+                x1="39.20"
+                y1="261.7"
+                x2="715.04"
+                y2="261.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1.2"
+                x1="39.20"
+                y1="207.6"
+                x2="715.04"
+                y2="207.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1.4"
+                x1="39.20"
+                y1="153.5"
+                x2="715.04"
+                y2="153.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1.6"
+                x1="39.20"
+                y1="99.3"
+                x2="715.04"
+                y2="99.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Under-5s"
+                    d="M719.04,89.6 H727.54 V90.75 H736.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="70+-year-olds"
+                    d="M719.04,327.4 H727.54 V327.4 H736.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="50-69-years-old"
+                    d="M719.04,495.4 H724.7066666666666 V489.1666666666667 H736.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="5-14-years-old"
+                    d="M719.04,507.6 H730.3733333333332 V507.4666666666667 H736.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="15-49-years-old"
+                    d="M719.04,519.4 H730.3733333333332 V525.7666666666667 H736.04"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Under-5s"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="740.0"
+                    y="95.6"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="740.04" y="95.56">Under-5s</tspan>
+                </text>
+                <text
+                    id="label__70+-year-olds"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="740.0"
+                    y="332.2"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="740.04" y="332.21">70+ year olds</tspan>
+                </text>
+                <text
+                    id="label__50-69-years-old"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="740.0"
+                    y="494.0"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="740.04" y="493.9766666666667">
+                        50-69 years old
+                    </tspan>
+                </text>
+                <text
+                    id="label__5-14-years-old"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="740.0"
+                    y="512.3"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="740.04" y="512.2766666666668">
+                        5-14 years old
+                    </tspan>
+                </text>
+                <text
+                    id="label__15-49-years-old"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="740.0"
+                    y="530.6"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="740.04" y="530.5766666666667">
+                        15-49 years old
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__15-49-years-old"
+                stroke-width="2.5"
+                d="M377.1 519.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__15-49-years-old"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M377.1 519.4"
+            ></path>
+            <g id="datapoints__15-49-years-old">
+                <circle
+                    id="2021"
+                    cx="377.1"
+                    cy="519.4"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__5-14-years-old"
+                stroke-width="2.5"
+                d="M377.1 507.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__5-14-years-old"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M377.1 507.6"
+            ></path>
+            <g id="datapoints__5-14-years-old">
+                <circle
+                    id="2021"
+                    cx="377.1"
+                    cy="507.6"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__70+-year-olds"
+                stroke-width="2.5"
+                d="M377.1 327.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__70+-year-olds"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M377.1 327.4"
+            ></path>
+            <g id="datapoints__70+-year-olds">
+                <circle
+                    id="2021"
+                    cx="377.1"
+                    cy="327.4"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Under-5s"
+                stroke-width="2.5"
+                d="M377.1 89.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Under-5s"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M377.1 89.6"
+            ></path>
+            <g id="datapoints__Under-5s">
+                <circle
+                    id="2021"
+                    cx="377.1"
+                    cy="89.6"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__50-69-years-old"
+                stroke-width="2.5"
+                d="M377.1 495.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__50-69-years-old"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M377.1 495.4"
+            ></path>
+            <g id="datapoints__50-69-years-old">
+                <circle
+                    id="2021"
+                    cx="377.1"
+                    cy="495.4"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

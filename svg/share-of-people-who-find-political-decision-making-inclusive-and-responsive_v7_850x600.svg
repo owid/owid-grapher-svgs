@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -80,190 +69,416 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="96.05"
-            y1="552.40"
-            x2="96.05"
-            y2="125.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Palestine"
-                x="0"
-                y="0"
-                transform="translate(96.3, 140.53799999999998)"
-                width="640.9000000000001"
-                height="55.483999999999995"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Colombia"
-                x="0"
-                y="0"
-                transform="translate(96.3, 225.89799999999997)"
-                width="485.90000000000003"
-                height="55.483999999999995"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="South-Korea"
-                x="0"
-                y="0"
-                transform="translate(96.3, 311.2579999999999)"
-                width="403.7"
-                height="55.483999999999995"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Latvia"
-                x="0"
-                y="0"
-                transform="translate(96.3, 396.6179999999999)"
-                width="265.9"
-                height="55.483999999999995"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Tunisia"
-                x="0"
-                y="0"
-                transform="translate(96.3, 481.9779999999999)"
-                width="185.59999999999997"
-                height="55.483999999999995"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2021"
+                    x1="47.1"
+                    y1="531.9"
+                    x2="47.1"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2022"
+                    x1="732.3"
+                    y1="531.9"
+                    x2="732.3"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="47.13"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="start"
+                    font-size="13"
+                >
+                    2021
+                </text>
+                <text
+                    x="732.33"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="end"
+                    font-size="13"
+                >
+                    2022
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(742.2, 168.27999999999997)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                33.5%
-                <tspan fill="#999">in 2021</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(587.2, 253.63999999999996)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                25.4%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(505, 338.99999999999994)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                21.1%
-                <tspan fill="#999">in 2021</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(367.2, 424.3599999999999)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                13.9%
-                <tspan fill="#999">in 2021</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(286.9, 509.7199999999999)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9.7%
-                <tspan fill="#999">in 2021</tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="42.13"
+                    y="475.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    5%
+                </text>
+                <text
+                    x="42.13"
+                    y="417.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="360.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    15%
+                </text>
+                <text
+                    x="42.13"
+                    y="303.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="42.13"
+                    y="246.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    25%
+                </text>
+                <text
+                    x="42.13"
+                    y="188.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    30%
+                </text>
+                <text
+                    x="42.13"
+                    y="131.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    35%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="91.3"
-                y="173.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="91.3" y="173.27499999999998">Palestine</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="91.3"
-                y="258.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="91.3" y="258.63499999999993">Colombia</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="91.3"
-                y="344.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="91.3" y="343.99499999999995">South Korea</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="91.3"
-                y="429.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="91.3" y="429.3549999999999">Latvia</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="91.3"
-                y="514.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="91.3" y="514.7149999999999">Tunisia</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="47.13"
+                y1="532.4"
+                x2="732.33"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="5%"
+                x1="47.13"
+                y1="475.1"
+                x2="732.33"
+                y2="475.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="417.9"
+                x2="732.33"
+                y2="417.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="15%"
+                x1="47.13"
+                y1="360.6"
+                x2="732.33"
+                y2="360.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="303.4"
+                x2="732.33"
+                y2="303.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="25%"
+                x1="47.13"
+                y1="246.1"
+                x2="732.33"
+                y2="246.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30%"
+                x1="47.13"
+                y1="188.9"
+                x2="732.33"
+                y2="188.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="35%"
+                x1="47.13"
+                y1="131.6"
+                x2="732.33"
+                y2="131.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Palestine"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="736.3"
+                    y="153.6"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="736.33" y="153.61">Palestine</tspan>
+                </text>
+                <text
+                    id="label__Colombia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="736.3"
+                    y="246.3"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="736.33" y="246.31">Colombia</tspan>
+                </text>
+                <text
+                    id="label__South-Korea"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="736.3"
+                    y="295.6"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="736.33" y="295.61">South Korea</tspan>
+                </text>
+                <text
+                    id="label__Latvia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="736.3"
+                    y="378.0"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="736.33" y="378.01">Latvia</tspan>
+                </text>
+                <text
+                    id="label__Tunisia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="736.3"
+                    y="426.1"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="736.33" y="426.11">Tunisia</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Colombia"
+                stroke-width="2.5"
+                d="M732.3 241.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Colombia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M732.3 241.5"
+            ></path>
+            <g id="datapoints__Colombia">
+                <circle
+                    id="2022"
+                    cx="732.3"
+                    cy="241.5"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Tunisia"
+                stroke-width="2.5"
+                d="M47.1 421.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Tunisia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 421.3"
+            ></path>
+            <g id="datapoints__Tunisia">
+                <circle
+                    id="2021"
+                    cx="47.1"
+                    cy="421.3"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Latvia"
+                stroke-width="2.5"
+                d="M47.1 373.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Latvia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 373.2"
+            ></path>
+            <g id="datapoints__Latvia">
+                <circle
+                    id="2021"
+                    cx="47.1"
+                    cy="373.2"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__South-Korea"
+                stroke-width="2.5"
+                d="M47.1 290.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__South-Korea"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 290.8"
+            ></path>
+            <g id="datapoints__South-Korea">
+                <circle
+                    id="2021"
+                    cx="47.1"
+                    cy="290.8"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Palestine"
+                stroke-width="2.5"
+                d="M47.1 148.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Palestine"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 148.8"
+            ></path>
+            <g id="datapoints__Palestine">
+                <circle
+                    id="2021"
+                    cx="47.1"
+                    cy="148.8"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

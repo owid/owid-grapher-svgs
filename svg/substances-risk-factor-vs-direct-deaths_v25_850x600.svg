@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -82,194 +71,462 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="207.45"
-            y1="516.70"
-            x2="207.45"
-            y2="121.40"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Tobacco-(risk-factor)"
-                x="0"
-                y="0"
-                transform="translate(207.7, 135.2355)"
-                width="547.9000000000001"
-                height="51.38900000000001"
-                fill="#3360a9"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Alcohol-use-(risk-factor)"
-                x="0"
-                y="0"
-                transform="translate(207.7, 214.2955)"
-                width="136.7"
-                height="51.38900000000001"
-                fill="#3360a9"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Illicit-drug-use-(risk-factor)"
-                x="0"
-                y="0"
-                transform="translate(207.7, 293.3555)"
-                width="35"
-                height="51.38900000000001"
-                fill="#3360a9"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Alcohol-use-disorders-(direct)"
-                x="0"
-                y="0"
-                transform="translate(207.7, 372.4155)"
-                width="12"
-                height="51.38900000000001"
-                fill="#c05917"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Drug-use-disorders-(direct)"
-                x="0"
-                y="0"
-                transform="translate(207.7, 451.4755)"
-                width="10.400000000000006"
-                height="51.38900000000001"
-                fill="#c05917"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2021"
+                    x1="352.485"
+                    y1="496.20000000000005"
+                    x2="352.485"
+                    y2="501.70000000000005"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="352.485"
+                    y="514.7"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2021
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(760.6, 160.93)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                7.25 million
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(349.4, 239.99)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1.81 million
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(247.7, 319.05)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                463,360
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(224.7, 398.11)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                158,469
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(223.1, 477.17)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                137,278
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="63.71"
+                    y="496.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0
+                </text>
+                <text
+                    x="63.71"
+                    y="450.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1 million
+                </text>
+                <text
+                    x="63.71"
+                    y="404.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2 million
+                </text>
+                <text
+                    x="63.71"
+                    y="358.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    3 million
+                </text>
+                <text
+                    x="63.71"
+                    y="312.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    4 million
+                </text>
+                <text
+                    x="63.71"
+                    y="265.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    5 million
+                </text>
+                <text
+                    x="63.71"
+                    y="219.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    6 million
+                </text>
+                <text
+                    x="63.71"
+                    y="173.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    7 million
+                </text>
+                <text
+                    x="63.71"
+                    y="127.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    8 million
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="202.7"
-                y="165.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="202.7" y="165.925">Tobacco (risk factor)</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="202.7"
-                y="245.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="202.7" y="244.985">Alcohol use (risk factor)</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="202.7"
-                y="324.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="202.7" y="324.045">
-                    Illicit drug use (risk factor)
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="202.7"
-                y="403.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="202.7" y="403.105">
-                    Alcohol use disorders (direct)
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="202.7"
-                y="482.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="202.7" y="482.165">Drug use disorders (direct)</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0"
+                x1="68.71"
+                y1="496.7"
+                x2="636.26"
+                y2="496.7"
+                stroke="#999"
+            ></line>
+            <line
+                id="1-million"
+                x1="68.71"
+                y1="450.5"
+                x2="636.26"
+                y2="450.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="2-million"
+                x1="68.71"
+                y1="404.4"
+                x2="636.26"
+                y2="404.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="3-million"
+                x1="68.71"
+                y1="358.2"
+                x2="636.26"
+                y2="358.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="4-million"
+                x1="68.71"
+                y1="312.1"
+                x2="636.26"
+                y2="312.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="5-million"
+                x1="68.71"
+                y1="265.9"
+                x2="636.26"
+                y2="265.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="6-million"
+                x1="68.71"
+                y1="219.7"
+                x2="636.26"
+                y2="219.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="7-million"
+                x1="68.71"
+                y1="173.6"
+                x2="636.26"
+                y2="173.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="8-million"
+                x1="68.71"
+                y1="127.4"
+                x2="636.26"
+                y2="127.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Tobacco-(risk-factor)"
+                    d="M640.26,162 H648.76 V162 H657.26"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Alcohol-use-(risk-factor)"
+                    d="M640.26,413.2 H648.76 V413.2 H657.26"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Illicit-drug-use-(risk-factor)"
+                    d="M640.26,475.3 H645.9266666666666 V466.7333333333333 H657.26"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Alcohol-use-disorders-(direct)"
+                    d="M640.26,489.4 H651.5933333333332 V485.0333333333333 H657.26"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Drug-use-disorders-(direct)"
+                    d="M640.26,490.4 H651.5933333333332 V503.3333333333333 H657.26"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Tobacco-(risk-factor)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="661.3"
+                    y="166.8"
+                    fill="#3360a9"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="661.26" y="166.81">Tobacco (risk factor)</tspan>
+                </text>
+                <text
+                    id="label__Alcohol-use-(risk-factor)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="661.3"
+                    y="418.0"
+                    fill="#3360a9"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="661.26" y="418.01">
+                        Alcohol use (risk factor)
+                    </tspan>
+                </text>
+                <text
+                    id="label__Illicit-drug-use-(risk-factor)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="661.3"
+                    y="471.5"
+                    fill="#3360a9"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="661.26" y="471.5433333333333">
+                        Illicit drug use (risk factor)
+                    </tspan>
+                </text>
+                <text
+                    id="label__Alcohol-use-disorders-(direct)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="661.3"
+                    y="489.8"
+                    fill="#c05917"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="661.26" y="489.8433333333333">
+                        Alcohol use disorders (direct)
+                    </tspan>
+                </text>
+                <text
+                    id="label__Drug-use-disorders-(direct)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="661.3"
+                    y="508.1"
+                    fill="#c05917"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="661.26" y="508.1433333333333">
+                        Drug use disorders (direct)
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Alcohol-use-disorders-(direct)"
+                stroke-width="2.5"
+                d="M352.5 489.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c05917"
+                id="line__Alcohol-use-disorders-(direct)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M352.5 489.4"
+            ></path>
+            <g id="datapoints__Alcohol-use-disorders-(direct)">
+                <circle
+                    id="2021"
+                    cx="352.5"
+                    cy="489.4"
+                    r="1.8"
+                    fill="#c05917"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Drug-use-disorders-(direct)"
+                stroke-width="2.5"
+                d="M352.5 490.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c05917"
+                id="line__Drug-use-disorders-(direct)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M352.5 490.4"
+            ></path>
+            <g id="datapoints__Drug-use-disorders-(direct)">
+                <circle
+                    id="2021"
+                    cx="352.5"
+                    cy="490.4"
+                    r="1.8"
+                    fill="#c05917"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Alcohol-use-(risk-factor)"
+                stroke-width="2.5"
+                d="M352.5 413.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#3360a9"
+                id="line__Alcohol-use-(risk-factor)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M352.5 413.2"
+            ></path>
+            <g id="datapoints__Alcohol-use-(risk-factor)">
+                <circle
+                    id="2021"
+                    cx="352.5"
+                    cy="413.2"
+                    r="1.8"
+                    fill="#3360a9"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Illicit-drug-use-(risk-factor)"
+                stroke-width="2.5"
+                d="M352.5 475.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#3360a9"
+                id="line__Illicit-drug-use-(risk-factor)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M352.5 475.3"
+            ></path>
+            <g id="datapoints__Illicit-drug-use-(risk-factor)">
+                <circle
+                    id="2021"
+                    cx="352.5"
+                    cy="475.3"
+                    r="1.8"
+                    fill="#3360a9"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Tobacco-(risk-factor)"
+                stroke-width="2.5"
+                d="M352.5 162"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#3360a9"
+                id="line__Tobacco-(risk-factor)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M352.5 162"
+            ></path>
+            <g id="datapoints__Tobacco-(risk-factor)">
+                <circle
+                    id="2021"
+                    cx="352.5"
+                    cy="162"
+                    r="1.8"
+                    fill="#3360a9"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

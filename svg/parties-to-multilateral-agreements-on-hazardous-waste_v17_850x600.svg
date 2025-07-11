@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -84,158 +73,319 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="162.95"
-            y1="552.40"
-            x2="162.95"
-            y2="151.40"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Montreal-Protocol"
-                x="0"
-                y="0"
-                transform="translate(163.2, 168.94374999999997)"
-                width="614.8"
-                height="65.1625"
-                fill="#3360a9"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Rotterdam-Convention"
-                x="0"
-                y="0"
-                transform="translate(163.2, 269.19374999999997)"
-                width="462.09999999999997"
-                height="65.1625"
-                fill="#3360a9"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Basel-Convention"
-                x="0"
-                y="0"
-                transform="translate(163.2, 369.44374999999997)"
-                width="372.8"
-                height="65.1625"
-                fill="#3360a9"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Stockholm-Convention"
-                x="0"
-                y="0"
-                transform="translate(163.2, 469.69374999999997)"
-                width="309"
-                height="65.1625"
-                fill="#3360a9"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2020"
+                    x1="364.445"
+                    y1="531.9"
+                    x2="364.445"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="364.445"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2020
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(783, 201.52499999999998)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                100%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(630.3, 301.775)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                75.17%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(541, 402.025)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                60.65%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(477.2, 502.275)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                50.27%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="49.41"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="49.41"
+                    y="457.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="49.41"
+                    y="382.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="49.41"
+                    y="307.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60%
+                </text>
+                <text
+                    x="49.41"
+                    y="232.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    80%
+                </text>
+                <text
+                    x="49.41"
+                    y="157.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="158.2"
-                y="206.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="158.2" y="206.51999999999998">
-                    Montreal Protocol
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="158.2"
-                y="306.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="158.2" y="306.77">Rotterdam Convention</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="158.2"
-                y="407.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="158.2" y="407.02">Basel Convention</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="158.2"
-                y="507.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="158.2" y="507.27">Stockholm Convention</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="54.41"
+                y1="532.4"
+                x2="674.48"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="20%"
+                x1="54.41"
+                y1="457.4"
+                x2="674.48"
+                y2="457.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="54.41"
+                y1="382.4"
+                x2="674.48"
+                y2="382.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60%"
+                x1="54.41"
+                y1="307.4"
+                x2="674.48"
+                y2="307.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80%"
+                x1="54.41"
+                y1="232.4"
+                x2="674.48"
+                y2="232.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100%"
+                x1="54.41"
+                y1="157.4"
+                x2="674.48"
+                y2="157.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Montreal-Protocol"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="678.5"
+                    y="163.4"
+                    fill="#3360a9"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="678.48" y="163.36">Montreal Protocol</tspan>
+                </text>
+                <text
+                    id="label__Rotterdam-Convention"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="678.5"
+                    y="255.3"
+                    fill="#3360a9"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="678.48" y="255.31">Rotterdam Convention</tspan>
+                </text>
+                <text
+                    id="label__Basel-Convention"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="678.5"
+                    y="309.8"
+                    fill="#3360a9"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="678.48" y="309.81">Basel Convention</tspan>
+                </text>
+                <text
+                    id="label__Stockholm-Convention"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="678.5"
+                    y="348.7"
+                    fill="#3360a9"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="678.48" y="348.71">Stockholm Convention</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Stockholm-Convention"
+                stroke-width="2.5"
+                d="M364.4 343.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#3360a9"
+                id="line__Stockholm-Convention"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M364.4 343.9"
+            ></path>
+            <g id="datapoints__Stockholm-Convention">
+                <circle
+                    id="2020"
+                    cx="364.4"
+                    cy="343.9"
+                    r="1.8"
+                    fill="#3360a9"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Montreal-Protocol"
+                stroke-width="2.5"
+                d="M364.4 157.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#3360a9"
+                id="line__Montreal-Protocol"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M364.4 157.4"
+            ></path>
+            <g id="datapoints__Montreal-Protocol">
+                <circle
+                    id="2020"
+                    cx="364.4"
+                    cy="157.4"
+                    r="1.8"
+                    fill="#3360a9"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Rotterdam-Convention"
+                stroke-width="2.5"
+                d="M364.4 250.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#3360a9"
+                id="line__Rotterdam-Convention"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M364.4 250.5"
+            ></path>
+            <g id="datapoints__Rotterdam-Convention">
+                <circle
+                    id="2020"
+                    cx="364.4"
+                    cy="250.5"
+                    r="1.8"
+                    fill="#3360a9"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Basel-Convention"
+                stroke-width="2.5"
+                d="M364.4 305"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#3360a9"
+                id="line__Basel-Convention"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M364.4 305"
+            ></path>
+            <g id="datapoints__Basel-Convention">
+                <circle
+                    id="2020"
+                    cx="364.4"
+                    cy="305"
+                    r="1.8"
+                    fill="#3360a9"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

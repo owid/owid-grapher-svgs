@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -77,498 +66,873 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="123.25"
-            y1="532.30"
-            x2="123.25"
-            y2="104.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Nuts"
-                x="0"
-                y="0"
-                transform="translate(123.5, 109.35375)"
-                width="640"
-                height="19.885357142857142"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Prawns-(farmed)"
-                x="0"
-                y="0"
-                transform="translate(123.5, 139.94660714285718)"
-                width="391.70000000000005"
-                height="19.885357142857142"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Cheese"
-                x="0"
-                y="0"
-                transform="translate(123.5, 170.5394642857143)"
-                width="372.4"
-                height="19.885357142857142"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Lamb-&amp;-Mutton"
-                x="0"
-                y="0"
-                transform="translate(123.5, 201.13232142857143)"
-                width="322.4"
-                height="19.885357142857142"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Beef-(dairy-herd)"
-                x="0"
-                y="0"
-                transform="translate(123.5, 231.7251785714286)"
-                width="275.9"
-                height="19.885357142857142"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Milk"
-                x="0"
-                y="0"
-                transform="translate(123.5, 262.3180357142857)"
-                width="272.6"
-                height="19.885357142857142"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Pig-Meat"
-                x="0"
-                y="0"
-                transform="translate(123.5, 292.9108928571428)"
-                width="187.89999999999998"
-                height="19.885357142857142"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Groundnuts"
-                x="0"
-                y="0"
-                transform="translate(123.5, 323.50374999999997)"
-                width="107.30000000000001"
-                height="19.885357142857142"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Fish-(farmed)"
-                x="0"
-                y="0"
-                transform="translate(123.5, 354.0966071428571)"
-                width="82.80000000000001"
-                height="19.885357142857142"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Beef-(beef-herd)"
-                x="0"
-                y="0"
-                transform="translate(123.5, 384.6894642857143)"
-                width="79.19999999999999"
-                height="19.885357142857142"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Eggs"
-                x="0"
-                y="0"
-                transform="translate(123.5, 415.28232142857144)"
-                width="73.6"
-                height="19.885357142857142"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Peas"
-                x="0"
-                y="0"
-                transform="translate(123.5, 445.87517857142853)"
-                width="57.099999999999994"
-                height="19.885357142857142"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Other-Pulses"
-                x="0"
-                y="0"
-                transform="translate(123.5, 476.4680357142857)"
-                width="47.69999999999999"
-                height="19.885357142857142"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Poultry-Meat"
-                x="0"
-                y="0"
-                transform="translate(123.5, 507.0608928571428)"
-                width="37.19999999999999"
-                height="19.885357142857142"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2010"
+                    x1="393.565"
+                    y1="511.79999999999995"
+                    x2="393.565"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="393.565"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2010
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(768.5, 119.29642857142858)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                140,778 L
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(520.2, 149.88928571428573)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                86,160 L
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(500.9, 180.48214285714286)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                81,907 L
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(450.9, 211.075)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                70,927 L
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(404.4, 241.66785714285714)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                60,692 L
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(401.1, 272.2607142857143)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                59,958 L
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(316.4, 302.8535714285714)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                41,327 L
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(235.8, 333.44642857142856)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                23,605 L
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(211.3, 364.0392857142857)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                18,229 L
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(207.7, 394.63214285714287)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                17,419 L
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(202.1, 425.225)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                16,206 L
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(185.6, 455.8178571428571)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                12,578 L
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(176.2, 486.4107142857143)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                10,499 L
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(165.7, 517.0035714285714)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                8,186 L
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="74.24"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0 L
+                </text>
+                <text
+                    x="74.24"
+                    y="455.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20,000 L
+                </text>
+                <text
+                    x="74.24"
+                    y="398"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40,000 L
+                </text>
+                <text
+                    x="74.24"
+                    y="340.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60,000 L
+                </text>
+                <text
+                    x="74.24"
+                    y="283.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    80,000 L
+                </text>
+                <text
+                    x="74.24"
+                    y="226.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100,000 L
+                </text>
+                <text
+                    x="74.24"
+                    y="169.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    120,000 L
+                </text>
+                <text
+                    x="74.24"
+                    y="112.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    140,000 L
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="118.5"
-                y="124.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="118.5" y="124.29142857142858">Nuts</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="118.5"
-                y="154.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="118.5" y="154.88428571428574">Prawns (farmed)</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="118.5"
-                y="185.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="118.5" y="185.47714285714284">Cheese</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="118.5"
-                y="216.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="118.5" y="216.07">Lamb &amp; Mutton</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="118.5"
-                y="246.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="118.5" y="246.66285714285715">
-                    Beef (dairy herd)
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="118.5"
-                y="277.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="118.5" y="277.2557142857143">Milk</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="118.5"
-                y="307.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="118.5" y="307.8485714285714">Pig Meat</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="118.5"
-                y="338.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="118.5" y="338.44142857142856">Groundnuts</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="118.5"
-                y="369.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="118.5" y="369.0342857142857">Fish (farmed)</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="118.5"
-                y="399.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="118.5" y="399.62714285714287">Beef (beef herd)</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="118.5"
-                y="430.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="118.5" y="430.22">Eggs</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="118.5"
-                y="460.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="118.5" y="460.8128571428571">Peas</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="118.5"
-                y="491.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="118.5" y="491.4057142857143">Other Pulses</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="118.5"
-                y="522.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="118.5" y="521.9985714285714">Poultry Meat</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-L"
+                x1="79.24"
+                y1="512.3"
+                x2="707.89"
+                y2="512.3"
+                stroke="#999"
+            ></line>
+            <line
+                id="20,000-L"
+                x1="79.24"
+                y1="455.1"
+                x2="707.89"
+                y2="455.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40,000-L"
+                x1="79.24"
+                y1="398"
+                x2="707.89"
+                y2="398"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60,000-L"
+                x1="79.24"
+                y1="340.8"
+                x2="707.89"
+                y2="340.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80,000-L"
+                x1="79.24"
+                y1="283.7"
+                x2="707.89"
+                y2="283.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100,000-L"
+                x1="79.24"
+                y1="226.5"
+                x2="707.89"
+                y2="226.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="120,000-L"
+                x1="79.24"
+                y1="169.4"
+                x2="707.89"
+                y2="169.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="140,000-L"
+                x1="79.24"
+                y1="112.2"
+                x2="707.89"
+                y2="112.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Nuts"
+                    d="M711.89,110 H720.39 V111.15 H728.89"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Prawns-(farmed)"
+                    d="M711.89,266.1 H720.39 V263 H728.89"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Cheese"
+                    d="M711.89,278.2 H720.39 V281.3 H728.89"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Lamb-&amp;-Mutton"
+                    d="M711.89,309.6 H720.39 V309.6 H728.89"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Beef-(dairy-herd)"
+                    d="M711.89,338.9 H720.39 V330.79999999999995 H728.89"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Milk"
+                    d="M711.89,341 H720.39 V349.09999999999997 H728.89"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Pig-Meat"
+                    d="M711.89,394.2 H720.39 V394.2 H728.89"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Groundnuts"
+                    d="M711.89,444.8 H718.6899999999999 V413.82857142857137 H728.89"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Fish-(farmed)"
+                    d="M711.89,460.2 H722.0899999999999 V432.1285714285714 H728.89"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Beef-(beef-herd)"
+                    d="M711.89,462.5 H725.49 V450.4285714285714 H728.89"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Eggs"
+                    d="M711.89,466 H725.49 V468.7285714285714 H728.89"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Peas"
+                    d="M711.89,476.4 H722.0899999999999 V487.0285714285714 H728.89"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Other-Pulses"
+                    d="M711.89,482.3 H718.6899999999999 V505.3285714285714 H728.89"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Poultry-Meat"
+                    d="M711.89,488.9 H715.29 V523.6285714285714 H728.89"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Nuts"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="732.9"
+                    y="116.0"
+                    fill="#c4523e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="732.89" y="115.96000000000001">Nuts</tspan>
+                </text>
+                <text
+                    id="label__Prawns-(farmed)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="732.9"
+                    y="267.8"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="732.89" y="267.81">Prawns (farmed)</tspan>
+                </text>
+                <text
+                    id="label__Cheese"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="732.9"
+                    y="286.1"
+                    fill="#970046"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="732.89" y="286.11">Cheese</tspan>
+                </text>
+                <text
+                    id="label__Lamb-&amp;-Mutton"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="732.9"
+                    y="314.4"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="732.89" y="314.41">Lamb &amp; Mutton</tspan>
+                </text>
+                <text
+                    id="label__Beef-(dairy-herd)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="732.9"
+                    y="335.6"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="732.89" y="335.60999999999996">
+                        Beef (dairy herd)
+                    </tspan>
+                </text>
+                <text
+                    id="label__Milk"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="732.9"
+                    y="353.9"
+                    fill="#008291"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="732.89" y="353.90999999999997">Milk</tspan>
+                </text>
+                <text
+                    id="label__Pig-Meat"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="732.9"
+                    y="399.0"
+                    fill="#338711"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="732.89" y="399.01">Pig Meat</tspan>
+                </text>
+                <text
+                    id="label__Groundnuts"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="732.9"
+                    y="418.6"
+                    fill="#a2559c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="732.89" y="418.63857142857137">Groundnuts</tspan>
+                </text>
+                <text
+                    id="label__Fish-(farmed)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="732.9"
+                    y="436.9"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="732.89" y="436.9385714285714">
+                        Fish (farmed)
+                    </tspan>
+                </text>
+                <text
+                    id="label__Beef-(beef-herd)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="732.9"
+                    y="455.2"
+                    fill="#00295b"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="732.89" y="455.2385714285714">
+                        Beef (beef herd)
+                    </tspan>
+                </text>
+                <text
+                    id="label__Eggs"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="732.9"
+                    y="473.5"
+                    fill="#286bbb"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="732.89" y="473.5385714285714">Eggs</tspan>
+                </text>
+                <text
+                    id="label__Peas"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="732.9"
+                    y="491.8"
+                    fill="#9a5129"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="732.89" y="491.8385714285714">Peas</tspan>
+                </text>
+                <text
+                    id="label__Other-Pulses"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="732.9"
+                    y="510.1"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="732.89" y="510.1385714285714">Other Pulses</tspan>
+                </text>
+                <text
+                    id="label__Poultry-Meat"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="732.9"
+                    y="528.4"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="732.89" y="528.4385714285714">Poultry Meat</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Eggs"
+                stroke-width="2.5"
+                d="M393.6 466"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#286bbb"
+                id="line__Eggs"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.6 466"
+            ></path>
+            <g id="datapoints__Eggs">
+                <circle
+                    id="2010"
+                    cx="393.6"
+                    cy="466"
+                    r="1.8"
+                    fill="#286bbb"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Nuts"
+                stroke-width="2.5"
+                d="M393.6 110"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c4523e"
+                id="line__Nuts"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.6 110"
+            ></path>
+            <g id="datapoints__Nuts">
+                <circle
+                    id="2010"
+                    cx="393.6"
+                    cy="110"
+                    r="1.8"
+                    fill="#c4523e"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Pig-Meat"
+                stroke-width="2.5"
+                d="M393.6 394.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#338711"
+                id="line__Pig-Meat"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.6 394.2"
+            ></path>
+            <g id="datapoints__Pig-Meat">
+                <circle
+                    id="2010"
+                    cx="393.6"
+                    cy="394.2"
+                    r="1.8"
+                    fill="#338711"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Cheese"
+                stroke-width="2.5"
+                d="M393.6 278.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#970046"
+                id="line__Cheese"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.6 278.2"
+            ></path>
+            <g id="datapoints__Cheese">
+                <circle
+                    id="2010"
+                    cx="393.6"
+                    cy="278.2"
+                    r="1.8"
+                    fill="#970046"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Milk"
+                stroke-width="2.5"
+                d="M393.6 341"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#008291"
+                id="line__Milk"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.6 341"
+            ></path>
+            <g id="datapoints__Milk">
+                <circle
+                    id="2010"
+                    cx="393.6"
+                    cy="341"
+                    r="1.8"
+                    fill="#008291"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Peas"
+                stroke-width="2.5"
+                d="M393.6 476.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__Peas"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.6 476.4"
+            ></path>
+            <g id="datapoints__Peas">
+                <circle
+                    id="2010"
+                    cx="393.6"
+                    cy="476.4"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Groundnuts"
+                stroke-width="2.5"
+                d="M393.6 444.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__Groundnuts"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.6 444.8"
+            ></path>
+            <g id="datapoints__Groundnuts">
+                <circle
+                    id="2010"
+                    cx="393.6"
+                    cy="444.8"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Beef-(beef-herd)"
+                stroke-width="2.5"
+                d="M393.6 462.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__Beef-(beef-herd)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.6 462.5"
+            ></path>
+            <g id="datapoints__Beef-(beef-herd)">
+                <circle
+                    id="2010"
+                    cx="393.6"
+                    cy="462.5"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Beef-(dairy-herd)"
+                stroke-width="2.5"
+                d="M393.6 338.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Beef-(dairy-herd)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.6 338.9"
+            ></path>
+            <g id="datapoints__Beef-(dairy-herd)">
+                <circle
+                    id="2010"
+                    cx="393.6"
+                    cy="338.9"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Lamb-&amp;-Mutton"
+                stroke-width="2.5"
+                d="M393.6 309.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Lamb-&amp;-Mutton"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.6 309.6"
+            ></path>
+            <g id="datapoints__Lamb-&amp;-Mutton">
+                <circle
+                    id="2010"
+                    cx="393.6"
+                    cy="309.6"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Poultry-Meat"
+                stroke-width="2.5"
+                d="M393.6 488.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Poultry-Meat"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.6 488.9"
+            ></path>
+            <g id="datapoints__Poultry-Meat">
+                <circle
+                    id="2010"
+                    cx="393.6"
+                    cy="488.9"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Fish-(farmed)"
+                stroke-width="2.5"
+                d="M393.6 460.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Fish-(farmed)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.6 460.2"
+            ></path>
+            <g id="datapoints__Fish-(farmed)">
+                <circle
+                    id="2010"
+                    cx="393.6"
+                    cy="460.2"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Prawns-(farmed)"
+                stroke-width="2.5"
+                d="M393.6 266.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Prawns-(farmed)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.6 266.1"
+            ></path>
+            <g id="datapoints__Prawns-(farmed)">
+                <circle
+                    id="2010"
+                    cx="393.6"
+                    cy="266.1"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Other-Pulses"
+                stroke-width="2.5"
+                d="M393.6 482.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Other-Pulses"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M393.6 482.3"
+            ></path>
+            <g id="datapoints__Other-Pulses">
+                <circle
+                    id="2010"
+                    cx="393.6"
+                    cy="482.3"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -61,224 +50,382 @@
         </a>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="108.95"
-            y1="532.30"
-            x2="108.95"
-            y2="68.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Coal"
-                x="0"
-                y="0"
-                transform="translate(109.2, 81.54208333333334)"
-                width="680.8"
-                height="50.29916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Oil"
-                x="0"
-                y="0"
-                transform="translate(109.2, 158.92541666666668)"
-                width="539.6999999999999"
-                height="50.29916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Gas"
-                x="0"
-                y="0"
-                transform="translate(109.2, 236.30875000000003)"
-                width="349.2"
-                height="50.29916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Cement"
-                x="0"
-                y="0"
-                transform="translate(109.2, 313.69208333333336)"
-                width="69.3"
-                height="50.29916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Flaring"
-                x="0"
-                y="0"
-                transform="translate(109.2, 391.0754166666667)"
-                width="18.099999999999994"
-                height="50.29916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Other-industry"
-                x="0"
-                y="0"
-                transform="translate(109.2, 468.45875)"
-                width="13.299999999999997"
-                height="50.29916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2023"
+                    x1="384.79"
+                    y1="511.79999999999995"
+                    x2="384.79"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="384.79"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2023
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(795, 106.69166666666668)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1.9 t
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(653.9, 184.07500000000002)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1.51 t
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(463.4, 261.45833333333337)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                0.98 t
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(183.5, 338.8416666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                0.19 t
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(132.3, 416.225)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                0.05 t
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(127.5, 493.60833333333335)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                0.04 t
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="41.48"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0 t
+                </text>
+                <text
+                    x="41.48"
+                    y="402.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.5 t
+                </text>
+                <text
+                    x="41.48"
+                    y="293.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1 t
+                </text>
+                <text
+                    x="41.48"
+                    y="183.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1.5 t
+                </text>
+                <text
+                    x="41.48"
+                    y="74"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2 t
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="104.2"
-                y="111.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="104.2" y="111.68666666666668">Coal</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="104.2"
-                y="189.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="104.2" y="189.07">Oil</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="104.2"
-                y="266.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="104.2" y="266.4533333333334">Gas</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="104.2"
-                y="343.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="104.2" y="343.8366666666667">Cement</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="104.2"
-                y="421.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="104.2" y="421.22">Flaring</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="104.2"
-                y="498.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="104.2" y="498.60333333333335">Other industry</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-t"
+                x1="46.48"
+                y1="512.3"
+                x2="723.10"
+                y2="512.3"
+                stroke="#999"
+            ></line>
+            <line
+                id="0.5-t"
+                x1="46.48"
+                y1="402.7"
+                x2="723.10"
+                y2="402.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1-t"
+                x1="46.48"
+                y1="293.1"
+                x2="723.10"
+                y2="293.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1.5-t"
+                x1="46.48"
+                y1="183.6"
+                x2="723.10"
+                y2="183.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="2-t"
+                x1="46.48"
+                y1="74"
+                x2="723.10"
+                y2="74"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Coal"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="727.1"
+                    y="100.0"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="727.1" y="100.00999999999999">Coal</tspan>
+                </text>
+                <text
+                    id="label__Oil"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="727.1"
+                    y="186.4"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="727.1" y="186.41">Oil</tspan>
+                </text>
+                <text
+                    id="label__Gas"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="727.1"
+                    y="303.1"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="727.1" y="303.11">Gas</tspan>
+                </text>
+                <text
+                    id="label__Cement"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="727.1"
+                    y="474.6"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="727.1" y="474.61">Cement</tspan>
+                </text>
+                <text
+                    id="label__Flaring"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="727.1"
+                    y="498.3"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="727.1" y="498.31">Flaring</tspan>
+                </text>
+                <text
+                    id="label__Other-industry"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="727.1"
+                    y="516.6"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="727.1" y="516.61">Other industry</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Cement"
+                stroke-width="2.5"
+                d="M384.8 469.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Cement"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M384.8 469.8"
+            ></path>
+            <g id="datapoints__Cement">
+                <circle
+                    id="2023"
+                    cx="384.8"
+                    cy="469.8"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Other-industry"
+                stroke-width="2.5"
+                d="M384.8 504.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Other-industry"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M384.8 504.1"
+            ></path>
+            <g id="datapoints__Other-industry">
+                <circle
+                    id="2023"
+                    cx="384.8"
+                    cy="504.1"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Flaring"
+                stroke-width="2.5"
+                d="M384.8 501.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Flaring"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M384.8 501.2"
+            ></path>
+            <g id="datapoints__Flaring">
+                <circle
+                    id="2023"
+                    cx="384.8"
+                    cy="501.2"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Gas"
+                stroke-width="2.5"
+                d="M384.8 298.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Gas"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M384.8 298.3"
+            ></path>
+            <g id="datapoints__Gas">
+                <circle
+                    id="2023"
+                    cx="384.8"
+                    cy="298.3"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Coal"
+                stroke-width="2.5"
+                d="M384.8 95.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Coal"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M384.8 95.2"
+            ></path>
+            <g id="datapoints__Coal">
+                <circle
+                    id="2023"
+                    cx="384.8"
+                    cy="95.2"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Oil"
+                stroke-width="2.5"
+                d="M384.8 181.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Oil"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M384.8 181.6"
+            ></path>
+            <g id="datapoints__Oil">
+                <circle
+                    id="2023"
+                    cx="384.8"
+                    cy="181.6"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

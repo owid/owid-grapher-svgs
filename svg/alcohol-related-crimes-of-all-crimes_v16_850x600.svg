@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -85,326 +74,682 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="119.95"
-            y1="552.40"
-            x2="119.95"
-            y2="140.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="United-Kingdom"
-                x="0"
-                y="0"
-                transform="translate(120.2, 148.01888888888888)"
-                width="617"
-                height="29.784444444444446"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Czechia"
-                x="0"
-                y="0"
-                transform="translate(120.2, 193.8411111111111)"
-                width="237.10000000000002"
-                height="29.784444444444446"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="United-States"
-                x="0"
-                y="0"
-                transform="translate(120.2, 239.66333333333333)"
-                width="182.8"
-                height="29.784444444444446"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Ukraine"
-                x="0"
-                y="0"
-                transform="translate(120.2, 285.4855555555555)"
-                width="173.90000000000003"
-                height="29.784444444444446"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Ireland"
-                x="0"
-                y="0"
-                transform="translate(120.2, 331.30777777777774)"
-                width="161.7"
-                height="29.784444444444446"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Slovakia"
-                x="0"
-                y="0"
-                transform="translate(120.2, 377.13)"
-                width="120.8"
-                height="29.784444444444446"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Azerbaijan"
-                x="0"
-                y="0"
-                transform="translate(120.2, 422.9522222222222)"
-                width="25.499999999999986"
-                height="29.784444444444446"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Finland"
-                x="0"
-                y="0"
-                transform="translate(120.2, 468.77444444444444)"
-                width="8.899999999999991"
-                height="29.784444444444446"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Norway"
-                x="0"
-                y="0"
-                transform="translate(120.2, 514.5966666666666)"
-                width="4.5"
-                height="29.784444444444446"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2011"
+                    x1="47.1"
+                    y1="531.9"
+                    x2="47.1"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2015"
+                    x1="712.2"
+                    y1="531.9"
+                    x2="712.2"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2012"
+                    x1="213.4"
+                    y1="531.9"
+                    x2="213.4"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2013"
+                    x1="379.7"
+                    y1="531.9"
+                    x2="379.7"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+                <line
+                    id="2014"
+                    x1="545.9"
+                    y1="531.9"
+                    x2="545.9"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="47.13"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="start"
+                    font-size="13"
+                >
+                    2011
+                </text>
+                <text
+                    x="712.18"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="end"
+                    font-size="13"
+                >
+                    2015
+                </text>
+                <text
+                    x="213.4"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2012
+                </text>
+                <text
+                    x="379.7"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2013
+                </text>
+                <text
+                    x="545.9"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2014
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(742.2, 162.9111111111111)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                55.7%
-                <tspan fill="#999">in 2011</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(362.3, 208.73333333333332)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                21.4%
-                <tspan fill="#999">in 2014</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(308, 254.55555555555554)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                16.5%
-                <tspan fill="#999">in 2014</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(299.1, 300.37777777777774)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                15.7%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(286.9, 346.2)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                14.6%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(246, 392.02222222222224)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                10.9%
-                <tspan fill="#999">in 2014</tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(150.7, 437.84444444444443)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                2.3%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(134.1, 483.6666666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                0.8%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(129.7, 529.4888888888888)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                0.4%
-                <tspan fill="#999">in 2014</tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="42.13"
+                    y="468"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="403.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="42.13"
+                    y="339.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    30%
+                </text>
+                <text
+                    x="42.13"
+                    y="274.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="42.13"
+                    y="210.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    50%
+                </text>
+                <text
+                    x="42.13"
+                    y="146"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="167.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="167.9061111111111">United Kingdom</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="213.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="213.7283333333333">Czechia</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="259.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="259.55055555555555">United States</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="305.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="305.37277777777774">Ukraine</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="351.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="351.195">Ireland</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="397.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="397.01722222222224">Slovakia</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="442.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="442.83944444444444">Azerbaijan</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="488.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="488.6616666666667">Finland</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="115.2"
-                y="534.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="115.2" y="534.4838888888888">Norway</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="47.13"
+                y1="532.4"
+                x2="712.18"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="468"
+                x2="712.18"
+                y2="468"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="403.6"
+                x2="712.18"
+                y2="403.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30%"
+                x1="47.13"
+                y1="339.2"
+                x2="712.18"
+                y2="339.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="47.13"
+                y1="274.8"
+                x2="712.18"
+                y2="274.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="50%"
+                x1="47.13"
+                y1="210.4"
+                x2="712.18"
+                y2="210.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60%"
+                x1="47.13"
+                y1="146"
+                x2="712.18"
+                y2="146"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="United-Kingdom"
+                    d="M716.18,173.7 H724.68 V173.7 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Czechia"
+                    d="M716.18,394.6 H724.68 V394.6 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="United-States"
+                    d="M716.18,426.1 H721.8466666666666 V412.04999999999995 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Ukraine"
+                    d="M716.18,431.3 H727.5133333333332 V430.34999999999997 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Ireland"
+                    d="M716.18,438.4 H727.5133333333332 V448.65 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Slovakia"
+                    d="M716.18,462.2 H721.8466666666666 V466.95 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Azerbaijan"
+                    d="M716.18,517.6 H721.8466666666666 V506.5666666666667 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Finland"
+                    d="M716.18,527.2 H727.5133333333332 V524.8666666666667 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Norway"
+                    d="M716.18,529.8 H727.5133333333332 V543.1666666666666 H733.18"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__United-Kingdom"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="178.5"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="178.51">United Kingdom</tspan>
+                </text>
+                <text
+                    id="label__Czechia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="399.4"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="399.41">Czechia</tspan>
+                </text>
+                <text
+                    id="label__United-States"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="416.9"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="416.85999999999996">
+                        United States
+                    </tspan>
+                </text>
+                <text
+                    id="label__Ukraine"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="435.2"
+                    fill="#9a5129"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="435.15999999999997">Ukraine</tspan>
+                </text>
+                <text
+                    id="label__Ireland"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="453.5"
+                    fill="#a2559c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="453.46">Ireland</tspan>
+                </text>
+                <text
+                    id="label__Slovakia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="471.8"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="471.76">Slovakia</tspan>
+                </text>
+                <text
+                    id="label__Azerbaijan"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="511.4"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="511.3766666666667">Azerbaijan</tspan>
+                </text>
+                <text
+                    id="label__Finland"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="529.7"
+                    fill="#00295b"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="529.6766666666667">Finland</tspan>
+                </text>
+                <text
+                    id="label__Norway"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="737.2"
+                    y="548.0"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="737.18" y="547.9766666666667">Norway</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Ukraine"
+                stroke-width="2.5"
+                d="M712.2 431.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__Ukraine"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M712.2 431.3"
+            ></path>
+            <g id="datapoints__Ukraine">
+                <circle
+                    id="2015"
+                    cx="712.2"
+                    cy="431.3"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Ireland"
+                stroke-width="2.5"
+                d="M712.2 438.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__Ireland"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M712.2 438.4"
+            ></path>
+            <g id="datapoints__Ireland">
+                <circle
+                    id="2015"
+                    cx="712.2"
+                    cy="438.4"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Finland"
+                stroke-width="2.5"
+                d="M712.2 527.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__Finland"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M712.2 527.2"
+            ></path>
+            <g id="datapoints__Finland">
+                <circle
+                    id="2015"
+                    cx="712.2"
+                    cy="527.2"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Azerbaijan"
+                stroke-width="2.5"
+                d="M712.2 517.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Azerbaijan"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M712.2 517.6"
+            ></path>
+            <g id="datapoints__Azerbaijan">
+                <circle
+                    id="2015"
+                    cx="712.2"
+                    cy="517.6"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States"
+                stroke-width="2.5"
+                d="M545.9 426.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__United-States"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M545.9 426.1"
+            ></path>
+            <g id="datapoints__United-States">
+                <circle
+                    id="2014"
+                    cx="545.9"
+                    cy="426.1"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Slovakia"
+                stroke-width="2.5"
+                d="M545.9 462.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Slovakia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M545.9 462.2"
+            ></path>
+            <g id="datapoints__Slovakia">
+                <circle
+                    id="2014"
+                    cx="545.9"
+                    cy="462.2"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Norway"
+                stroke-width="2.5"
+                d="M545.9 529.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Norway"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M545.9 529.8"
+            ></path>
+            <g id="datapoints__Norway">
+                <circle
+                    id="2014"
+                    cx="545.9"
+                    cy="529.8"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Czechia"
+                stroke-width="2.5"
+                d="M545.9 394.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Czechia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M545.9 394.6"
+            ></path>
+            <g id="datapoints__Czechia">
+                <circle
+                    id="2014"
+                    cx="545.9"
+                    cy="394.6"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-Kingdom"
+                stroke-width="2.5"
+                d="M47.1 173.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__United-Kingdom"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M47.1 173.7"
+            ></path>
+            <g id="datapoints__United-Kingdom">
+                <circle
+                    id="2011"
+                    cx="47.1"
+                    cy="173.7"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

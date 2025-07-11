@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -82,279 +71,625 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="98.35"
-            y1="550.40"
-            x2="98.35"
-            y2="166.10"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="categorical-color-legend" class="categoricalColorLegend">
-            <g id="swatches">
-                <rect
-                    id="Tested-for-antibiotic-susceptibility"
-                    x="16"
-                    y="143.6"
-                    width="13.5"
-                    height="13.5"
-                    fill="#4c6a9c"
-                    stroke-width="0.4"
-                ></rect>
-                <rect
-                    id="Not-tested-for-antibiotic-susceptibility"
-                    x="258.468"
-                    y="143.6"
-                    width="13.5"
-                    height="13.5"
-                    fill="#883039"
-                    stroke-width="0.4"
-                ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2022"
+                    x1="324.86"
+                    y1="531.9"
+                    x2="324.86"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
             </g>
-            <g id="labels">
+            <g id="tick-labels">
                 <text
-                    x="34.5"
-                    y="150.35"
-                    dy=".32em"
-                    font-size="14.4"
-                    opacity="1"
+                    x="324.86"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
                 >
-                    Tested for antibiotic susceptibility
-                </text>
-                <text
-                    x="276.968"
-                    y="150.35"
-                    dy=".32em"
-                    font-size="14.4"
-                    opacity="1"
-                >
-                    Not tested for antibiotic susceptibility
+                    2022
                 </text>
             </g>
         </g>
-        <g id="bars">
-            <g
-                id="Urinary-tract"
-                class="bar"
-                transform="translate(0, 214.1375)"
-            >
-                <g id="Tested-for-antibiotic-susceptibility">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(98.6, -31.224375)"
-                        width="617"
-                        height="62.44875"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="407.1"
-                        y="0"
-                        width="617"
-                        height="62.44875"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        3.17 million
-                    </text>
-                </g>
-                <g id="Not-tested-for-antibiotic-susceptibility">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(715.6, -31.224375)"
-                        width="39.900000000000006"
-                        height="62.44875"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="93.6"
-                    y="5.0"
+                    x="74.63"
+                    y="532.4"
+                    dy=".32em"
                     text-anchor="end"
-                    fill="#555"
+                    fill="#5b5b5b"
+                    font-size="13"
                 >
-                    <tspan x="93.6" y="4.995000000000001">Urinary tract</tspan>
+                    0
                 </text>
                 <text
-                    transform="translate(760.6, 0)"
+                    x="74.63"
+                    y="477.7"
                     dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
                 >
-                    3.37 million
+                    500,000
+                </text>
+                <text
+                    x="74.63"
+                    y="423"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1 million
+                </text>
+                <text
+                    x="74.63"
+                    y="368.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1.5 million
+                </text>
+                <text
+                    x="74.63"
+                    y="313.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2 million
+                </text>
+                <text
+                    x="74.63"
+                    y="259"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2.5 million
+                </text>
+                <text
+                    x="74.63"
+                    y="204.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    3 million
+                </text>
+                <text
+                    x="74.63"
+                    y="149.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    3.5 million
                 </text>
             </g>
-            <g id="Bloodstream" class="bar" transform="translate(0, 310.2125)">
-                <g id="Tested-for-antibiotic-susceptibility">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(98.6, -31.224375)"
-                        width="135.6"
-                        height="62.44875"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                    <text
-                        x="166.39999999999998"
-                        y="0"
-                        width="135.6"
-                        height="62.44875"
-                        fill="#fff"
-                        opacity="1"
-                        font-size="13.5"
-                        text-anchor="middle"
-                        dy=".32em"
-                    >
-                        696,000
-                    </text>
-                </g>
-                <g id="Not-tested-for-antibiotic-susceptibility">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(234.2, -31.224375)"
-                        width="5.400000000000006"
-                        height="62.44875"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
+        </g>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0"
+                x1="79.63"
+                y1="532.4"
+                x2="570.09"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="500,000"
+                x1="79.63"
+                y1="477.7"
+                x2="570.09"
+                y2="477.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1-million"
+                x1="79.63"
+                y1="423"
+                x2="570.09"
+                y2="423"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1.5-million"
+                x1="79.63"
+                y1="368.3"
+                x2="570.09"
+                y2="368.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="2-million"
+                x1="79.63"
+                y1="313.7"
+                x2="570.09"
+                y2="313.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="2.5-million"
+                x1="79.63"
+                y1="259"
+                x2="570.09"
+                y2="259"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="3-million"
+                x1="79.63"
+                y1="204.3"
+                x2="570.09"
+                y2="204.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="3.5-million"
+                x1="79.63"
+                y1="149.6"
+                x2="570.09"
+                y2="149.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Urinary-tract-–-Tested-for-antibiotic-susceptibility"
+                    d="M574.09,186 H582.59 V193.15 H591.09"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Bloodstream-–-Tested-for-antibiotic-susceptibility"
+                    d="M574.09,456.3 H576.5185714285715 V356.79999999999984 H591.09"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Urinary-tract-–-Not-tested-for-antibiotic-susceptibility"
+                    d="M574.09,510 H578.9471428571429 V389.39999999999986 H591.09"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Stool-–-Tested-for-antibiotic-susceptibility"
+                    d="M574.09,529 H581.3757142857144 V414.84999999999985 H591.09"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Bloodstream-–-Not-tested-for-antibiotic-susceptibility"
+                    d="M574.09,529.4 H583.8042857142858 V440.2999999999999 H591.09"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Gonorrhea-–-Tested-for-antibiotic-susceptibility"
+                    d="M574.09,530.5 H586.2328571428571 V472.8999999999999 H591.09"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Gonorrhea-–-Not-tested-for-antibiotic-susceptibility"
+                    d="M574.09,530.7 H588.6614285714286 V505.49999999999994 H591.09"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Stool-–-Not-tested-for-antibiotic-susceptibility"
+                    d="M574.09,531.5 H588.6614285714286 V538.0999999999999 H591.09"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
                 <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="93.6"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
+                    id="label__Urinary-tract-–-Tested-for-antibiotic-susceptibility"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="595.1"
+                    y="190.8"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="93.6" y="4.995000000000001">Bloodstream</tspan>
+                    <tspan x="595.09" y="190.81">
+                        Urinary tract – Tested for antibiotic
+                    </tspan>
+                    <tspan x="595.09" y="205.11">susceptibility</tspan>
                 </text>
                 <text
-                    transform="translate(244.6, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
+                    id="label__Bloodstream-–-Tested-for-antibiotic-susceptibility"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="595.1"
+                    y="354.5"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    724,000
+                    <tspan x="595.09" y="354.4599999999998">
+                        Bloodstream – Tested for antibiotic
+                    </tspan>
+                    <tspan x="595.09" y="368.7599999999998">
+                        susceptibility
+                    </tspan>
+                </text>
+                <text
+                    id="label__Urinary-tract-–-Not-tested-for-antibiotic-susceptibility"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="595.1"
+                    y="387.1"
+                    fill="#a2559c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="595.09" y="387.05999999999983">
+                        Urinary tract – Not tested for antibiotic
+                    </tspan>
+                    <tspan x="595.09" y="401.35999999999984">
+                        susceptibility
+                    </tspan>
+                </text>
+                <text
+                    id="label__Stool-–-Tested-for-antibiotic-susceptibility"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="595.1"
+                    y="419.7"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="595.09" y="419.65999999999985">
+                        Stool – Tested for antibiotic susceptibility
+                    </tspan>
+                </text>
+                <text
+                    id="label__Bloodstream-–-Not-tested-for-antibiotic-susceptibility"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="595.1"
+                    y="438.0"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="595.09" y="437.95999999999987">
+                        Bloodstream – Not tested for antibiotic
+                    </tspan>
+                    <tspan x="595.09" y="452.2599999999999">
+                        susceptibility
+                    </tspan>
+                </text>
+                <text
+                    id="label__Gonorrhea-–-Tested-for-antibiotic-susceptibility"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="595.1"
+                    y="470.6"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="595.09" y="470.5599999999999">
+                        Gonorrhea – Tested for antibiotic
+                    </tspan>
+                    <tspan x="595.09" y="484.8599999999999">
+                        susceptibility
+                    </tspan>
+                </text>
+                <text
+                    id="label__Gonorrhea-–-Not-tested-for-antibiotic-susceptibility"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="595.1"
+                    y="503.2"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="595.09" y="503.1599999999999">
+                        Gonorrhea – Not tested for antibiotic
+                    </tspan>
+                    <tspan x="595.09" y="517.4599999999999">
+                        susceptibility
+                    </tspan>
+                </text>
+                <text
+                    id="label__Stool-–-Not-tested-for-antibiotic-susceptibility"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="595.1"
+                    y="535.8"
+                    fill="#00295b"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="595.09" y="535.76">
+                        Stool – Not tested for antibiotic
+                    </tspan>
+                    <tspan x="595.09" y="550.06">susceptibility</tspan>
                 </text>
             </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Urinary-tract-–-Not-tested-for-antibiotic-susceptibility"
+                stroke-width="2.5"
+                d="M324.9 510"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__Urinary-tract-–-Not-tested-for-antibiotic-susceptibility"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M324.9 510"
+            ></path>
             <g
-                id="Stool"
-                class="bar"
-                transform="translate(0, 406.28749999999997)"
+                id="datapoints__Urinary-tract-–-Not-tested-for-antibiotic-susceptibility"
             >
-                <g id="Tested-for-antibiotic-susceptibility">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(98.6, -31.224375)"
-                        width="6"
-                        height="62.44875"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Not-tested-for-antibiotic-susceptibility">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(104.6, -31.224375)"
-                        width="1.6000000000000085"
-                        height="62.44875"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="93.6"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="93.6" y="4.995000000000001">Stool</tspan>
-                </text>
-                <text
-                    transform="translate(111.2, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    38,800
-                </text>
+                <circle
+                    id="2022"
+                    cx="324.9"
+                    cy="510"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
             </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Stool-–-Not-tested-for-antibiotic-susceptibility"
+                stroke-width="2.5"
+                d="M324.9 531.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__Stool-–-Not-tested-for-antibiotic-susceptibility"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M324.9 531.5"
+            ></path>
             <g
-                id="Gonorrhea"
-                class="bar"
-                transform="translate(0, 502.36249999999995)"
+                id="datapoints__Stool-–-Not-tested-for-antibiotic-susceptibility"
             >
-                <g id="Tested-for-antibiotic-susceptibility">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(98.6, -31.224375)"
-                        width="3.4000000000000057"
-                        height="62.44875"
-                        fill="#4c6a9c"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <g id="Not-tested-for-antibiotic-susceptibility">
-                    <rect
-                        id="bar"
-                        x="0"
-                        y="0"
-                        transform="translate(102, -31.224375)"
-                        width="3.1000000000000085"
-                        height="62.44875"
-                        fill="#883039"
-                        opacity="0.8"
-                        style="transition: height 200ms ease"
-                    ></rect>
-                </g>
-                <text
-                    font-size="13.50"
-                    font-weight="700"
-                    x="93.6"
-                    y="5.0"
-                    text-anchor="end"
-                    fill="#555"
-                >
-                    <tspan x="93.6" y="4.995000000000001">Gonorrhea</tspan>
-                </text>
-                <text
-                    transform="translate(110.1, 0)"
-                    dy=".32em"
-                    fill="#555"
-                    font-size="13.5"
-                >
-                    33,400
-                </text>
+                <circle
+                    id="2022"
+                    cx="324.9"
+                    cy="531.5"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Gonorrhea-–-Not-tested-for-antibiotic-susceptibility"
+                stroke-width="2.5"
+                d="M324.9 530.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Gonorrhea-–-Not-tested-for-antibiotic-susceptibility"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M324.9 530.7"
+            ></path>
+            <g
+                id="datapoints__Gonorrhea-–-Not-tested-for-antibiotic-susceptibility"
+            >
+                <circle
+                    id="2022"
+                    cx="324.9"
+                    cy="530.7"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Bloodstream-–-Not-tested-for-antibiotic-susceptibility"
+                stroke-width="2.5"
+                d="M324.9 529.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Bloodstream-–-Not-tested-for-antibiotic-susceptibility"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M324.9 529.4"
+            ></path>
+            <g
+                id="datapoints__Bloodstream-–-Not-tested-for-antibiotic-susceptibility"
+            >
+                <circle
+                    id="2022"
+                    cx="324.9"
+                    cy="529.4"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Urinary-tract-–-Tested-for-antibiotic-susceptibility"
+                stroke-width="2.5"
+                d="M324.9 186"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Urinary-tract-–-Tested-for-antibiotic-susceptibility"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M324.9 186"
+            ></path>
+            <g
+                id="datapoints__Urinary-tract-–-Tested-for-antibiotic-susceptibility"
+            >
+                <circle
+                    id="2022"
+                    cx="324.9"
+                    cy="186"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Stool-–-Tested-for-antibiotic-susceptibility"
+                stroke-width="2.5"
+                d="M324.9 529"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Stool-–-Tested-for-antibiotic-susceptibility"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M324.9 529"
+            ></path>
+            <g id="datapoints__Stool-–-Tested-for-antibiotic-susceptibility">
+                <circle
+                    id="2022"
+                    cx="324.9"
+                    cy="529"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Gonorrhea-–-Tested-for-antibiotic-susceptibility"
+                stroke-width="2.5"
+                d="M324.9 530.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Gonorrhea-–-Tested-for-antibiotic-susceptibility"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M324.9 530.5"
+            ></path>
+            <g
+                id="datapoints__Gonorrhea-–-Tested-for-antibiotic-susceptibility"
+            >
+                <circle
+                    id="2022"
+                    cx="324.9"
+                    cy="530.5"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Bloodstream-–-Tested-for-antibiotic-susceptibility"
+                stroke-width="2.5"
+                d="M324.9 456.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Bloodstream-–-Tested-for-antibiotic-susceptibility"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M324.9 456.3"
+            ></path>
+            <g
+                id="datapoints__Bloodstream-–-Tested-for-antibiotic-susceptibility"
+            >
+                <circle
+                    id="2022"
+                    cx="324.9"
+                    cy="456.3"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>

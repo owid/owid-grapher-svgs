@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -86,226 +75,442 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="205.65"
-            y1="552.40"
-            x2="205.65"
-            y2="122.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Democracies-aged-1-18-years"
-                x="0"
-                y="0"
-                transform="translate(205.9, 134.55333333333334)"
-                width="130.70000000000002"
-                height="46.626666666666665"
-                fill="#edf8b1"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="19-30-years"
-                x="0"
-                y="0"
-                transform="translate(205.9, 206.2866666666667)"
-                width="283"
-                height="46.626666666666665"
-                fill="#c7e9b4"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="31-60-years"
-                x="0"
-                y="0"
-                transform="translate(205.9, 278.02000000000004)"
-                width="275.79999999999995"
-                height="46.626666666666665"
-                fill="#41b6c4"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="61-90-years"
-                x="0"
-                y="0"
-                transform="translate(205.9, 349.75333333333333)"
-                width="101.6"
-                height="46.626666666666665"
-                fill="#225ea8"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="91-years-+"
-                x="0"
-                y="0"
-                transform="translate(205.9, 421.4866666666667)"
-                width="65.4"
-                height="46.626666666666665"
-                fill="#172976"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Non-democracies"
-                x="0"
-                y="0"
-                transform="translate(205.9, 493.21999999999997)"
-                width="544.3000000000001"
-                height="46.626666666666665"
-                fill="#c6a1a5"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2020"
+                    x1="361.585"
+                    y1="531.9"
+                    x2="361.585"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="361.585"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2020
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(341.6, 157.86666666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                18 countries
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(493.9, 229.60000000000002)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                39
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(486.7, 301.33333333333337)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                38
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(312.5, 373.06666666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                14
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(276.3, 444.8)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                9
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(755.2, 516.5333333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                75
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="87.11"
+                    y="526.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10 countries
+                </text>
+                <text
+                    x="87.11"
+                    y="469.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20 countries
+                </text>
+                <text
+                    x="87.11"
+                    y="412.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    30 countries
+                </text>
+                <text
+                    x="87.11"
+                    y="355.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40 countries
+                </text>
+                <text
+                    x="87.11"
+                    y="298.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    50 countries
+                </text>
+                <text
+                    x="87.11"
+                    y="241.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60 countries
+                </text>
+                <text
+                    x="87.11"
+                    y="185"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    70 countries
+                </text>
+                <text
+                    x="87.11"
+                    y="128"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    80 countries
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="200.9"
-                y="162.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="200.9" y="162.86166666666668">
-                    Democracies aged 1-18 years
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="200.9"
-                y="234.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="200.9" y="234.59500000000003">19-30 years</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="200.9"
-                y="306.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="200.9" y="306.3283333333334">31-60 years</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="200.9"
-                y="378.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="200.9" y="378.06166666666667">61-90 years</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="200.9"
-                y="449.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="200.9" y="449.795">91 years +</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="200.9"
-                y="521.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="200.9" y="521.5283333333333">Non-democracies</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="10-countries"
+                x1="92.11"
+                y1="526.7"
+                x2="631.06"
+                y2="526.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20-countries"
+                x1="92.11"
+                y1="469.7"
+                x2="631.06"
+                y2="469.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30-countries"
+                x1="92.11"
+                y1="412.8"
+                x2="631.06"
+                y2="412.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40-countries"
+                x1="92.11"
+                y1="355.8"
+                x2="631.06"
+                y2="355.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="50-countries"
+                x1="92.11"
+                y1="298.9"
+                x2="631.06"
+                y2="298.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60-countries"
+                x1="92.11"
+                y1="241.9"
+                x2="631.06"
+                y2="241.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="70-countries"
+                x1="92.11"
+                y1="185"
+                x2="631.06"
+                y2="185"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80-countries"
+                x1="92.11"
+                y1="128"
+                x2="631.06"
+                y2="128"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Non-democracies"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="635.1"
+                    y="161.3"
+                    fill="#ad8d90"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="635.06" y="161.31">Non-democracies</tspan>
+                </text>
+                <text
+                    id="label__19-30-years"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="635.1"
+                    y="360.0"
+                    fill="#99b38b"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="635.06" y="360.01">19-30 years</tspan>
+                </text>
+                <text
+                    id="label__31-60-years"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="635.1"
+                    y="378.3"
+                    fill="#3daab7"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="635.06" y="378.31">31-60 years</tspan>
+                </text>
+                <text
+                    id="label__Democracies-aged-1-18-years"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="635.1"
+                    y="485.9"
+                    fill="#acb481"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="635.06" y="485.91">
+                        Democracies aged 1-18 years
+                    </tspan>
+                </text>
+                <text
+                    id="label__61-90-years"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="635.1"
+                    y="508.7"
+                    fill="#225ea8"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="635.06" y="508.71">61-90 years</tspan>
+                </text>
+                <text
+                    id="label__91-years-+"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="635.1"
+                    y="537.2"
+                    fill="#172976"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="635.06" y="537.21">91 years +</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Non-democracies"
+                stroke-width="2.5"
+                d="M361.6 156.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c6a1a5"
+                id="line__Non-democracies"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.6 156.5"
+            ></path>
+            <g id="datapoints__Non-democracies">
+                <circle
+                    id="2020"
+                    cx="361.6"
+                    cy="156.5"
+                    r="1.8"
+                    fill="#c6a1a5"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__91-years-+"
+                stroke-width="2.5"
+                d="M361.6 532.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#172976"
+                id="line__91-years-+"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.6 532.4"
+            ></path>
+            <g id="datapoints__91-years-+">
+                <circle
+                    id="2020"
+                    cx="361.6"
+                    cy="532.4"
+                    r="1.8"
+                    fill="#172976"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__61-90-years"
+                stroke-width="2.5"
+                d="M361.6 503.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#225ea8"
+                id="line__61-90-years"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.6 503.9"
+            ></path>
+            <g id="datapoints__61-90-years">
+                <circle
+                    id="2020"
+                    cx="361.6"
+                    cy="503.9"
+                    r="1.8"
+                    fill="#225ea8"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__31-60-years"
+                stroke-width="2.5"
+                d="M361.6 367.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#41b6c4"
+                id="line__31-60-years"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.6 367.2"
+            ></path>
+            <g id="datapoints__31-60-years">
+                <circle
+                    id="2020"
+                    cx="361.6"
+                    cy="367.2"
+                    r="1.8"
+                    fill="#41b6c4"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__19-30-years"
+                stroke-width="2.5"
+                d="M361.6 361.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c7e9b4"
+                id="line__19-30-years"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.6 361.5"
+            ></path>
+            <g id="datapoints__19-30-years">
+                <circle
+                    id="2020"
+                    cx="361.6"
+                    cy="361.5"
+                    r="1.8"
+                    fill="#c7e9b4"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Democracies-aged-1-18-years"
+                stroke-width="2.5"
+                d="M361.6 481.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#edf8b1"
+                id="line__Democracies-aged-1-18-years"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M361.6 481.1"
+            ></path>
+            <g id="datapoints__Democracies-aged-1-18-years">
+                <circle
+                    id="2020"
+                    cx="361.6"
+                    cy="481.1"
+                    r="1.8"
+                    fill="#edf8b1"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

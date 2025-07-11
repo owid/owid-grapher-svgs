@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -80,224 +69,401 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="106.75"
-            y1="552.40"
-            x2="106.75"
-            y2="125.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Men,-15-19"
-                x="0"
-                y="0"
-                transform="translate(107, 138.04833333333332)"
-                width="608.3"
-                height="46.23666666666666"
-                fill="#6d3e91"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Women,-15-19"
-                x="0"
-                y="0"
-                transform="translate(107, 209.18166666666664)"
-                width="362.8"
-                height="46.23666666666666"
-                fill="#c05917"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Men,-20-24"
-                x="0"
-                y="0"
-                transform="translate(107, 280.31499999999994)"
-                width="678.5"
-                height="46.23666666666666"
-                fill="#6d3e91"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Women,-20-24"
-                x="0"
-                y="0"
-                transform="translate(107, 351.44833333333327)"
-                width="492.5"
-                height="46.23666666666666"
-                fill="#c05917"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Men,-25-49"
-                x="0"
-                y="0"
-                transform="translate(107, 422.5816666666666)"
-                width="666.9"
-                height="46.23666666666666"
-                fill="#6d3e91"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Women,-25-49"
-                x="0"
-                y="0"
-                transform="translate(107, 493.7149999999999)"
-                width="570.5"
-                height="46.23666666666666"
-                fill="#c05917"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2015"
+                    x1="386.935"
+                    y1="531.9"
+                    x2="386.935"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="386.935"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2015
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(720.3, 161.16666666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                78.8%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(474.8, 232.29999999999998)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                47%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(790.5, 303.4333333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                87.9%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(604.5, 374.5666666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                63.8%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(778.9, 445.69999999999993)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                86.4%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(682.5, 516.8333333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                73.9%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="49.41"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="49.41"
+                    y="452.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="49.41"
+                    y="372.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="49.41"
+                    y="291.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    60%
+                </text>
+                <text
+                    x="49.41"
+                    y="211.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    80%
+                </text>
+                <text
+                    x="49.41"
+                    y="131.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="102.0"
-                y="166.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="102" y="166.16166666666663">Men, 15-19</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="102.0"
-                y="237.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="102" y="237.29499999999996">Women, 15-19</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="102.0"
-                y="308.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="102" y="308.4283333333333">Men, 20-24</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="102.0"
-                y="379.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="102" y="379.5616666666666">Women, 20-24</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="102.0"
-                y="450.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="102" y="450.69499999999994">Men, 25-49</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="102.0"
-                y="521.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="102" y="521.8283333333333">Women, 25-49</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="54.41"
+                y1="532.4"
+                x2="719.46"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="20%"
+                x1="54.41"
+                y1="452.2"
+                x2="719.46"
+                y2="452.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="54.41"
+                y1="372.1"
+                x2="719.46"
+                y2="372.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="60%"
+                x1="54.41"
+                y1="291.9"
+                x2="719.46"
+                y2="291.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80%"
+                x1="54.41"
+                y1="211.8"
+                x2="719.46"
+                y2="211.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100%"
+                x1="54.41"
+                y1="131.6"
+                x2="719.46"
+                y2="131.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Men,-20-24"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="723.5"
+                    y="178.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="723.46" y="178.76">Men, 20-24</tspan>
+                </text>
+                <text
+                    id="label__Men,-25-49"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="723.5"
+                    y="197.1"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="723.46" y="197.06">Men, 25-49</tspan>
+                </text>
+                <text
+                    id="label__Men,-15-19"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="723.5"
+                    y="221.4"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="723.46" y="221.41">Men, 15-19</tspan>
+                </text>
+                <text
+                    id="label__Women,-25-49"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="723.5"
+                    y="241.0"
+                    fill="#c05917"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="723.46" y="241.01">Women, 25-49</tspan>
+                </text>
+                <text
+                    id="label__Women,-20-24"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="723.5"
+                    y="281.5"
+                    fill="#c05917"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="723.46" y="281.51">Women, 20-24</tspan>
+                </text>
+                <text
+                    id="label__Women,-15-19"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="723.5"
+                    y="348.8"
+                    fill="#c05917"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="723.46" y="348.81">Women, 15-19</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Women,-25-49"
+                stroke-width="2.5"
+                d="M386.9 236.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c05917"
+                id="line__Women,-25-49"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M386.9 236.2"
+            ></path>
+            <g id="datapoints__Women,-25-49">
+                <circle
+                    id="2015"
+                    cx="386.9"
+                    cy="236.2"
+                    r="1.8"
+                    fill="#c05917"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Men,-25-49"
+                stroke-width="2.5"
+                d="M386.9 186.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Men,-25-49"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M386.9 186.1"
+            ></path>
+            <g id="datapoints__Men,-25-49">
+                <circle
+                    id="2015"
+                    cx="386.9"
+                    cy="186.1"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Women,-20-24"
+                stroke-width="2.5"
+                d="M386.9 276.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c05917"
+                id="line__Women,-20-24"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M386.9 276.7"
+            ></path>
+            <g id="datapoints__Women,-20-24">
+                <circle
+                    id="2015"
+                    cx="386.9"
+                    cy="276.7"
+                    r="1.8"
+                    fill="#c05917"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Men,-20-24"
+                stroke-width="2.5"
+                d="M386.9 180.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Men,-20-24"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M386.9 180.1"
+            ></path>
+            <g id="datapoints__Men,-20-24">
+                <circle
+                    id="2015"
+                    cx="386.9"
+                    cy="180.1"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Women,-15-19"
+                stroke-width="2.5"
+                d="M386.9 344"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c05917"
+                id="line__Women,-15-19"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M386.9 344"
+            ></path>
+            <g id="datapoints__Women,-15-19">
+                <circle
+                    id="2015"
+                    cx="386.9"
+                    cy="344"
+                    r="1.8"
+                    fill="#c05917"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Men,-15-19"
+                stroke-width="2.5"
+                d="M386.9 216.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Men,-15-19"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M386.9 216.6"
+            ></path>
+            <g id="datapoints__Men,-15-19">
+                <circle
+                    id="2015"
+                    cx="386.9"
+                    cy="216.6"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

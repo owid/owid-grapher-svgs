@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -80,392 +69,575 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <text
-            x="16"
-            y="137.4125"
-            fill="#5b5b5b"
-            font-size="15.75"
-            style="font-weight: 700"
-        >
-            Excruciating pain
-            <title>Excruciating pain</title>
-        </text>
-        <g id="Excruciating-pain">
-            <line
-                id="vertical-zero-line"
-                x1="104.45"
-                y1="319.29"
-                x2="104.45"
-                y2="145.29"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <rect
-                    id="Fast-growing"
-                    x="0"
-                    y="0"
-                    transform="translate(104.7, 160.5125)"
-                    width="241.60000000000002"
-                    height="56.55"
-                    fill="#993843"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
-                <rect
-                    id="Slower-growing"
-                    x="0"
-                    y="0"
-                    transform="translate(104.7, 247.51250000000002)"
-                    width="48.3"
-                    height="56.55"
-                    fill="#3c679b"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2023"
+                    x1="345.01000000000005"
+                    y1="511.79999999999995"
+                    x2="345.01000000000005"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
             </g>
-            <g id="value-labels">
+            <g id="tick-labels">
                 <text
-                    x="0"
-                    y="0"
-                    transform="translate(351.3, 188.7875)"
+                    x="345.01000000000005"
+                    y="530.3"
                     fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2023
+                </text>
+            </g>
+        </g>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="82.82"
+                    y="512.3"
                     dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0 seconds
+                </text>
+                <text
+                    x="82.82"
+                    y="448.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    5 seconds
+                </text>
+                <text
+                    x="82.82"
+                    y="385.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10 seconds
+                </text>
+                <text
+                    x="82.82"
+                    y="321.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    15 seconds
+                </text>
+                <text
+                    x="82.82"
+                    y="258.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20 seconds
+                </text>
+                <text
+                    x="82.82"
+                    y="195"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    25 seconds
+                </text>
+                <text
+                    x="82.82"
+                    y="131.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
                 >
                     30 seconds
-                    <tspan fill="#999"></tspan>
-                </text>
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(158, 275.7875)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    6 seconds
-                    <tspan fill="#999"></tspan>
                 </text>
             </g>
-            <g id="entity-labels">
+        </g>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-seconds"
+                x1="87.82"
+                y1="512.3"
+                x2="602.20"
+                y2="512.3"
+                stroke="#999"
+            ></line>
+            <line
+                id="5-seconds"
+                x1="87.82"
+                y1="448.8"
+                x2="602.20"
+                y2="448.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="10-seconds"
+                x1="87.82"
+                y1="385.4"
+                x2="602.20"
+                y2="385.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="15-seconds"
+                x1="87.82"
+                y1="321.9"
+                x2="602.20"
+                y2="321.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20-seconds"
+                x1="87.82"
+                y1="258.5"
+                x2="602.20"
+                y2="258.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="25-seconds"
+                x1="87.82"
+                y1="195"
+                x2="602.20"
+                y2="195"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30-seconds"
+                x1="87.82"
+                y1="131.6"
+                x2="602.20"
+                y2="131.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Fast-growing-–-Excruciating-pain"
+                    d="M606.2,131.6 H614.7 V132.75 H623.2"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Fast-growing-–-Hurtful-pain"
+                    d="M606.2,258.5 H617.5333333333333 V244.43333333333334 H623.2"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Slower-growing-–-Annoying-pain"
+                    d="M606.2,258.5 H617.5333333333333 V262.73333333333335 H623.2"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Fast-growing-–-Annoying-pain"
+                    d="M606.2,271.2 H611.8666666666667 V281.0333333333333 H623.2"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Slower-growing-–-Hurtful-pain"
+                    d="M606.2,321.9 H614.7 V321.9 H623.2"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Slower-growing-–-Excruciating-pain"
+                    d="M606.2,436.2 H614.7 V436.2 H623.2"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Fast-growing-–-Disabling-pain"
+                    d="M606.2,474.2 H614.7 V474.2 H623.2"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Slower-growing-–-Disabling-pain"
+                    d="M606.2,499.6 H614.7 V499.6 H623.2"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
                 <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="99.7"
-                    y="193.2"
-                    fill="#555"
-                    text-anchor="end"
+                    id="label__Fast-growing-–-Excruciating-pain"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="627.2"
+                    y="137.6"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="99.7" y="193.158125">Fast-growing</tspan>
+                    <tspan x="627.2" y="137.56">
+                        Fast-growing – Excruciating pain
+                    </tspan>
                 </text>
                 <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="99.7"
-                    y="280.2"
-                    fill="#555"
-                    text-anchor="end"
+                    id="label__Fast-growing-–-Hurtful-pain"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="627.2"
+                    y="249.2"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="99.7" y="280.15812500000004">
-                        Slower-growing
+                    <tspan x="627.2" y="249.24333333333334">
+                        Fast-growing – Hurtful pain
+                    </tspan>
+                </text>
+                <text
+                    id="label__Slower-growing-–-Annoying-pain"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="627.2"
+                    y="267.5"
+                    fill="#a2559c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="627.2" y="267.54333333333335">
+                        Slower-growing – Annoying pain
+                    </tspan>
+                </text>
+                <text
+                    id="label__Fast-growing-–-Annoying-pain"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="627.2"
+                    y="285.8"
+                    fill="#00295b"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="627.2" y="285.8433333333333">
+                        Fast-growing – Annoying pain
+                    </tspan>
+                </text>
+                <text
+                    id="label__Slower-growing-–-Hurtful-pain"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="627.2"
+                    y="326.7"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="627.2" y="326.71">
+                        Slower-growing – Hurtful pain
+                    </tspan>
+                </text>
+                <text
+                    id="label__Slower-growing-–-Excruciating-pain"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="627.2"
+                    y="441.0"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="627.2" y="441.01">
+                        Slower-growing – Excruciating pain
+                    </tspan>
+                </text>
+                <text
+                    id="label__Fast-growing-–-Disabling-pain"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="627.2"
+                    y="479.0"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="627.2" y="479.01">
+                        Fast-growing – Disabling pain
+                    </tspan>
+                </text>
+                <text
+                    id="label__Slower-growing-–-Disabling-pain"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="627.2"
+                    y="504.4"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="627.2" y="504.41">
+                        Slower-growing – Disabling pain
                     </tspan>
                 </text>
             </g>
         </g>
-        <text
-            x="433"
-            y="137.4125"
-            fill="#5b5b5b"
-            font-size="15.75"
-            style="font-weight: 700"
-        >
-            Disabling pain
-            <title>Disabling pain</title>
-        </text>
-        <g id="Disabling-pain">
-            <line
-                id="vertical-zero-line"
-                x1="521.45"
-                y1="319.29"
-                x2="521.45"
-                y2="145.29"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <rect
-                    id="Fast-growing"
-                    x="0"
-                    y="0"
-                    transform="translate(521.7, 160.5125)"
-                    width="26.699999999999932"
-                    height="56.55"
-                    fill="#993843"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
-                <rect
-                    id="Slower-growing"
-                    x="0"
-                    y="0"
-                    transform="translate(521.7, 247.51250000000002)"
-                    width="8.899999999999977"
-                    height="56.55"
-                    fill="#3c679b"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Slower-growing-–-Annoying-pain"
+                stroke-width="2.5"
+                d="M345 258.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__Slower-growing-–-Annoying-pain"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M345 258.5"
+            ></path>
+            <g id="datapoints__Slower-growing-–-Annoying-pain">
+                <circle
+                    id="2023"
+                    cx="345"
+                    cy="258.5"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="value-labels">
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(553.4, 188.7875)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    3 days
-                    <tspan fill="#999"></tspan>
-                </text>
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(535.6, 275.7875)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    1 days
-                    <tspan fill="#999"></tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Fast-growing-–-Annoying-pain"
+                stroke-width="2.5"
+                d="M345 271.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__Fast-growing-–-Annoying-pain"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M345 271.2"
+            ></path>
+            <g id="datapoints__Fast-growing-–-Annoying-pain">
+                <circle
+                    id="2023"
+                    cx="345"
+                    cy="271.2"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="entity-labels">
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="516.7"
-                    y="193.2"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="516.7" y="193.158125">Fast-growing</tspan>
-                </text>
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="516.7"
-                    y="280.2"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="516.7" y="280.15812500000004">
-                        Slower-growing
-                    </tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Slower-growing-–-Hurtful-pain"
+                stroke-width="2.5"
+                d="M345 321.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Slower-growing-–-Hurtful-pain"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M345 321.9"
+            ></path>
+            <g id="datapoints__Slower-growing-–-Hurtful-pain">
+                <circle
+                    id="2023"
+                    cx="345"
+                    cy="321.9"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
             </g>
-        </g>
-        <text
-            x="16"
-            y="350.4125"
-            fill="#5b5b5b"
-            font-size="15.75"
-            style="font-weight: 700"
-        >
-            Hurtful pain
-            <title>Hurtful pain</title>
-        </text>
-        <g id="Hurtful-pain">
-            <line
-                id="vertical-zero-line"
-                x1="104.45"
-                y1="532.29"
-                x2="104.45"
-                y2="358.29"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <rect
-                    id="Fast-growing"
-                    x="0"
-                    y="0"
-                    transform="translate(104.7, 373.51250000000005)"
-                    width="173.8"
-                    height="56.55"
-                    fill="#993843"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
-                <rect
-                    id="Slower-growing"
-                    x="0"
-                    y="0"
-                    transform="translate(104.7, 460.51250000000005)"
-                    width="130.39999999999998"
-                    height="56.55"
-                    fill="#3c679b"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Fast-growing-–-Hurtful-pain"
+                stroke-width="2.5"
+                d="M345 258.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Fast-growing-–-Hurtful-pain"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M345 258.5"
+            ></path>
+            <g id="datapoints__Fast-growing-–-Hurtful-pain">
+                <circle
+                    id="2023"
+                    cx="345"
+                    cy="258.5"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="value-labels">
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(283.5, 401.7875)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    20 days
-                    <tspan fill="#999"></tspan>
-                </text>
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(240.1, 488.7875)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    15 days
-                    <tspan fill="#999"></tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Slower-growing-–-Disabling-pain"
+                stroke-width="2.5"
+                d="M345 499.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Slower-growing-–-Disabling-pain"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M345 499.6"
+            ></path>
+            <g id="datapoints__Slower-growing-–-Disabling-pain">
+                <circle
+                    id="2023"
+                    cx="345"
+                    cy="499.6"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="entity-labels">
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="99.7"
-                    y="406.2"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="99.7" y="406.15812500000004">Fast-growing</tspan>
-                </text>
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="99.7"
-                    y="493.2"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="99.7" y="493.15812500000004">
-                        Slower-growing
-                    </tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Fast-growing-–-Disabling-pain"
+                stroke-width="2.5"
+                d="M345 474.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Fast-growing-–-Disabling-pain"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M345 474.2"
+            ></path>
+            <g id="datapoints__Fast-growing-–-Disabling-pain">
+                <circle
+                    id="2023"
+                    cx="345"
+                    cy="474.2"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
             </g>
-        </g>
-        <text
-            x="433"
-            y="350.4125"
-            fill="#5b5b5b"
-            font-size="15.75"
-            style="font-weight: 700"
-        >
-            Annoying pain
-            <title>Annoying pain</title>
-        </text>
-        <g id="Annoying-pain">
-            <line
-                id="vertical-zero-line"
-                x1="521.45"
-                y1="532.29"
-                x2="521.45"
-                y2="358.29"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <rect
-                    id="Slower-growing"
-                    x="0"
-                    y="0"
-                    transform="translate(521.7, 373.51250000000005)"
-                    width="173.79999999999995"
-                    height="56.55"
-                    fill="#3c679b"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
-                <rect
-                    id="Fast-growing"
-                    x="0"
-                    y="0"
-                    transform="translate(521.7, 460.51250000000005)"
-                    width="165.0999999999999"
-                    height="56.55"
-                    fill="#993843"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Slower-growing-–-Excruciating-pain"
+                stroke-width="2.5"
+                d="M345 436.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Slower-growing-–-Excruciating-pain"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M345 436.2"
+            ></path>
+            <g id="datapoints__Slower-growing-–-Excruciating-pain">
+                <circle
+                    id="2023"
+                    cx="345"
+                    cy="436.2"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="value-labels">
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(700.5, 401.7875)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    20 days
-                    <tspan fill="#999"></tspan>
-                </text>
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(691.8, 488.7875)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    19 days
-                    <tspan fill="#999"></tspan>
-                </text>
-            </g>
-            <g id="entity-labels">
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="516.7"
-                    y="406.2"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="516.7" y="406.15812500000004">
-                        Slower-growing
-                    </tspan>
-                </text>
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="516.7"
-                    y="493.2"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="516.7" y="493.15812500000004">Fast-growing</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Fast-growing-–-Excruciating-pain"
+                stroke-width="2.5"
+                d="M345 131.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Fast-growing-–-Excruciating-pain"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M345 131.6"
+            ></path>
+            <g id="datapoints__Fast-growing-–-Excruciating-pain">
+                <circle
+                    id="2023"
+                    cx="345"
+                    cy="131.6"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>

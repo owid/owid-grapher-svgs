@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -87,90 +76,241 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="189.35"
-            y1="516.70"
-            x2="189.35"
-            y2="122.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Drug-use-(risk-factor)"
-                x="0"
-                y="0"
-                transform="translate(189.6, 156.53625)"
-                width="585.3"
-                height="128.2775"
-                fill="#3360a9"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Drug-use-disorders-(direct)"
-                x="0"
-                y="0"
-                transform="translate(189.6, 353.88624999999996)"
-                width="173.4"
-                height="128.2775"
-                fill="#c05917"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2021"
+                    x1="359.56999999999994"
+                    y1="496.2"
+                    x2="359.56999999999994"
+                    y2="501.7"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="359.56999999999994"
+                    y="514.7"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2021
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(779.9, 220.675)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                463,360
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(368, 418.025)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                137,278
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="63.32"
+                    y="496.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0
+                </text>
+                <text
+                    x="63.32"
+                    y="423"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100,000
+                </text>
+                <text
+                    x="63.32"
+                    y="349.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    200,000
+                </text>
+                <text
+                    x="63.32"
+                    y="275.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    300,000
+                </text>
+                <text
+                    x="63.32"
+                    y="201.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    400,000
+                </text>
+                <text
+                    x="63.32"
+                    y="128"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    500,000
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="184.6"
-                y="225.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="184.6" y="225.67000000000002">
-                    Drug use (risk factor)
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="184.6"
-                y="423.0"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="184.6" y="423.02">Drug use disorders (direct)</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0"
+                x1="68.32"
+                y1="496.7"
+                x2="650.82"
+                y2="496.7"
+                stroke="#999"
+            ></line>
+            <line
+                id="100,000"
+                x1="68.32"
+                y1="423"
+                x2="650.82"
+                y2="423"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="200,000"
+                x1="68.32"
+                y1="349.2"
+                x2="650.82"
+                y2="349.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="300,000"
+                x1="68.32"
+                y1="275.5"
+                x2="650.82"
+                y2="275.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="400,000"
+                x1="68.32"
+                y1="201.7"
+                x2="650.82"
+                y2="201.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="500,000"
+                x1="68.32"
+                y1="128"
+                x2="650.82"
+                y2="128"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Drug-use-(risk-factor)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="654.8"
+                    y="159.8"
+                    fill="#3360a9"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="654.8199999999999" y="159.81">
+                        Drug use (risk factor)
+                    </tspan>
+                </text>
+                <text
+                    id="label__Drug-use-disorders-(direct)"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="654.8"
+                    y="400.3"
+                    fill="#c05917"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="654.8199999999999" y="400.31">
+                        Drug use disorders (direct)
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Drug-use-disorders-(direct)"
+                stroke-width="2.5"
+                d="M359.6 395.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c05917"
+                id="line__Drug-use-disorders-(direct)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M359.6 395.5"
+            ></path>
+            <g id="datapoints__Drug-use-disorders-(direct)">
+                <circle
+                    id="2021"
+                    cx="359.6"
+                    cy="395.5"
+                    r="1.8"
+                    fill="#c05917"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Drug-use-(risk-factor)"
+                stroke-width="2.5"
+                d="M359.6 155"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#3360a9"
+                id="line__Drug-use-(risk-factor)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M359.6 155"
+            ></path>
+            <g id="datapoints__Drug-use-(risk-factor)">
+                <circle
+                    id="2021"
+                    cx="359.6"
+                    cy="155"
+                    r="1.8"
+                    fill="#3360a9"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

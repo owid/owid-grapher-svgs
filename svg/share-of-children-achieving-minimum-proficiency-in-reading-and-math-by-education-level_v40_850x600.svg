@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -90,163 +79,357 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="237.55"
-            y1="532.30"
-            x2="237.55"
-            y2="125.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Children-in-primary,-reading"
-                x="0"
-                y="0"
-                transform="translate(237.8, 143.393125)"
-                width="547.7"
-                height="66.08875"
-                fill="#dfc27d"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Children-in-lower-secondary,-reading"
-                x="0"
-                y="0"
-                transform="translate(237.8, 245.068125)"
-                width="526"
-                height="66.08875"
-                fill="#a6611a"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Children-in-primary,-math"
-                x="0"
-                y="0"
-                transform="translate(237.8, 346.743125)"
-                width="416.90000000000003"
-                height="66.08875"
-                fill="#80cdc1"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Children-in-lower-secondary,-math"
-                x="0"
-                y="0"
-                transform="translate(237.8, 448.41812500000003)"
-                width="420.59999999999997"
-                height="66.08875"
-                fill="#018571"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2019"
+                    x1="319.92"
+                    y1="511.79999999999995"
+                    x2="319.92"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="319.92"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2019
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(790.5, 176.4375)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                50.1%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(768.8, 278.1125)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                48.1%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(659.7, 379.7875)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                38.2%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(663.4, 481.46250000000003)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                38.5%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="42.13"
+                    y="436.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="360.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="42.13"
+                    y="284.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    30%
+                </text>
+                <text
+                    x="42.13"
+                    y="208.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="42.13"
+                    y="132.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    50%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="232.8"
-                y="181.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="232.8" y="181.4325">
-                    Children in primary, reading
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="232.8"
-                y="275.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="232.8" y="275.6825">
-                    Children in lower-secondary,
-                </tspan>
-                <tspan x="232.8" y="290.5325">reading</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="232.8"
-                y="384.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="232.8" y="384.7825">Children in primary, math</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="232.8"
-                y="486.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="232.8" y="486.45750000000004">
-                    Children in lower-secondary, math
-                </tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="47.13"
+                y1="512.3"
+                x2="592.71"
+                y2="512.3"
+                stroke="#999"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="436.4"
+                x2="592.71"
+                y2="436.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="360.4"
+                x2="592.71"
+                y2="360.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30%"
+                x1="47.13"
+                y1="284.5"
+                x2="592.71"
+                y2="284.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="47.13"
+                y1="208.6"
+                x2="592.71"
+                y2="208.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="50%"
+                x1="47.13"
+                y1="132.6"
+                x2="592.71"
+                y2="132.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Children-in-primary,-reading"
+                    d="M596.71,131.6 H608.0433333333333 V132.75 H613.71"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Children-in-lower-secondary,-reading"
+                    d="M596.71,146.7 H602.3766666666667 V151.05 H613.71"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Children-in-lower-secondary,-math"
+                    d="M596.71,219.9 H605.21 V212.04999999999998 H613.71"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Children-in-primary,-math"
+                    d="M596.71,222.5 H605.21 V230.35 H613.71"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Children-in-primary,-reading"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="617.7"
+                    y="137.6"
+                    fill="#b79f66"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="617.71" y="137.56">
+                        Children in primary, reading
+                    </tspan>
+                </text>
+                <text
+                    id="label__Children-in-lower-secondary,-reading"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="617.7"
+                    y="155.9"
+                    fill="#a6611a"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="617.71" y="155.86">
+                        Children in lower-secondary, reading
+                    </tspan>
+                </text>
+                <text
+                    id="label__Children-in-lower-secondary,-math"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="617.7"
+                    y="216.9"
+                    fill="#018571"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="617.71" y="216.85999999999999">
+                        Children in lower-secondary, math
+                    </tspan>
+                </text>
+                <text
+                    id="label__Children-in-primary,-math"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="617.7"
+                    y="235.2"
+                    fill="#6dafa5"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="617.71" y="235.16">
+                        Children in primary, math
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Children-in-primary,-reading"
+                stroke-width="2.5"
+                d="M319.9 131.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#dfc27d"
+                id="line__Children-in-primary,-reading"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M319.9 131.6"
+            ></path>
+            <g id="datapoints__Children-in-primary,-reading">
+                <circle
+                    id="2019"
+                    cx="319.9"
+                    cy="131.6"
+                    r="1.8"
+                    fill="#dfc27d"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Children-in-lower-secondary,-reading"
+                stroke-width="2.5"
+                d="M319.9 146.7"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a6611a"
+                id="line__Children-in-lower-secondary,-reading"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M319.9 146.7"
+            ></path>
+            <g id="datapoints__Children-in-lower-secondary,-reading">
+                <circle
+                    id="2019"
+                    cx="319.9"
+                    cy="146.7"
+                    r="1.8"
+                    fill="#a6611a"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Children-in-primary,-math"
+                stroke-width="2.5"
+                d="M319.9 222.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#80cdc1"
+                id="line__Children-in-primary,-math"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M319.9 222.5"
+            ></path>
+            <g id="datapoints__Children-in-primary,-math">
+                <circle
+                    id="2019"
+                    cx="319.9"
+                    cy="222.5"
+                    r="1.8"
+                    fill="#80cdc1"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Children-in-lower-secondary,-math"
+                stroke-width="2.5"
+                d="M319.9 219.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#018571"
+                id="line__Children-in-lower-secondary,-math"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M319.9 219.9"
+            ></path>
+            <g id="datapoints__Children-in-lower-secondary,-math">
+                <circle
+                    id="2019"
+                    cx="319.9"
+                    cy="219.9"
+                    r="1.8"
+                    fill="#018571"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -82,234 +71,451 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="130.05"
-            y1="532.30"
-            x2="130.05"
-            y2="125.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Anxiety-disorders"
-                x="0"
-                y="0"
-                transform="translate(130.3, 137.46208333333334)"
-                width="655.2"
-                height="44.05916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Major-depression"
-                x="0"
-                y="0"
-                transform="translate(130.3, 205.24541666666667)"
-                width="524.8"
-                height="44.05916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Dysthymia"
-                x="0"
-                y="0"
-                transform="translate(130.3, 273.02875)"
-                width="435.8"
-                height="44.05916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Eating-disorders"
-                x="0"
-                y="0"
-                transform="translate(130.3, 340.81208333333336)"
-                width="225.39999999999998"
-                height="44.05916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Schizophrenia"
-                x="0"
-                y="0"
-                transform="translate(130.3, 408.59541666666667)"
-                width="210.5"
-                height="44.05916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Bipolar-disorder"
-                x="0"
-                y="0"
-                transform="translate(130.3, 476.37874999999997)"
-                width="191.3"
-                height="44.05916666666667"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2008"
+                    x1="376.08"
+                    y1="511.79999999999995"
+                    x2="376.08"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="376.08"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2008
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(790.5, 159.49166666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                44.2%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(660.1, 227.275)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                35.4%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(571.1, 295.05833333333334)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                29.4%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(360.7, 362.8416666666667)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                15.2%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(345.8, 430.625)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                14.2%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(326.6, 498.4083333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                12.9%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="42.13"
+                    y="512.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="42.13"
+                    y="436.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    10%
+                </text>
+                <text
+                    x="42.13"
+                    y="360"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    20%
+                </text>
+                <text
+                    x="42.13"
+                    y="283.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    30%
+                </text>
+                <text
+                    x="42.13"
+                    y="207.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    40%
+                </text>
+                <text
+                    x="42.13"
+                    y="131.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    50%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="125.3"
-                y="164.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="125.30000000000001" y="164.48666666666668">
-                    Anxiety disorders
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="125.3"
-                y="232.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="125.30000000000001" y="232.26999999999998">
-                    Major depression
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="125.3"
-                y="300.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="125.30000000000001" y="300.05333333333334">
-                    Dysthymia
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="125.3"
-                y="367.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="125.30000000000001" y="367.8366666666667">
-                    Eating disorders
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="125.3"
-                y="435.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="125.30000000000001" y="435.62">Schizophrenia</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="125.3"
-                y="503.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="125.30000000000001" y="503.4033333333333">
-                    Bipolar disorder
-                </tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="47.13"
+                y1="512.3"
+                x2="705.03"
+                y2="512.3"
+                stroke="#999"
+            ></line>
+            <line
+                id="10%"
+                x1="47.13"
+                y1="436.2"
+                x2="705.03"
+                y2="436.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="20%"
+                x1="47.13"
+                y1="360"
+                x2="705.03"
+                y2="360"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="30%"
+                x1="47.13"
+                y1="283.9"
+                x2="705.03"
+                y2="283.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="40%"
+                x1="47.13"
+                y1="207.7"
+                x2="705.03"
+                y2="207.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="50%"
+                x1="47.13"
+                y1="131.6"
+                x2="705.03"
+                y2="131.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Anxiety-disorders"
+                    d="M709.03,175.8 H717.53 V175.8 H726.03"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Major-depression"
+                    d="M709.03,242.8 H717.53 V242.8 H726.03"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Dysthymia"
+                    d="M709.03,288.4 H717.53 V288.4 H726.03"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Eating-disorders"
+                    d="M709.03,396.6 H720.3633333333332 V386.6666666666667 H726.03"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Schizophrenia"
+                    d="M709.03,404.2 H720.3633333333332 V404.9666666666667 H726.03"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Bipolar-disorder"
+                    d="M709.03,414.1 H714.6966666666666 V423.2666666666667 H726.03"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+            </g>
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Anxiety-disorders"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="730.0"
+                    y="180.6"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="730.03" y="180.61">Anxiety disorders</tspan>
+                </text>
+                <text
+                    id="label__Major-depression"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="730.0"
+                    y="247.6"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="730.03" y="247.61">Major depression</tspan>
+                </text>
+                <text
+                    id="label__Dysthymia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="730.0"
+                    y="293.2"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="730.03" y="293.21">Dysthymia</tspan>
+                </text>
+                <text
+                    id="label__Eating-disorders"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="730.0"
+                    y="391.5"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="730.03" y="391.4766666666667">
+                        Eating disorders
+                    </tspan>
+                </text>
+                <text
+                    id="label__Schizophrenia"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="730.0"
+                    y="409.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="730.03" y="409.7766666666667">
+                        Schizophrenia
+                    </tspan>
+                </text>
+                <text
+                    id="label__Bipolar-disorder"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="730.0"
+                    y="428.1"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="730.03" y="428.0766666666667">
+                        Bipolar disorder
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Anxiety-disorders"
+                stroke-width="2.5"
+                d="M376.1 175.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Anxiety-disorders"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M376.1 175.8"
+            ></path>
+            <g id="datapoints__Anxiety-disorders">
+                <circle
+                    id="2008"
+                    cx="376.1"
+                    cy="175.8"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Schizophrenia"
+                stroke-width="2.5"
+                d="M376.1 404.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Schizophrenia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M376.1 404.2"
+            ></path>
+            <g id="datapoints__Schizophrenia">
+                <circle
+                    id="2008"
+                    cx="376.1"
+                    cy="404.2"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Dysthymia"
+                stroke-width="2.5"
+                d="M376.1 288.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Dysthymia"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M376.1 288.4"
+            ></path>
+            <g id="datapoints__Dysthymia">
+                <circle
+                    id="2008"
+                    cx="376.1"
+                    cy="288.4"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Eating-disorders"
+                stroke-width="2.5"
+                d="M376.1 396.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Eating-disorders"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M376.1 396.6"
+            ></path>
+            <g id="datapoints__Eating-disorders">
+                <circle
+                    id="2008"
+                    cx="376.1"
+                    cy="396.6"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Bipolar-disorder"
+                stroke-width="2.5"
+                d="M376.1 414.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Bipolar-disorder"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M376.1 414.1"
+            ></path>
+            <g id="datapoints__Bipolar-disorder">
+                <circle
+                    id="2008"
+                    cx="376.1"
+                    cy="414.1"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Major-depression"
+                stroke-width="2.5"
+                d="M376.1 242.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Major-depression"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M376.1 242.8"
+            ></path>
+            <g id="datapoints__Major-depression">
+                <circle
+                    id="2008"
+                    cx="376.1"
+                    cy="242.8"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

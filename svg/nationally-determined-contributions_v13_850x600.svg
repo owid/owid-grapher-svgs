@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -84,90 +73,218 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="173.45"
-            y1="552.40"
-            x2="173.45"
-            y2="136.40"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="First-NDCs-submitted"
-                x="0"
-                y="0"
-                transform="translate(173.7, 172.8)"
-                width="627.5999999999999"
-                height="135.2"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Second-NDCs-submitted"
-                x="0"
-                y="0"
-                transform="translate(173.7, 380.79999999999995)"
-                width="55"
-                height="135.2"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2023"
+                    x1="352.55"
+                    y1="531.9"
+                    x2="352.55"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="352.55"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2023
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(806.3, 240.4)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                194
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(233.7, 448.4)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                17
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="37.84"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0
+                </text>
+                <text
+                    x="37.84"
+                    y="434.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    50
+                </text>
+                <text
+                    x="37.84"
+                    y="337.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100
+                </text>
+                <text
+                    x="37.84"
+                    y="239.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    150
+                </text>
+                <text
+                    x="37.84"
+                    y="142.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    200
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="168.7"
-                y="245.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="168.7" y="245.39499999999998">
-                    First NDCs submitted
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="168.7"
-                y="453.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="168.7" y="453.395">Second NDCs submitted</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0"
+                x1="42.84"
+                y1="532.4"
+                x2="662.26"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="50"
+                x1="42.84"
+                y1="434.9"
+                x2="662.26"
+                y2="434.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="100"
+                x1="42.84"
+                y1="337.4"
+                x2="662.26"
+                y2="337.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="150"
+                x1="42.84"
+                y1="239.9"
+                x2="662.26"
+                y2="239.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="200"
+                x1="42.84"
+                y1="142.4"
+                x2="662.26"
+                y2="142.4"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__First-NDCs-submitted"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="666.3"
+                    y="158.9"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="666.26" y="158.91">First NDCs submitted</tspan>
+                </text>
+                <text
+                    id="label__Second-NDCs-submitted"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="666.3"
+                    y="504.1"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="666.26" y="504.11">Second NDCs submitted</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Second-NDCs-submitted"
+                stroke-width="2.5"
+                d="M352.6 499.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Second-NDCs-submitted"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M352.6 499.3"
+            ></path>
+            <g id="datapoints__Second-NDCs-submitted">
+                <circle
+                    id="2023"
+                    cx="352.6"
+                    cy="499.3"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__First-NDCs-submitted"
+                stroke-width="2.5"
+                d="M352.6 154.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__First-NDCs-submitted"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M352.6 154.1"
+            ></path>
+            <g id="datapoints__First-NDCs-submitted">
+                <circle
+                    id="2023"
+                    cx="352.6"
+                    cy="154.1"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

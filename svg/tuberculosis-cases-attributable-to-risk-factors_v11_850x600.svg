@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -81,190 +70,380 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="136.55"
-            y1="532.30"
-            x2="136.55"
-            y2="86.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Undernourishment"
-                x="0"
-                y="0"
-                transform="translate(136.8, 101.62049999999999)"
-                width="638.0999999999999"
-                height="58.019000000000005"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Alcohol-abuse"
-                x="0"
-                y="0"
-                transform="translate(136.8, 190.88049999999998)"
-                width="498.49999999999994"
-                height="58.019000000000005"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Smoking"
-                x="0"
-                y="0"
-                transform="translate(136.8, 280.1405)"
-                width="464.99999999999994"
-                height="58.019000000000005"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="HIV-infection"
-                x="0"
-                y="0"
-                transform="translate(136.8, 369.4005)"
-                width="403.90000000000003"
-                height="58.019000000000005"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Diabetes"
-                x="0"
-                y="0"
-                transform="translate(136.8, 458.6605)"
-                width="252.2"
-                height="58.019000000000005"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2023"
+                    x1="383.23"
+                    y1="511.79999999999995"
+                    x2="383.23"
+                    y2="517.3"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="383.23"
+                    y="530.3"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2023
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(779.9, 130.63)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                964,505
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(640.3, 219.89)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                753,549
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(606.8, 309.15)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                702,951
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(545.7, 398.41)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                610,591
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(394, 487.67)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                381,254
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="63.71"
+                    y="499.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    400,000
+                </text>
+                <text
+                    x="63.71"
+                    y="431.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    500,000
+                </text>
+                <text
+                    x="63.71"
+                    y="363.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    600,000
+                </text>
+                <text
+                    x="63.71"
+                    y="295.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    700,000
+                </text>
+                <text
+                    x="63.71"
+                    y="227.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    800,000
+                </text>
+                <text
+                    x="63.71"
+                    y="159.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    900,000
+                </text>
+                <text
+                    x="63.71"
+                    y="92"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1 million
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="131.8"
-                y="135.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="131.8" y="135.625">Undernourishment</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="131.8"
-                y="224.9"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="131.8" y="224.885">Alcohol abuse</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="131.8"
-                y="314.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="131.8" y="314.145">Smoking</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="131.8"
-                y="403.4"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="131.8" y="403.40500000000003">HIV infection</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="131.8"
-                y="492.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="131.8" y="492.665">Diabetes</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="400,000"
+                x1="68.71"
+                y1="499.6"
+                x2="697.75"
+                y2="499.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="500,000"
+                x1="68.71"
+                y1="431.6"
+                x2="697.75"
+                y2="431.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="600,000"
+                x1="68.71"
+                y1="363.7"
+                x2="697.75"
+                y2="363.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="700,000"
+                x1="68.71"
+                y1="295.8"
+                x2="697.75"
+                y2="295.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="800,000"
+                x1="68.71"
+                y1="227.9"
+                x2="697.75"
+                y2="227.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="900,000"
+                x1="68.71"
+                y1="159.9"
+                x2="697.75"
+                y2="159.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1-million"
+                x1="68.71"
+                y1="92"
+                x2="697.75"
+                y2="92"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Undernourishment"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.8"
+                    y="120.9"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.75" y="120.91">Undernourishment</tspan>
+                </text>
+                <text
+                    id="label__Alcohol-abuse"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.8"
+                    y="264.2"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.75" y="264.21">Alcohol abuse</tspan>
+                </text>
+                <text
+                    id="label__Smoking"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.8"
+                    y="298.6"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.75" y="298.61">Smoking</tspan>
+                </text>
+                <text
+                    id="label__HIV-infection"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.8"
+                    y="361.3"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.75" y="361.31">HIV infection</tspan>
+                </text>
+                <text
+                    id="label__Diabetes"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="701.8"
+                    y="517.1"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="701.75" y="517.11">Diabetes</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Undernourishment"
+                stroke-width="2.5"
+                d="M383.2 116.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Undernourishment"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M383.2 116.1"
+            ></path>
+            <g id="datapoints__Undernourishment">
+                <circle
+                    id="2023"
+                    cx="383.2"
+                    cy="116.1"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Diabetes"
+                stroke-width="2.5"
+                d="M383.2 512.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Diabetes"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M383.2 512.3"
+            ></path>
+            <g id="datapoints__Diabetes">
+                <circle
+                    id="2023"
+                    cx="383.2"
+                    cy="512.3"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Smoking"
+                stroke-width="2.5"
+                d="M383.2 293.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Smoking"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M383.2 293.8"
+            ></path>
+            <g id="datapoints__Smoking">
+                <circle
+                    id="2023"
+                    cx="383.2"
+                    cy="293.8"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Alcohol-abuse"
+                stroke-width="2.5"
+                d="M383.2 259.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Alcohol-abuse"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M383.2 259.4"
+            ></path>
+            <g id="datapoints__Alcohol-abuse">
+                <circle
+                    id="2023"
+                    cx="383.2"
+                    cy="259.4"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__HIV-infection"
+                stroke-width="2.5"
+                d="M383.2 356.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__HIV-infection"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M383.2 356.5"
+            ></path>
+            <g id="datapoints__HIV-infection">
+                <circle
+                    id="2023"
+                    cx="383.2"
+                    cy="356.5"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

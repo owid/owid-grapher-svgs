@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -83,678 +72,956 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <text
-            x="16"
-            y="131.4125"
-            fill="#5b5b5b"
-            font-size="15.75"
-            style="font-weight: 700"
-        >
-            Colombia
-            <title>Colombia</title>
-        </text>
-        <g id="Colombia">
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2020"
+                    x1="310.105"
+                    y1="531.9"
+                    x2="310.105"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="310.105"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2020
+                </text>
+            </g>
+        </g>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="34.20"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0
+                </text>
+                <text
+                    x="34.20"
+                    y="451"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.2
+                </text>
+                <text
+                    x="34.20"
+                    y="369.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.4
+                </text>
+                <text
+                    x="34.20"
+                    y="288.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.6
+                </text>
+                <text
+                    x="34.20"
+                    y="207"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0.8
+                </text>
+                <text
+                    x="34.20"
+                    y="125.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1
+                </text>
+            </g>
+        </g>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
             <line
-                id="vertical-zero-line"
-                x1="121.55"
-                y1="326.29"
-                x2="121.55"
-                y2="139.29"
+                id="0"
+                x1="39.20"
+                y1="532.4"
+                x2="581.01"
+                y2="532.4"
                 stroke="#999"
-                stroke-width="0.5"
             ></line>
-            <g id="bars">
-                <rect
-                    id="National-education-policies"
-                    x="0"
-                    y="0"
-                    transform="translate(121.8, 147.46875)"
-                    width="262"
-                    height="30.3875"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
-                <rect
-                    id="Student-assessment"
-                    x="0"
-                    y="0"
-                    transform="translate(121.8, 194.21875)"
-                    width="262"
-                    height="30.3875"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
-                <rect
-                    id="Education-curricula"
-                    x="0"
-                    y="0"
-                    transform="translate(121.8, 240.96875000000003)"
-                    width="230.59999999999997"
-                    height="30.3875"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
-                <rect
-                    id="Teacher-education"
-                    x="0"
-                    y="0"
-                    transform="translate(121.8, 287.71875)"
-                    width="222.7"
-                    height="30.3875"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
+            <line
+                id="0.2"
+                x1="39.20"
+                y1="451"
+                x2="581.01"
+                y2="451"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="0.4"
+                x1="39.20"
+                y1="369.7"
+                x2="581.01"
+                y2="369.7"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="0.6"
+                x1="39.20"
+                y1="288.3"
+                x2="581.01"
+                y2="288.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="0.8"
+                x1="39.20"
+                y1="207"
+                x2="581.01"
+                y2="207"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1"
+                x1="39.20"
+                y1="125.6"
+                x2="581.01"
+                y2="125.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="connectors">
+                <path
+                    id="Colombia-–-Student-assessment"
+                    d="M585.01,125.6 H601.01 V126.75 H602.01"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="India-–-Student-assessment"
+                    d="M585.01,125.6 H600.01 V145.05 H602.01"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Malawi-–-Student-assessment"
+                    d="M585.01,125.6 H599.01 V163.35000000000002 H602.01"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Colombia-–-National-education-policies"
+                    d="M585.01,125.6 H598.01 V181.65000000000003 H602.01"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="India-–-National-education-policies"
+                    d="M585.01,125.6 H597.01 V199.95000000000005 H602.01"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Malawi-–-National-education-policies"
+                    d="M585.01,125.6 H596.01 V218.25000000000006 H602.01"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="India-–-Teacher-education"
+                    d="M585.01,145.9 H595.01 V236.55000000000007 H602.01"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="India-–-Education-curricula"
+                    d="M585.01,158.1 H594.01 V254.85000000000008 H602.01"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Malawi-–-Education-curricula"
+                    d="M585.01,162.2 H593.01 V273.15000000000003 H602.01"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Malawi-–-Teacher-education"
+                    d="M585.01,166.3 H592.01 V291.45000000000005 H602.01"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Colombia-–-Education-curricula"
+                    d="M585.01,174.4 H591.01 V309.75000000000006 H602.01"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Colombia-–-Teacher-education"
+                    d="M585.01,186.6 H590.01 V328.05000000000007 H602.01"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Bulgaria-–-Teacher-education"
+                    d="M585.01,235.4 H589.01 V346.3500000000001 H602.01"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Bulgaria-–-Student-assessment"
+                    d="M585.01,243.6 H588.01 V364.6500000000001 H602.01"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Bulgaria-–-Education-curricula"
+                    d="M585.01,268 H587.01 V382.9500000000001 H602.01"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
+                <path
+                    id="Bulgaria-–-National-education-policies"
+                    d="M585.01,304.6 H586.01 V401.2500000000001 H602.01"
+                    stroke="#999"
+                    stroke-width="0.5"
+                    fill="none"
+                ></path>
             </g>
-            <g id="value-labels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
                 <text
-                    x="0"
-                    y="0"
-                    transform="translate(388.8, 162.6625)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
+                    id="label__Colombia-–-Student-assessment"
+                    font-size="13.00"
                     font-weight="400"
-                >
-                    1
-                    <tspan fill="#999"></tspan>
-                </text>
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(388.8, 209.4125)"
-                    fill="#5b5b5b"
-                    dy=".32em"
+                    x="606.0"
+                    y="131.6"
+                    fill="#b13507"
+                    opacity="1"
                     text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
                 >
-                    1
-                    <tspan fill="#999"></tspan>
+                    <tspan x="606.01" y="131.56">
+                        Colombia – Student assessment
+                    </tspan>
                 </text>
                 <text
-                    x="0"
-                    y="0"
-                    transform="translate(357.4, 256.1625)"
-                    fill="#5b5b5b"
-                    dy=".32em"
+                    id="label__India-–-Student-assessment"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="606.0"
+                    y="149.9"
+                    fill="#996d39"
+                    opacity="1"
                     text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
                 >
-                    0.88
-                    <tspan fill="#999"></tspan>
+                    <tspan x="606.01" y="149.86">
+                        India – Student assessment
+                    </tspan>
                 </text>
                 <text
-                    x="0"
-                    y="0"
-                    transform="translate(349.5, 302.9125)"
-                    fill="#5b5b5b"
-                    dy=".32em"
+                    id="label__Malawi-–-Student-assessment"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="606.0"
+                    y="168.2"
+                    fill="#2c8465"
+                    opacity="1"
                     text-anchor="start"
-                    font-size="11.8125"
+                >
+                    <tspan x="606.01" y="168.16000000000003">
+                        Malawi – Student assessment
+                    </tspan>
+                </text>
+                <text
+                    id="label__Colombia-–-National-education-policies"
+                    font-size="13.00"
                     font-weight="400"
+                    x="606.0"
+                    y="186.5"
+                    fill="#883039"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    0.85
-                    <tspan fill="#999"></tspan>
-                </text>
-            </g>
-            <g id="entity-labels">
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="116.8"
-                    y="160.5"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="116.8" y="160.53625">National education</tspan>
-                    <tspan x="116.8" y="173.53">policies</tspan>
+                    <tspan x="606.01" y="186.46000000000004">
+                        Colombia – National education policies
+                    </tspan>
                 </text>
                 <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="116.8"
-                    y="207.3"
-                    fill="#555"
-                    text-anchor="end"
+                    id="label__India-–-National-education-policies"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="606.0"
+                    y="204.8"
+                    fill="#00295b"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="116.8" y="207.28625">Student</tspan>
-                    <tspan x="116.8" y="220.28">assessment</tspan>
+                    <tspan x="606.01" y="204.76000000000005">
+                        India – National education policies
+                    </tspan>
                 </text>
                 <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="116.8"
-                    y="254.0"
-                    fill="#555"
-                    text-anchor="end"
+                    id="label__Malawi-–-National-education-policies"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="606.0"
+                    y="223.1"
+                    fill="#a2559c"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="116.8" y="254.03625000000002">Education</tspan>
-                    <tspan x="116.8" y="267.03000000000003">curricula</tspan>
+                    <tspan x="606.01" y="223.06000000000006">
+                        Malawi – National education policies
+                    </tspan>
                 </text>
                 <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="116.8"
-                    y="307.3"
-                    fill="#555"
-                    text-anchor="end"
+                    id="label__India-–-Teacher-education"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="606.0"
+                    y="241.4"
+                    fill="#18470f"
+                    opacity="1"
+                    text-anchor="start"
                 >
-                    <tspan x="116.8" y="307.28312500000004">
-                        Teacher education
+                    <tspan x="606.01" y="241.36000000000007">
+                        India – Teacher education
+                    </tspan>
+                </text>
+                <text
+                    id="label__India-–-Education-curricula"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="606.0"
+                    y="259.7"
+                    fill="#970046"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="606.01" y="259.6600000000001">
+                        India – Education curricula
+                    </tspan>
+                </text>
+                <text
+                    id="label__Malawi-–-Education-curricula"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="606.0"
+                    y="278.0"
+                    fill="#338711"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="606.01" y="277.96000000000004">
+                        Malawi – Education curricula
+                    </tspan>
+                </text>
+                <text
+                    id="label__Malawi-–-Teacher-education"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="606.0"
+                    y="296.3"
+                    fill="#d73c50"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="606.01" y="296.26000000000005">
+                        Malawi – Teacher education
+                    </tspan>
+                </text>
+                <text
+                    id="label__Colombia-–-Education-curricula"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="606.0"
+                    y="314.6"
+                    fill="#008291"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="606.01" y="314.56000000000006">
+                        Colombia – Education curricula
+                    </tspan>
+                </text>
+                <text
+                    id="label__Colombia-–-Teacher-education"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="606.0"
+                    y="332.9"
+                    fill="#286bbb"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="606.01" y="332.86000000000007">
+                        Colombia – Teacher education
+                    </tspan>
+                </text>
+                <text
+                    id="label__Bulgaria-–-Teacher-education"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="606.0"
+                    y="351.2"
+                    fill="#c4523e"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="606.01" y="351.1600000000001">
+                        Bulgaria – Teacher education
+                    </tspan>
+                </text>
+                <text
+                    id="label__Bulgaria-–-Student-assessment"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="606.0"
+                    y="369.5"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="606.01" y="369.4600000000001">
+                        Bulgaria – Student assessment
+                    </tspan>
+                </text>
+                <text
+                    id="label__Bulgaria-–-Education-curricula"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="606.0"
+                    y="387.8"
+                    fill="#9a5129"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="606.01" y="387.7600000000001">
+                        Bulgaria – Education curricula
+                    </tspan>
+                </text>
+                <text
+                    id="label__Bulgaria-–-National-education-policies"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="606.0"
+                    y="406.1"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="606.01" y="406.0600000000001">
+                        Bulgaria – National education policies
                     </tspan>
                 </text>
             </g>
         </g>
-        <text
-            x="433"
-            y="131.4125"
-            fill="#5b5b5b"
-            font-size="15.75"
-            style="font-weight: 700"
-        >
-            India
-            <title>India</title>
-        </text>
-        <g id="India">
-            <line
-                id="vertical-zero-line"
-                x1="538.55"
-                y1="326.29"
-                x2="538.55"
-                y2="139.29"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <rect
-                    id="National-education-policies"
-                    x="0"
-                    y="0"
-                    transform="translate(538.8, 147.46875)"
-                    width="262"
-                    height="30.3875"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
-                <rect
-                    id="Student-assessment"
-                    x="0"
-                    y="0"
-                    transform="translate(538.8, 194.21875)"
-                    width="262"
-                    height="30.3875"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
-                <rect
-                    id="Teacher-education"
-                    x="0"
-                    y="0"
-                    transform="translate(538.8, 240.96875000000003)"
-                    width="248.9000000000001"
-                    height="30.3875"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
-                <rect
-                    id="Education-curricula"
-                    x="0"
-                    y="0"
-                    transform="translate(538.8, 287.71875)"
-                    width="241.10000000000002"
-                    height="30.3875"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Malawi-–-Teacher-education"
+                stroke-width="2.5"
+                d="M310.1 166.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#d73c50"
+                id="line__Malawi-–-Teacher-education"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M310.1 166.3"
+            ></path>
+            <g id="datapoints__Malawi-–-Teacher-education">
+                <circle
+                    id="2020"
+                    cx="310.1"
+                    cy="166.3"
+                    r="1.8"
+                    fill="#d73c50"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="value-labels">
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(805.8, 162.6625)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    1
-                    <tspan fill="#999"></tspan>
-                </text>
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(805.8, 209.4125)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    1
-                    <tspan fill="#999"></tspan>
-                </text>
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(792.7, 256.1625)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    0.95
-                    <tspan fill="#999"></tspan>
-                </text>
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(784.9, 302.9125)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    0.92
-                    <tspan fill="#999"></tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India-–-Teacher-education"
+                stroke-width="2.5"
+                d="M310.1 145.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#18470f"
+                id="line__India-–-Teacher-education"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M310.1 145.9"
+            ></path>
+            <g id="datapoints__India-–-Teacher-education">
+                <circle
+                    id="2020"
+                    cx="310.1"
+                    cy="145.9"
+                    r="1.8"
+                    fill="#18470f"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="entity-labels">
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="533.8"
-                    y="160.5"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="533.8" y="160.53625">National education</tspan>
-                    <tspan x="533.8" y="173.53">policies</tspan>
-                </text>
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="533.8"
-                    y="207.3"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="533.8" y="207.28625">Student</tspan>
-                    <tspan x="533.8" y="220.28">assessment</tspan>
-                </text>
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="533.8"
-                    y="260.5"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="533.8" y="260.53312500000004">
-                        Teacher education
-                    </tspan>
-                </text>
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="533.8"
-                    y="300.8"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="533.8" y="300.78625000000005">Education</tspan>
-                    <tspan x="533.8" y="313.78000000000003">curricula</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Colombia-–-Teacher-education"
+                stroke-width="2.5"
+                d="M310.1 186.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#286bbb"
+                id="line__Colombia-–-Teacher-education"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M310.1 186.6"
+            ></path>
+            <g id="datapoints__Colombia-–-Teacher-education">
+                <circle
+                    id="2020"
+                    cx="310.1"
+                    cy="186.6"
+                    r="1.8"
+                    fill="#286bbb"
+                    opacity="1"
+                ></circle>
             </g>
-        </g>
-        <text
-            x="16"
-            y="357.4125"
-            fill="#5b5b5b"
-            font-size="15.75"
-            style="font-weight: 700"
-        >
-            Malawi
-            <title>Malawi</title>
-        </text>
-        <g id="Malawi">
-            <line
-                id="vertical-zero-line"
-                x1="121.55"
-                y1="552.29"
-                x2="121.55"
-                y2="365.29"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <rect
-                    id="National-education-policies"
-                    x="0"
-                    y="0"
-                    transform="translate(121.8, 373.46875)"
-                    width="262"
-                    height="30.3875"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
-                <rect
-                    id="Student-assessment"
-                    x="0"
-                    y="0"
-                    transform="translate(121.8, 420.21875)"
-                    width="262"
-                    height="30.3875"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
-                <rect
-                    id="Education-curricula"
-                    x="0"
-                    y="0"
-                    transform="translate(121.8, 466.96875)"
-                    width="238.5"
-                    height="30.3875"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
-                <rect
-                    id="Teacher-education"
-                    x="0"
-                    y="0"
-                    transform="translate(121.8, 513.71875)"
-                    width="235.8"
-                    height="30.3875"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Bulgaria-–-Teacher-education"
+                stroke-width="2.5"
+                d="M310.1 235.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#c4523e"
+                id="line__Bulgaria-–-Teacher-education"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M310.1 235.4"
+            ></path>
+            <g id="datapoints__Bulgaria-–-Teacher-education">
+                <circle
+                    id="2020"
+                    cx="310.1"
+                    cy="235.4"
+                    r="1.8"
+                    fill="#c4523e"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="value-labels">
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(388.8, 388.6625)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    1
-                    <tspan fill="#999"></tspan>
-                </text>
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(388.8, 435.4125)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    1
-                    <tspan fill="#999"></tspan>
-                </text>
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(365.3, 482.1625)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    0.91
-                    <tspan fill="#999"></tspan>
-                </text>
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(362.6, 528.9125)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    0.9
-                    <tspan fill="#999"></tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Malawi-–-Education-curricula"
+                stroke-width="2.5"
+                d="M310.1 162.2"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#338711"
+                id="line__Malawi-–-Education-curricula"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M310.1 162.2"
+            ></path>
+            <g id="datapoints__Malawi-–-Education-curricula">
+                <circle
+                    id="2020"
+                    cx="310.1"
+                    cy="162.2"
+                    r="1.8"
+                    fill="#338711"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="entity-labels">
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="116.8"
-                    y="386.5"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="116.8" y="386.53625000000005">
-                        National education
-                    </tspan>
-                    <tspan x="116.8" y="399.53000000000003">policies</tspan>
-                </text>
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="116.8"
-                    y="433.3"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="116.8" y="433.28625000000005">Student</tspan>
-                    <tspan x="116.8" y="446.28000000000003">assessment</tspan>
-                </text>
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="116.8"
-                    y="480.0"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="116.8" y="480.03625000000005">Education</tspan>
-                    <tspan x="116.8" y="493.03000000000003">curricula</tspan>
-                </text>
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="116.8"
-                    y="533.3"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="116.8" y="533.2831249999999">
-                        Teacher education
-                    </tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India-–-Education-curricula"
+                stroke-width="2.5"
+                d="M310.1 158.1"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#970046"
+                id="line__India-–-Education-curricula"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M310.1 158.1"
+            ></path>
+            <g id="datapoints__India-–-Education-curricula">
+                <circle
+                    id="2020"
+                    cx="310.1"
+                    cy="158.1"
+                    r="1.8"
+                    fill="#970046"
+                    opacity="1"
+                ></circle>
             </g>
-        </g>
-        <text
-            x="433"
-            y="357.4125"
-            fill="#5b5b5b"
-            font-size="15.75"
-            style="font-weight: 700"
-        >
-            Bulgaria
-            <title>Bulgaria</title>
-        </text>
-        <g id="Bulgaria">
-            <line
-                id="vertical-zero-line"
-                x1="538.55"
-                y1="552.29"
-                x2="538.55"
-                y2="365.29"
-                stroke="#999"
-                stroke-width="0.5"
-            ></line>
-            <g id="bars">
-                <rect
-                    id="Teacher-education"
-                    x="0"
-                    y="0"
-                    transform="translate(538.8, 373.46875)"
-                    width="191.30000000000007"
-                    height="30.3875"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
-                <rect
-                    id="Student-assessment"
-                    x="0"
-                    y="0"
-                    transform="translate(538.8, 420.21875)"
-                    width="186.10000000000002"
-                    height="30.3875"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
-                <rect
-                    id="Education-curricula"
-                    x="0"
-                    y="0"
-                    transform="translate(538.8, 466.96875)"
-                    width="170.30000000000007"
-                    height="30.3875"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
-                <rect
-                    id="National-education-policies"
-                    x="0"
-                    y="0"
-                    transform="translate(538.8, 513.71875)"
-                    width="146.80000000000007"
-                    height="30.3875"
-                    fill="#4c6a9c"
-                    opacity="0.8"
-                    style="transition: height 200ms ease"
-                ></rect>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Colombia-–-Education-curricula"
+                stroke-width="2.5"
+                d="M310.1 174.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#008291"
+                id="line__Colombia-–-Education-curricula"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M310.1 174.4"
+            ></path>
+            <g id="datapoints__Colombia-–-Education-curricula">
+                <circle
+                    id="2020"
+                    cx="310.1"
+                    cy="174.4"
+                    r="1.8"
+                    fill="#008291"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="value-labels">
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(735.1, 388.6625)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    0.73
-                    <tspan fill="#999"></tspan>
-                </text>
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(729.9, 435.4125)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    0.71
-                    <tspan fill="#999"></tspan>
-                </text>
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(714.1, 482.1625)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    0.65
-                    <tspan fill="#999"></tspan>
-                </text>
-                <text
-                    x="0"
-                    y="0"
-                    transform="translate(690.6, 528.9125)"
-                    fill="#5b5b5b"
-                    dy=".32em"
-                    text-anchor="start"
-                    font-size="11.8125"
-                    font-weight="400"
-                >
-                    0.56
-                    <tspan fill="#999"></tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Bulgaria-–-Education-curricula"
+                stroke-width="2.5"
+                d="M310.1 268"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#9a5129"
+                id="line__Bulgaria-–-Education-curricula"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M310.1 268"
+            ></path>
+            <g id="datapoints__Bulgaria-–-Education-curricula">
+                <circle
+                    id="2020"
+                    cx="310.1"
+                    cy="268"
+                    r="1.8"
+                    fill="#9a5129"
+                    opacity="1"
+                ></circle>
             </g>
-            <g id="entity-labels">
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="533.8"
-                    y="393.0"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="533.8" y="393.03312500000004">
-                        Teacher education
-                    </tspan>
-                </text>
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="533.8"
-                    y="433.3"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="533.8" y="433.28625000000005">Student</tspan>
-                    <tspan x="533.8" y="446.28000000000003">assessment</tspan>
-                </text>
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="533.8"
-                    y="480.0"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="533.8" y="480.03625000000005">Education</tspan>
-                    <tspan x="533.8" y="493.03000000000003">curricula</tspan>
-                </text>
-                <text
-                    font-size="11.81"
-                    font-weight="700"
-                    x="533.8"
-                    y="526.8"
-                    fill="#555"
-                    text-anchor="end"
-                >
-                    <tspan x="533.8" y="526.78625">National education</tspan>
-                    <tspan x="533.8" y="539.78">policies</tspan>
-                </text>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Malawi-–-National-education-policies"
+                stroke-width="2.5"
+                d="M310.1 125.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#a2559c"
+                id="line__Malawi-–-National-education-policies"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M310.1 125.6"
+            ></path>
+            <g id="datapoints__Malawi-–-National-education-policies">
+                <circle
+                    id="2020"
+                    cx="310.1"
+                    cy="125.6"
+                    r="1.8"
+                    fill="#a2559c"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India-–-National-education-policies"
+                stroke-width="2.5"
+                d="M310.1 125.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#00295b"
+                id="line__India-–-National-education-policies"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M310.1 125.6"
+            ></path>
+            <g id="datapoints__India-–-National-education-policies">
+                <circle
+                    id="2020"
+                    cx="310.1"
+                    cy="125.6"
+                    r="1.8"
+                    fill="#00295b"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Colombia-–-National-education-policies"
+                stroke-width="2.5"
+                d="M310.1 125.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#883039"
+                id="line__Colombia-–-National-education-policies"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M310.1 125.6"
+            ></path>
+            <g id="datapoints__Colombia-–-National-education-policies">
+                <circle
+                    id="2020"
+                    cx="310.1"
+                    cy="125.6"
+                    r="1.8"
+                    fill="#883039"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Bulgaria-–-National-education-policies"
+                stroke-width="2.5"
+                d="M310.1 304.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__Bulgaria-–-National-education-policies"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M310.1 304.6"
+            ></path>
+            <g id="datapoints__Bulgaria-–-National-education-policies">
+                <circle
+                    id="2020"
+                    cx="310.1"
+                    cy="304.6"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Malawi-–-Student-assessment"
+                stroke-width="2.5"
+                d="M310.1 125.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__Malawi-–-Student-assessment"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M310.1 125.6"
+            ></path>
+            <g id="datapoints__Malawi-–-Student-assessment">
+                <circle
+                    id="2020"
+                    cx="310.1"
+                    cy="125.6"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__India-–-Student-assessment"
+                stroke-width="2.5"
+                d="M310.1 125.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__India-–-Student-assessment"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M310.1 125.6"
+            ></path>
+            <g id="datapoints__India-–-Student-assessment">
+                <circle
+                    id="2020"
+                    cx="310.1"
+                    cy="125.6"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Colombia-–-Student-assessment"
+                stroke-width="2.5"
+                d="M310.1 125.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Colombia-–-Student-assessment"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M310.1 125.6"
+            ></path>
+            <g id="datapoints__Colombia-–-Student-assessment">
+                <circle
+                    id="2020"
+                    cx="310.1"
+                    cy="125.6"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Bulgaria-–-Student-assessment"
+                stroke-width="2.5"
+                d="M310.1 243.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Bulgaria-–-Student-assessment"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M310.1 243.6"
+            ></path>
+            <g id="datapoints__Bulgaria-–-Student-assessment">
+                <circle
+                    id="2020"
+                    cx="310.1"
+                    cy="243.6"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
             </g>
         </g>
     </g>

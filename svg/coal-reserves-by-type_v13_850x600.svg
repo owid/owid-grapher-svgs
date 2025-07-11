@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -83,92 +72,298 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="189.95"
-            y1="552.40"
-            x2="189.95"
-            y2="140.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Anthracite-and-bituminous"
-                x="0"
-                y="0"
-                transform="translate(190.2, 176.08499999999998)"
-                width="546.3"
-                height="134.03"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Sub-bituminous-and-lignite"
-                x="0"
-                y="0"
-                transform="translate(190.2, 382.28499999999997)"
-                width="232.3"
-                height="134.03"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2020"
+                    x1="369.125"
+                    y1="531.9"
+                    x2="369.125"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="369.125"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2020
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(741.5, 243.09999999999997)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                753.64 billion t
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(427.5, 449.29999999999995)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                320.47 billion t
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="82.04"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0 t
+                </text>
+                <text
+                    x="82.04"
+                    y="484.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    100 billion t
+                </text>
+                <text
+                    x="82.04"
+                    y="435.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    200 billion t
+                </text>
+                <text
+                    x="82.04"
+                    y="387.5"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    300 billion t
+                </text>
+                <text
+                    x="82.04"
+                    y="339.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    400 billion t
+                </text>
+                <text
+                    x="82.04"
+                    y="290.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    500 billion t
+                </text>
+                <text
+                    x="82.04"
+                    y="242.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    600 billion t
+                </text>
+                <text
+                    x="82.04"
+                    y="194.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    700 billion t
+                </text>
+                <text
+                    x="82.04"
+                    y="146"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    800 billion t
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="185.2"
-                y="248.1"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="185.2" y="248.09499999999997">
-                    Anthracite and bituminous
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="185.2"
-                y="454.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="185.2" y="454.29499999999996">
-                    Sub-bituminous and lignite
-                </tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-t"
+                x1="87.04"
+                y1="532.4"
+                x2="651.21"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="100-billion-t"
+                x1="87.04"
+                y1="484.1"
+                x2="651.21"
+                y2="484.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="200-billion-t"
+                x1="87.04"
+                y1="435.8"
+                x2="651.21"
+                y2="435.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="300-billion-t"
+                x1="87.04"
+                y1="387.5"
+                x2="651.21"
+                y2="387.5"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="400-billion-t"
+                x1="87.04"
+                y1="339.2"
+                x2="651.21"
+                y2="339.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="500-billion-t"
+                x1="87.04"
+                y1="290.9"
+                x2="651.21"
+                y2="290.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="600-billion-t"
+                x1="87.04"
+                y1="242.6"
+                x2="651.21"
+                y2="242.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="700-billion-t"
+                x1="87.04"
+                y1="194.3"
+                x2="651.21"
+                y2="194.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="800-billion-t"
+                x1="87.04"
+                y1="146"
+                x2="651.21"
+                y2="146"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Anthracite-and-bituminous"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="655.2"
+                    y="173.2"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="655.21" y="173.21">
+                        Anthracite and bituminous
+                    </tspan>
+                </text>
+                <text
+                    id="label__Sub-bituminous-and-lignite"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="655.2"
+                    y="382.4"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="655.21" y="382.41">
+                        Sub-bituminous and lignite
+                    </tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Sub-bituminous-and-lignite"
+                stroke-width="2.5"
+                d="M369.1 377.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Sub-bituminous-and-lignite"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M369.1 377.6"
+            ></path>
+            <g id="datapoints__Sub-bituminous-and-lignite">
+                <circle
+                    id="2020"
+                    cx="369.1"
+                    cy="377.6"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Anthracite-and-bituminous"
+                stroke-width="2.5"
+                d="M369.1 168.4"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Anthracite-and-bituminous"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M369.1 168.4"
+            ></path>
+            <g id="datapoints__Anthracite-and-bituminous">
+                <circle
+                    id="2020"
+                    cx="369.1"
+                    cy="168.4"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

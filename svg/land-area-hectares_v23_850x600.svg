@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -81,156 +70,319 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="102.15"
-            y1="552.40"
-            x2="102.15"
-            y2="140.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="China"
-                x="0"
-                y="0"
-                transform="translate(102.4, 158.0425)"
-                width="619.1"
-                height="67.015"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="United-States"
-                x="0"
-                y="0"
-                transform="translate(102.4, 261.1425)"
-                width="603.3000000000001"
-                height="67.015"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Norway"
-                x="0"
-                y="0"
-                transform="translate(102.4, 364.2425)"
-                width="24"
-                height="67.015"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Kyrgyzstan"
-                x="0"
-                y="0"
-                transform="translate(102.4, 467.3424999999999)"
-                width="12.599999999999994"
-                height="67.015"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2022"
+                    x1="414.04"
+                    y1="531.9"
+                    x2="414.04"
+                    y2="537.4"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="414.04"
+                    y="550.4"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2022
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(726.5, 191.54999999999998)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                938.82 million ha
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(710.7, 294.65)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                914.74 million ha
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(131.4, 397.75)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                36.43 million ha
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(120, 500.8499999999999)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                19.18 million ha
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="96.47"
+                    y="532.4"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0 ha
+                </text>
+                <text
+                    x="96.47"
+                    y="455.1"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    200 million ha
+                </text>
+                <text
+                    x="96.47"
+                    y="377.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    400 million ha
+                </text>
+                <text
+                    x="96.47"
+                    y="300.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    600 million ha
+                </text>
+                <text
+                    x="96.47"
+                    y="223.3"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    800 million ha
+                </text>
+                <text
+                    x="96.47"
+                    y="146"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1 billion ha
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="97.4"
-                y="196.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="97.4" y="196.54499999999996">China</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="97.4"
-                y="299.6"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="97.4" y="299.645">United States</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="97.4"
-                y="402.7"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="97.4" y="402.745">Norway</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="97.4"
-                y="505.8"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="97.4" y="505.8449999999999">Kyrgyzstan</tspan>
-            </text>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0-ha"
+                x1="101.47"
+                y1="532.4"
+                x2="726.61"
+                y2="532.4"
+                stroke="#999"
+            ></line>
+            <line
+                id="200-million-ha"
+                x1="101.47"
+                y1="455.1"
+                x2="726.61"
+                y2="455.1"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="400-million-ha"
+                x1="101.47"
+                y1="377.8"
+                x2="726.61"
+                y2="377.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="600-million-ha"
+                x1="101.47"
+                y1="300.6"
+                x2="726.61"
+                y2="300.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="800-million-ha"
+                x1="101.47"
+                y1="223.3"
+                x2="726.61"
+                y2="223.3"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="1-billion-ha"
+                x1="101.47"
+                y1="146"
+                x2="726.61"
+                y2="146"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__China"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="730.6"
+                    y="169.9"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="730.61" y="169.91">China</tspan>
+                </text>
+                <text
+                    id="label__United-States"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="730.6"
+                    y="188.2"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="730.61" y="188.21">United States</tspan>
+                </text>
+                <text
+                    id="label__Norway"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="730.6"
+                    y="517.3"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="730.61" y="517.3100000000001">Norway</tspan>
+                </text>
+                <text
+                    id="label__Kyrgyzstan"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="730.6"
+                    y="535.6"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="730.61" y="535.61">Kyrgyzstan</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__United-States"
+                stroke-width="2.5"
+                d="M414 178.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__United-States"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M414 178.9"
+            ></path>
+            <g id="datapoints__United-States">
+                <circle
+                    id="2022"
+                    cx="414"
+                    cy="178.9"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Norway"
+                stroke-width="2.5"
+                d="M414 518.3"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Norway"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M414 518.3"
+            ></path>
+            <g id="datapoints__Norway">
+                <circle
+                    id="2022"
+                    cx="414"
+                    cy="518.3"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Kyrgyzstan"
+                stroke-width="2.5"
+                d="M414 525"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__Kyrgyzstan"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M414 525"
+            ></path>
+            <g id="datapoints__Kyrgyzstan">
+                <circle
+                    id="2022"
+                    cx="414"
+                    cy="525"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__China"
+                stroke-width="2.5"
+                d="M414 169.6"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__China"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M414 169.6"
+            ></path>
+            <g id="datapoints__China">
+                <circle
+                    id="2022"
+                    cx="414"
+                    cy="169.6"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">

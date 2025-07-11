@@ -11,17 +11,6 @@
             @import url(https://ourworldindata.org/fonts.css);
         </style>
     </defs>
-    <defs>
-        <pattern
-            id="noDataPattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-            patternTransform="rotate(-45 2 2)"
-        >
-            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
-        </pattern>
-    </defs>
     <g id="header" class="HeaderView">
         <g id="logo" transform="translate(769, 16) scale(1)">
             <svg
@@ -74,195 +63,371 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="222.75"
-            y1="516.70"
-            x2="222.75"
-            y2="86.00"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Ancient-Mexico"
-                x="0"
-                y="0"
-                transform="translate(223, 101.07449999999999)"
-                width="562.3"
-                height="55.99100000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="France;-1800---1899-CE"
-                x="0"
-                y="0"
-                transform="translate(223, 187.2145)"
-                width="337.29999999999995"
-                height="55.99100000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Western-Europe;-1600---1699-CE"
-                x="0"
-                y="0"
-                transform="translate(223, 273.35450000000003)"
-                width="224.89999999999998"
-                height="55.99100000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="US-and-Europe;-1900---1960-CE"
-                x="0"
-                y="0"
-                transform="translate(223, 359.4945)"
-                width="112.39999999999998"
-                height="55.99100000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="World-(battle-and-one-sided-violence-deaths);-2007"
-                x="0"
-                y="0"
-                transform="translate(223, 445.6345)"
-                width="4.5"
-                height="55.99100000000001"
-                fill="#4c6a9c"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="tick-marks">
+                <line
+                    id="2019"
+                    x1="316.54"
+                    y1="496.2"
+                    x2="316.54"
+                    y2="501.7"
+                    stroke="#999"
+                    stroke-width="1"
+                ></line>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="316.54"
+                    y="514.7"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="13"
+                >
+                    2019
+                </text>
+            </g>
         </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(790.3, 129.07)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                5%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(565.3, 215.20999999999998)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                3%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(452.9, 301.35)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                2%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(340.4, 387.49)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1%
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(232.5, 473.63)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                font-size="13.5"
-                font-weight="400"
-            >
-                &lt;0.1%
-                <tspan fill="#999"></tspan>
-            </text>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="tick-labels">
+                <text
+                    x="34.85"
+                    y="496.7"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    0%
+                </text>
+                <text
+                    x="34.85"
+                    y="415.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    1%
+                </text>
+                <text
+                    x="34.85"
+                    y="334.8"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    2%
+                </text>
+                <text
+                    x="34.85"
+                    y="253.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    3%
+                </text>
+                <text
+                    x="34.85"
+                    y="172.9"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    4%
+                </text>
+                <text
+                    x="34.85"
+                    y="92"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="13"
+                >
+                    5%
+                </text>
+            </g>
         </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="218.0"
-                y="134.1"
-                fill="#555"
-                text-anchor="end"
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="0%"
+                x1="39.85"
+                y1="496.7"
+                x2="593.23"
+                y2="496.7"
+                stroke="#999"
+            ></line>
+            <line
+                id="1%"
+                x1="39.85"
+                y1="415.8"
+                x2="593.23"
+                y2="415.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="2%"
+                x1="39.85"
+                y1="334.8"
+                x2="593.23"
+                y2="334.8"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="3%"
+                x1="39.85"
+                y1="253.9"
+                x2="593.23"
+                y2="253.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="4%"
+                x1="39.85"
+                y1="172.9"
+                x2="593.23"
+                y2="172.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="5%"
+                x1="39.85"
+                y1="92"
+                x2="593.23"
+                y2="92"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="line-labels" class="LineLabels">
+            <g id="text-annotations"></g>
+            <g id="text-labels">
+                <text
+                    id="label__Ancient-Mexico"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.2"
+                    y="98.0"
+                    fill="#4c6a9c"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.23" y="97.96000000000001">
+                        Ancient Mexico
+                    </tspan>
+                </text>
+                <text
+                    id="label__France;-1800---1899-CE"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.2"
+                    y="258.7"
+                    fill="#b13507"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.23" y="258.71">France; 1800 - 1899 CE</tspan>
+                </text>
+                <text
+                    id="label__Western-Europe;-1600---1699-CE"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.2"
+                    y="339.6"
+                    fill="#996d39"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.23" y="339.61">
+                        Western Europe; 1600 - 1699 CE
+                    </tspan>
+                </text>
+                <text
+                    id="label__US-and-Europe;-1900---1960-CE"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.2"
+                    y="420.6"
+                    fill="#2c8465"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.23" y="420.61">
+                        US and Europe; 1900 - 1960 CE
+                    </tspan>
+                </text>
+                <text
+                    id="label__World-(battle-and-one-sided-violence-deaths);-2007"
+                    font-size="13.00"
+                    font-weight="400"
+                    x="597.2"
+                    y="498.3"
+                    fill="#6d3e91"
+                    opacity="1"
+                    text-anchor="start"
+                >
+                    <tspan x="597.23" y="498.31">
+                        World (battle and one-sided violence
+                    </tspan>
+                    <tspan x="597.23" y="512.61">deaths); 2007</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="lines">
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__World-(battle-and-one-sided-violence-deaths);-2007"
+                stroke-width="2.5"
+                d="M316.5 493.5"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#6d3e91"
+                id="line__World-(battle-and-one-sided-violence-deaths);-2007"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316.5 493.5"
+            ></path>
+            <g
+                id="datapoints__World-(battle-and-one-sided-violence-deaths);-2007"
             >
-                <tspan x="218" y="134.065">Ancient Mexico</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="218.0"
-                y="220.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="218" y="220.20499999999998">
-                    France; 1800 - 1899 CE
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="218.0"
-                y="306.3"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="218" y="306.345">
-                    Western Europe; 1600 - 1699 CE
-                </tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="218.0"
-                y="392.5"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="218" y="392.485">US and Europe; 1900 - 1960 CE</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="218.0"
-                y="471.2"
-                fill="#555"
-                text-anchor="end"
-            >
-                <tspan x="218" y="471.2">World (battle and one-sided</tspan>
-                <tspan x="218" y="486.05">violence deaths); 2007</tspan>
-            </text>
+                <circle
+                    id="2019"
+                    cx="316.5"
+                    cy="493.5"
+                    r="1.8"
+                    fill="#6d3e91"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__US-and-Europe;-1900---1960-CE"
+                stroke-width="2.5"
+                d="M316.5 415.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#2c8465"
+                id="line__US-and-Europe;-1900---1960-CE"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316.5 415.8"
+            ></path>
+            <g id="datapoints__US-and-Europe;-1900---1960-CE">
+                <circle
+                    id="2019"
+                    cx="316.5"
+                    cy="415.8"
+                    r="1.8"
+                    fill="#2c8465"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Western-Europe;-1600---1699-CE"
+                stroke-width="2.5"
+                d="M316.5 334.8"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#996d39"
+                id="line__Western-Europe;-1600---1699-CE"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316.5 334.8"
+            ></path>
+            <g id="datapoints__Western-Europe;-1600---1699-CE">
+                <circle
+                    id="2019"
+                    cx="316.5"
+                    cy="334.8"
+                    r="1.8"
+                    fill="#996d39"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__France;-1800---1899-CE"
+                stroke-width="2.5"
+                d="M316.5 253.9"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#b13507"
+                id="line__France;-1800---1899-CE"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316.5 253.9"
+            ></path>
+            <g id="datapoints__France;-1800---1899-CE">
+                <circle
+                    id="2019"
+                    cx="316.5"
+                    cy="253.9"
+                    r="1.8"
+                    fill="#b13507"
+                    opacity="1"
+                ></circle>
+            </g>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#ffffff"
+                id="outline__Ancient-Mexico"
+                stroke-width="2.5"
+                d="M316.5 92"
+            ></path>
+            <path
+                fill="none"
+                stroke-linecap="butt"
+                stroke-linejoin="round"
+                stroke="#4c6a9c"
+                id="line__Ancient-Mexico"
+                stroke-width="1.5"
+                stroke-opacity="1"
+                d="M316.5 92"
+            ></path>
+            <g id="datapoints__Ancient-Mexico">
+                <circle
+                    id="2019"
+                    cx="316.5"
+                    cy="92"
+                    r="1.8"
+                    fill="#4c6a9c"
+                    opacity="1"
+                ></circle>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">
