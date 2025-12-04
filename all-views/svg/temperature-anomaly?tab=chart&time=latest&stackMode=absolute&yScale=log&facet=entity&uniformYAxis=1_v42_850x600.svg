@@ -42,7 +42,7 @@
         </g>
         <a
             id="title"
-            href="https://ourworldindata.org/grapher/temperature-anomaly?tab=discrete-bar&amp;yScale=log&amp;time=latest&amp;facet=entity"
+            href="https://ourworldindata.org/grapher/temperature-anomaly?yScale=log&amp;time=latest&amp;facet=entity"
             style="font-family:&#x27;Playfair Display&#x27;, Georgia, &#x27;Times New Roman&#x27;, &#x27;Liberation Serif&#x27;, serif"
         >
             <text
@@ -56,7 +56,7 @@
                     Annual temperature anomalies relative to the pre-industrial
                     period,
                 </tspan>
-                <tspan x="16" y="62.655">World, 2025</tspan>
+                <tspan x="16" y="62.655">World</tspan>
             </text>
         </a>
         <g id="subtitle" class="markdown-text-wrap">
@@ -74,128 +74,185 @@
         </g>
     </g>
     <g id="chart-area" style="pointer-events: none">
-        <line
-            id="vertical-zero-line"
-            x1="100.55"
-            y1="516.70"
-            x2="100.55"
-            y2="107.60"
-            stroke="#999"
-            stroke-width="0.5"
-        ></line>
-        <g id="bars">
-            <rect
-                id="Upper-bound"
-                x="0"
-                y="0"
-                transform="translate(100.8, 131.46416666666664)"
-                width="676.5"
-                height="88.63833333333332"
-                fill="#c8c8c8"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Average"
-                x="0"
-                y="0"
-                transform="translate(100.8, 267.8308333333333)"
-                width="619.8000000000001"
-                height="88.63833333333332"
-                fill="#ca2628"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-            <rect
-                id="Lower-bound"
-                x="0"
-                y="0"
-                transform="translate(100.8, 404.19749999999993)"
-                width="563"
-                height="88.63833333333332"
-                fill="#c8c8c8"
-                opacity="0.8"
-                style="transition: height 200ms ease"
-            ></rect>
-        </g>
-        <g id="value-labels">
-            <text
-                x="0"
-                y="0"
-                transform="translate(782.3, 175.7833333333333)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                opacity="1"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1.69 °C
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(725.6, 312.15)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                opacity="1"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1.55 °C
-                <tspan fill="#999"></tspan>
-            </text>
-            <text
-                x="0"
-                y="0"
-                transform="translate(668.8, 448.5166666666666)"
-                fill="#5b5b5b"
-                dy=".32em"
-                text-anchor="start"
-                opacity="1"
-                font-size="13.5"
-                font-weight="400"
-            >
-                1.41 °C
-                <tspan fill="#999"></tspan>
-            </text>
-        </g>
-        <g id="entity-labels">
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="95.8"
-                y="180.8"
-                fill="#555"
-                text-anchor="end"
-                opacity="1"
-            >
-                <tspan x="95.8" y="180.7783333333333">Upper bound</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="95.8"
-                y="317.1"
-                fill="#555"
-                text-anchor="end"
-                opacity="1"
-            >
-                <tspan x="95.8" y="317.145">Average</tspan>
-            </text>
-            <text
-                font-size="13.50"
-                font-weight="700"
-                x="95.8"
-                y="453.5"
-                fill="#555"
-                text-anchor="end"
-                opacity="1"
-            >
-                <tspan x="95.8" y="453.5116666666666">Lower bound</tspan>
-            </text>
+        <g>
+            <g id="horizontal-axis" class="HorizontalAxis">
+                <g id="tick-marks">
+                    <line
+                        id="2025"
+                        x1="397.725"
+                        y1="496.2"
+                        x2="397.725"
+                        y2="501.7"
+                        stroke="#999"
+                        stroke-width="1"
+                    ></line>
+                </g>
+                <g id="tick-labels">
+                    <text
+                        x="397.725"
+                        y="514.6999999999999"
+                        fill="#5b5b5b"
+                        text-anchor="middle"
+                        font-size="13"
+                    >
+                        2025
+                    </text>
+                </g>
+            </g>
+            <g id="vertical-axis" class="VerticalAxis">
+                <g id="vertical-axis-log-notice" class="markdown-text-wrap">
+                    <text
+                        x="61.0"
+                        y="118.6"
+                        style="font-size: 12px; line-height: 1.1"
+                        fill="#5b5b5b"
+                        text-anchor="end"
+                        font-style="italic"
+                    >
+                        <tspan x="60.980000000000004" y="118.6">log axis</tspan>
+                    </text>
+                </g>
+                <g id="tick-labels">
+                    <text
+                        x="60.98"
+                        y="442.1"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="13"
+                    >
+                        1.45 °C
+                    </text>
+                    <text
+                        x="60.98"
+                        y="375"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="13"
+                    >
+                        1.5 °C
+                    </text>
+                    <text
+                        x="60.98"
+                        y="310.2"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="13"
+                    >
+                        1.55 °C
+                    </text>
+                    <text
+                        x="60.98"
+                        y="247.5"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="13"
+                    >
+                        1.6 °C
+                    </text>
+                    <text
+                        x="60.98"
+                        y="186.6"
+                        dy=".32em"
+                        text-anchor="end"
+                        fill="#5b5b5b"
+                        font-size="13"
+                    >
+                        1.65 °C
+                    </text>
+                </g>
+            </g>
+            <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+                <line
+                    id="1.45-°C"
+                    x1="65.98"
+                    y1="442.1"
+                    x2="729.47"
+                    y2="442.1"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1.5-°C"
+                    x1="65.98"
+                    y1="375"
+                    x2="729.47"
+                    y2="375"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1.55-°C"
+                    x1="65.98"
+                    y1="310.2"
+                    x2="729.47"
+                    y2="310.2"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1.6-°C"
+                    x1="65.98"
+                    y1="247.5"
+                    x2="729.47"
+                    y2="247.5"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+                <line
+                    id="1.65-°C"
+                    x1="65.98"
+                    y1="186.6"
+                    x2="729.47"
+                    y2="186.6"
+                    stroke="#ddd"
+                    stroke-dasharray="4,4"
+                ></line>
+            </g>
+            <g class="no-data">
+                <rect
+                    x="65.98"
+                    y="133.8"
+                    width="663.49"
+                    height="362.9"
+                    fill="#fff"
+                    opacity="0.6"
+                ></rect>
+                <text
+                    x="397.725"
+                    y="315.25"
+                    dy=".32em"
+                    text-anchor="middle"
+                    font-size="16"
+                    font-weight="500"
+                    fill="#5b5b5b"
+                    id="no-data-message"
+                    style="
+                        fill: #fff;
+                        stroke: #fff;
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                        user-select: none;
+                        stroke-width: 4;
+                    "
+                >
+                    Two time points needed
+                </text>
+                <text
+                    x="397.725"
+                    y="315.25"
+                    dy=".32em"
+                    text-anchor="middle"
+                    font-size="16"
+                    font-weight="500"
+                    fill="#5b5b5b"
+                >
+                    Two time points needed
+                </text>
+            </g>
         </g>
     </g>
     <g id="footer" class="SourcesFooter" style="fill: #858585">
