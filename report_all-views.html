@@ -1,0 +1,2558 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        /* Tab content */
+        .tab-content {
+            min-height: 400px;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: 800px;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 100%;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="summary">Number of differences: 32</p><section data-slug="children-per-woman-fertility-rate-vs-level-of-prosperity">
+        <div class="header-with-actions">
+            <h2>children-per-woman-fertility-rate-vs-level-of-prosperity?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="children-per-woman-fertility-rate-vs-level-of-prosperity" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/children-per-woman-fertility-rate-vs-level-of-prosperity?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/children-per-woman-fertility-rate-vs-level-of-prosperity%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v40_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/children-per-woman-fertility-rate-vs-level-of-prosperity?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/children-per-woman-fertility-rate-vs-level-of-prosperity%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v40_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/children-per-woman-fertility-rate-vs-level-of-prosperity%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v40_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/children-per-woman-fertility-rate-vs-level-of-prosperity%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v40_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: children-per-woman-fertility-rate-vs-level-of-prosperity?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v40_850x600.svg
+===================================================================
+--- children-per-woman-fertility-rate-vs-level-of-prosperity?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v40_850x600.svg	
++++ children-per-woman-fertility-rate-vs-level-of-prosperity?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v40_850x600.svg	
+@@ -1168,9 +1168,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;544.00,387.00 546.00,383.00 548.00,387.00&quot;
+-                        transform=&quot;rotate(113.61860476263253, 546.00, 385.00)&quot;
++                        transform=&quot;rotate(113.61860476263254, 546.00, 385.00)&quot;
+                         cx=&quot;546&quot;
+                         cy=&quot;385&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#e56e5a&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="children-per-woman-fertility-rate-vs-level-of-prosperity">
+        <div class="header-with-actions">
+            <h2>children-per-woman-fertility-rate-vs-level-of-prosperity?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="children-per-woman-fertility-rate-vs-level-of-prosperity" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/children-per-woman-fertility-rate-vs-level-of-prosperity?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/children-per-woman-fertility-rate-vs-level-of-prosperity%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v40_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/children-per-woman-fertility-rate-vs-level-of-prosperity?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/children-per-woman-fertility-rate-vs-level-of-prosperity%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v40_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/children-per-woman-fertility-rate-vs-level-of-prosperity%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v40_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/children-per-woman-fertility-rate-vs-level-of-prosperity%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v40_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: children-per-woman-fertility-rate-vs-level-of-prosperity?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v40_850x600.svg
+===================================================================
+--- children-per-woman-fertility-rate-vs-level-of-prosperity?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v40_850x600.svg	
++++ children-per-woman-fertility-rate-vs-level-of-prosperity?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v40_850x600.svg	
+@@ -2200,9 +2200,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;144.00,434.00 146.00,430.00 148.00,434.00&quot;
+-                        transform=&quot;rotate(142.84469731346903, 146.00, 432.00)&quot;
++                        transform=&quot;rotate(142.84469731346906, 146.00, 432.00)&quot;
+                         cx=&quot;146&quot;
+                         cy=&quot;432&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#00847e&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="co2-emissions-vs-gdp">
+        <div class="header-with-actions">
+            <h2>co2-emissions-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="co2-emissions-vs-gdp" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/co2-emissions-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/co2-emissions-vs-gdp%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v67_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/co2-emissions-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/co2-emissions-vs-gdp%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v67_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/co2-emissions-vs-gdp%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v67_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/co2-emissions-vs-gdp%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v67_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: co2-emissions-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v67_850x600.svg
+===================================================================
+--- co2-emissions-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v67_850x600.svg	
++++ co2-emissions-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v67_850x600.svg	
+@@ -2331,9 +2331,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;64.00,446.00 66.00,442.00 68.00,446.00&quot;
+-                        transform=&quot;rotate(59.03624396963517, 66.00, 444.00)&quot;
++                        transform=&quot;rotate(59.03624396963516, 66.00, 444.00)&quot;
+                         cx=&quot;66&quot;
+                         cy=&quot;444&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#a2559c&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="co2-emissions-vs-gdp">
+        <div class="header-with-actions">
+            <h2>co2-emissions-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="co2-emissions-vs-gdp" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/co2-emissions-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/co2-emissions-vs-gdp%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v67_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/co2-emissions-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/co2-emissions-vs-gdp%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v67_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/co2-emissions-vs-gdp%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v67_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/co2-emissions-vs-gdp%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v67_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: co2-emissions-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v67_850x600.svg
+===================================================================
+--- co2-emissions-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v67_850x600.svg	
++++ co2-emissions-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v67_850x600.svg	
+@@ -427,9 +427,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;381.50,204.50 385.00,197.50 388.50,204.50&quot;
+-                        transform=&quot;rotate(55.98470023004154, 385.00, 201.00)&quot;
++                        transform=&quot;rotate(55.98470023004153, 385.00, 201.00)&quot;
+                         cx=&quot;385&quot;
+                         cy=&quot;201&quot;
+                         r=&quot;3.5&quot;
+                         fill=&quot;#38aaba&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="food-expenditure-share-gdp">
+        <div class="header-with-actions">
+            <h2>food-expenditure-share-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="food-expenditure-share-gdp" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/food-expenditure-share-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/food-expenditure-share-gdp%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v30_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/food-expenditure-share-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/food-expenditure-share-gdp%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v30_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/food-expenditure-share-gdp%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v30_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/food-expenditure-share-gdp%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v30_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: food-expenditure-share-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v30_850x600.svg
+===================================================================
+--- food-expenditure-share-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v30_850x600.svg	
++++ food-expenditure-share-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v30_850x600.svg	
+@@ -1206,9 +1206,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;71.50,237.50 74.00,232.50 76.50,237.50&quot;
+-                        transform=&quot;rotate(40.23635865121514, 74.00, 235.00)&quot;
++                        transform=&quot;rotate(40.23635865121515, 74.00, 235.00)&quot;
+                         cx=&quot;74&quot;
+                         cy=&quot;235&quot;
+                         r=&quot;2.5&quot;
+                         fill=&quot;#4c6a9c&quot;
+@@ -2649,9 +2649,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;264.50,363.50 267.00,358.50 269.50,363.50&quot;
+-                        transform=&quot;rotate(62.94940352787785, 267.00, 361.00)&quot;
++                        transform=&quot;rotate(62.949403527877834, 267.00, 361.00)&quot;
+                         cx=&quot;267&quot;
+                         cy=&quot;361&quot;
+                         r=&quot;2.5&quot;
+                         fill=&quot;#38aaba&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="gdp-vs-happiness">
+        <div class="header-with-actions">
+            <h2>gdp-vs-happiness?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="gdp-vs-happiness" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/gdp-vs-happiness?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/gdp-vs-happiness%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v51_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/gdp-vs-happiness?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/gdp-vs-happiness%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v51_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/gdp-vs-happiness%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v51_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/gdp-vs-happiness%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v51_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: gdp-vs-happiness?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v51_850x600.svg
+===================================================================
+--- gdp-vs-happiness?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v51_850x600.svg	
++++ gdp-vs-happiness?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v51_850x600.svg	
+@@ -1525,9 +1525,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;565.50,164.50 568.00,159.50 570.50,164.50&quot;
+-                        transform=&quot;rotate(59.03624396963517, 568.00, 162.00)&quot;
++                        transform=&quot;rotate(59.03624396963516, 568.00, 162.00)&quot;
+                         cx=&quot;568&quot;
+                         cy=&quot;162&quot;
+                         r=&quot;2.5&quot;
+                         fill=&quot;#e56e5a&quot;
+@@ -2191,9 +2191,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;301.50,193.50 304.00,188.50 306.50,193.50&quot;
+-                        transform=&quot;rotate(59.03624396963517, 304.00, 191.00)&quot;
++                        transform=&quot;rotate(59.03624396963516, 304.00, 191.00)&quot;
+                         cx=&quot;304&quot;
+                         cy=&quot;191&quot;
+                         r=&quot;2.5&quot;
+                         fill=&quot;#a2559c&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="gini-coefficient-vs-gdp-per-capita-pip">
+        <div class="header-with-actions">
+            <h2>gini-coefficient-vs-gdp-per-capita-pip?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="gini-coefficient-vs-gdp-per-capita-pip" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/gini-coefficient-vs-gdp-per-capita-pip?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/gini-coefficient-vs-gdp-per-capita-pip%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v84_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/gini-coefficient-vs-gdp-per-capita-pip?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/gini-coefficient-vs-gdp-per-capita-pip%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v84_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/gini-coefficient-vs-gdp-per-capita-pip%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v84_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/gini-coefficient-vs-gdp-per-capita-pip%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v84_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: gini-coefficient-vs-gdp-per-capita-pip?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v84_850x600.svg
+===================================================================
+--- gini-coefficient-vs-gdp-per-capita-pip?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v84_850x600.svg	
++++ gini-coefficient-vs-gdp-per-capita-pip?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v84_850x600.svg	
+@@ -2986,9 +2986,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;443.00,183.00 445.00,179.00 447.00,183.00&quot;
+-                        transform=&quot;rotate(62.94940352787785, 445.00, 181.00)&quot;
++                        transform=&quot;rotate(62.949403527877834, 445.00, 181.00)&quot;
+                         cx=&quot;445&quot;
+                         cy=&quot;181&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#4c6a9c&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="gini-coefficient-vs-gdp-per-capita-pip">
+        <div class="header-with-actions">
+            <h2>gini-coefficient-vs-gdp-per-capita-pip?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="gini-coefficient-vs-gdp-per-capita-pip" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/gini-coefficient-vs-gdp-per-capita-pip?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/gini-coefficient-vs-gdp-per-capita-pip%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v84_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/gini-coefficient-vs-gdp-per-capita-pip?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/gini-coefficient-vs-gdp-per-capita-pip%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v84_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/gini-coefficient-vs-gdp-per-capita-pip%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v84_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/gini-coefficient-vs-gdp-per-capita-pip%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v84_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: gini-coefficient-vs-gdp-per-capita-pip?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v84_850x600.svg
+===================================================================
+--- gini-coefficient-vs-gdp-per-capita-pip?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v84_850x600.svg	
++++ gini-coefficient-vs-gdp-per-capita-pip?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v84_850x600.svg	
+@@ -579,9 +579,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;74.81,346.19 77.00,341.81 79.19,346.19&quot;
+-                        transform=&quot;rotate(59.03624396963517, 77.00, 344.00)&quot;
++                        transform=&quot;rotate(59.03624396963516, 77.00, 344.00)&quot;
+                         cx=&quot;77&quot;
+                         cy=&quot;344&quot;
+                         r=&quot;2.1906059254459143&quot;
+                         fill=&quot;#38aaba&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="human-development-index-vs-gdp-per-capita">
+        <div class="header-with-actions">
+            <h2>human-development-index-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="human-development-index-vs-gdp-per-capita" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/human-development-index-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/human-development-index-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v24_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/human-development-index-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/human-development-index-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v24_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/human-development-index-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v24_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/human-development-index-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v24_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: human-development-index-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v24_850x600.svg
+===================================================================
+--- human-development-index-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v24_850x600.svg	
++++ human-development-index-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v24_850x600.svg	
+@@ -3104,9 +3104,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;457.00,246.00 459.00,242.00 461.00,246.00&quot;
+-                        transform=&quot;rotate(59.647375779265275, 459.00, 244.00)&quot;
++                        transform=&quot;rotate(59.64737577926529, 459.00, 244.00)&quot;
+                         cx=&quot;459&quot;
+                         cy=&quot;244&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#38aaba&quot;
+@@ -3710,9 +3710,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;502.00,245.00 504.00,241.00 506.00,245.00&quot;
+-                        transform=&quot;rotate(53.61564863980688, 504.00, 243.00)&quot;
++                        transform=&quot;rotate(53.61564863980687, 504.00, 243.00)&quot;
+                         cx=&quot;504&quot;
+                         cy=&quot;243&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#a2559c&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="human-development-index-vs-gdp-per-capita">
+        <div class="header-with-actions">
+            <h2>human-development-index-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="human-development-index-vs-gdp-per-capita" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/human-development-index-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/human-development-index-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v24_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/human-development-index-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/human-development-index-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v24_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/human-development-index-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v24_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/human-development-index-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v24_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: human-development-index-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v24_850x600.svg
+===================================================================
+--- human-development-index-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v24_850x600.svg	
++++ human-development-index-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v24_850x600.svg	
+@@ -727,9 +727,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;236.90,293.10 239.00,288.90 241.10,293.10&quot;
+-                        transform=&quot;rotate(53.61564863980688, 239.00, 291.00)&quot;
++                        transform=&quot;rotate(53.61564863980687, 239.00, 291.00)&quot;
+                         cx=&quot;239&quot;
+                         cy=&quot;291&quot;
+                         r=&quot;2.0982949040964853&quot;
+                         fill=&quot;#4c6a9c&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="improved-water-sources-vs-gdp-per-capita">
+        <div class="header-with-actions">
+            <h2>improved-water-sources-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="improved-water-sources-vs-gdp-per-capita" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/improved-water-sources-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/improved-water-sources-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v28_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/improved-water-sources-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/improved-water-sources-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v28_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/improved-water-sources-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v28_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/improved-water-sources-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v28_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: improved-water-sources-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v28_850x600.svg
+===================================================================
+--- improved-water-sources-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v28_850x600.svg	
++++ improved-water-sources-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v28_850x600.svg	
+@@ -5366,9 +5366,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;141.50,153.50 144.00,148.50 146.50,153.50&quot;
+-                        transform=&quot;rotate(30.579227132360963, 144.00, 151.00)&quot;
++                        transform=&quot;rotate(30.57922713236097, 144.00, 151.00)&quot;
+                         cx=&quot;144&quot;
+                         cy=&quot;151&quot;
+                         r=&quot;2.5&quot;
+                         fill=&quot;#00847e&quot;
+@@ -6068,9 +6068,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;149.50,162.50 152.00,157.50 154.50,162.50&quot;
+-                        transform=&quot;rotate(53.61564863980688, 152.00, 160.00)&quot;
++                        transform=&quot;rotate(53.61564863980687, 152.00, 160.00)&quot;
+                         cx=&quot;152&quot;
+                         cy=&quot;160&quot;
+                         r=&quot;2.5&quot;
+                         fill=&quot;#6e7581&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-of-women-vs-life-expectancy-of-men">
+        <div class="header-with-actions">
+            <h2>life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-of-women-vs-life-expectancy-of-men" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0_v36_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0_v36_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0_v36_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0_v36_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0_v36_850x600.svg
+===================================================================
+--- life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0_v36_850x600.svg	
++++ life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0_v36_850x600.svg	
+@@ -5049,9 +5049,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;627.00,156.00 629.00,152.00 631.00,156.00&quot;
+-                        transform=&quot;rotate(59.03624396963517, 629.00, 154.00)&quot;
++                        transform=&quot;rotate(59.03624396963516, 629.00, 154.00)&quot;
+                         cx=&quot;629&quot;
+                         cy=&quot;154&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#4c6a9c&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-of-women-vs-life-expectancy-of-men">
+        <div class="header-with-actions">
+            <h2>life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-of-women-vs-life-expectancy-of-men" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v36_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v36_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v36_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v36_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v36_850x600.svg
+===================================================================
+--- life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v36_850x600.svg	
++++ life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v36_850x600.svg	
+@@ -1088,9 +1088,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;706.00,122.00 708.00,118.00 710.00,122.00&quot;
+-                        transform=&quot;rotate(56.1489901736137, 708.00, 120.00)&quot;
++                        transform=&quot;rotate(56.148990173613704, 708.00, 120.00)&quot;
+                         cx=&quot;708&quot;
+                         cy=&quot;120&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#e56e5a&quot;
+@@ -1571,9 +1571,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;601.00,212.00 603.00,208.00 605.00,212.00&quot;
+-                        transform=&quot;rotate(51.99519273912961, 603.00, 210.00)&quot;
++                        transform=&quot;rotate(51.9951927391296, 603.00, 210.00)&quot;
+                         cx=&quot;603&quot;
+                         cy=&quot;210&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#4c6a9c&quot;
+@@ -3650,9 +3650,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;671.00,142.00 673.00,138.00 675.00,142.00&quot;
+-                        transform=&quot;rotate(47.6837755647008, 673.00, 140.00)&quot;
++                        transform=&quot;rotate(47.68377556470081, 673.00, 140.00)&quot;
+                         cx=&quot;673&quot;
+                         cy=&quot;140&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#e56e5a&quot;
+@@ -3920,9 +3920,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;679.00,142.00 681.00,138.00 683.00,142.00&quot;
+-                        transform=&quot;rotate(47.6837755647008, 681.00, 140.00)&quot;
++                        transform=&quot;rotate(47.68377556470081, 681.00, 140.00)&quot;
+                         cx=&quot;681&quot;
+                         cy=&quot;140&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#38aaba&quot;
+@@ -4889,9 +4889,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;671.00,141.00 673.00,137.00 675.00,141.00&quot;
+-                        transform=&quot;rotate(44.66097605509166, 673.00, 139.00)&quot;
++                        transform=&quot;rotate(44.660976055091666, 673.00, 139.00)&quot;
+                         cx=&quot;673&quot;
+                         cy=&quot;139&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#e56e5a&quot;
+@@ -6935,9 +6935,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;618.00,209.00 620.00,205.00 622.00,209.00&quot;
+-                        transform=&quot;rotate(54.11786321370652, 620.00, 207.00)&quot;
++                        transform=&quot;rotate(54.11786321370653, 620.00, 207.00)&quot;
+                         cx=&quot;620&quot;
+                         cy=&quot;207&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#4c6a9c&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-of-women-vs-life-expectancy-of-men">
+        <div class="header-with-actions">
+            <h2>life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-of-women-vs-life-expectancy-of-men" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v36_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v36_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v36_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v36_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v36_850x600.svg
+===================================================================
+--- life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v36_850x600.svg	
++++ life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v36_850x600.svg	
+@@ -4065,9 +4065,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;694.00,154.00 696.00,150.00 698.00,154.00&quot;
+-                        transform=&quot;rotate(42.954591876154495, 696.00, 152.00)&quot;
++                        transform=&quot;rotate(42.95459187615449, 696.00, 152.00)&quot;
+                         cx=&quot;696&quot;
+                         cy=&quot;152&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#38aaba&quot;
+@@ -6540,9 +6540,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;702.00,122.00 704.00,118.00 706.00,122.00&quot;
+-                        transform=&quot;rotate(57.94262475820935, 704.00, 120.00)&quot;
++                        transform=&quot;rotate(57.94262475820934, 704.00, 120.00)&quot;
+                         cx=&quot;704&quot;
+                         cy=&quot;120&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#38aaba&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-of-women-vs-life-expectancy-of-men">
+        <div class="header-with-actions">
+            <h2>life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-of-women-vs-life-expectancy-of-men" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v36_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v36_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v36_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v36_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v36_850x600.svg
+===================================================================
+--- life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v36_850x600.svg	
++++ life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v36_850x600.svg	
+@@ -2771,9 +2771,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;556.00,177.00 558.00,173.00 560.00,177.00&quot;
+-                        transform=&quot;rotate(58.4439214815595, 558.00, 175.00)&quot;
++                        transform=&quot;rotate(58.443921481559485, 558.00, 175.00)&quot;
+                         cx=&quot;558&quot;
+                         cy=&quot;175&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#4c6a9c&quot;
+@@ -6521,9 +6521,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;522.00,181.00 524.00,177.00 526.00,181.00&quot;
+-                        transform=&quot;rotate(55.15696598810365, 524.00, 179.00)&quot;
++                        transform=&quot;rotate(55.15696598810366, 524.00, 179.00)&quot;
+                         cx=&quot;524&quot;
+                         cy=&quot;179&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#4c6a9c&quot;
+@@ -7064,9 +7064,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;622.00,145.00 624.00,141.00 626.00,145.00&quot;
+-                        transform=&quot;rotate(59.03624396963517, 624.00, 143.00)&quot;
++                        transform=&quot;rotate(59.03624396963516, 624.00, 143.00)&quot;
+                         cx=&quot;624&quot;
+                         cy=&quot;143&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#4c6a9c&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-of-women-vs-life-expectancy-of-men">
+        <div class="header-with-actions">
+            <h2>life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=0</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-of-women-vs-life-expectancy-of-men" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=0_v36_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=0_v36_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=0_v36_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=0_v36_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=0_v36_850x600.svg
+===================================================================
+--- life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=0_v36_850x600.svg	
++++ life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=0_v36_850x600.svg	
+@@ -4666,9 +4666,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;669.00,129.00 671.00,125.00 673.00,129.00&quot;
+-                        transform=&quot;rotate(59.03624396963517, 671.00, 127.00)&quot;
++                        transform=&quot;rotate(59.03624396963516, 671.00, 127.00)&quot;
+                         cx=&quot;671&quot;
+                         cy=&quot;127&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#a2559c&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-of-women-vs-life-expectancy-of-men">
+        <div class="header-with-actions">
+            <h2>life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-of-women-vs-life-expectancy-of-men" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v36_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v36_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v36_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/life-expectancy-of-women-vs-life-expectancy-of-men%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v36_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v36_850x600.svg
+===================================================================
+--- life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v36_850x600.svg	
++++ life-expectancy-of-women-vs-life-expectancy-of-men?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v36_850x600.svg	
+@@ -2217,9 +2217,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;541.00,230.00 543.00,226.00 545.00,230.00&quot;
+-                        transform=&quot;rotate(56.106215482131816, 543.00, 228.00)&quot;
++                        transform=&quot;rotate(56.10621548213181, 543.00, 228.00)&quot;
+                         cx=&quot;543&quot;
+                         cy=&quot;228&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#4c6a9c&quot;
+@@ -3348,9 +3348,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;659.00,132.00 661.00,128.00 663.00,132.00&quot;
+-                        transform=&quot;rotate(53.66413588916289, 661.00, 130.00)&quot;
++                        transform=&quot;rotate(53.664135889162885, 661.00, 130.00)&quot;
+                         cx=&quot;661&quot;
+                         cy=&quot;130&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#a2559c&quot;
+@@ -3591,9 +3591,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;590.00,191.00 592.00,187.00 594.00,191.00&quot;
+-                        transform=&quot;rotate(54.97992161298133, 592.00, 189.00)&quot;
++                        transform=&quot;rotate(54.979921612981336, 592.00, 189.00)&quot;
+                         cx=&quot;592&quot;
+                         cy=&quot;189&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#a2559c&quot;
+@@ -5070,9 +5070,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;501.00,259.00 503.00,255.00 505.00,259.00&quot;
+-                        transform=&quot;rotate(59.03624396963517, 503.00, 257.00)&quot;
++                        transform=&quot;rotate(59.03624396963516, 503.00, 257.00)&quot;
+                         cx=&quot;503&quot;
+                         cy=&quot;257&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#883039&quot;
+@@ -5346,9 +5346,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;632.00,167.00 634.00,163.00 636.00,167.00&quot;
+-                        transform=&quot;rotate(52.2161069854022, 634.00, 165.00)&quot;
++                        transform=&quot;rotate(52.216106985402206, 634.00, 165.00)&quot;
+                         cx=&quot;634&quot;
+                         cy=&quot;165&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#e56e5a&quot;
+@@ -5682,9 +5682,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;670.00,134.00 672.00,130.00 674.00,134.00&quot;
+-                        transform=&quot;rotate(55.80679962860515, 672.00, 132.00)&quot;
++                        transform=&quot;rotate(55.806799628605155, 672.00, 132.00)&quot;
+                         cx=&quot;672&quot;
+                         cy=&quot;132&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#e56e5a&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-un-vs-gdp-per-capita-wb">
+        <div class="header-with-actions">
+            <h2>life-expectancy-un-vs-gdp-per-capita-wb?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-un-vs-gdp-per-capita-wb" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-un-vs-gdp-per-capita-wb?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/life-expectancy-un-vs-gdp-per-capita-wb%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v44_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/life-expectancy-un-vs-gdp-per-capita-wb?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/life-expectancy-un-vs-gdp-per-capita-wb%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v44_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/life-expectancy-un-vs-gdp-per-capita-wb%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v44_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/life-expectancy-un-vs-gdp-per-capita-wb%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v44_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-un-vs-gdp-per-capita-wb?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v44_850x600.svg
+===================================================================
+--- life-expectancy-un-vs-gdp-per-capita-wb?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v44_850x600.svg	
++++ life-expectancy-un-vs-gdp-per-capita-wb?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v44_850x600.svg	
+@@ -704,9 +704,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;259.90,200.10 262.00,195.90 264.10,200.10&quot;
+-                        transform=&quot;rotate(50.77948625669607, 262.00, 198.00)&quot;
++                        transform=&quot;rotate(50.77948625669606, 262.00, 198.00)&quot;
+                         cx=&quot;262&quot;
+                         cy=&quot;198&quot;
+                         r=&quot;2.0982949040964853&quot;
+                         fill=&quot;#4c6a9c&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-un-vs-gdp-per-capita-wb">
+        <div class="header-with-actions">
+            <h2>life-expectancy-un-vs-gdp-per-capita-wb?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-un-vs-gdp-per-capita-wb" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-un-vs-gdp-per-capita-wb?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/life-expectancy-un-vs-gdp-per-capita-wb%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v44_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/life-expectancy-un-vs-gdp-per-capita-wb?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/life-expectancy-un-vs-gdp-per-capita-wb%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v44_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/life-expectancy-un-vs-gdp-per-capita-wb%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v44_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/life-expectancy-un-vs-gdp-per-capita-wb%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v44_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-un-vs-gdp-per-capita-wb?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v44_850x600.svg
+===================================================================
+--- life-expectancy-un-vs-gdp-per-capita-wb?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v44_850x600.svg	
++++ life-expectancy-un-vs-gdp-per-capita-wb?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v44_850x600.svg	
+@@ -1067,9 +1067,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;530.00,179.00 532.00,175.00 534.00,179.00&quot;
+-                        transform=&quot;rotate(59.03624396963517, 532.00, 177.00)&quot;
++                        transform=&quot;rotate(59.03624396963516, 532.00, 177.00)&quot;
+                         cx=&quot;532&quot;
+                         cy=&quot;177&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#00847e&quot;
+@@ -6383,9 +6383,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;589.00,185.00 591.00,181.00 593.00,185.00&quot;
+-                        transform=&quot;rotate(-59.03624396963517, 591.00, 183.00)&quot;
++                        transform=&quot;rotate(-59.03624396963516, 591.00, 183.00)&quot;
+                         cx=&quot;591&quot;
+                         cy=&quot;183&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#a2559c&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-vs-gdp-per-capita">
+        <div class="header-with-actions">
+            <h2>life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-vs-gdp-per-capita" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0_v39_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0_v39_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0_v39_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0_v39_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0_v39_850x600.svg
+===================================================================
+--- life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0_v39_850x600.svg	
++++ life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0_v39_850x600.svg	
+@@ -4244,9 +4244,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;423.00,159.00 425.00,155.00 427.00,159.00&quot;
+-                        transform=&quot;rotate(59.03624396963517, 425.00, 157.00)&quot;
++                        transform=&quot;rotate(59.03624396963516, 425.00, 157.00)&quot;
+                         cx=&quot;425&quot;
+                         cy=&quot;157&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#a2559c&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-vs-gdp-per-capita">
+        <div class="header-with-actions">
+            <h2>life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-vs-gdp-per-capita" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v39_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v39_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v39_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v39_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v39_850x600.svg
+===================================================================
+--- life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v39_850x600.svg	
++++ life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v39_850x600.svg	
+@@ -1529,9 +1529,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;597.00,136.00 599.00,132.00 601.00,136.00&quot;
+-                        transform=&quot;rotate(62.22037980374678, 599.00, 134.00)&quot;
++                        transform=&quot;rotate(62.220379803746795, 599.00, 134.00)&quot;
+                         cx=&quot;599&quot;
+                         cy=&quot;134&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#883039&quot;
+@@ -2339,9 +2339,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;398.00,167.00 400.00,163.00 402.00,167.00&quot;
+-                        transform=&quot;rotate(47.6837755647008, 400.00, 165.00)&quot;
++                        transform=&quot;rotate(47.68377556470081, 400.00, 165.00)&quot;
+                         cx=&quot;400&quot;
+                         cy=&quot;165&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#00847e&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-vs-gdp-per-capita">
+        <div class="header-with-actions">
+            <h2>life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-vs-gdp-per-capita" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v39_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v39_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v39_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v39_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v39_850x600.svg
+===================================================================
+--- life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v39_850x600.svg	
++++ life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v39_850x600.svg	
+@@ -2214,9 +2214,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;544.00,164.00 546.00,160.00 548.00,164.00&quot;
+-                        transform=&quot;rotate(61.598104916341235, 546.00, 162.00)&quot;
++                        transform=&quot;rotate(61.59810491634125, 546.00, 162.00)&quot;
+                         cx=&quot;546&quot;
+                         cy=&quot;162&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#e56e5a&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-vs-gdp-per-capita">
+        <div class="header-with-actions">
+            <h2>life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-vs-gdp-per-capita" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v39_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v39_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v39_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v39_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v39_850x600.svg
+===================================================================
+--- life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v39_850x600.svg	
++++ life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=1_v39_850x600.svg	
+@@ -2217,9 +2217,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;209.00,150.00 211.00,146.00 213.00,150.00&quot;
+-                        transform=&quot;rotate(51.72435353267958, 211.00, 148.00)&quot;
++                        transform=&quot;rotate(51.72435353267957, 211.00, 148.00)&quot;
+                         cx=&quot;211&quot;
+                         cy=&quot;148&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#e56e5a&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-vs-gdp-per-capita">
+        <div class="header-with-actions">
+            <h2>life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-vs-gdp-per-capita" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v39_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v39_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v39_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/life-expectancy-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v39_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v39_850x600.svg
+===================================================================
+--- life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v39_850x600.svg	
++++ life-expectancy-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v39_850x600.svg	
+@@ -3154,9 +3154,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;167.00,240.00 169.00,236.00 171.00,240.00&quot;
+-                        transform=&quot;rotate(38.367485710920576, 169.00, 238.00)&quot;
++                        transform=&quot;rotate(38.36748571092058, 169.00, 238.00)&quot;
+                         cx=&quot;169&quot;
+                         cy=&quot;238&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#4c6a9c&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-vs-health-expenditure">
+        <div class="header-with-actions">
+            <h2>life-expectancy-vs-health-expenditure?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-vs-health-expenditure" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-vs-health-expenditure?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/life-expectancy-vs-health-expenditure%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v38_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/life-expectancy-vs-health-expenditure?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/life-expectancy-vs-health-expenditure%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v38_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/life-expectancy-vs-health-expenditure%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v38_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/life-expectancy-vs-health-expenditure%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v38_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-vs-health-expenditure?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v38_850x600.svg
+===================================================================
+--- life-expectancy-vs-health-expenditure?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v38_850x600.svg	
++++ life-expectancy-vs-health-expenditure?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v38_850x600.svg	
+@@ -778,9 +778,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;620.00,177.00 622.00,173.00 624.00,177.00&quot;
+-                        transform=&quot;rotate(55.89872628079793, 622.00, 175.00)&quot;
++                        transform=&quot;rotate(55.89872628079794, 622.00, 175.00)&quot;
+                         cx=&quot;622&quot;
+                         cy=&quot;175&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#a2559c&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-vs-health-expenditure">
+        <div class="header-with-actions">
+            <h2>life-expectancy-vs-health-expenditure?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-vs-health-expenditure" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-vs-health-expenditure?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/life-expectancy-vs-health-expenditure%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v38_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/life-expectancy-vs-health-expenditure?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/life-expectancy-vs-health-expenditure%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v38_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/life-expectancy-vs-health-expenditure%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v38_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/life-expectancy-vs-health-expenditure%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v38_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-vs-health-expenditure?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v38_850x600.svg
+===================================================================
+--- life-expectancy-vs-health-expenditure?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v38_850x600.svg	
++++ life-expectancy-vs-health-expenditure?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v38_850x600.svg	
+@@ -1021,9 +1021,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;604.00,179.00 606.00,175.00 608.00,179.00&quot;
+-                        transform=&quot;rotate(57.1065784368216, 606.00, 177.00)&quot;
++                        transform=&quot;rotate(57.10657843682161, 606.00, 177.00)&quot;
+                         cx=&quot;606&quot;
+                         cy=&quot;177&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#883039&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="meat-consumption-vs-gdp-per-capita">
+        <div class="header-with-actions">
+            <h2>meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="meat-consumption-vs-gdp-per-capita" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/meat-consumption-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v33_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/meat-consumption-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v33_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/meat-consumption-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v33_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/meat-consumption-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v33_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v33_850x600.svg
+===================================================================
+--- meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v33_850x600.svg	
++++ meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=linear&endpointsOnly=1_v33_850x600.svg	
+@@ -2806,9 +2806,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;94.50,440.50 97.00,435.50 99.50,440.50&quot;
+-                        transform=&quot;rotate(59.03624396963517, 97.00, 438.00)&quot;
++                        transform=&quot;rotate(59.03624396963516, 97.00, 438.00)&quot;
+                         cx=&quot;97&quot;
+                         cy=&quot;438&quot;
+                         r=&quot;2.5&quot;
+                         fill=&quot;#6e7581&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="meat-consumption-vs-gdp-per-capita">
+        <div class="header-with-actions">
+            <h2>meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="meat-consumption-vs-gdp-per-capita" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/meat-consumption-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v33_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/meat-consumption-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v33_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/meat-consumption-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v33_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/meat-consumption-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v33_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v33_850x600.svg
+===================================================================
+--- meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v33_850x600.svg	
++++ meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v33_850x600.svg	
+@@ -4221,9 +4221,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;438.50,350.50 441.00,345.50 443.50,350.50&quot;
+-                        transform=&quot;rotate(51.72435353267958, 441.00, 348.00)&quot;
++                        transform=&quot;rotate(51.72435353267957, 441.00, 348.00)&quot;
+                         cx=&quot;441&quot;
+                         cy=&quot;348&quot;
+                         r=&quot;2.5&quot;
+                         fill=&quot;#38aaba&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="meat-consumption-vs-gdp-per-capita">
+        <div class="header-with-actions">
+            <h2>meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="meat-consumption-vs-gdp-per-capita" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/meat-consumption-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v33_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/meat-consumption-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v33_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/meat-consumption-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v33_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/meat-consumption-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v33_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v33_850x600.svg
+===================================================================
+--- meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v33_850x600.svg	
++++ meat-consumption-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v33_850x600.svg	
+@@ -1610,9 +1610,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;417.50,380.50 420.00,375.50 422.50,380.50&quot;
+-                        transform=&quot;rotate(49.59054360704217, 420.00, 378.00)&quot;
++                        transform=&quot;rotate(49.590543607042164, 420.00, 378.00)&quot;
+                         cx=&quot;420&quot;
+                         cy=&quot;378&quot;
+                         r=&quot;2.5&quot;
+                         fill=&quot;#a2559c&quot;
+@@ -5198,9 +5198,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;503.50,370.50 506.00,365.50 508.50,370.50&quot;
+-                        transform=&quot;rotate(56.1489901736137, 506.00, 368.00)&quot;
++                        transform=&quot;rotate(56.148990173613704, 506.00, 368.00)&quot;
+                         cx=&quot;506&quot;
+                         cy=&quot;368&quot;
+                         r=&quot;2.5&quot;
+                         fill=&quot;#e56e5a&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="share-of-household-consumption-in-gdp-vs-gdp-per-capita">
+        <div class="header-with-actions">
+            <h2>share-of-household-consumption-in-gdp-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="share-of-household-consumption-in-gdp-vs-gdp-per-capita" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/share-of-household-consumption-in-gdp-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/share-of-household-consumption-in-gdp-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v34_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/share-of-household-consumption-in-gdp-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/share-of-household-consumption-in-gdp-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v34_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/share-of-household-consumption-in-gdp-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v34_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/share-of-household-consumption-in-gdp-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v34_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: share-of-household-consumption-in-gdp-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v34_850x600.svg
+===================================================================
+--- share-of-household-consumption-in-gdp-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v34_850x600.svg	
++++ share-of-household-consumption-in-gdp-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=1_v34_850x600.svg	
+@@ -3195,9 +3195,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;268.00,262.00 270.00,258.00 272.00,262.00&quot;
+-                        transform=&quot;rotate(49.59054360704217, 270.00, 260.00)&quot;
++                        transform=&quot;rotate(49.590543607042164, 270.00, 260.00)&quot;
+                         cx=&quot;270&quot;
+                         cy=&quot;260&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#a2559c&quot;
+@@ -3615,9 +3615,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;368.00,259.00 370.00,255.00 372.00,259.00&quot;
+-                        transform=&quot;rotate(59.03624396963517, 370.00, 257.00)&quot;
++                        transform=&quot;rotate(59.03624396963516, 370.00, 257.00)&quot;
+                         cx=&quot;370&quot;
+                         cy=&quot;257&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#38aaba&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="share-of-household-consumption-in-gdp-vs-gdp-per-capita">
+        <div class="header-with-actions">
+            <h2>share-of-household-consumption-in-gdp-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1</h2>
+            <button class="copy-slug-btn" data-slug="share-of-household-consumption-in-gdp-vs-gdp-per-capita" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/share-of-household-consumption-in-gdp-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/share-of-household-consumption-in-gdp-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v34_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/share-of-household-consumption-in-gdp-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/share-of-household-consumption-in-gdp-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v34_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/share-of-household-consumption-in-gdp-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v34_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/share-of-household-consumption-in-gdp-vs-gdp-per-capita%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v34_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: share-of-household-consumption-in-gdp-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v34_850x600.svg
+===================================================================
+--- share-of-household-consumption-in-gdp-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v34_850x600.svg	
++++ share-of-household-consumption-in-gdp-vs-gdp-per-capita?tab=chart&time=earliest..latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=1_v34_850x600.svg	
+@@ -4519,9 +4519,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;434.00,179.00 436.00,175.00 438.00,179.00&quot;
+-                        transform=&quot;rotate(53.61564863980688, 436.00, 177.00)&quot;
++                        transform=&quot;rotate(53.61564863980687, 436.00, 177.00)&quot;
+                         cx=&quot;436&quot;
+                         cy=&quot;177&quot;
+                         r=&quot;2&quot;
+                         fill=&quot;#38aaba&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="tourist-departures-per-1000-vs-gdp">
+        <div class="header-with-actions">
+            <h2>tourist-departures-per-1000-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=0</h2>
+            <button class="copy-slug-btn" data-slug="tourist-departures-per-1000-vs-gdp" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/tourist-departures-per-1000-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/originals/tourist-departures-per-1000-vs-gdp%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=0_v35_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-admin-base64-config/grapher/tourist-departures-per-1000-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="./all-views/differences/tourist-departures-per-1000-vs-gdp%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=0_v35_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="./all-views/originals/tourist-departures-per-1000-vs-gdp%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=0_v35_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="./all-views/differences/tourist-departures-per-1000-vs-gdp%3Ftab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=0_v35_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: tourist-departures-per-1000-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=0_v35_850x600.svg
+===================================================================
+--- tourist-departures-per-1000-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=0_v35_850x600.svg	
++++ tourist-departures-per-1000-vs-gdp?tab=chart&time=earliest..latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=0_v35_850x600.svg	
+@@ -1996,9 +1996,9 @@
+                         ></polyline>
+                     </g>
+                     <polygon
+                         points=&quot;348.50,220.50 351.00,215.50 353.50,220.50&quot;
+-                        transform=&quot;rotate(59.03624396963517, 351.00, 218.00)&quot;
++                        transform=&quot;rotate(59.03624396963516, 351.00, 218.00)&quot;
+                         cx=&quot;351&quot;
+                         cy=&quot;218&quot;
+                         r=&quot;2.5&quot;
+                         fill=&quot;#e56e5a&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section
+                    if (diffContainer && !renderedDiffs.has(diffId)) {
+                        const diffString = diffContainer.dataset.diff;
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
