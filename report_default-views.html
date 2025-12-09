@@ -1,0 +1,1387 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        /* Tab content */
+        .tab-content {
+            min-height: 400px;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: 800px;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 100%;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="summary">Number of differences: 3</p><section data-slug="agricultural-general-services-support">
+        <div class="header-with-actions">
+            <h2>agricultural-general-services-support</h2>
+            <button class="copy-slug-btn" data-slug="agricultural-general-services-support" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/agricultural-general-services-support" target="_blank" class="comparison-image-wrapper">
+                    <img src="../owid-grapher-svgs/originals/agricultural-general-services-support_v2_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-single-point-line-charts/grapher/agricultural-general-services-support" target="_blank" class="comparison-image-wrapper">
+                    <img src="../owid-grapher-svgs/differences/agricultural-general-services-support_v2_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="../owid-grapher-svgs/originals/agricultural-general-services-support_v2_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="../owid-grapher-svgs/differences/agricultural-general-services-support_v2_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: agricultural-general-services-support_v2_850x600.svg
+===================================================================
+--- agricultural-general-services-support_v2_850x600.svg	
++++ agricultural-general-services-support_v2_850x600.svg	
+@@ -91,9 +91,9 @@
+         </defs>
+         <g clip-path=&quot;url(#boundsClip-1)&quot;>
+             <g
+                 id=&quot;map&quot;
+-                transform=&quot;matrix(2.818948506598117,0,0,2.818948506598117,-980.4181608611909,-435.90167236905137)&quot;
++                transform=&quot;matrix(2.818948506598117,0,0,2.818948506598117,-980.4181608611907,-435.9016723690509)&quot;
+             >
+                 <g id=&quot;countries-background&quot;>
+                     <path
+                         id=&quot;Afghanistan&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="agricultural-producer-support">
+        <div class="header-with-actions">
+            <h2>agricultural-producer-support</h2>
+            <button class="copy-slug-btn" data-slug="agricultural-producer-support" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/agricultural-producer-support" target="_blank" class="comparison-image-wrapper">
+                    <img src="../owid-grapher-svgs/originals/agricultural-producer-support_v2_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-single-point-line-charts/grapher/agricultural-producer-support" target="_blank" class="comparison-image-wrapper">
+                    <img src="../owid-grapher-svgs/differences/agricultural-producer-support_v2_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="../owid-grapher-svgs/originals/agricultural-producer-support_v2_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="../owid-grapher-svgs/differences/agricultural-producer-support_v2_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: agricultural-producer-support_v2_850x600.svg
+===================================================================
+--- agricultural-producer-support_v2_850x600.svg	
++++ agricultural-producer-support_v2_850x600.svg	
+@@ -86,9 +86,9 @@
+         </defs>
+         <g clip-path=&quot;url(#boundsClip-1)&quot;>
+             <g
+                 id=&quot;map&quot;
+-                transform=&quot;matrix(2.949505751210921,0,0,2.949505751210921,-1045.4626144711265,-479.78673631512896)&quot;
++                transform=&quot;matrix(2.949505751210921,0,0,2.949505751210921,-1045.4626144711262,-479.7867363151286)&quot;
+             >
+                 <g id=&quot;countries-background&quot;>
+                     <path
+                         id=&quot;Afghanistan&quot;
+"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="area-land-needed-to-global-oil">
+        <div class="header-with-actions">
+            <h2>area-land-needed-to-global-oil</h2>
+            <button class="copy-slug-btn" data-slug="area-land-needed-to-global-oil" title="Copy slug to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy slug</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/area-land-needed-to-global-oil" target="_blank" class="comparison-image-wrapper">
+                    <img src="../owid-grapher-svgs/originals/area-land-needed-to-global-oil_v13_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-single-point-line-charts/grapher/area-land-needed-to-global-oil" target="_blank" class="comparison-image-wrapper">
+                    <img src="../owid-grapher-svgs/differences/area-land-needed-to-global-oil_v13_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="../owid-grapher-svgs/originals/area-land-needed-to-global-oil_v13_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="../owid-grapher-svgs/differences/area-land-needed-to-global-oil_v13_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: area-land-needed-to-global-oil_v13_850x600.svg
+===================================================================
+--- area-land-needed-to-global-oil_v13_850x600.svg	
++++ area-land-needed-to-global-oil_v13_850x600.svg	
+@@ -73,232 +73,632 @@
+             </text>
+         </g>
+     </g>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <g>
+-            <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+-                <g id=&quot;tick-marks&quot;>
+-                    <line
+-                        id=&quot;2022&quot;
+-                        x1=&quot;411.505&quot;
+-                        y1=&quot;460.5&quot;
+-                        x2=&quot;411.505&quot;
+-                        y2=&quot;466&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                </g>
+-                <g id=&quot;tick-labels&quot;>
+-                    <text
+-                        x=&quot;411.505&quot;
+-                        y=&quot;479&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;13&quot;
+-                    >
+-                        2022
+-                    </text>
+-                </g>
+-            </g>
+-            <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+-                <g id=&quot;tick-labels&quot;>
+-                    <text
+-                        x=&quot;96.47&quot;
+-                        y=&quot;461&quot;
+-                        dy=&quot;.32em&quot;
+-                        text-anchor=&quot;end&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        font-size=&quot;13&quot;
+-                    >
+-                        0 ha
+-                    </text>
+-                    <text
+-                        x=&quot;96.47&quot;
+-                        y=&quot;410.3&quot;
+-                        dy=&quot;.32em&quot;
+-                        text-anchor=&quot;end&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        font-size=&quot;13&quot;
+-                    >
+-                        500 million ha
+-                    </text>
+-                    <text
+-                        x=&quot;96.47&quot;
+-                        y=&quot;359.5&quot;
+-                        dy=&quot;.32em&quot;
+-                        text-anchor=&quot;end&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        font-size=&quot;13&quot;
+-                    >
+-                        1 billion ha
+-                    </text>
+-                    <text
+-                        x=&quot;96.47&quot;
+-                        y=&quot;308.8&quot;
+-                        dy=&quot;.32em&quot;
+-                        text-anchor=&quot;end&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        font-size=&quot;13&quot;
+-                    >
+-                        1.5 billion ha
+-                    </text>
+-                    <text
+-                        x=&quot;96.47&quot;
+-                        y=&quot;258&quot;
+-                        dy=&quot;.32em&quot;
+-                        text-anchor=&quot;end&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        font-size=&quot;13&quot;
+-                    >
+-                        2 billion ha
+-                    </text>
+-                    <text
+-                        x=&quot;96.47&quot;
+-                        y=&quot;207.3&quot;
+-                        dy=&quot;.32em&quot;
+-                        text-anchor=&quot;end&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        font-size=&quot;13&quot;
+-                    >
+-                        2.5 billion ha
+-                    </text>
+-                    <text
+-                        x=&quot;96.47&quot;
+-                        y=&quot;156.5&quot;
+-                        dy=&quot;.32em&quot;
+-                        text-anchor=&quot;end&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        font-size=&quot;13&quot;
+-                    >
+-                        3 billion ha
+-                    </text>
+-                    <text
+-                        x=&quot;96.47&quot;
+-                        y=&quot;105.8&quot;
+-                        dy=&quot;.32em&quot;
+-                        text-anchor=&quot;end&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        font-size=&quot;13&quot;
+-                    >
+-                        3.5 billion ha
+-                    </text>
+-                </g>
+-            </g>
+-            <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
++        <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
++            <g id=&quot;tick-marks&quot;>
+                 <line
+-                    id=&quot;0-ha&quot;
+-                    x1=&quot;101.47&quot;
+-                    y1=&quot;461&quot;
+-                    x2=&quot;721.54&quot;
+-                    y2=&quot;461&quot;
++                    id=&quot;2022&quot;
++                    x1=&quot;411.505&quot;
++                    y1=&quot;460.5&quot;
++                    x2=&quot;411.505&quot;
++                    y2=&quot;466&quot;
+                     stroke=&quot;#999&quot;
++                    stroke-width=&quot;1&quot;
+                 ></line>
+-                <line
+-                    id=&quot;500-million-ha&quot;
+-                    x1=&quot;101.47&quot;
+-                    y1=&quot;410.3&quot;
+-                    x2=&quot;721.54&quot;
+-                    y2=&quot;410.3&quot;
+-                    stroke=&quot;#ddd&quot;
+-                    stroke-dasharray=&quot;4,4&quot;
+-                ></line>
+-                <line
+-                    id=&quot;1-billion-ha&quot;
+-                    x1=&quot;101.47&quot;
+-                    y1=&quot;359.5&quot;
+-                    x2=&quot;721.54&quot;
+-                    y2=&quot;359.5&quot;
+-                    stroke=&quot;#ddd&quot;
+-                    stroke-dasharray=&quot;4,4&quot;
+-                ></line>
+-                <line
+-                    id=&quot;1.5-billion-ha&quot;
+-                    x1=&quot;101.47&quot;
+-                    y1=&quot;308.8&quot;
+-                    x2=&quot;721.54&quot;
+-                    y2=&quot;308.8&quot;
+-                    stroke=&quot;#ddd&quot;
+-                    stroke-dasharray=&quot;4,4&quot;
+-                ></line>
+-                <line
+-                    id=&quot;2-billion-ha&quot;
+-                    x1=&quot;101.47&quot;
+-                    y1=&quot;258&quot;
+-                    x2=&quot;721.54&quot;
+-                    y2=&quot;258&quot;
+-                    stroke=&quot;#ddd&quot;
+-                    stroke-dasharray=&quot;4,4&quot;
+-                ></line>
+-                <line
+-                    id=&quot;2.5-billion-ha&quot;
+-                    x1=&quot;101.47&quot;
+-                    y1=&quot;207.3&quot;
+-                    x2=&quot;721.54&quot;
+-                    y2=&quot;207.3&quot;
+-                    stroke=&quot;#ddd&quot;
+-                    stroke-dasharray=&quot;4,4&quot;
+-                ></line>
+-                <line
+-                    id=&quot;3-billion-ha&quot;
+-                    x1=&quot;101.47&quot;
+-                    y1=&quot;156.5&quot;
+-                    x2=&quot;721.54&quot;
+-                    y2=&quot;156.5&quot;
+-                    stroke=&quot;#ddd&quot;
+-                    stroke-dasharray=&quot;4,4&quot;
+-                ></line>
+-                <line
+-                    id=&quot;3.5-billion-ha&quot;
+-                    x1=&quot;101.47&quot;
+-                    y1=&quot;105.8&quot;
+-                    x2=&quot;721.54&quot;
+-                    y2=&quot;105.8&quot;
+-                    stroke=&quot;#ddd&quot;
+-                    stroke-dasharray=&quot;4,4&quot;
+-                ></line>
+             </g>
+-            <g class=&quot;no-data&quot;>
+-                <rect
+-                    x=&quot;101.47&quot;
+-                    y=&quot;105.8&quot;
+-                    width=&quot;620.0699999999999&quot;
+-                    height=&quot;355.2&quot;
+-                    fill=&quot;#fff&quot;
+-                    opacity=&quot;0.6&quot;
+-                ></rect>
++            <g id=&quot;tick-labels&quot;>
+                 <text
+                     x=&quot;411.505&quot;
+-                    y=&quot;283.4&quot;
+-                    dy=&quot;.32em&quot;
++                    y=&quot;479&quot;
++                    fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+-                    font-size=&quot;16&quot;
+-                    font-weight=&quot;500&quot;
++                    font-size=&quot;13&quot;
++                >
++                    2022
++                </text>
++            </g>
++        </g>
++        <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;96.47&quot;
++                    y=&quot;461&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
+                     fill=&quot;#5b5b5b&quot;
+-                    id=&quot;no-data-message&quot;
+-                    style=&quot;
+-                        fill: #fff;
+-                        stroke: #fff;
+-                        stroke-linecap: round;
+-                        stroke-linejoin: round;
+-                        user-select: none;
+-                        stroke-width: 4;
+-                    &quot;
++                    font-size=&quot;13&quot;
+                 >
+-                    Two time points needed
++                    0 ha
+                 </text>
+                 <text
+-                    x=&quot;411.505&quot;
+-                    y=&quot;283.4&quot;
++                    x=&quot;96.47&quot;
++                    y=&quot;410.3&quot;
+                     dy=&quot;.32em&quot;
+-                    text-anchor=&quot;middle&quot;
+-                    font-size=&quot;16&quot;
+-                    font-weight=&quot;500&quot;
++                    text-anchor=&quot;end&quot;
+                     fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
+                 >
+-                    Two time points needed
++                    500 million ha
+                 </text>
++                <text
++                    x=&quot;96.47&quot;
++                    y=&quot;359.5&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    1 billion ha
++                </text>
++                <text
++                    x=&quot;96.47&quot;
++                    y=&quot;308.8&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    1.5 billion ha
++                </text>
++                <text
++                    x=&quot;96.47&quot;
++                    y=&quot;258&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    2 billion ha
++                </text>
++                <text
++                    x=&quot;96.47&quot;
++                    y=&quot;207.3&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    2.5 billion ha
++                </text>
++                <text
++                    x=&quot;96.47&quot;
++                    y=&quot;156.5&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    3 billion ha
++                </text>
++                <text
++                    x=&quot;96.47&quot;
++                    y=&quot;105.8&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    3.5 billion ha
++                </text>
+             </g>
+         </g>
++        <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
++            <line
++                id=&quot;0-ha&quot;
++                x1=&quot;101.47&quot;
++                y1=&quot;461&quot;
++                x2=&quot;721.54&quot;
++                y2=&quot;461&quot;
++                stroke=&quot;#999&quot;
++            ></line>
++            <line
++                id=&quot;500-million-ha&quot;
++                x1=&quot;101.47&quot;
++                y1=&quot;410.3&quot;
++                x2=&quot;721.54&quot;
++                y2=&quot;410.3&quot;
++                stroke=&quot;#ddd&quot;
++                stroke-dasharray=&quot;4,4&quot;
++            ></line>
++            <line
++                id=&quot;1-billion-ha&quot;
++                x1=&quot;101.47&quot;
++                y1=&quot;359.5&quot;
++                x2=&quot;721.54&quot;
++                y2=&quot;359.5&quot;
++                stroke=&quot;#ddd&quot;
++                stroke-dasharray=&quot;4,4&quot;
++            ></line>
++            <line
++                id=&quot;1.5-billion-ha&quot;
++                x1=&quot;101.47&quot;
++                y1=&quot;308.8&quot;
++                x2=&quot;721.54&quot;
++                y2=&quot;308.8&quot;
++                stroke=&quot;#ddd&quot;
++                stroke-dasharray=&quot;4,4&quot;
++            ></line>
++            <line
++                id=&quot;2-billion-ha&quot;
++                x1=&quot;101.47&quot;
++                y1=&quot;258&quot;
++                x2=&quot;721.54&quot;
++                y2=&quot;258&quot;
++                stroke=&quot;#ddd&quot;
++                stroke-dasharray=&quot;4,4&quot;
++            ></line>
++            <line
++                id=&quot;2.5-billion-ha&quot;
++                x1=&quot;101.47&quot;
++                y1=&quot;207.3&quot;
++                x2=&quot;721.54&quot;
++                y2=&quot;207.3&quot;
++                stroke=&quot;#ddd&quot;
++                stroke-dasharray=&quot;4,4&quot;
++            ></line>
++            <line
++                id=&quot;3-billion-ha&quot;
++                x1=&quot;101.47&quot;
++                y1=&quot;156.5&quot;
++                x2=&quot;721.54&quot;
++                y2=&quot;156.5&quot;
++                stroke=&quot;#ddd&quot;
++                stroke-dasharray=&quot;4,4&quot;
++            ></line>
++            <line
++                id=&quot;3.5-billion-ha&quot;
++                x1=&quot;101.47&quot;
++                y1=&quot;105.8&quot;
++                x2=&quot;721.54&quot;
++                y2=&quot;105.8&quot;
++                stroke=&quot;#ddd&quot;
++                stroke-dasharray=&quot;4,4&quot;
++            ></line>
++        </g>
++        <g id=&quot;line-labels&quot; class=&quot;LineLabels&quot;>
++            <g id=&quot;connectors&quot;>
++                <path
++                    id=&quot;Sesame-oil&quot;
++                    d=&quot;M725.54,139.2 H734.04 V139.2 H742.54&quot;
++                    stroke=&quot;#999&quot;
++                    stroke-width=&quot;0.5&quot;
++                    fill=&quot;none&quot;
++                ></path>
++                <path
++                    id=&quot;Cottonseed-oil&quot;
++                    d=&quot;M725.54,263.2 H734.04 V263.2 H742.54&quot;
++                    stroke=&quot;#999&quot;
++                    stroke-width=&quot;0.5&quot;
++                    fill=&quot;none&quot;
++                ></path>
++                <path
++                    id=&quot;Groundnut-oil&quot;
++                    d=&quot;M725.54,309.3 H734.04 V309.3 H742.54&quot;
++                    stroke=&quot;#999&quot;
++                    stroke-width=&quot;0.5&quot;
++                    fill=&quot;none&quot;
++                ></path>
++                <path
++                    id=&quot;Olive-oil&quot;
++                    d=&quot;M725.54,356.1 H734.04 V356.1 H742.54&quot;
++                    stroke=&quot;#999&quot;
++                    stroke-width=&quot;0.5&quot;
++                    fill=&quot;none&quot;
++                ></path>
++                <path
++                    id=&quot;Coconut-oil&quot;
++                    d=&quot;M725.54,372.7 H734.04 V372.7 H742.54&quot;
++                    stroke=&quot;#999&quot;
++                    stroke-width=&quot;0.5&quot;
++                    fill=&quot;none&quot;
++                ></path>
++                <path
++                    id=&quot;Soybean-oil&quot;
++                    d=&quot;M725.54,402.4 H731.2066666666666 V398.5333333333333 H742.54&quot;
++                    stroke=&quot;#999&quot;
++                    stroke-width=&quot;0.5&quot;
++                    fill=&quot;none&quot;
++                ></path>
++                <path
++                    id=&quot;Rapeseed-oil&quot;
++                    d=&quot;M725.54,423.3 H736.8733333333332 V416.8333333333333 H742.54&quot;
++                    stroke=&quot;#999&quot;
++                    stroke-width=&quot;0.5&quot;
++                    fill=&quot;none&quot;
++                ></path>
++                <path
++                    id=&quot;Sunflower-oil&quot;
++                    d=&quot;M725.54,424.8 H736.8733333333332 V435.1333333333333 H742.54&quot;
++                    stroke=&quot;#999&quot;
++                    stroke-width=&quot;0.5&quot;
++                    fill=&quot;none&quot;
++                ></path>
++                <path
++                    id=&quot;Palm-oil&quot;
++                    d=&quot;M725.54,452.7 H734.04 V452.7 H742.54&quot;
++                    stroke=&quot;#999&quot;
++                    stroke-width=&quot;0.5&quot;
++                    fill=&quot;none&quot;
++                ></path>
++            </g>
++            <g id=&quot;text-annotations&quot;></g>
++            <g id=&quot;text-labels&quot;>
++                <text
++                    id=&quot;label__Sesame-oil&quot;
++                    font-size=&quot;13.00&quot;
++                    font-weight=&quot;400&quot;
++                    x=&quot;746.5&quot;
++                    y=&quot;144.0&quot;
++                    fill=&quot;#2c8465&quot;
++                    opacity=&quot;1&quot;
++                    text-anchor=&quot;start&quot;
++                >
++                    <tspan x=&quot;746.54&quot; y=&quot;144.01&quot;>Sesame oil</tspan>
++                </text>
++                <text
++                    id=&quot;label__Cottonseed-oil&quot;
++                    font-size=&quot;13.00&quot;
++                    font-weight=&quot;400&quot;
++                    x=&quot;746.5&quot;
++                    y=&quot;268.0&quot;
++                    fill=&quot;#883039&quot;
++                    opacity=&quot;1&quot;
++                    text-anchor=&quot;start&quot;
++                >
++                    <tspan x=&quot;746.54&quot; y=&quot;268.01&quot;>Cottonseed oil</tspan>
++                </text>
++                <text
++                    id=&quot;label__Groundnut-oil&quot;
++                    font-size=&quot;13.00&quot;
++                    font-weight=&quot;400&quot;
++                    x=&quot;746.5&quot;
++                    y=&quot;314.1&quot;
++                    fill=&quot;#b13507&quot;
++                    opacity=&quot;1&quot;
++                    text-anchor=&quot;start&quot;
++                >
++                    <tspan x=&quot;746.54&quot; y=&quot;314.11&quot;>Groundnut oil</tspan>
++                </text>
++                <text
++                    id=&quot;label__Olive-oil&quot;
++                    font-size=&quot;13.00&quot;
++                    font-weight=&quot;400&quot;
++                    x=&quot;746.5&quot;
++                    y=&quot;360.9&quot;
++                    fill=&quot;#00295b&quot;
++                    opacity=&quot;1&quot;
++                    text-anchor=&quot;start&quot;
++                >
++                    <tspan x=&quot;746.54&quot; y=&quot;360.91&quot;>Olive oil</tspan>
++                </text>
++                <text
++                    id=&quot;label__Coconut-oil&quot;
++                    font-size=&quot;13.00&quot;
++                    font-weight=&quot;400&quot;
++                    x=&quot;746.5&quot;
++                    y=&quot;377.5&quot;
++                    fill=&quot;#4c6a9c&quot;
++                    opacity=&quot;1&quot;
++                    text-anchor=&quot;start&quot;
++                >
++                    <tspan x=&quot;746.54&quot; y=&quot;377.51&quot;>Coconut oil</tspan>
++                </text>
++                <text
++                    id=&quot;label__Soybean-oil&quot;
++                    font-size=&quot;13.00&quot;
++                    font-weight=&quot;400&quot;
++                    x=&quot;746.5&quot;
++                    y=&quot;403.3&quot;
++                    fill=&quot;#9a5129&quot;
++                    opacity=&quot;1&quot;
++                    text-anchor=&quot;start&quot;
++                >
++                    <tspan x=&quot;746.54&quot; y=&quot;403.3433333333333&quot;>Soybean oil</tspan>
++                </text>
++                <text
++                    id=&quot;label__Rapeseed-oil&quot;
++                    font-size=&quot;13.00&quot;
++                    font-weight=&quot;400&quot;
++                    x=&quot;746.5&quot;
++                    y=&quot;421.6&quot;
++                    fill=&quot;#a2559c&quot;
++                    opacity=&quot;1&quot;
++                    text-anchor=&quot;start&quot;
++                >
++                    <tspan x=&quot;746.54&quot; y=&quot;421.6433333333333&quot;>Rapeseed oil</tspan>
++                </text>
++                <text
++                    id=&quot;label__Sunflower-oil&quot;
++                    font-size=&quot;13.00&quot;
++                    font-weight=&quot;400&quot;
++                    x=&quot;746.5&quot;
++                    y=&quot;439.9&quot;
++                    fill=&quot;#6d3e91&quot;
++                    opacity=&quot;1&quot;
++                    text-anchor=&quot;start&quot;
++                >
++                    <tspan x=&quot;746.54&quot; y=&quot;439.9433333333333&quot;>
++                        Sunflower oil
++                    </tspan>
++                </text>
++                <text
++                    id=&quot;label__Palm-oil&quot;
++                    font-size=&quot;13.00&quot;
++                    font-weight=&quot;400&quot;
++                    x=&quot;746.5&quot;
++                    y=&quot;457.5&quot;
++                    fill=&quot;#996d39&quot;
++                    opacity=&quot;1&quot;
++                    text-anchor=&quot;start&quot;
++                >
++                    <tspan x=&quot;746.54&quot; y=&quot;457.51&quot;>Palm oil</tspan>
++                </text>
++            </g>
++        </g>
++        <g id=&quot;lines&quot;>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#ffffff&quot;
++                id=&quot;outline__Soybean-oil&quot;
++                stroke-width=&quot;2.5&quot;
++                d=&quot;M411.5 402.4&quot;
++            ></path>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#9a5129&quot;
++                id=&quot;line__Soybean-oil&quot;
++                stroke-width=&quot;1.5&quot;
++                stroke-opacity=&quot;1&quot;
++                d=&quot;M411.5 402.4&quot;
++            ></path>
++            <g id=&quot;datapoints__Soybean-oil&quot;>
++                <circle
++                    id=&quot;2022&quot;
++                    cx=&quot;411.5&quot;
++                    cy=&quot;402.4&quot;
++                    r=&quot;1.8&quot;
++                    fill=&quot;#9a5129&quot;
++                    opacity=&quot;1&quot;
++                ></circle>
++            </g>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#ffffff&quot;
++                id=&quot;outline__Rapeseed-oil&quot;
++                stroke-width=&quot;2.5&quot;
++                d=&quot;M411.5 423.3&quot;
++            ></path>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#a2559c&quot;
++                id=&quot;line__Rapeseed-oil&quot;
++                stroke-width=&quot;1.5&quot;
++                stroke-opacity=&quot;1&quot;
++                d=&quot;M411.5 423.3&quot;
++            ></path>
++            <g id=&quot;datapoints__Rapeseed-oil&quot;>
++                <circle
++                    id=&quot;2022&quot;
++                    cx=&quot;411.5&quot;
++                    cy=&quot;423.3&quot;
++                    r=&quot;1.8&quot;
++                    fill=&quot;#a2559c&quot;
++                    opacity=&quot;1&quot;
++                ></circle>
++            </g>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#ffffff&quot;
++                id=&quot;outline__Olive-oil&quot;
++                stroke-width=&quot;2.5&quot;
++                d=&quot;M411.5 356.1&quot;
++            ></path>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#00295b&quot;
++                id=&quot;line__Olive-oil&quot;
++                stroke-width=&quot;1.5&quot;
++                stroke-opacity=&quot;1&quot;
++                d=&quot;M411.5 356.1&quot;
++            ></path>
++            <g id=&quot;datapoints__Olive-oil&quot;>
++                <circle
++                    id=&quot;2022&quot;
++                    cx=&quot;411.5&quot;
++                    cy=&quot;356.1&quot;
++                    r=&quot;1.8&quot;
++                    fill=&quot;#00295b&quot;
++                    opacity=&quot;1&quot;
++                ></circle>
++            </g>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#ffffff&quot;
++                id=&quot;outline__Cottonseed-oil&quot;
++                stroke-width=&quot;2.5&quot;
++                d=&quot;M411.5 263.2&quot;
++            ></path>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#883039&quot;
++                id=&quot;line__Cottonseed-oil&quot;
++                stroke-width=&quot;1.5&quot;
++                stroke-opacity=&quot;1&quot;
++                d=&quot;M411.5 263.2&quot;
++            ></path>
++            <g id=&quot;datapoints__Cottonseed-oil&quot;>
++                <circle
++                    id=&quot;2022&quot;
++                    cx=&quot;411.5&quot;
++                    cy=&quot;263.2&quot;
++                    r=&quot;1.8&quot;
++                    fill=&quot;#883039&quot;
++                    opacity=&quot;1&quot;
++                ></circle>
++            </g>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#ffffff&quot;
++                id=&quot;outline__Sunflower-oil&quot;
++                stroke-width=&quot;2.5&quot;
++                d=&quot;M411.5 424.8&quot;
++            ></path>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#6d3e91&quot;
++                id=&quot;line__Sunflower-oil&quot;
++                stroke-width=&quot;1.5&quot;
++                stroke-opacity=&quot;1&quot;
++                d=&quot;M411.5 424.8&quot;
++            ></path>
++            <g id=&quot;datapoints__Sunflower-oil&quot;>
++                <circle
++                    id=&quot;2022&quot;
++                    cx=&quot;411.5&quot;
++                    cy=&quot;424.8&quot;
++                    r=&quot;1.8&quot;
++                    fill=&quot;#6d3e91&quot;
++                    opacity=&quot;1&quot;
++                ></circle>
++            </g>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#ffffff&quot;
++                id=&quot;outline__Sesame-oil&quot;
++                stroke-width=&quot;2.5&quot;
++                d=&quot;M411.5 139.2&quot;
++            ></path>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#2c8465&quot;
++                id=&quot;line__Sesame-oil&quot;
++                stroke-width=&quot;1.5&quot;
++                stroke-opacity=&quot;1&quot;
++                d=&quot;M411.5 139.2&quot;
++            ></path>
++            <g id=&quot;datapoints__Sesame-oil&quot;>
++                <circle
++                    id=&quot;2022&quot;
++                    cx=&quot;411.5&quot;
++                    cy=&quot;139.2&quot;
++                    r=&quot;1.8&quot;
++                    fill=&quot;#2c8465&quot;
++                    opacity=&quot;1&quot;
++                ></circle>
++            </g>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#ffffff&quot;
++                id=&quot;outline__Palm-oil&quot;
++                stroke-width=&quot;2.5&quot;
++                d=&quot;M411.5 452.7&quot;
++            ></path>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#996d39&quot;
++                id=&quot;line__Palm-oil&quot;
++                stroke-width=&quot;1.5&quot;
++                stroke-opacity=&quot;1&quot;
++                d=&quot;M411.5 452.7&quot;
++            ></path>
++            <g id=&quot;datapoints__Palm-oil&quot;>
++                <circle
++                    id=&quot;2022&quot;
++                    cx=&quot;411.5&quot;
++                    cy=&quot;452.7&quot;
++                    r=&quot;1.8&quot;
++                    fill=&quot;#996d39&quot;
++                    opacity=&quot;1&quot;
++                ></circle>
++            </g>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#ffffff&quot;
++                id=&quot;outline__Groundnut-oil&quot;
++                stroke-width=&quot;2.5&quot;
++                d=&quot;M411.5 309.3&quot;
++            ></path>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#b13507&quot;
++                id=&quot;line__Groundnut-oil&quot;
++                stroke-width=&quot;1.5&quot;
++                stroke-opacity=&quot;1&quot;
++                d=&quot;M411.5 309.3&quot;
++            ></path>
++            <g id=&quot;datapoints__Groundnut-oil&quot;>
++                <circle
++                    id=&quot;2022&quot;
++                    cx=&quot;411.5&quot;
++                    cy=&quot;309.3&quot;
++                    r=&quot;1.8&quot;
++                    fill=&quot;#b13507&quot;
++                    opacity=&quot;1&quot;
++                ></circle>
++            </g>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#ffffff&quot;
++                id=&quot;outline__Coconut-oil&quot;
++                stroke-width=&quot;2.5&quot;
++                d=&quot;M411.5 372.7&quot;
++            ></path>
++            <path
++                fill=&quot;none&quot;
++                stroke-linecap=&quot;butt&quot;
++                stroke-linejoin=&quot;round&quot;
++                stroke=&quot;#4c6a9c&quot;
++                id=&quot;line__Coconut-oil&quot;
++                stroke-width=&quot;1.5&quot;
++                stroke-opacity=&quot;1&quot;
++                d=&quot;M411.5 372.7&quot;
++            ></path>
++            <g id=&quot;datapoints__Coconut-oil&quot;>
++                <circle
++                    id=&quot;2022&quot;
++                    cx=&quot;411.5&quot;
++                    cy=&quot;372.7&quot;
++                    r=&quot;1.8&quot;
++                    fill=&quot;#4c6a9c&quot;
++                    opacity=&quot;1&quot;
++                ></circle>
++            </g>
++        </g>
+     </g>
+     <g id=&quot;footer&quot; class=&quot;SourcesFooter&quot; style=&quot;fill: #858585&quot;>
+         <g id=&quot;sources&quot; class=&quot;markdown-text-wrap&quot;>
+             <text x=&quot;16.0&quot; y=&quot;509.6&quot; style=&quot;font-size: 13px; line-height: 1.2&quot;>
+"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section
+                    if (diffContainer && !renderedDiffs.has(diffId)) {
+                        const diffString = diffContainer.dataset.diff;
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
