@@ -3,7 +3,7 @@
   "name": "Presidentialism index (central estimate)",
   "unit": "",
   "createdAt": "2025-05-27T10:34:02.000Z",
-  "updatedAt": "2025-06-12T19:00:40.000Z",
+  "updatedAt": "2025-08-02T15:02:52.000Z",
   "coverage": "",
   "timespan": "1789-2024",
   "datasetId": 7010,
@@ -1815,11 +1815,11 @@
   },
   "descriptionShort": "Central estimate of the extent to which the executive is unconstrained by the legislature, judiciary, electoral management body, and other oversight.",
   "descriptionFromProducer": "Question: To what extent is the regime characterized by presidentialism?\n\nClarification:\nPresidentialism means the \"systemic concentration of political power in the hands of one individual who resists delegating all but the most trivial decision making tasks\" (Bratton and Van de Walle, 1997: 63). It relates closely to V-Dem's index of Horizontal Accountability (v2x_horacc) but focuses more specifically on the extent to which the President is free from constraints by other institutions or actors. The point estimates for this index have been reversed such that the directionality is opposite to the input variables. That is, lower scores indicate a normatively better situation (e.g. more democratic) and higher scores a normatively worse situation (e.g. less democratic). Note that this directionality is opposite of that of other V-Dem indices, which generally run from normatively worse to better.\n\nScale: Interval, from low to high (0-1).\n\nV-Dem indicator name: `v2xnp_pres`",
-  "descriptionProcessing": "The default regional aggregates (including values for the World) have been estimated by averaging the country values. These are only estimated when data for most countries and populations is available (i.e. 70% for most continents). We have used the list of countries in 1900 as a reference.\n\nIn addition, regional aggregates with names like `Region (population-weighted)` (including values for World) have been estimated by averaging the country values weighted by population. The population values are from the UN WPP 2024 revision dataset. These are only estimated when 70% of people in region have data for the given year.",
+  "descriptionProcessing": "### Region aggregates\nThe default regional aggregates (including values for the World) have been estimated by averaging the country values. These are only estimated when data for most countries and populations is available (i.e. 70% for most continents). We have used the list of countries in 1900 as a reference.\n\nIn addition, regional aggregates with names like \"Region (population-weighted)\" (including values for World) have been estimated by averaging the country values weighted by population. The population values are from the UN WPP 2024 revision dataset. These are only estimated when 70% of people in region have data for the given year.\n\n### Data imputation\nWe expand the years covered by V-Dem further: To expand the time coverage of today's countries and include more of the period when they were still non-sovereign territories, we identified the historical entity they were a part of and used that regime's data whenever available\n\nFor example, V-Dem only provides regime data since Bangladesh's independence in 1971. There is, however, regime data for Pakistan and the colony of India, both of which the current territory of Bangladesh was a part. We, therefore, use the regime data of Pakistan for Bangladesh from 1947 to 1970, and the regime data of India from 1789 to 1946. We did so for all countries with a past or current population of more than one million.\n\nFor more details on the imputation methodology and which countries are affected, refer to [this file](https://github.com/owid/etl/blob/master/etl/steps/data/garden/democracy/2025-03-17/vdem/vdem.countries_impute.yml).",
   "type": "float",
   "grapherConfigIdETL": "0197114e-6f78-715c-80f5-17c61d4b65ad",
-  "dataChecksum": "6139078151976645364",
-  "metadataChecksum": "-8484663536913072719",
+  "dataChecksum": "2883375113654341099",
+  "metadataChecksum": "7888694079748916759",
   "datasetName": "V-Dem Country-Year (Full + Others)",
   "updatePeriodDays": 365,
   "datasetVersion": "2025-03-17",
@@ -1837,7 +1837,8 @@
     ]
   },
   "descriptionKey": [
-    "V-Dem covers many more countries since 1900, which affects regional averages."
+    "V-Dem covers many more countries since 1900, which affects regional averages.",
+    "We provide two kinds of regional averages: **country averages** and **population-weighted averages**. Country averages weigh each country equally and give a sense of how the typical country is doing. Population-weighted averages weigh countries with larger populations more and therefore better reflect the average person's experience."
   ],
   "origins": [
     {

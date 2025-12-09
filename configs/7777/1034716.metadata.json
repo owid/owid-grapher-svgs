@@ -3,7 +3,7 @@
   "name": "Voter turnout of voting-age population",
   "unit": "%",
   "createdAt": "2025-05-27T10:34:23.000Z",
-  "updatedAt": "2025-06-12T19:00:58.000Z",
+  "updatedAt": "2025-08-02T15:03:03.000Z",
   "coverage": "",
   "timespan": "1830-2024",
   "datasetId": 7010,
@@ -12,11 +12,11 @@
   "catalogPath": "grapher/democracy/2025-03-17/vdem/vdem_uni_with_regions#turnout_total_vdem",
   "descriptionShort": "Denotes the voter turnout as a share of the voting age population in the national election according to official results.",
   "descriptionFromProducer": "Question: In this national election, what percentage (%) of all registered voters cast a vote according to official results?\n\nV-Dem indicator name: `v2elvaptrn`",
-  "descriptionProcessing": "The default regional aggregates (including values for the World) have been estimated by averaging the country values. These are only estimated when data for most countries and populations is available (i.e. 70% for most continents). We have used the list of countries in 1900 as a reference.\n\nIn addition, regional aggregates with names like `Region (population-weighted)` (including values for World) have been estimated by averaging the country values weighted by population. The population values are from the UN WPP 2024 revision dataset. These are only estimated when 70% of people in region have data for the given year.",
+  "descriptionProcessing": "### Region aggregates\nThe default regional aggregates (including values for the World) have been estimated by averaging the country values. These are only estimated when data for most countries and populations is available (i.e. 70% for most continents). We have used the list of countries in 1900 as a reference.\n\nIn addition, regional aggregates with names like \"Region (population-weighted)\" (including values for World) have been estimated by averaging the country values weighted by population. The population values are from the UN WPP 2024 revision dataset. These are only estimated when 70% of people in region have data for the given year.\n\n### Data imputation\nWe expand the years covered by V-Dem further: To expand the time coverage of today's countries and include more of the period when they were still non-sovereign territories, we identified the historical entity they were a part of and used that regime's data whenever available\n\nFor example, V-Dem only provides regime data since Bangladesh's independence in 1971. There is, however, regime data for Pakistan and the colony of India, both of which the current territory of Bangladesh was a part. We, therefore, use the regime data of Pakistan for Bangladesh from 1947 to 1970, and the regime data of India from 1789 to 1946. We did so for all countries with a past or current population of more than one million.\n\nFor more details on the imputation methodology and which countries are affected, refer to [this file](https://github.com/owid/etl/blob/master/etl/steps/data/garden/democracy/2025-03-17/vdem/vdem.countries_impute.yml).",
   "type": "float",
   "grapherConfigIdETL": "0197114e-c2ef-74f1-8ee7-3b04d70603ab",
-  "dataChecksum": "9116954692405092266",
-  "metadataChecksum": "-8524750233858231782",
+  "dataChecksum": "8031185424256316846",
+  "metadataChecksum": "8845880986487693989",
   "datasetName": "V-Dem Country-Year (Full + Others)",
   "updatePeriodDays": 365,
   "datasetVersion": "2025-03-17",
@@ -33,7 +33,8 @@
     ]
   },
   "descriptionKey": [
-    "V-Dem covers many more countries since 1900, which affects regional averages."
+    "V-Dem covers many more countries since 1900, which affects regional averages.",
+    "We provide two kinds of regional averages: **country averages** and **population-weighted averages**. Country averages weigh each country equally and give a sense of how the typical country is doing. Population-weighted averages weigh countries with larger populations more and therefore better reflect the average person's experience."
   ],
   "dimensions": {
     "years": {
