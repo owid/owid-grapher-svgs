@@ -1,0 +1,2816 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        /* Tab content */
+        .tab-content {
+            min-height: 400px;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: 800px;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 100%;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="summary">Number of differences: 8</p><section data-slug="daily-income-or-consumption-of-the-poorest-10-marimekko">
+        <div class="header-with-actions">
+            <h2>daily-income-or-consumption-of-the-poorest-10-marimekko</h2>
+            <button class="copy-slug-btn" data-slug="daily-income-or-consumption-of-the-poorest-10-marimekko" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/daily-income-or-consumption-of-the-poorest-10-marimekko" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/daily-income-or-consumption-of-the-poorest-10-marimekko_v29_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-marimekko-trim-time-range/grapher/daily-income-or-consumption-of-the-poorest-10-marimekko" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/daily-income-or-consumption-of-the-poorest-10-marimekko_v29_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/daily-income-or-consumption-of-the-poorest-10-marimekko_v29_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/daily-income-or-consumption-of-the-poorest-10-marimekko_v29_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: daily-income-or-consumption-of-the-poorest-10-marimekko_v29_850x600.svg
+===================================================================
+--- daily-income-or-consumption-of-the-poorest-10-marimekko_v29_850x600.svg	
++++ daily-income-or-consumption-of-the-poorest-10-marimekko_v29_850x600.svg	
+@@ -52,9 +52,9 @@
+                 y=&quot;40.3&quot;
+                 fill=&quot;#2d2e2d&quot;
+             >
+                 <tspan x=&quot;16&quot; y=&quot;40.25&quot;>
+-                    Income or consumption of the poorest 10%, 2025
++                    Income or consumption of the poorest 10%, 2024
+                 </tspan>
+             </text>
+         </a>
+         <g id=&quot;subtitle&quot; class=&quot;markdown-text-wrap&quot;>
+@@ -298,9 +298,9 @@
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 135.5)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;300.8&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -310,15 +310,15 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Luxembourg&quot; class=&quot;bar&quot; transform=&quot;translate(60.4, 0)&quot;>
++            <g id=&quot;bar__Luxembourg&quot; class=&quot;bar&quot; transform=&quot;translate(59.7, 0)&quot;>
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 158.09999999999997)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;278.20000000000005&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -328,15 +328,15 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Netherlands&quot; class=&quot;bar&quot; transform=&quot;translate(67.4, 0)&quot;>
++            <g id=&quot;bar__Netherlands&quot; class=&quot;bar&quot; transform=&quot;translate(66, 0)&quot;>
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 171.3)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;265&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -346,15 +346,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Denmark&quot; class=&quot;bar&quot; transform=&quot;translate(74.4, 0)&quot;>
++            <g
++                id=&quot;bar__Denmark&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(72.30000000000001, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 186.3)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;250&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -364,15 +368,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Austria&quot; class=&quot;bar&quot; transform=&quot;translate(81.4, 0)&quot;>
++            <g
++                id=&quot;bar__Austria&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(78.60000000000002, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 192.2)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;244.10000000000002&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -382,15 +390,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Switzerland&quot; class=&quot;bar&quot; transform=&quot;translate(88.4, 0)&quot;>
++            <g
++                id=&quot;bar__Switzerland&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(84.90000000000002, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 195.4)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;240.9&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -400,15 +412,41 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Canada&quot; class=&quot;bar&quot; transform=&quot;translate(95.4, 0)&quot;>
++            <g
++                id=&quot;bar__Iceland&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(91.20000000000002, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
++                        transform=&quot;translate(0, 196.6)&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;239.70000000000002&quot;
++                        fill=&quot;#4c6a9c&quot;
++                        fill-opacity=&quot;0.8&quot;
++                        stroke=&quot;#4c6a9c&quot;
++                        stroke-width=&quot;0.5&quot;
++                        stroke-opacity=&quot;1&quot;
++                        opacity=&quot;1&quot;
++                        style=&quot;transition: translate 200ms ease&quot;
++                    ></rect>
++                </g>
++            </g>
++            <g
++                id=&quot;bar__Canada&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(97.50000000000003, 0)&quot;
++            >
++                <g>
++                    <rect
++                        x=&quot;0&quot;
++                        y=&quot;0&quot;
+                         transform=&quot;translate(0, 199.2)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;237.10000000000002&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -418,15 +456,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Belgium&quot; class=&quot;bar&quot; transform=&quot;translate(102.4, 0)&quot;>
++            <g
++                id=&quot;bar__Belgium&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(103.80000000000004, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 200.3)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;236&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -436,15 +478,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Germany&quot; class=&quot;bar&quot; transform=&quot;translate(109.4, 0)&quot;>
++            <g
++                id=&quot;bar__Germany&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(110.10000000000004, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 207.8)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;228.5&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -454,15 +500,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Finland&quot; class=&quot;bar&quot; transform=&quot;translate(116.4, 0)&quot;>
++            <g
++                id=&quot;bar__Finland&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(116.40000000000003, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 213.3)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;223&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -472,15 +522,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Slovenia&quot; class=&quot;bar&quot; transform=&quot;translate(123.4, 0)&quot;>
++            <g
++                id=&quot;bar__Slovenia&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(122.70000000000005, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 230.5)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;205.8&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -490,15 +544,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Cyprus&quot; class=&quot;bar&quot; transform=&quot;translate(130.4, 0)&quot;>
++            <g
++                id=&quot;bar__Cyprus&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(129.00000000000006, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 234.2)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;202.10000000000002&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -508,15 +566,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Australia&quot; class=&quot;bar&quot; transform=&quot;translate(137.4, 0)&quot;>
++            <g
++                id=&quot;bar__Australia&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(135.30000000000007, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 236.4)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;199.9&quot;
+                         fill=&quot;#38aaba&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#38aaba&quot;
+@@ -526,15 +588,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Ireland&quot; class=&quot;bar&quot; transform=&quot;translate(144.4, 0)&quot;>
++            <g
++                id=&quot;bar__Ireland&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(141.60000000000008, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 237.3)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;199&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -544,15 +610,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__France&quot; class=&quot;bar&quot; transform=&quot;translate(151.4, 0)&quot;>
++            <g
++                id=&quot;bar__France&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(147.9000000000001, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 247.1)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;189.20000000000002&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -562,15 +632,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Sweden&quot; class=&quot;bar&quot; transform=&quot;translate(158.4, 0)&quot;>
++            <g
++                id=&quot;bar__Sweden&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(154.2000000000001, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 249)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;187.3&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -583,16 +657,16 @@
+             </g>
+             <g
+                 id=&quot;bar__United-Kingdom&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(165.4, 0)&quot;
++                transform=&quot;translate(160.5000000000001, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 253.5)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;182.8&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -605,16 +679,16 @@
+             </g>
+             <g
+                 id=&quot;bar__United-States&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(172.4, 0)&quot;
++                transform=&quot;translate(166.80000000000013, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 253.5)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;182.8&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -624,15 +698,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Malta&quot; class=&quot;bar&quot; transform=&quot;translate(179.4, 0)&quot;>
++            <g
++                id=&quot;bar__Malta&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(173.10000000000014, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 256.4)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;179.90000000000003&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -645,16 +723,16 @@
+             </g>
+             <g
+                 id=&quot;bar__South-Korea&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(186.4, 0)&quot;
++                transform=&quot;translate(179.40000000000015, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 261.1)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;175.2&quot;
+                         fill=&quot;#00847e&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#00847e&quot;
+@@ -664,15 +742,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Taiwan&quot; class=&quot;bar&quot; transform=&quot;translate(193.4, 0)&quot;>
++            <g
++                id=&quot;bar__Taiwan&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(185.70000000000016, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 261.9)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;174.40000000000003&quot;
+                         fill=&quot;#00847e&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#00847e&quot;
+@@ -682,15 +764,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Czechia&quot; class=&quot;bar&quot; transform=&quot;translate(200.4, 0)&quot;>
++            <g
++                id=&quot;bar__Czechia&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(192.00000000000017, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 280.9)&quot;
+-                        width=&quot;7&quot;
++                        width=&quot;6.300000000000004&quot;
+                         height=&quot;155.40000000000003&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -700,15 +786,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Italy&quot; class=&quot;bar&quot; transform=&quot;translate(207.4, 0)&quot;>
++            <g
+
+... (diff truncated: showing 500 of 3042 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="daily-income-or-consumption-of-the-richest-10-marimekko">
+        <div class="header-with-actions">
+            <h2>daily-income-or-consumption-of-the-richest-10-marimekko</h2>
+            <button class="copy-slug-btn" data-slug="daily-income-or-consumption-of-the-richest-10-marimekko" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/daily-income-or-consumption-of-the-richest-10-marimekko" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/daily-income-or-consumption-of-the-richest-10-marimekko_v33_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-marimekko-trim-time-range/grapher/daily-income-or-consumption-of-the-richest-10-marimekko" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/daily-income-or-consumption-of-the-richest-10-marimekko_v33_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/daily-income-or-consumption-of-the-richest-10-marimekko_v33_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/daily-income-or-consumption-of-the-richest-10-marimekko_v33_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: daily-income-or-consumption-of-the-richest-10-marimekko_v33_850x600.svg
+===================================================================
+--- daily-income-or-consumption-of-the-richest-10-marimekko_v33_850x600.svg	
++++ daily-income-or-consumption-of-the-richest-10-marimekko_v33_850x600.svg	
+@@ -52,9 +52,9 @@
+                 y=&quot;40.3&quot;
+                 fill=&quot;#2d2e2d&quot;
+             >
+                 <tspan x=&quot;16&quot; y=&quot;40.25&quot;>
+-                    Income or consumption of the richest 10%, 2025
++                    Income or consumption of the richest 10%, 2024
+                 </tspan>
+             </text>
+         </a>
+         <g id=&quot;subtitle&quot; class=&quot;markdown-text-wrap&quot;>
+@@ -87,40 +87,40 @@
+             ></rect>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+-                        x=&quot;57.81&quot;
+-                        y=&quot;426.9&quot;
++                        x=&quot;48.27&quot;
++                        y=&quot;436.4&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;13&quot;
+                     >
+                         \$0
+                     </text>
+                     <text
+-                        x=&quot;57.81&quot;
+-                        y=&quot;350.6&quot;
++                        x=&quot;48.27&quot;
++                        y=&quot;357.6&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;13&quot;
+                     >
+                         \$50
+                     </text>
+                     <text
+-                        x=&quot;57.81&quot;
+-                        y=&quot;274.3&quot;
++                        x=&quot;48.27&quot;
++                        y=&quot;278.8&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;13&quot;
+                     >
+                         \$100
+                     </text>
+                     <text
+-                        x=&quot;57.81&quot;
+-                        y=&quot;197.9&quot;
++                        x=&quot;48.27&quot;
++                        y=&quot;200&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;13&quot;
+@@ -131,38 +131,38 @@
+             </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+                     id=&quot;\$0&quot;
+-                    x1=&quot;62.81&quot;
+-                    y1=&quot;426.9&quot;
++                    x1=&quot;53.27&quot;
++                    y1=&quot;436.4&quot;
+                     x2=&quot;824.00&quot;
+-                    y2=&quot;426.9&quot;
++                    y2=&quot;436.4&quot;
+                     stroke=&quot;#999&quot;
+                 ></line>
+                 <line
+                     id=&quot;\$50&quot;
+-                    x1=&quot;62.81&quot;
+-                    y1=&quot;350.6&quot;
++                    x1=&quot;53.27&quot;
++                    y1=&quot;357.6&quot;
+                     x2=&quot;824.00&quot;
+-                    y2=&quot;350.6&quot;
++                    y2=&quot;357.6&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;\$100&quot;
+-                    x1=&quot;62.81&quot;
+-                    y1=&quot;274.3&quot;
++                    x1=&quot;53.27&quot;
++                    y1=&quot;278.8&quot;
+                     x2=&quot;824.00&quot;
+-                    y2=&quot;274.3&quot;
++                    y2=&quot;278.8&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;\$150&quot;
+-                    x1=&quot;62.81&quot;
+-                    y1=&quot;197.9&quot;
++                    x1=&quot;53.27&quot;
++                    y1=&quot;200&quot;
+                     x2=&quot;824.00&quot;
+-                    y2=&quot;197.9&quot;
++                    y2=&quot;200&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+             </g>
+@@ -273,16 +273,16 @@
+                         Oceania
+                     </text>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Luxembourg&quot; class=&quot;bar&quot; transform=&quot;translate(62.8, 0)&quot;>
++            <g id=&quot;bar__Luxembourg&quot; class=&quot;bar&quot; transform=&quot;translate(53.3, 0)&quot;>
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 135.5)&quot;
+-                        width=&quot;7&quot;
+-                        height=&quot;291.4&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;300.9&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -294,17 +294,17 @@
+             </g>
+             <g
+                 id=&quot;bar__United-States&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(69.8, 0)&quot;
++                transform=&quot;translate(59.6, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 152.10000000000002)&quot;
+-                        width=&quot;7&quot;
+-                        height=&quot;274.79999999999995&quot;
++                        transform=&quot;translate(0, 152.60000000000002)&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;283.79999999999995&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -313,16 +313,16 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Switzerland&quot; class=&quot;bar&quot; transform=&quot;translate(76.8, 0)&quot;>
++            <g id=&quot;bar__Switzerland&quot; class=&quot;bar&quot; transform=&quot;translate(65.9, 0)&quot;>
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 199.4)&quot;
+-                        width=&quot;7&quot;
+-                        height=&quot;227.49999999999997&quot;
++                        transform=&quot;translate(0, 201.5)&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;234.89999999999998&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -331,16 +331,20 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Norway&quot; class=&quot;bar&quot; transform=&quot;translate(83.8, 0)&quot;>
++            <g
++                id=&quot;bar__Norway&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(72.20000000000002, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 220.1)&quot;
+-                        width=&quot;7&quot;
+-                        height=&quot;206.79999999999998&quot;
++                        transform=&quot;translate(0, 222.9)&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;213.49999999999997&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -349,16 +353,20 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Germany&quot; class=&quot;bar&quot; transform=&quot;translate(90.8, 0)&quot;>
++            <g
++                id=&quot;bar__Germany&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(78.50000000000001, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 221.7)&quot;
+-                        width=&quot;7&quot;
+-                        height=&quot;205.2&quot;
++                        transform=&quot;translate(0, 224.5)&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;211.89999999999998&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -367,16 +375,20 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Austria&quot; class=&quot;bar&quot; transform=&quot;translate(97.8, 0)&quot;>
++            <g
++                id=&quot;bar__Austria&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(84.80000000000001, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 225.3)&quot;
+-                        width=&quot;7&quot;
+-                        height=&quot;201.59999999999997&quot;
++                        transform=&quot;translate(0, 228.2)&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;208.2&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -385,16 +397,20 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Canada&quot; class=&quot;bar&quot; transform=&quot;translate(104.8, 0)&quot;>
++            <g
++                id=&quot;bar__Canada&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(91.10000000000002, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 225.6)&quot;
+-                        width=&quot;7&quot;
+-                        height=&quot;201.29999999999998&quot;
++                        transform=&quot;translate(0, 228.5)&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;207.89999999999998&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -403,16 +419,20 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Australia&quot; class=&quot;bar&quot; transform=&quot;translate(111.8, 0)&quot;>
++            <g
++                id=&quot;bar__Australia&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(97.40000000000003, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 229.1)&quot;
+-                        width=&quot;7&quot;
+-                        height=&quot;197.79999999999998&quot;
++                        transform=&quot;translate(0, 232.2)&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;204.2&quot;
+                         fill=&quot;#38aaba&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#38aaba&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -424,17 +444,17 @@
+             </g>
+             <g
+                 id=&quot;bar__Netherlands&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(118.8, 0)&quot;
++                transform=&quot;translate(103.70000000000003, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 247.8)&quot;
+-                        width=&quot;7&quot;
+-                        height=&quot;179.09999999999997&quot;
++                        transform=&quot;translate(0, 251.5)&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;184.89999999999998&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -446,17 +466,17 @@
+             </g>
+             <g
+                 id=&quot;bar__South-Korea&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(125.8, 0)&quot;
++                transform=&quot;translate(110.00000000000003, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 254.3)&quot;
+-                        width=&quot;7&quot;
+-                        height=&quot;172.59999999999997&quot;
++                        transform=&quot;translate(0, 258.2)&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;178.2&quot;
+                         fill=&quot;#00847e&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#00847e&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -465,16 +485,20 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__France&quot; class=&quot;bar&quot; transform=&quot;translate(132.8, 0)&quot;>
++            <g
++                id=&quot;bar__France&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(116.30000000000004, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 255.8)&quot;
+-                        width=&quot;7&quot;
+-                        height=&quot;171.09999999999997&quot;
++                        transform=&quot;translate(0, 259.7)&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;176.7&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -483,16 +507,20 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Belgium&quot; class=&quot;bar&quot; transform=&quot;translate(139.8, 0)&quot;>
++            <g
++                id=&quot;bar__Belgium&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(122.60000000000004, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 257.5)&quot;
+-                        width=&quot;7&quot;
+-                        height=&quot;169.39999999999998&quot;
++                        transform=&quot;translate(0, 261.5)&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;174.89999999999998&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -501,16 +529,20 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Malta&quot; class=&quot;bar&quot; transform=&quot;translate(146.8, 0)&quot;>
++            <g
++                id=&quot;bar__Malta&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(128.90000000000003, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 257.6)&quot;
+-                        width=&quot;7&quot;
+-                        height=&quot;169.29999999999995&quot;
++                        transform=&quot;translate(0, 261.6)&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;174.79999999999995&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -519,16 +551,20 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Denmark&quot; class=&quot;bar&quot; transform=&quot;translate(153.8, 0)&quot;>
++            <g
++                id=&quot;bar__Denmark&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(135.20000000000005, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 257.8)&quot;
+-                        width=&quot;7&quot;
+-                        height=&quot;169.09999999999997&quot;
++                        transform=&quot;translate(0, 261.8)&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;174.59999999999997&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -540,17 +576,17 @@
+             </g>
+             <g
+                 id=&quot;bar__United-Kingdom&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(160.8, 0)&quot;
++                transform=&quot;translate(141.50000000000006, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 258)&quot;
+-                        width=&quot;7&quot;
+-                        height=&quot;168.89999999999998&quot;
++                        transform=&quot;translate(0, 262)&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;174.39999999999998&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -559,16 +595,20 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Sweden&quot; class=&quot;bar&quot; transform=&quot;translate(167.8, 0)&quot;>
++            <g
++                id=&quot;bar__Iceland&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(147.80000000000007, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 268.1)&quot;
+-                        width=&quot;7&quot;
+-                        height=&quot;158.79999999999995&quot;
++                        transform=&quot;translate(0, 270.6)&quot;
++                        width=&quot;6.300000000000004&quot;
++                        height=&quot;165.79999999999995&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -577,16 +617,20 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Cyprus&quot; class=&quot;bar&quot; transform=&quot;translate(174.8, 0)&quot;>
+
+... (diff truncated: showing 500 of 3474 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="share-of-children-achieving-minimum-reading-proficiency-by-the-end-of-primary-education">
+        <div class="header-with-actions">
+            <h2>share-of-children-achieving-minimum-reading-proficiency-by-the-end-of-primary-education</h2>
+            <button class="copy-slug-btn" data-slug="share-of-children-achieving-minimum-reading-proficiency-by-the-end-of-primary-education" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/share-of-children-achieving-minimum-reading-proficiency-by-the-end-of-primary-education" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/share-of-children-achieving-minimum-reading-proficiency-by-the-end-of-primary-education_v43_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-marimekko-trim-time-range/grapher/share-of-children-achieving-minimum-reading-proficiency-by-the-end-of-primary-education" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/share-of-children-achieving-minimum-reading-proficiency-by-the-end-of-primary-education_v43_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/share-of-children-achieving-minimum-reading-proficiency-by-the-end-of-primary-education_v43_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/share-of-children-achieving-minimum-reading-proficiency-by-the-end-of-primary-education_v43_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: share-of-children-achieving-minimum-reading-proficiency-by-the-end-of-primary-education_v43_850x600.svg
+===================================================================
+--- share-of-children-achieving-minimum-reading-proficiency-by-the-end-of-primary-education_v43_850x600.svg	
++++ share-of-children-achieving-minimum-reading-proficiency-by-the-end-of-primary-education_v43_850x600.svg	
+@@ -55,9 +55,9 @@
+                 <tspan x=&quot;16&quot; y=&quot;36.855000000000004&quot;>
+                     Share of children achieving minimum reading proficiency by
+                     the end
+                 </tspan>
+-                <tspan x=&quot;16&quot; y=&quot;62.655&quot;>of primary education age, 2024</tspan>
++                <tspan x=&quot;16&quot; y=&quot;62.655&quot;>of primary education age, 2023</tspan>
+             </text>
+         </a>
+         <g id=&quot;subtitle&quot; class=&quot;markdown-text-wrap&quot;>
+             <text
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="share-of-children-reaching-sufficient-reading-comprehension-by-the-end-of-lower-secondary-age">
+        <div class="header-with-actions">
+            <h2>share-of-children-reaching-sufficient-reading-comprehension-by-the-end-of-lower-secondary-age</h2>
+            <button class="copy-slug-btn" data-slug="share-of-children-reaching-sufficient-reading-comprehension-by-the-end-of-lower-secondary-age" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/share-of-children-reaching-sufficient-reading-comprehension-by-the-end-of-lower-secondary-age" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/share-of-children-reaching-sufficient-reading-comprehension-by-the-end-of-lower-secondary-age_v37_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-marimekko-trim-time-range/grapher/share-of-children-reaching-sufficient-reading-comprehension-by-the-end-of-lower-secondary-age" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/share-of-children-reaching-sufficient-reading-comprehension-by-the-end-of-lower-secondary-age_v37_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/share-of-children-reaching-sufficient-reading-comprehension-by-the-end-of-lower-secondary-age_v37_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/share-of-children-reaching-sufficient-reading-comprehension-by-the-end-of-lower-secondary-age_v37_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: share-of-children-reaching-sufficient-reading-comprehension-by-the-end-of-lower-secondary-age_v37_850x600.svg
+===================================================================
+--- share-of-children-reaching-sufficient-reading-comprehension-by-the-end-of-lower-secondary-age_v37_850x600.svg	
++++ share-of-children-reaching-sufficient-reading-comprehension-by-the-end-of-lower-secondary-age_v37_850x600.svg	
+@@ -55,9 +55,9 @@
+                 <tspan x=&quot;16&quot; y=&quot;36.855000000000004&quot;>
+                     Share of children achieving minimum reading proficiency by
+                     the end
+                 </tspan>
+-                <tspan x=&quot;16&quot; y=&quot;62.655&quot;>of lower-secondary age, 2024</tspan>
++                <tspan x=&quot;16&quot; y=&quot;62.655&quot;>of lower-secondary age, 2022</tspan>
+             </text>
+         </a>
+         <g id=&quot;subtitle&quot; class=&quot;markdown-text-wrap&quot;>
+             <text
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="share-of-students-at-end-of-lower-secondary-education-achieving-minimum-math-proficiency">
+        <div class="header-with-actions">
+            <h2>share-of-students-at-end-of-lower-secondary-education-achieving-minimum-math-proficiency</h2>
+            <button class="copy-slug-btn" data-slug="share-of-students-at-end-of-lower-secondary-education-achieving-minimum-math-proficiency" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/share-of-students-at-end-of-lower-secondary-education-achieving-minimum-math-proficiency" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/share-of-students-at-end-of-lower-secondary-education-achieving-minimum-math-proficiency_v29_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-marimekko-trim-time-range/grapher/share-of-students-at-end-of-lower-secondary-education-achieving-minimum-math-proficiency" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/share-of-students-at-end-of-lower-secondary-education-achieving-minimum-math-proficiency_v29_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/share-of-students-at-end-of-lower-secondary-education-achieving-minimum-math-proficiency_v29_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/share-of-students-at-end-of-lower-secondary-education-achieving-minimum-math-proficiency_v29_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: share-of-students-at-end-of-lower-secondary-education-achieving-minimum-math-proficiency_v29_850x600.svg
+===================================================================
+--- share-of-students-at-end-of-lower-secondary-education-achieving-minimum-math-proficiency_v29_850x600.svg	
++++ share-of-students-at-end-of-lower-secondary-education-achieving-minimum-math-proficiency_v29_850x600.svg	
+@@ -55,9 +55,9 @@
+                 <tspan x=&quot;16&quot; y=&quot;36.855000000000004&quot;>
+                     Share of students achieving minimum math proficiency by the
+                     end of
+                 </tspan>
+-                <tspan x=&quot;16&quot; y=&quot;62.655&quot;>lower-secondary education, 2024</tspan>
++                <tspan x=&quot;16&quot; y=&quot;62.655&quot;>lower-secondary education, 2023</tspan>
+             </text>
+         </a>
+         <g id=&quot;subtitle&quot; class=&quot;markdown-text-wrap&quot;>
+             <text
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="share-of-students-at-end-of-lower-secondary-education-with-minimum-reading-proficiency">
+        <div class="header-with-actions">
+            <h2>share-of-students-at-end-of-lower-secondary-education-with-minimum-reading-proficiency</h2>
+            <button class="copy-slug-btn" data-slug="share-of-students-at-end-of-lower-secondary-education-with-minimum-reading-proficiency" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/share-of-students-at-end-of-lower-secondary-education-with-minimum-reading-proficiency" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/share-of-students-at-end-of-lower-secondary-education-with-minimum-reading-proficiency_v28_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-marimekko-trim-time-range/grapher/share-of-students-at-end-of-lower-secondary-education-with-minimum-reading-proficiency" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/share-of-students-at-end-of-lower-secondary-education-with-minimum-reading-proficiency_v28_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/share-of-students-at-end-of-lower-secondary-education-with-minimum-reading-proficiency_v28_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/share-of-students-at-end-of-lower-secondary-education-with-minimum-reading-proficiency_v28_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: share-of-students-at-end-of-lower-secondary-education-with-minimum-reading-proficiency_v28_850x600.svg
+===================================================================
+--- share-of-students-at-end-of-lower-secondary-education-with-minimum-reading-proficiency_v28_850x600.svg	
++++ share-of-students-at-end-of-lower-secondary-education-with-minimum-reading-proficiency_v28_850x600.svg	
+@@ -56,9 +56,9 @@
+                     Share of students achieving minimum reading proficiency by
+                     the end
+                 </tspan>
+                 <tspan x=&quot;16&quot; y=&quot;62.655&quot;>
+-                    of lower secondary education, 2024
++                    of lower secondary education, 2022
+                 </tspan>
+             </text>
+         </a>
+         <g id=&quot;subtitle&quot; class=&quot;markdown-text-wrap&quot;>
+@@ -277,9 +277,9 @@
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 157.10000000000002)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;279.79999999999995&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -289,15 +289,15 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Ireland&quot; class=&quot;bar&quot; transform=&quot;translate(96.3, 0)&quot;>
++            <g id=&quot;bar__Ireland&quot; class=&quot;bar&quot; transform=&quot;translate(96.2, 0)&quot;>
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 158)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;278.9&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -307,15 +307,41 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Macao&quot; class=&quot;bar&quot; transform=&quot;translate(104.1, 0)&quot;>
++            <g
++                id=&quot;bar__Liechtenstein&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(103.9, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
++                        transform=&quot;translate(0, 160.89999999999998)&quot;
++                        width=&quot;7.700000000000003&quot;
++                        height=&quot;276&quot;
++                        fill=&quot;#e56e5a&quot;
++                        fill-opacity=&quot;0.8&quot;
++                        stroke=&quot;#e56e5a&quot;
++                        stroke-width=&quot;0.5&quot;
++                        stroke-opacity=&quot;1&quot;
++                        opacity=&quot;1&quot;
++                        style=&quot;transition: translate 200ms ease&quot;
++                    ></rect>
++                </g>
++            </g>
++            <g
++                id=&quot;bar__Macao&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(111.60000000000001, 0)&quot;
++            >
++                <g>
++                    <rect
++                        x=&quot;0&quot;
++                        y=&quot;0&quot;
+                         transform=&quot;translate(0, 161.7)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;275.2&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -328,16 +354,16 @@
+             </g>
+             <g
+                 id=&quot;bar__Japan&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(111.89999999999999, 0)&quot;
++                transform=&quot;translate(119.30000000000001, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 165.2)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;271.7&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -350,16 +376,16 @@
+             </g>
+             <g
+                 id=&quot;bar__Estonia&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(119.69999999999999, 0)&quot;
++                transform=&quot;translate(127.00000000000001, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 165.39999999999998)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;271.5&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -372,16 +398,16 @@
+             </g>
+             <g
+                 id=&quot;bar__South-Korea&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(127.49999999999999, 0)&quot;
++                transform=&quot;translate(134.70000000000002, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 168.2)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;268.7&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -394,16 +420,16 @@
+             </g>
+             <g
+                 id=&quot;bar__Hong-Kong&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(135.29999999999998, 0)&quot;
++                transform=&quot;translate(142.40000000000003, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 176.89999999999998)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;260&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -416,16 +442,16 @@
+             </g>
+             <g
+                 id=&quot;bar__Canada&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(143.09999999999997, 0)&quot;
++                transform=&quot;translate(150.10000000000002, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 179.10000000000002)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;257.79999999999995&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -435,19 +461,15 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g
+-                id=&quot;bar__Denmark&quot;
+-                class=&quot;bar&quot;
+-                transform=&quot;translate(150.89999999999998, 0)&quot;
+-            >
++            <g id=&quot;bar__Denmark&quot; class=&quot;bar&quot; transform=&quot;translate(157.8, 0)&quot;>
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 181.7)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;255.2&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -460,16 +482,16 @@
+             </g>
+             <g
+                 id=&quot;bar__High-income-countries&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(158.7, 0)&quot;
++                transform=&quot;translate(165.50000000000003, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 183.2)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;253.7&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -482,16 +504,16 @@
+             </g>
+             <g
+                 id=&quot;bar__United-States&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(166.49999999999997, 0)&quot;
++                transform=&quot;translate(173.20000000000005, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 185.3)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;251.59999999999997&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -504,16 +526,16 @@
+             </g>
+             <g
+                 id=&quot;bar__United-Kingdom&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(174.29999999999995, 0)&quot;
++                transform=&quot;translate(180.90000000000003, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 185.4)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;251.49999999999997&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -526,16 +548,16 @@
+             </g>
+             <g
+                 id=&quot;bar__New-Zealand&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(182.09999999999997, 0)&quot;
++                transform=&quot;translate(188.60000000000002, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 187.2)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;249.7&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -548,16 +570,16 @@
+             </g>
+             <g
+                 id=&quot;bar__Australia&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(189.89999999999998, 0)&quot;
++                transform=&quot;translate(196.30000000000004, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 188.7)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;248.2&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -570,16 +592,16 @@
+             </g>
+             <g
+                 id=&quot;bar__Czechia&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(197.69999999999996, 0)&quot;
++                transform=&quot;translate(204.00000000000006, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 189.1)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;247.79999999999998&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -592,16 +614,16 @@
+             </g>
+             <g
+                 id=&quot;bar__Italy&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(205.49999999999994, 0)&quot;
++                transform=&quot;translate(211.70000000000005, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 189.3)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;247.59999999999997&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -614,16 +636,16 @@
+             </g>
+             <g
+                 id=&quot;bar__Finland&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(213.29999999999995, 0)&quot;
++                transform=&quot;translate(219.40000000000003, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 189.4)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;247.49999999999997&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -636,16 +658,16 @@
+             </g>
+             <g
+                 id=&quot;bar__Russia&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(221.09999999999997, 0)&quot;
++                transform=&quot;translate(227.10000000000002, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 191.5)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;245.39999999999998&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -655,19 +677,15 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g
+-                id=&quot;bar__Poland&quot;
+-                class=&quot;bar&quot;
+-                transform=&quot;translate(228.89999999999998, 0)&quot;
+-            >
++            <g id=&quot;bar__Poland&quot; class=&quot;bar&quot; transform=&quot;translate(234.8, 0)&quot;>
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 191.9)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;244.99999999999997&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -677,15 +695,15 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Croatia&quot; class=&quot;bar&quot; transform=&quot;translate(236.7, 0)&quot;>
++            <g id=&quot;bar__Croatia&quot; class=&quot;bar&quot; transform=&quot;translate(242.5, 0)&quot;>
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 193.3)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;243.59999999999997&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -695,15 +713,15 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Latvia&quot; class=&quot;bar&quot; transform=&quot;translate(244.5, 0)&quot;>
++            <g id=&quot;bar__Latvia&quot; class=&quot;bar&quot; transform=&quot;translate(250.2, 0)&quot;>
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 193.8)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;243.09999999999997&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -713,15 +731,15 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Vietnam&quot; class=&quot;bar&quot; transform=&quot;translate(252.3, 0)&quot;>
++            <g id=&quot;bar__Vietnam&quot; class=&quot;bar&quot; transform=&quot;translate(257.9, 0)&quot;>
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 194.2)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;242.7&quot;
+                         fill=&quot;#00847e&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#00847e&quot;
+@@ -731,15 +749,19 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Portugal&quot; class=&quot;bar&quot; transform=&quot;translate(260.1, 0)&quot;>
++            <g
++                id=&quot;bar__Portugal&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(265.59999999999997, 0)&quot;
++            >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 194.8)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;242.09999999999997&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+@@ -752,16 +774,16 @@
+             </g>
+             <g
+                 id=&quot;bar__Belarus&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(267.90000000000003, 0)&quot;
++                transform=&quot;translate(273.29999999999995, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(0, 195.7)&quot;
+-                        width=&quot;7.799999999999997&quot;
++                        width=&quot;7.700000000000003&quot;
+                         height=&quot;241.2&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#4c6a9c&quot;
+@@ -774,16 +796,16 @@
+             </g>
+             <g
+                 id=&quot;bar__Sweden&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(275.70000000000005, 0)&quot;
++                transform=&quot;translate(280.99999999999994, 0)&quot;
+
+... (diff truncated: showing 500 of 2103 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="share-of-students-at-end-of-primary-education-achieving-minimum-math-proficiency">
+        <div class="header-with-actions">
+            <h2>share-of-students-at-end-of-primary-education-achieving-minimum-math-proficiency</h2>
+            <button class="copy-slug-btn" data-slug="share-of-students-at-end-of-primary-education-achieving-minimum-math-proficiency" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/share-of-students-at-end-of-primary-education-achieving-minimum-math-proficiency" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/share-of-students-at-end-of-primary-education-achieving-minimum-math-proficiency_v20_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-marimekko-trim-time-range/grapher/share-of-students-at-end-of-primary-education-achieving-minimum-math-proficiency" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/share-of-students-at-end-of-primary-education-achieving-minimum-math-proficiency_v20_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/share-of-students-at-end-of-primary-education-achieving-minimum-math-proficiency_v20_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/share-of-students-at-end-of-primary-education-achieving-minimum-math-proficiency_v20_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: share-of-students-at-end-of-primary-education-achieving-minimum-math-proficiency_v20_850x600.svg
+===================================================================
+--- share-of-students-at-end-of-primary-education-achieving-minimum-math-proficiency_v20_850x600.svg	
++++ share-of-students-at-end-of-primary-education-achieving-minimum-math-proficiency_v20_850x600.svg	
+@@ -55,9 +55,9 @@
+                 <tspan x=&quot;16&quot; y=&quot;36.855000000000004&quot;>
+                     Share of students achieving minimum math proficiency by the
+                     end of
+                 </tspan>
+-                <tspan x=&quot;16&quot; y=&quot;62.655&quot;>primary education, 2024</tspan>
++                <tspan x=&quot;16&quot; y=&quot;62.655&quot;>primary education, 2023</tspan>
+             </text>
+         </a>
+         <g id=&quot;subtitle&quot; class=&quot;markdown-text-wrap&quot;>
+             <text
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="share-of-students-at-end-of-primary-education-achieving-minimum-reading-proficiency">
+        <div class="header-with-actions">
+            <h2>share-of-students-at-end-of-primary-education-achieving-minimum-reading-proficiency</h2>
+            <button class="copy-slug-btn" data-slug="share-of-students-at-end-of-primary-education-achieving-minimum-reading-proficiency" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/share-of-students-at-end-of-primary-education-achieving-minimum-reading-proficiency" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/share-of-students-at-end-of-primary-education-achieving-minimum-reading-proficiency_v32_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-marimekko-trim-time-range/grapher/share-of-students-at-end-of-primary-education-achieving-minimum-reading-proficiency" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/share-of-students-at-end-of-primary-education-achieving-minimum-reading-proficiency_v32_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/share-of-students-at-end-of-primary-education-achieving-minimum-reading-proficiency_v32_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/share-of-students-at-end-of-primary-education-achieving-minimum-reading-proficiency_v32_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: share-of-students-at-end-of-primary-education-achieving-minimum-reading-proficiency_v32_850x600.svg
+===================================================================
+--- share-of-students-at-end-of-primary-education-achieving-minimum-reading-proficiency_v32_850x600.svg	
++++ share-of-students-at-end-of-primary-education-achieving-minimum-reading-proficiency_v32_850x600.svg	
+@@ -55,9 +55,9 @@
+                 <tspan x=&quot;16&quot; y=&quot;36.855000000000004&quot;>
+                     Share of students achieving minimum reading proficiency by
+                     the end
+                 </tspan>
+-                <tspan x=&quot;16&quot; y=&quot;62.655&quot;>of primary education, 2024</tspan>
++                <tspan x=&quot;16&quot; y=&quot;62.655&quot;>of primary education, 2023</tspan>
+             </text>
+         </a>
+         <g id=&quot;subtitle&quot; class=&quot;markdown-text-wrap&quot;>
+             <text
+@@ -95,50 +95,50 @@
+             ></rect>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+-                        x=&quot;64.11&quot;
+-                        y=&quot;456.3&quot;
++                        x=&quot;83.49&quot;
++                        y=&quot;436.9&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;13&quot;
+                     >
+                         0%
+                     </text>
+                     <text
+-                        x=&quot;64.11&quot;
+-                        y=&quot;395.7&quot;
++                        x=&quot;83.49&quot;
++                        y=&quot;380.3&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;13&quot;
+                     >
+                         20%
+                     </text>
+                     <text
+-                        x=&quot;64.11&quot;
+-                        y=&quot;335.1&quot;
++                        x=&quot;83.49&quot;
++                        y=&quot;323.6&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;13&quot;
+                     >
+                         40%
+                     </text>
+                     <text
+-                        x=&quot;64.11&quot;
+-                        y=&quot;274.6&quot;
++                        x=&quot;83.49&quot;
++                        y=&quot;266.9&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;13&quot;
+                     >
+                         60%
+                     </text>
+                     <text
+-                        x=&quot;64.11&quot;
+-                        y=&quot;214&quot;
++                        x=&quot;83.49&quot;
++                        y=&quot;210.3&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;13&quot;
+@@ -149,47 +149,47 @@
+             </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+                     id=&quot;0%&quot;
+-                    x1=&quot;69.11&quot;
+-                    y1=&quot;456.3&quot;
++                    x1=&quot;88.49&quot;
++                    y1=&quot;436.9&quot;
+                     x2=&quot;824.00&quot;
+-                    y2=&quot;456.3&quot;
++                    y2=&quot;436.9&quot;
+                     stroke=&quot;#999&quot;
+                 ></line>
+                 <line
+                     id=&quot;20%&quot;
+-                    x1=&quot;69.11&quot;
+-                    y1=&quot;395.7&quot;
++                    x1=&quot;88.49&quot;
++                    y1=&quot;380.3&quot;
+                     x2=&quot;824.00&quot;
+-                    y2=&quot;395.7&quot;
++                    y2=&quot;380.3&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;40%&quot;
+-                    x1=&quot;69.11&quot;
+-                    y1=&quot;335.1&quot;
++                    x1=&quot;88.49&quot;
++                    y1=&quot;323.6&quot;
+                     x2=&quot;824.00&quot;
+-                    y2=&quot;335.1&quot;
++                    y2=&quot;323.6&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;60%&quot;
+-                    x1=&quot;69.11&quot;
+-                    y1=&quot;274.6&quot;
++                    x1=&quot;88.49&quot;
++                    y1=&quot;266.9&quot;
+                     x2=&quot;824.00&quot;
+-                    y2=&quot;274.6&quot;
++                    y2=&quot;266.9&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;80%&quot;
+-                    x1=&quot;69.11&quot;
+-                    y1=&quot;214&quot;
++                    x1=&quot;88.49&quot;
++                    y1=&quot;210.3&quot;
+                     x2=&quot;824.00&quot;
+-                    y2=&quot;214&quot;
++                    y2=&quot;210.3&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+             </g>
+@@ -266,16 +266,16 @@
+                         High-income countries
+                     </text>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Canada&quot; class=&quot;bar&quot; transform=&quot;translate(69.1, 0)&quot;>
++            <g id=&quot;bar__Canada&quot; class=&quot;bar&quot; transform=&quot;translate(88.5, 0)&quot;>
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 157.09999999999997)&quot;
+-                        width=&quot;7.300000000000011&quot;
+-                        height=&quot;299.20000000000005&quot;
++                        transform=&quot;translate(0, 157.10000000000002)&quot;
++                        width=&quot;6.400000000000006&quot;
++                        height=&quot;279.79999999999995&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -284,16 +284,16 @@
+                         style=&quot;transition: translate 200ms ease&quot;
+                     ></rect>
+                 </g>
+             </g>
+-            <g id=&quot;bar__Russia&quot; class=&quot;bar&quot; transform=&quot;translate(76.4, 0)&quot;>
++            <g id=&quot;bar__Russia&quot; class=&quot;bar&quot; transform=&quot;translate(94.9, 0)&quot;>
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 158.40000000000003)&quot;
+-                        width=&quot;7.300000000000011&quot;
+-                        height=&quot;297.9&quot;
++                        transform=&quot;translate(0, 158.3)&quot;
++                        width=&quot;6.400000000000006&quot;
++                        height=&quot;278.59999999999997&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -305,17 +305,17 @@
+             </g>
+             <g
+                 id=&quot;bar__Hong-Kong&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(83.70000000000002, 0)&quot;
++                transform=&quot;translate(101.30000000000001, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 158.59999999999997)&quot;
+-                        width=&quot;7.300000000000011&quot;
+-                        height=&quot;297.70000000000005&quot;
++                        transform=&quot;translate(0, 158.5)&quot;
++                        width=&quot;6.400000000000006&quot;
++                        height=&quot;278.4&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -327,17 +327,17 @@
+             </g>
+             <g
+                 id=&quot;bar__Croatia&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(91.00000000000003, 0)&quot;
++                transform=&quot;translate(107.70000000000002, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 159.2)&quot;
+-                        width=&quot;7.300000000000011&quot;
+-                        height=&quot;297.1&quot;
++                        transform=&quot;translate(0, 159.10000000000002)&quot;
++                        width=&quot;6.400000000000006&quot;
++                        height=&quot;277.79999999999995&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -349,17 +349,17 @@
+             </g>
+             <g
+                 id=&quot;bar__Poland&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(98.30000000000004, 0)&quot;
++                transform=&quot;translate(114.10000000000002, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 161.8)&quot;
+-                        width=&quot;7.300000000000011&quot;
+-                        height=&quot;294.5&quot;
++                        transform=&quot;translate(0, 161.5)&quot;
++                        width=&quot;6.400000000000006&quot;
++                        height=&quot;275.4&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -371,17 +371,17 @@
+             </g>
+             <g
+                 id=&quot;bar__Italy&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(105.60000000000005, 0)&quot;
++                transform=&quot;translate(120.50000000000003, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 161.90000000000003)&quot;
+-                        width=&quot;7.300000000000011&quot;
+-                        height=&quot;294.4&quot;
++                        transform=&quot;translate(0, 161.60000000000002)&quot;
++                        width=&quot;6.400000000000006&quot;
++                        height=&quot;275.29999999999995&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -393,17 +393,17 @@
+             </g>
+             <g
+                 id=&quot;bar__Lithuania&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(112.90000000000006, 0)&quot;
++                transform=&quot;translate(126.90000000000003, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 162.09999999999997)&quot;
+-                        width=&quot;7.300000000000011&quot;
+-                        height=&quot;294.20000000000005&quot;
++                        transform=&quot;translate(0, 161.8)&quot;
++                        width=&quot;6.400000000000006&quot;
++                        height=&quot;275.09999999999997&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -415,17 +415,17 @@
+             </g>
+             <g
+                 id=&quot;bar__United-Kingdom&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(120.20000000000007, 0)&quot;
++                transform=&quot;translate(133.30000000000004, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 162.40000000000003)&quot;
+-                        width=&quot;7.300000000000011&quot;
+-                        height=&quot;293.9&quot;
++                        transform=&quot;translate(0, 162)&quot;
++                        width=&quot;6.400000000000006&quot;
++                        height=&quot;274.9&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -437,17 +437,17 @@
+             </g>
+             <g
+                 id=&quot;bar__Singapore&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(127.50000000000009, 0)&quot;
++                transform=&quot;translate(139.70000000000005, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 163.5)&quot;
+-                        width=&quot;7.300000000000011&quot;
+-                        height=&quot;292.8&quot;
++                        transform=&quot;translate(0, 163.10000000000002)&quot;
++                        width=&quot;6.400000000000006&quot;
++                        height=&quot;273.79999999999995&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -459,17 +459,17 @@
+             </g>
+             <g
+                 id=&quot;bar__Finland&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(134.8000000000001, 0)&quot;
++                transform=&quot;translate(146.10000000000005, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 164)&quot;
+-                        width=&quot;7.300000000000011&quot;
+-                        height=&quot;292.3&quot;
++                        transform=&quot;translate(0, 163.60000000000002)&quot;
++                        width=&quot;6.400000000000006&quot;
++                        height=&quot;273.29999999999995&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -481,17 +481,17 @@
+             </g>
+             <g
+                 id=&quot;bar__Netherlands&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(142.1000000000001, 0)&quot;
++                transform=&quot;translate(152.50000000000006, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 164.2)&quot;
+-                        width=&quot;7.300000000000011&quot;
+-                        height=&quot;292.1&quot;
++                        transform=&quot;translate(0, 163.7)&quot;
++                        width=&quot;6.400000000000006&quot;
++                        height=&quot;273.2&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -503,17 +503,17 @@
+             </g>
+             <g
+                 id=&quot;bar__Czechia&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(149.40000000000012, 0)&quot;
++                transform=&quot;translate(158.90000000000006, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 165.5)&quot;
+-                        width=&quot;7.300000000000011&quot;
+-                        height=&quot;290.8&quot;
++                        transform=&quot;translate(0, 164.89999999999998)&quot;
++                        width=&quot;6.400000000000006&quot;
++                        height=&quot;272&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -525,17 +525,17 @@
+             </g>
+             <g
+                 id=&quot;bar__Austria&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(156.70000000000013, 0)&quot;
++                transform=&quot;translate(165.30000000000007, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 165.7)&quot;
+-                        width=&quot;7.300000000000011&quot;
+-                        height=&quot;290.6&quot;
++                        transform=&quot;translate(0, 165.2)&quot;
++                        width=&quot;6.400000000000006&quot;
++                        height=&quot;271.7&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -547,17 +547,17 @@
+             </g>
+             <g
+                 id=&quot;bar__Macao&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(164.00000000000014, 0)&quot;
++                transform=&quot;translate(171.70000000000007, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 165.8)&quot;
+-                        width=&quot;7.300000000000011&quot;
+-                        height=&quot;290.5&quot;
++                        transform=&quot;translate(0, 165.2)&quot;
++                        width=&quot;6.400000000000006&quot;
++                        height=&quot;271.7&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -569,17 +569,17 @@
+             </g>
+             <g
+                 id=&quot;bar__Sweden&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(171.30000000000015, 0)&quot;
++                transform=&quot;translate(178.10000000000008, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 167.7)&quot;
+-                        width=&quot;7.300000000000011&quot;
+-                        height=&quot;288.6&quot;
++                        transform=&quot;translate(0, 167)&quot;
++                        width=&quot;6.400000000000006&quot;
++                        height=&quot;269.9&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -591,17 +591,17 @@
+             </g>
+             <g
+                 id=&quot;bar__Spain&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(178.60000000000016, 0)&quot;
++                transform=&quot;translate(184.50000000000009, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(0, 167.8)&quot;
+-                        width=&quot;7.300000000000011&quot;
+-                        height=&quot;288.5&quot;
++                        transform=&quot;translate(0, 167.10000000000002)&quot;
++                        width=&quot;6.400000000000006&quot;
++                        height=&quot;269.79999999999995&quot;
+                         fill=&quot;#e56e5a&quot;
+                         fill-opacity=&quot;0.8&quot;
+                         stroke=&quot;#e56e5a&quot;
+                         stroke-width=&quot;0.5&quot;
+@@ -613,17 +613,17 @@
+             </g>
+             <g
+                 id=&quot;bar__United-States&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(185.90000000000018, 0)&quot;
++                transform=&quot;translate(190.9000000000001, 0)&quot;
+             >
+                 <g>
+                     <rect
+                         x=&quot;0&quot;
+
+... (diff truncated: showing 500 of 3121 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section
+                    if (diffContainer && !renderedDiffs.has(diffId)) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
