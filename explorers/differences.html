@@ -1,0 +1,3006 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        /* Tab content */
+        .tab-content {
+            min-height: 400px;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: 800px;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 100%;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="summary">Number of differences: 20</p><section data-slug="conflict-data-source?Data+source=Correlates+of+War+%E2%80%94+Militarized+Interstate+Disputes&Conflict+type=Interstate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Sub-measure=Only+new+conflicts">
+        <div class="header-with-actions">
+            <h2>conflict-data-source?Data+source=Correlates+of+War+%E2%80%94+Militarized+Interstate+Disputes&Conflict+type=Interstate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Sub-measure=Only+new+conflicts</h2>
+            <button class="copy-slug-btn" data-slug="conflict-data-source?Data+source=Correlates+of+War+%E2%80%94+Militarized+Interstate+Disputes&Conflict+type=Interstate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Sub-measure=Only+new+conflicts" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/conflict-data-source?Data+source=Correlates+of+War+%E2%80%94+Militarized+Interstate+Disputes&Conflict+type=Interstate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Sub-measure=Only+new+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/conflict-data-source-9922b51a1456788cc7ae573ab6eb7f73_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/conflict-data-source?Data+source=Correlates+of+War+%E2%80%94+Militarized+Interstate+Disputes&Conflict+type=Interstate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Sub-measure=Only+new+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/conflict-data-source-9922b51a1456788cc7ae573ab6eb7f73_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/conflict-data-source-9922b51a1456788cc7ae573ab6eb7f73_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/conflict-data-source-9922b51a1456788cc7ae573ab6eb7f73_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: conflict-data-source-9922b51a1456788cc7ae573ab6eb7f73_v0_850x600.svg
+===================================================================
+--- conflict-data-source-9922b51a1456788cc7ae573ab6eb7f73_v0_850x600.svg	
++++ conflict-data-source-9922b51a1456788cc7ae573ab6eb7f73_v0_850x600.svg	
+@@ -7727,75 +7727,75 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;740.6&quot;
+-                    y=&quot;115.0&quot;
++                    y=&quot;118.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;740.634&quot; y=&quot;114.962&quot;>Threats of force</tspan>
++                    <tspan x=&quot;740.634&quot; y=&quot;117.962&quot;>Threats of force</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;740.6&quot;
+-                    y=&quot;132.6&quot;
++                    y=&quot;135.6&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;740.634&quot; y=&quot;132.56199999999998&quot;>
++                    <tspan x=&quot;740.634&quot; y=&quot;135.56199999999998&quot;>
+                         Displays of force
+                     </tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;740.6&quot;
+-                    y=&quot;150.2&quot;
++                    y=&quot;153.2&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;740.634&quot; y=&quot;150.16199999999998&quot;>
++                    <tspan x=&quot;740.634&quot; y=&quot;153.16199999999998&quot;>
+                         Uses of force
+                     </tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;740.6&quot;
+-                    y=&quot;167.8&quot;
++                    y=&quot;170.8&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;740.634&quot; y=&quot;167.762&quot;>Wars</tspan>
++                    <tspan x=&quot;740.634&quot; y=&quot;170.762&quot;>Wars</tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Threats-of-force&quot;
+                     x=&quot;726.634&quot;
+-                    y=&quot;105.962&quot;
++                    y=&quot;108.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b13507; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Displays-of-force&quot;
+                     x=&quot;726.634&quot;
+-                    y=&quot;123.56199999999998&quot;
++                    y=&quot;126.56199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #578145; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Uses-of-force&quot;
+                     x=&quot;726.634&quot;
+-                    y=&quot;141.16199999999998&quot;
++                    y=&quot;144.16199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Wars&quot;
+                     x=&quot;726.634&quot;
+-                    y=&quot;158.762&quot;
++                    y=&quot;161.762&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="conflict-data-source?Data+source=Uppsala+Conflict+Data+Program&Conflict+type=All+armed+conflicts&Measure=Conflict+deaths&Conflict+sub-type=By+sub-type&Sub-measure=Country+and+region+data">
+        <div class="header-with-actions">
+            <h2>conflict-data-source?Data+source=Uppsala+Conflict+Data+Program&Conflict+type=All+armed+conflicts&Measure=Conflict+deaths&Conflict+sub-type=By+sub-type&Sub-measure=Country+and+region+data</h2>
+            <button class="copy-slug-btn" data-slug="conflict-data-source?Data+source=Uppsala+Conflict+Data+Program&Conflict+type=All+armed+conflicts&Measure=Conflict+deaths&Conflict+sub-type=By+sub-type&Sub-measure=Country+and+region+data" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/conflict-data-source?Data+source=Uppsala+Conflict+Data+Program&Conflict+type=All+armed+conflicts&Measure=Conflict+deaths&Conflict+sub-type=By+sub-type&Sub-measure=Country+and+region+data" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/conflict-data-source-254e9acca0e1b3da54a94e31547cfe68_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/conflict-data-source?Data+source=Uppsala+Conflict+Data+Program&Conflict+type=All+armed+conflicts&Measure=Conflict+deaths&Conflict+sub-type=By+sub-type&Sub-measure=Country+and+region+data" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/conflict-data-source-254e9acca0e1b3da54a94e31547cfe68_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/conflict-data-source-254e9acca0e1b3da54a94e31547cfe68_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/conflict-data-source-254e9acca0e1b3da54a94e31547cfe68_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: conflict-data-source-254e9acca0e1b3da54a94e31547cfe68_v0_850x600.svg
+===================================================================
+--- conflict-data-source-254e9acca0e1b3da54a94e31547cfe68_v0_850x600.svg	
++++ conflict-data-source-254e9acca0e1b3da54a94e31547cfe68_v0_850x600.svg	
+@@ -2132,90 +2132,90 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;725.8&quot;
+-                    y=&quot;136.6&quot;
++                    y=&quot;139.6&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;725.766&quot; y=&quot;136.56199999999998&quot;>
++                    <tspan x=&quot;725.766&quot; y=&quot;139.56199999999998&quot;>
+                         One-sided violence
+                     </tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;725.8&quot;
+-                    y=&quot;154.2&quot;
++                    y=&quot;157.2&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;725.766&quot; y=&quot;154.16199999999998&quot;>Non-state</tspan>
++                    <tspan x=&quot;725.766&quot; y=&quot;157.16199999999998&quot;>Non-state</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;725.8&quot;
+-                    y=&quot;171.8&quot;
++                    y=&quot;174.8&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;725.766&quot; y=&quot;171.762&quot;>Intrastate</tspan>
++                    <tspan x=&quot;725.766&quot; y=&quot;174.762&quot;>Intrastate</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;725.8&quot;
+-                    y=&quot;189.4&quot;
++                    y=&quot;192.4&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;725.766&quot; y=&quot;189.362&quot;>Extrasystemic</tspan>
++                    <tspan x=&quot;725.766&quot; y=&quot;192.362&quot;>Extrasystemic</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;725.8&quot;
+-                    y=&quot;207.0&quot;
++                    y=&quot;210.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;725.766&quot; y=&quot;206.962&quot;>Interstate</tspan>
++                    <tspan x=&quot;725.766&quot; y=&quot;209.962&quot;>Interstate</tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;One-sided-violence&quot;
+                     x=&quot;711.766&quot;
+-                    y=&quot;127.56199999999998&quot;
++                    y=&quot;130.56199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b16214; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Non-state&quot;
+                     x=&quot;711.766&quot;
+-                    y=&quot;145.16199999999998&quot;
++                    y=&quot;148.16199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b13507; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Intrastate&quot;
+                     x=&quot;711.766&quot;
+-                    y=&quot;162.762&quot;
++                    y=&quot;165.762&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #578145; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Extrasystemic&quot;
+                     x=&quot;711.766&quot;
+-                    y=&quot;180.362&quot;
++                    y=&quot;183.362&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Interstate&quot;
+                     x=&quot;711.766&quot;
+-                    y=&quot;197.962&quot;
++                    y=&quot;200.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="conflict-data-source?Data+source=Uppsala+Conflict+Data+Program&Conflict+type=All+state-based+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Sub-measure=Only+new+conflicts">
+        <div class="header-with-actions">
+            <h2>conflict-data-source?Data+source=Uppsala+Conflict+Data+Program&Conflict+type=All+state-based+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Sub-measure=Only+new+conflicts</h2>
+            <button class="copy-slug-btn" data-slug="conflict-data-source?Data+source=Uppsala+Conflict+Data+Program&Conflict+type=All+state-based+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Sub-measure=Only+new+conflicts" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/conflict-data-source?Data+source=Uppsala+Conflict+Data+Program&Conflict+type=All+state-based+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Sub-measure=Only+new+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/conflict-data-source-72383e41f0253efe0823d3100bb54343_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/conflict-data-source?Data+source=Uppsala+Conflict+Data+Program&Conflict+type=All+state-based+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Sub-measure=Only+new+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/conflict-data-source-72383e41f0253efe0823d3100bb54343_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/conflict-data-source-72383e41f0253efe0823d3100bb54343_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/conflict-data-source-72383e41f0253efe0823d3100bb54343_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: conflict-data-source-72383e41f0253efe0823d3100bb54343_v0_850x600.svg
+===================================================================
+--- conflict-data-source-72383e41f0253efe0823d3100bb54343_v0_850x600.svg	
++++ conflict-data-source-72383e41f0253efe0823d3100bb54343_v0_850x600.svg	
+@@ -3422,76 +3422,76 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;115.0&quot;
++                    y=&quot;118.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;114.962&quot;>
++                    <tspan x=&quot;685.572&quot; y=&quot;117.962&quot;>
+                         Internationalized intrastate
+                     </tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;132.6&quot;
++                    y=&quot;135.6&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;132.56199999999998&quot;>
++                    <tspan x=&quot;685.572&quot; y=&quot;135.56199999999998&quot;>
+                         Non-internationalized
+                     </tspan>
+-                    <tspan x=&quot;685.572&quot; y=&quot;145.16199999999998&quot;>intrastate</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;148.16199999999998&quot;>intrastate</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;162.8&quot;
++                    y=&quot;165.8&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;162.762&quot;>Extrasystemic</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;165.762&quot;>Extrasystemic</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;180.4&quot;
++                    y=&quot;183.4&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;180.362&quot;>Interstate</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;183.362&quot;>Interstate</tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Internationalized-intrastate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;105.962&quot;
++                    y=&quot;108.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b13507; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Non-internationalized-intrastate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;123.56199999999998&quot;
++                    y=&quot;126.56199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #578145; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Extrasystemic&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;153.762&quot;
++                    y=&quot;156.762&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Interstate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;171.362&quot;
++                    y=&quot;174.362&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="conflict-data?Conflict+type=All+armed+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Correlates+of+War+%E2%80%93+Wars&Sub-measure=All+ongoing+conflicts">
+        <div class="header-with-actions">
+            <h2>conflict-data?Conflict+type=All+armed+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Correlates+of+War+%E2%80%93+Wars&Sub-measure=All+ongoing+conflicts</h2>
+            <button class="copy-slug-btn" data-slug="conflict-data?Conflict+type=All+armed+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Correlates+of+War+%E2%80%93+Wars&Sub-measure=All+ongoing+conflicts" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/conflict-data?Conflict+type=All+armed+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Correlates+of+War+%E2%80%93+Wars&Sub-measure=All+ongoing+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/conflict-data-a6680b3256a81c18671af535608ef94b_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/conflict-data?Conflict+type=All+armed+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Correlates+of+War+%E2%80%93+Wars&Sub-measure=All+ongoing+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/conflict-data-a6680b3256a81c18671af535608ef94b_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/conflict-data-a6680b3256a81c18671af535608ef94b_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/conflict-data-a6680b3256a81c18671af535608ef94b_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: conflict-data-a6680b3256a81c18671af535608ef94b_v0_850x600.svg
+===================================================================
+--- conflict-data-a6680b3256a81c18671af535608ef94b_v0_850x600.svg	
++++ conflict-data-a6680b3256a81c18671af535608ef94b_v0_850x600.svg	
+@@ -9182,91 +9182,91 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;97.0&quot;
++                    y=&quot;100.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;96.962&quot;>Interstate wars</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;99.962&quot;>Interstate wars</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;114.6&quot;
++                    y=&quot;117.6&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;114.562&quot;>Extrastate wars</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;117.562&quot;>Extrastate wars</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;132.2&quot;
++                    y=&quot;135.2&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;132.162&quot;>Non-state wars</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;135.162&quot;>Non-state wars</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;149.8&quot;
++                    y=&quot;152.8&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;149.762&quot;>Non-internationalized</tspan>
+-                    <tspan x=&quot;685.572&quot; y=&quot;162.362&quot;>intrastate</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;152.762&quot;>Non-internationalized</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;165.362&quot;>intrastate</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;180.0&quot;
++                    y=&quot;183.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;179.962&quot;>
++                    <tspan x=&quot;685.572&quot; y=&quot;182.962&quot;>
+                         Internationalized intrastate
+                     </tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Interstate-wars&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;87.962&quot;
++                    y=&quot;90.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b16214; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Extrastate-wars&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;105.562&quot;
++                    y=&quot;108.562&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b13507; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Non-state-wars&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;123.162&quot;
++                    y=&quot;126.162&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #578145; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Non-internationalized-intrastate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;140.762&quot;
++                    y=&quot;143.762&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Internationalized-intrastate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;170.962&quot;
++                    y=&quot;173.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="conflict-data?Conflict+type=All+armed+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Uppsala+Conflict+Data+Program&Sub-measure=All+ongoing+conflicts">
+        <div class="header-with-actions">
+            <h2>conflict-data?Conflict+type=All+armed+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Uppsala+Conflict+Data+Program&Sub-measure=All+ongoing+conflicts</h2>
+            <button class="copy-slug-btn" data-slug="conflict-data?Conflict+type=All+armed+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Uppsala+Conflict+Data+Program&Sub-measure=All+ongoing+conflicts" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/conflict-data?Conflict+type=All+armed+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Uppsala+Conflict+Data+Program&Sub-measure=All+ongoing+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/conflict-data-7db6fc1c28d50aa23a66f6c70bea8d92_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/conflict-data?Conflict+type=All+armed+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Uppsala+Conflict+Data+Program&Sub-measure=All+ongoing+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/conflict-data-7db6fc1c28d50aa23a66f6c70bea8d92_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/conflict-data-7db6fc1c28d50aa23a66f6c70bea8d92_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/conflict-data-7db6fc1c28d50aa23a66f6c70bea8d92_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: conflict-data-7db6fc1c28d50aa23a66f6c70bea8d92_v0_850x600.svg
+===================================================================
+--- conflict-data-7db6fc1c28d50aa23a66f6c70bea8d92_v0_850x600.svg	
++++ conflict-data-7db6fc1c28d50aa23a66f6c70bea8d92_v0_850x600.svg	
+@@ -2159,90 +2159,90 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;725.8&quot;
+-                    y=&quot;115.0&quot;
++                    y=&quot;118.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;725.766&quot; y=&quot;114.962&quot;>One-sided violence</tspan>
++                    <tspan x=&quot;725.766&quot; y=&quot;117.962&quot;>One-sided violence</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;725.8&quot;
+-                    y=&quot;132.6&quot;
++                    y=&quot;135.6&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;725.766&quot; y=&quot;132.56199999999998&quot;>
++                    <tspan x=&quot;725.766&quot; y=&quot;135.56199999999998&quot;>
+                         Extrasystemic
+                     </tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;725.8&quot;
+-                    y=&quot;150.2&quot;
++                    y=&quot;153.2&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;725.766&quot; y=&quot;150.16199999999998&quot;>Non-state</tspan>
++                    <tspan x=&quot;725.766&quot; y=&quot;153.16199999999998&quot;>Non-state</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;725.8&quot;
+-                    y=&quot;167.8&quot;
++                    y=&quot;170.8&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;725.766&quot; y=&quot;167.762&quot;>Intrastate</tspan>
++                    <tspan x=&quot;725.766&quot; y=&quot;170.762&quot;>Intrastate</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;725.8&quot;
+-                    y=&quot;185.4&quot;
++                    y=&quot;188.4&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;725.766&quot; y=&quot;185.362&quot;>Interstate</tspan>
++                    <tspan x=&quot;725.766&quot; y=&quot;188.362&quot;>Interstate</tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;One-sided-violence&quot;
+                     x=&quot;711.766&quot;
+-                    y=&quot;105.962&quot;
++                    y=&quot;108.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b16214; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Extrasystemic&quot;
+                     x=&quot;711.766&quot;
+-                    y=&quot;123.56199999999998&quot;
++                    y=&quot;126.56199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b13507; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Non-state&quot;
+                     x=&quot;711.766&quot;
+-                    y=&quot;141.16199999999998&quot;
++                    y=&quot;144.16199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #578145; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Intrastate&quot;
+                     x=&quot;711.766&quot;
+-                    y=&quot;158.762&quot;
++                    y=&quot;161.762&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Interstate&quot;
+                     x=&quot;711.766&quot;
+-                    y=&quot;176.362&quot;
++                    y=&quot;179.362&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="conflict-data?Conflict+type=All+state-based+conflicts&Measure=Conflict+deaths&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Regional+data">
+        <div class="header-with-actions">
+            <h2>conflict-data?Conflict+type=All+state-based+conflicts&Measure=Conflict+deaths&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Regional+data</h2>
+            <button class="copy-slug-btn" data-slug="conflict-data?Conflict+type=All+state-based+conflicts&Measure=Conflict+deaths&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Regional+data" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/conflict-data?Conflict+type=All+state-based+conflicts&Measure=Conflict+deaths&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Regional+data" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/conflict-data-98251511a763281a1ef89c9763d7f350_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/conflict-data?Conflict+type=All+state-based+conflicts&Measure=Conflict+deaths&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Regional+data" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/conflict-data-98251511a763281a1ef89c9763d7f350_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/conflict-data-98251511a763281a1ef89c9763d7f350_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/conflict-data-98251511a763281a1ef89c9763d7f350_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: conflict-data-98251511a763281a1ef89c9763d7f350_v0_850x600.svg
+===================================================================
+--- conflict-data-98251511a763281a1ef89c9763d7f350_v0_850x600.svg	
++++ conflict-data-98251511a763281a1ef89c9763d7f350_v0_850x600.svg	
+@@ -2807,74 +2807,74 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;115.0&quot;
++                    y=&quot;118.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;114.962&quot;>Non-internationalized</tspan>
+-                    <tspan x=&quot;685.572&quot; y=&quot;127.562&quot;>intrastate</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;117.962&quot;>Non-internationalized</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;130.562&quot;>intrastate</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;145.2&quot;
++                    y=&quot;148.2&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;145.16199999999998&quot;>
++                    <tspan x=&quot;685.572&quot; y=&quot;148.16199999999998&quot;>
+                         Internationalized intrastate
+                     </tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;162.8&quot;
++                    y=&quot;165.8&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;162.762&quot;>Extrasystemic</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;165.762&quot;>Extrasystemic</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;180.4&quot;
++                    y=&quot;183.4&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;180.362&quot;>Interstate</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;183.362&quot;>Interstate</tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Non-internationalized-intrastate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;105.962&quot;
++                    y=&quot;108.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b13507; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Internationalized-intrastate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;136.16199999999998&quot;
++                    y=&quot;139.16199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #578145; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Extrasystemic&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;153.762&quot;
++                    y=&quot;156.762&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Interstate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;171.362&quot;
++                    y=&quot;174.362&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="conflict-data?Conflict+type=All+state-based+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Only+new+conflicts">
+        <div class="header-with-actions">
+            <h2>conflict-data?Conflict+type=All+state-based+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Only+new+conflicts</h2>
+            <button class="copy-slug-btn" data-slug="conflict-data?Conflict+type=All+state-based+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Only+new+conflicts" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/conflict-data?Conflict+type=All+state-based+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Only+new+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/conflict-data-79fd3e1edcd6dc17ab207523f4cff075_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/conflict-data?Conflict+type=All+state-based+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Only+new+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/conflict-data-79fd3e1edcd6dc17ab207523f4cff075_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/conflict-data-79fd3e1edcd6dc17ab207523f4cff075_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/conflict-data-79fd3e1edcd6dc17ab207523f4cff075_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: conflict-data-79fd3e1edcd6dc17ab207523f4cff075_v0_850x600.svg
+===================================================================
+--- conflict-data-79fd3e1edcd6dc17ab207523f4cff075_v0_850x600.svg	
++++ conflict-data-79fd3e1edcd6dc17ab207523f4cff075_v0_850x600.svg	
+@@ -2770,76 +2770,76 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;115.0&quot;
++                    y=&quot;118.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;114.962&quot;>
++                    <tspan x=&quot;685.572&quot; y=&quot;117.962&quot;>
+                         Internationalized intrastate
+                     </tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;132.6&quot;
++                    y=&quot;135.6&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;132.56199999999998&quot;>
++                    <tspan x=&quot;685.572&quot; y=&quot;135.56199999999998&quot;>
+                         Non-internationalized
+                     </tspan>
+-                    <tspan x=&quot;685.572&quot; y=&quot;145.16199999999998&quot;>intrastate</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;148.16199999999998&quot;>intrastate</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;162.8&quot;
++                    y=&quot;165.8&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;162.762&quot;>Extrasystemic</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;165.762&quot;>Extrasystemic</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;180.4&quot;
++                    y=&quot;183.4&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;180.362&quot;>Interstate</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;183.362&quot;>Interstate</tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Internationalized-intrastate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;105.962&quot;
++                    y=&quot;108.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b13507; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Non-internationalized-intrastate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;123.56199999999998&quot;
++                    y=&quot;126.56199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #578145; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Extrasystemic&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;153.762&quot;
++                    y=&quot;156.762&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Interstate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;171.362&quot;
++                    y=&quot;174.362&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="conflict-data?Conflict+type=All+state-based+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Data+source=Project+Mars&Sub-measure=All+ongoing+conflicts">
+        <div class="header-with-actions">
+            <h2>conflict-data?Conflict+type=All+state-based+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Data+source=Project+Mars&Sub-measure=All+ongoing+conflicts</h2>
+            <button class="copy-slug-btn" data-slug="conflict-data?Conflict+type=All+state-based+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Data+source=Project+Mars&Sub-measure=All+ongoing+conflicts" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/conflict-data?Conflict+type=All+state-based+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Data+source=Project+Mars&Sub-measure=All+ongoing+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/conflict-data-727f8ce3f8884db63e1e5f362ad5c16c_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/conflict-data?Conflict+type=All+state-based+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Data+source=Project+Mars&Sub-measure=All+ongoing+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/conflict-data-727f8ce3f8884db63e1e5f362ad5c16c_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/conflict-data-727f8ce3f8884db63e1e5f362ad5c16c_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/conflict-data-727f8ce3f8884db63e1e5f362ad5c16c_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: conflict-data-727f8ce3f8884db63e1e5f362ad5c16c_v0_850x600.svg
+===================================================================
+--- conflict-data-727f8ce3f8884db63e1e5f362ad5c16c_v0_850x600.svg	
++++ conflict-data-727f8ce3f8884db63e1e5f362ad5c16c_v0_850x600.svg	
+@@ -4128,39 +4128,39 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;748.0&quot;
+-                    y=&quot;115.0&quot;
++                    y=&quot;118.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;748&quot; y=&quot;114.962&quot;>Civil wars</tspan>
++                    <tspan x=&quot;748&quot; y=&quot;117.962&quot;>Civil wars</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;748.0&quot;
+-                    y=&quot;132.6&quot;
++                    y=&quot;135.6&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;748&quot; y=&quot;132.56199999999998&quot;>
++                    <tspan x=&quot;748&quot; y=&quot;135.56199999999998&quot;>
+                         Interstate wars
+                     </tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Civil-wars&quot;
+                     x=&quot;734&quot;
+-                    y=&quot;105.962&quot;
++                    y=&quot;108.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Interstate-wars&quot;
+                     x=&quot;734&quot;
+-                    y=&quot;123.56199999999998&quot;
++                    y=&quot;126.56199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="conflict-data?Conflict+type=All+state-based+conflicts&Measure=Death+rate&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Regional+data">
+        <div class="header-with-actions">
+            <h2>conflict-data?Conflict+type=All+state-based+conflicts&Measure=Death+rate&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Regional+data</h2>
+            <button class="copy-slug-btn" data-slug="conflict-data?Conflict+type=All+state-based+conflicts&Measure=Death+rate&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Regional+data" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/conflict-data?Conflict+type=All+state-based+conflicts&Measure=Death+rate&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Regional+data" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/conflict-data-a9d7768f35b29ecb745167eb79dbcc3f_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/conflict-data?Conflict+type=All+state-based+conflicts&Measure=Death+rate&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Regional+data" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/conflict-data-a9d7768f35b29ecb745167eb79dbcc3f_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/conflict-data-a9d7768f35b29ecb745167eb79dbcc3f_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/conflict-data-a9d7768f35b29ecb745167eb79dbcc3f_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: conflict-data-a9d7768f35b29ecb745167eb79dbcc3f_v0_850x600.svg
+===================================================================
+--- conflict-data-a9d7768f35b29ecb745167eb79dbcc3f_v0_850x600.svg	
++++ conflict-data-a9d7768f35b29ecb745167eb79dbcc3f_v0_850x600.svg	
+@@ -2788,76 +2788,76 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;115.0&quot;
++                    y=&quot;118.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;114.962&quot;>
++                    <tspan x=&quot;685.572&quot; y=&quot;117.962&quot;>
+                         Internationalized intrastate
+                     </tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;132.6&quot;
++                    y=&quot;135.6&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;132.56199999999998&quot;>
++                    <tspan x=&quot;685.572&quot; y=&quot;135.56199999999998&quot;>
+                         Non-internationalized
+                     </tspan>
+-                    <tspan x=&quot;685.572&quot; y=&quot;145.16199999999998&quot;>intrastate</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;148.16199999999998&quot;>intrastate</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;162.8&quot;
++                    y=&quot;165.8&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;162.762&quot;>Extrasystemic</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;165.762&quot;>Extrasystemic</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;180.4&quot;
++                    y=&quot;183.4&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;180.362&quot;>Interstate</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;183.362&quot;>Interstate</tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Internationalized-intrastate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;105.962&quot;
++                    y=&quot;108.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b13507; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Non-internationalized-intrastate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;123.56199999999998&quot;
++                    y=&quot;126.56199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #578145; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Extrasystemic&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;153.762&quot;
++                    y=&quot;156.762&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Interstate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;171.362&quot;
++                    y=&quot;174.362&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="conflict-data?Conflict+type=All+state-based+conflicts&Measure=Death+rate&Conflict+sub-type=By+sub-type&Data+source=Project+Mars&Sub-measure=Regional+data">
+        <div class="header-with-actions">
+            <h2>conflict-data?Conflict+type=All+state-based+conflicts&Measure=Death+rate&Conflict+sub-type=By+sub-type&Data+source=Project+Mars&Sub-measure=Regional+data</h2>
+            <button class="copy-slug-btn" data-slug="conflict-data?Conflict+type=All+state-based+conflicts&Measure=Death+rate&Conflict+sub-type=By+sub-type&Data+source=Project+Mars&Sub-measure=Regional+data" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/conflict-data?Conflict+type=All+state-based+conflicts&Measure=Death+rate&Conflict+sub-type=By+sub-type&Data+source=Project+Mars&Sub-measure=Regional+data" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/conflict-data-86209c41d77cec65ec1dcba82cb9fbb9_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/conflict-data?Conflict+type=All+state-based+conflicts&Measure=Death+rate&Conflict+sub-type=By+sub-type&Data+source=Project+Mars&Sub-measure=Regional+data" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/conflict-data-86209c41d77cec65ec1dcba82cb9fbb9_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/conflict-data-86209c41d77cec65ec1dcba82cb9fbb9_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/conflict-data-86209c41d77cec65ec1dcba82cb9fbb9_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: conflict-data-86209c41d77cec65ec1dcba82cb9fbb9_v0_850x600.svg
+===================================================================
+--- conflict-data-86209c41d77cec65ec1dcba82cb9fbb9_v0_850x600.svg	
++++ conflict-data-86209c41d77cec65ec1dcba82cb9fbb9_v0_850x600.svg	
+@@ -4050,39 +4050,39 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;748.0&quot;
+-                    y=&quot;115.0&quot;
++                    y=&quot;118.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;748&quot; y=&quot;114.962&quot;>Civil wars</tspan>
++                    <tspan x=&quot;748&quot; y=&quot;117.962&quot;>Civil wars</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;748.0&quot;
+-                    y=&quot;132.6&quot;
++                    y=&quot;135.6&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;748&quot; y=&quot;132.56199999999998&quot;>
++                    <tspan x=&quot;748&quot; y=&quot;135.56199999999998&quot;>
+                         Interstate wars
+                     </tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Civil-wars&quot;
+                     x=&quot;734&quot;
+-                    y=&quot;105.962&quot;
++                    y=&quot;108.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Interstate-wars&quot;
+                     x=&quot;734&quot;
+-                    y=&quot;123.56199999999998&quot;
++                    y=&quot;126.56199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="conflict-data?Conflict+type=All+state-based+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Project+Mars&Sub-measure=All+ongoing+conflicts">
+        <div class="header-with-actions">
+            <h2>conflict-data?Conflict+type=All+state-based+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Project+Mars&Sub-measure=All+ongoing+conflicts</h2>
+            <button class="copy-slug-btn" data-slug="conflict-data?Conflict+type=All+state-based+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Project+Mars&Sub-measure=All+ongoing+conflicts" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/conflict-data?Conflict+type=All+state-based+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Project+Mars&Sub-measure=All+ongoing+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/conflict-data-d06b13305265ea316d800dd9ac6be9b6_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/conflict-data?Conflict+type=All+state-based+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Project+Mars&Sub-measure=All+ongoing+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/conflict-data-d06b13305265ea316d800dd9ac6be9b6_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/conflict-data-d06b13305265ea316d800dd9ac6be9b6_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/conflict-data-d06b13305265ea316d800dd9ac6be9b6_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: conflict-data-d06b13305265ea316d800dd9ac6be9b6_v0_850x600.svg
+===================================================================
+--- conflict-data-d06b13305265ea316d800dd9ac6be9b6_v0_850x600.svg	
++++ conflict-data-d06b13305265ea316d800dd9ac6be9b6_v0_850x600.svg	
+@@ -4374,37 +4374,37 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;748.0&quot;
+-                    y=&quot;97.0&quot;
++                    y=&quot;100.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;748&quot; y=&quot;96.962&quot;>Civil wars</tspan>
++                    <tspan x=&quot;748&quot; y=&quot;99.962&quot;>Civil wars</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;748.0&quot;
+-                    y=&quot;114.6&quot;
++                    y=&quot;117.6&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;748&quot; y=&quot;114.562&quot;>Interstate wars</tspan>
++                    <tspan x=&quot;748&quot; y=&quot;117.562&quot;>Interstate wars</tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Civil-wars&quot;
+                     x=&quot;734&quot;
+-                    y=&quot;87.962&quot;
++                    y=&quot;90.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Interstate-wars&quot;
+                     x=&quot;734&quot;
+-                    y=&quot;105.562&quot;
++                    y=&quot;108.562&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="conflict-data?Conflict+type=All+state-based+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Uppsala+Conflict+Data+Program&Sub-measure=Only+new+conflicts">
+        <div class="header-with-actions">
+            <h2>conflict-data?Conflict+type=All+state-based+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Uppsala+Conflict+Data+Program&Sub-measure=Only+new+conflicts</h2>
+            <button class="copy-slug-btn" data-slug="conflict-data?Conflict+type=All+state-based+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Uppsala+Conflict+Data+Program&Sub-measure=Only+new+conflicts" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/conflict-data?Conflict+type=All+state-based+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Uppsala+Conflict+Data+Program&Sub-measure=Only+new+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/conflict-data-6c08f92d4855b3b98dc6a018f375346f_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/conflict-data?Conflict+type=All+state-based+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Uppsala+Conflict+Data+Program&Sub-measure=Only+new+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/conflict-data-6c08f92d4855b3b98dc6a018f375346f_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/conflict-data-6c08f92d4855b3b98dc6a018f375346f_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/conflict-data-6c08f92d4855b3b98dc6a018f375346f_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: conflict-data-6c08f92d4855b3b98dc6a018f375346f_v0_850x600.svg
+===================================================================
+--- conflict-data-6c08f92d4855b3b98dc6a018f375346f_v0_850x600.svg	
++++ conflict-data-6c08f92d4855b3b98dc6a018f375346f_v0_850x600.svg	
+@@ -3437,74 +3437,74 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;97.0&quot;
++                    y=&quot;100.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;96.962&quot;>
++                    <tspan x=&quot;685.572&quot; y=&quot;99.962&quot;>
+                         Internationalized intrastate
+                     </tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;114.6&quot;
++                    y=&quot;117.6&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;114.562&quot;>Non-internationalized</tspan>
+-                    <tspan x=&quot;685.572&quot; y=&quot;127.16199999999999&quot;>intrastate</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;117.562&quot;>Non-internationalized</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;130.162&quot;>intrastate</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;144.8&quot;
++                    y=&quot;147.8&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;144.762&quot;>Extrasystemic</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;147.762&quot;>Extrasystemic</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;162.4&quot;
++                    y=&quot;165.4&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;162.362&quot;>Interstate</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;165.362&quot;>Interstate</tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Internationalized-intrastate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;87.962&quot;
++                    y=&quot;90.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b13507; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Non-internationalized-intrastate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;105.562&quot;
++                    y=&quot;108.562&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #578145; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Extrasystemic&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;135.762&quot;
++                    y=&quot;138.762&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Interstate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;153.362&quot;
++                    y=&quot;156.362&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="conflict-data?Conflict+type=Interstate+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Data+source=Militarized+Interstate+Events&Sub-measure=All+ongoing+conflicts">
+        <div class="header-with-actions">
+            <h2>conflict-data?Conflict+type=Interstate+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Data+source=Militarized+Interstate+Events&Sub-measure=All+ongoing+conflicts</h2>
+            <button class="copy-slug-btn" data-slug="conflict-data?Conflict+type=Interstate+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Data+source=Militarized+Interstate+Events&Sub-measure=All+ongoing+conflicts" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/conflict-data?Conflict+type=Interstate+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Data+source=Militarized+Interstate+Events&Sub-measure=All+ongoing+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/conflict-data-c3153db98415900fe5abe0ab0d899f5b_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/conflict-data?Conflict+type=Interstate+conflicts&Measure=Conflict+rate&Conflict+sub-type=By+sub-type&Data+source=Militarized+Interstate+Events&Sub-measure=All+ongoing+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/conflict-data-c3153db98415900fe5abe0ab0d899f5b_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/conflict-data-c3153db98415900fe5abe0ab0d899f5b_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/conflict-data-c3153db98415900fe5abe0ab0d899f5b_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: conflict-data-c3153db98415900fe5abe0ab0d899f5b_v0_850x600.svg
+===================================================================
+--- conflict-data-c3153db98415900fe5abe0ab0d899f5b_v0_850x600.svg	
++++ conflict-data-c3153db98415900fe5abe0ab0d899f5b_v0_850x600.svg	
+@@ -7791,75 +7791,75 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;740.6&quot;
+-                    y=&quot;133.0&quot;
++                    y=&quot;136.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;740.634&quot; y=&quot;132.962&quot;>Threats of force</tspan>
++                    <tspan x=&quot;740.634&quot; y=&quot;135.962&quot;>Threats of force</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;740.6&quot;
+-                    y=&quot;150.6&quot;
++                    y=&quot;153.6&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;740.634&quot; y=&quot;150.56199999999998&quot;>
++                    <tspan x=&quot;740.634&quot; y=&quot;153.56199999999998&quot;>
+                         Displays of force
+                     </tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;740.6&quot;
+-                    y=&quot;168.2&quot;
++                    y=&quot;171.2&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;740.634&quot; y=&quot;168.16199999999998&quot;>
++                    <tspan x=&quot;740.634&quot; y=&quot;171.16199999999998&quot;>
+                         Uses of force
+                     </tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;740.6&quot;
+-                    y=&quot;185.8&quot;
++                    y=&quot;188.8&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;740.634&quot; y=&quot;185.762&quot;>Wars</tspan>
++                    <tspan x=&quot;740.634&quot; y=&quot;188.762&quot;>Wars</tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Threats-of-force&quot;
+                     x=&quot;726.634&quot;
+-                    y=&quot;123.96199999999999&quot;
++                    y=&quot;126.96199999999999&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b13507; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Displays-of-force&quot;
+                     x=&quot;726.634&quot;
+-                    y=&quot;141.56199999999998&quot;
++                    y=&quot;144.56199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #578145; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Uses-of-force&quot;
+                     x=&quot;726.634&quot;
+-                    y=&quot;159.16199999999998&quot;
++                    y=&quot;162.16199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Wars&quot;
+                     x=&quot;726.634&quot;
+-                    y=&quot;176.762&quot;
++                    y=&quot;179.762&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="conflict-data?Conflict+type=Interstate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Militarized+Interstate+Events&Sub-measure=All+ongoing+conflicts">
+        <div class="header-with-actions">
+            <h2>conflict-data?Conflict+type=Interstate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Militarized+Interstate+Events&Sub-measure=All+ongoing+conflicts</h2>
+            <button class="copy-slug-btn" data-slug="conflict-data?Conflict+type=Interstate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Militarized+Interstate+Events&Sub-measure=All+ongoing+conflicts" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/conflict-data?Conflict+type=Interstate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Militarized+Interstate+Events&Sub-measure=All+ongoing+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/conflict-data-3da16c0035aa6148bc85be63105cd856_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/conflict-data?Conflict+type=Interstate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Militarized+Interstate+Events&Sub-measure=All+ongoing+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/conflict-data-3da16c0035aa6148bc85be63105cd856_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/conflict-data-3da16c0035aa6148bc85be63105cd856_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/conflict-data-3da16c0035aa6148bc85be63105cd856_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: conflict-data-3da16c0035aa6148bc85be63105cd856_v0_850x600.svg
+===================================================================
+--- conflict-data-3da16c0035aa6148bc85be63105cd856_v0_850x600.svg	
++++ conflict-data-3da16c0035aa6148bc85be63105cd856_v0_850x600.svg	
+@@ -7708,75 +7708,75 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;740.6&quot;
+-                    y=&quot;115.0&quot;
++                    y=&quot;118.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;740.634&quot; y=&quot;114.962&quot;>Threats of force</tspan>
++                    <tspan x=&quot;740.634&quot; y=&quot;117.962&quot;>Threats of force</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;740.6&quot;
+-                    y=&quot;132.6&quot;
++                    y=&quot;135.6&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;740.634&quot; y=&quot;132.56199999999998&quot;>
++                    <tspan x=&quot;740.634&quot; y=&quot;135.56199999999998&quot;>
+                         Displays of force
+                     </tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;740.6&quot;
+-                    y=&quot;150.2&quot;
++                    y=&quot;153.2&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;740.634&quot; y=&quot;150.16199999999998&quot;>
++                    <tspan x=&quot;740.634&quot; y=&quot;153.16199999999998&quot;>
+                         Uses of force
+                     </tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;740.6&quot;
+-                    y=&quot;167.8&quot;
++                    y=&quot;170.8&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;740.634&quot; y=&quot;167.762&quot;>Wars</tspan>
++                    <tspan x=&quot;740.634&quot; y=&quot;170.762&quot;>Wars</tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Threats-of-force&quot;
+                     x=&quot;726.634&quot;
+-                    y=&quot;105.962&quot;
++                    y=&quot;108.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b13507; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Displays-of-force&quot;
+                     x=&quot;726.634&quot;
+-                    y=&quot;123.56199999999998&quot;
++                    y=&quot;126.56199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #578145; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Uses-of-force&quot;
+                     x=&quot;726.634&quot;
+-                    y=&quot;141.16199999999998&quot;
++                    y=&quot;144.16199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Wars&quot;
+                     x=&quot;726.634&quot;
+-                    y=&quot;158.762&quot;
++                    y=&quot;161.762&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="conflict-data?Conflict+type=Intrastate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Only+new+conflicts">
+        <div class="header-with-actions">
+            <h2>conflict-data?Conflict+type=Intrastate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Only+new+conflicts</h2>
+            <button class="copy-slug-btn" data-slug="conflict-data?Conflict+type=Intrastate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Only+new+conflicts" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/conflict-data?Conflict+type=Intrastate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Only+new+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/conflict-data-76f706eb180ac852fe237104f68b2129_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/conflict-data?Conflict+type=Intrastate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Peace+Research+Institute+Oslo&Sub-measure=Only+new+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/conflict-data-76f706eb180ac852fe237104f68b2129_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/conflict-data-76f706eb180ac852fe237104f68b2129_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/conflict-data-76f706eb180ac852fe237104f68b2129_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: conflict-data-76f706eb180ac852fe237104f68b2129_v0_850x600.svg
+===================================================================
+--- conflict-data-76f706eb180ac852fe237104f68b2129_v0_850x600.svg	
++++ conflict-data-76f706eb180ac852fe237104f68b2129_v0_850x600.svg	
+@@ -1640,40 +1640,40 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;97.0&quot;
++                    y=&quot;100.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;96.962&quot;>Non-internationalized</tspan>
+-                    <tspan x=&quot;685.572&quot; y=&quot;109.562&quot;>intrastate</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;99.962&quot;>Non-internationalized</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;112.562&quot;>intrastate</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;127.2&quot;
++                    y=&quot;130.2&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;127.162&quot;>
++                    <tspan x=&quot;685.572&quot; y=&quot;130.162&quot;>
+                         Internationalized intrastate
+                     </tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Non-internationalized-intrastate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;87.962&quot;
++                    y=&quot;90.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Internationalized-intrastate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;118.162&quot;
++                    y=&quot;121.162&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="conflict-data?Conflict+type=Intrastate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Uppsala+Conflict+Data+Program&Sub-measure=All+ongoing+conflicts">
+        <div class="header-with-actions">
+            <h2>conflict-data?Conflict+type=Intrastate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Uppsala+Conflict+Data+Program&Sub-measure=All+ongoing+conflicts</h2>
+            <button class="copy-slug-btn" data-slug="conflict-data?Conflict+type=Intrastate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Uppsala+Conflict+Data+Program&Sub-measure=All+ongoing+conflicts" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/conflict-data?Conflict+type=Intrastate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Uppsala+Conflict+Data+Program&Sub-measure=All+ongoing+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/conflict-data-b9fa324e5723cbe7b71a87ec5fbba803_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/conflict-data?Conflict+type=Intrastate+conflicts&Measure=Number+of+conflicts&Conflict+sub-type=By+sub-type&Data+source=Uppsala+Conflict+Data+Program&Sub-measure=All+ongoing+conflicts" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/conflict-data-b9fa324e5723cbe7b71a87ec5fbba803_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/conflict-data-b9fa324e5723cbe7b71a87ec5fbba803_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/conflict-data-b9fa324e5723cbe7b71a87ec5fbba803_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: conflict-data-b9fa324e5723cbe7b71a87ec5fbba803_v0_850x600.svg
+===================================================================
+--- conflict-data-b9fa324e5723cbe7b71a87ec5fbba803_v0_850x600.svg	
++++ conflict-data-b9fa324e5723cbe7b71a87ec5fbba803_v0_850x600.svg	
+@@ -1947,40 +1947,40 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;97.0&quot;
++                    y=&quot;100.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;96.962&quot;>Non-internationalized</tspan>
+-                    <tspan x=&quot;685.572&quot; y=&quot;109.562&quot;>intrastate</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;99.962&quot;>Non-internationalized</tspan>
++                    <tspan x=&quot;685.572&quot; y=&quot;112.562&quot;>intrastate</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;685.6&quot;
+-                    y=&quot;127.2&quot;
++                    y=&quot;130.2&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;685.572&quot; y=&quot;127.162&quot;>
++                    <tspan x=&quot;685.572&quot; y=&quot;130.162&quot;>
+                         Internationalized intrastate
+                     </tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Non-internationalized-intrastate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;87.962&quot;
++                    y=&quot;90.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Internationalized-intrastate&quot;
+                     x=&quot;671.572&quot;
+-                    y=&quot;118.162&quot;
++                    y=&quot;121.162&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="monkeypox?Metric=Confirmed+cases&Frequency=Daily&Relative+to+population=false">
+        <div class="header-with-actions">
+            <h2>monkeypox?Metric=Confirmed+cases&Frequency=Daily&Relative+to+population=false</h2>
+            <button class="copy-slug-btn" data-slug="monkeypox?Metric=Confirmed+cases&Frequency=Daily&Relative+to+population=false" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/monkeypox?Metric=Confirmed+cases&Frequency=Daily&Relative+to+population=false" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/monkeypox-1f5dd6131e300b91034c08ee0624ce45_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/monkeypox?Metric=Confirmed+cases&Frequency=Daily&Relative+to+population=false" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/monkeypox-1f5dd6131e300b91034c08ee0624ce45_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/monkeypox-1f5dd6131e300b91034c08ee0624ce45_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/monkeypox-1f5dd6131e300b91034c08ee0624ce45_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: monkeypox-1f5dd6131e300b91034c08ee0624ce45_v0_850x600.svg
+===================================================================
+--- monkeypox-1f5dd6131e300b91034c08ee0624ce45_v0_850x600.svg	
++++ monkeypox-1f5dd6131e300b91034c08ee0624ce45_v0_850x600.svg	
+@@ -47524,76 +47524,76 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;697.8&quot;
+-                    y=&quot;115.0&quot;
++                    y=&quot;118.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;697.794&quot; y=&quot;114.962&quot;>
++                    <tspan x=&quot;697.794&quot; y=&quot;117.962&quot;>
+                         Democratic Republic of
+                     </tspan>
+-                    <tspan x=&quot;697.794&quot; y=&quot;127.562&quot;>Congo</tspan>
++                    <tspan x=&quot;697.794&quot; y=&quot;130.562&quot;>Congo</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;697.8&quot;
+-                    y=&quot;145.2&quot;
++                    y=&quot;148.2&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;697.794&quot; y=&quot;145.16199999999998&quot;>Burundi</tspan>
++                    <tspan x=&quot;697.794&quot; y=&quot;148.16199999999998&quot;>Burundi</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;697.8&quot;
+-                    y=&quot;162.8&quot;
++                    y=&quot;165.8&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;697.794&quot; y=&quot;162.762&quot;>Uganda</tspan>
++                    <tspan x=&quot;697.794&quot; y=&quot;165.762&quot;>Uganda</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;697.8&quot;
+-                    y=&quot;180.4&quot;
++                    y=&quot;183.4&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;697.794&quot; y=&quot;180.362&quot;>
++                    <tspan x=&quot;697.794&quot; y=&quot;183.362&quot;>
+                         Central African Republic
+                     </tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Democratic-Republic-of-Congo&quot;
+                     x=&quot;683.794&quot;
+-                    y=&quot;105.962&quot;
++                    y=&quot;108.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b13507; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Burundi&quot;
+                     x=&quot;683.794&quot;
+-                    y=&quot;136.16199999999998&quot;
++                    y=&quot;139.16199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #578145; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Uganda&quot;
+                     x=&quot;683.794&quot;
+-                    y=&quot;153.762&quot;
++                    y=&quot;156.762&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Central-African-Republic&quot;
+                     x=&quot;683.794&quot;
+-                    y=&quot;171.362&quot;
++                    y=&quot;174.362&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="monkeypox?Metric=Confirmed+cases&Frequency=Daily&Relative+to+population=true">
+        <div class="header-with-actions">
+            <h2>monkeypox?Metric=Confirmed+cases&Frequency=Daily&Relative+to+population=true</h2>
+            <button class="copy-slug-btn" data-slug="monkeypox?Metric=Confirmed+cases&Frequency=Daily&Relative+to+population=true" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/monkeypox?Metric=Confirmed+cases&Frequency=Daily&Relative+to+population=true" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/monkeypox-92beae15ddee4cdf94104e634d83bd88_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/monkeypox?Metric=Confirmed+cases&Frequency=Daily&Relative+to+population=true" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/monkeypox-92beae15ddee4cdf94104e634d83bd88_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/monkeypox-92beae15ddee4cdf94104e634d83bd88_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/monkeypox-92beae15ddee4cdf94104e634d83bd88_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: monkeypox-92beae15ddee4cdf94104e634d83bd88_v0_850x600.svg
+===================================================================
+--- monkeypox-92beae15ddee4cdf94104e634d83bd88_v0_850x600.svg	
++++ monkeypox-92beae15ddee4cdf94104e634d83bd88_v0_850x600.svg	
+@@ -47506,76 +47506,76 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;697.8&quot;
+-                    y=&quot;118.6&quot;
++                    y=&quot;121.6&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;697.794&quot; y=&quot;118.562&quot;>
++                    <tspan x=&quot;697.794&quot; y=&quot;121.562&quot;>
+                         Democratic Republic of
+                     </tspan>
+-                    <tspan x=&quot;697.794&quot; y=&quot;131.162&quot;>Congo</tspan>
++                    <tspan x=&quot;697.794&quot; y=&quot;134.162&quot;>Congo</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;697.8&quot;
+-                    y=&quot;148.8&quot;
++                    y=&quot;151.8&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;697.794&quot; y=&quot;148.76199999999997&quot;>Burundi</tspan>
++                    <tspan x=&quot;697.794&quot; y=&quot;151.76199999999997&quot;>Burundi</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;697.8&quot;
+-                    y=&quot;166.4&quot;
++                    y=&quot;169.4&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;697.794&quot; y=&quot;166.36199999999997&quot;>Uganda</tspan>
++                    <tspan x=&quot;697.794&quot; y=&quot;169.36199999999997&quot;>Uganda</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;697.8&quot;
+-                    y=&quot;184.0&quot;
++                    y=&quot;187.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;697.794&quot; y=&quot;183.962&quot;>
++                    <tspan x=&quot;697.794&quot; y=&quot;186.962&quot;>
+                         Central African Republic
+                     </tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Democratic-Republic-of-Congo&quot;
+                     x=&quot;683.794&quot;
+-                    y=&quot;109.562&quot;
++                    y=&quot;112.562&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b13507; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Burundi&quot;
+                     x=&quot;683.794&quot;
+-                    y=&quot;139.76199999999997&quot;
++                    y=&quot;142.76199999999997&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #578145; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Uganda&quot;
+                     x=&quot;683.794&quot;
+-                    y=&quot;157.36199999999997&quot;
++                    y=&quot;160.36199999999997&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Central-African-Republic&quot;
+                     x=&quot;683.794&quot;
+-                    y=&quot;174.962&quot;
++                    y=&quot;177.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="monkeypox?Metric=Confirmed+deaths&Frequency=Daily&Relative+to+population=false">
+        <div class="header-with-actions">
+            <h2>monkeypox?Metric=Confirmed+deaths&Frequency=Daily&Relative+to+population=false</h2>
+            <button class="copy-slug-btn" data-slug="monkeypox?Metric=Confirmed+deaths&Frequency=Daily&Relative+to+population=false" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/monkeypox?Metric=Confirmed+deaths&Frequency=Daily&Relative+to+population=false" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/monkeypox-fd29e3049f57fca74ba25039f9c1ba9e_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/monkeypox?Metric=Confirmed+deaths&Frequency=Daily&Relative+to+population=false" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/monkeypox-fd29e3049f57fca74ba25039f9c1ba9e_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/monkeypox-fd29e3049f57fca74ba25039f9c1ba9e_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/monkeypox-fd29e3049f57fca74ba25039f9c1ba9e_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: monkeypox-fd29e3049f57fca74ba25039f9c1ba9e_v0_850x600.svg
+===================================================================
+--- monkeypox-fd29e3049f57fca74ba25039f9c1ba9e_v0_850x600.svg	
++++ monkeypox-fd29e3049f57fca74ba25039f9c1ba9e_v0_850x600.svg	
+@@ -47582,76 +47582,76 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;697.8&quot;
+-                    y=&quot;115.0&quot;
++                    y=&quot;118.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;697.794&quot; y=&quot;114.962&quot;>
++                    <tspan x=&quot;697.794&quot; y=&quot;117.962&quot;>
+                         Democratic Republic of
+                     </tspan>
+-                    <tspan x=&quot;697.794&quot; y=&quot;127.562&quot;>Congo</tspan>
++                    <tspan x=&quot;697.794&quot; y=&quot;130.562&quot;>Congo</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;697.8&quot;
+-                    y=&quot;145.2&quot;
++                    y=&quot;148.2&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;697.794&quot; y=&quot;145.16199999999998&quot;>Burundi</tspan>
++                    <tspan x=&quot;697.794&quot; y=&quot;148.16199999999998&quot;>Burundi</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;697.8&quot;
+-                    y=&quot;162.8&quot;
++                    y=&quot;165.8&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;697.794&quot; y=&quot;162.762&quot;>Uganda</tspan>
++                    <tspan x=&quot;697.794&quot; y=&quot;165.762&quot;>Uganda</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;697.8&quot;
+-                    y=&quot;180.4&quot;
++                    y=&quot;183.4&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;697.794&quot; y=&quot;180.362&quot;>
++                    <tspan x=&quot;697.794&quot; y=&quot;183.362&quot;>
+                         Central African Republic
+                     </tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Democratic-Republic-of-Congo&quot;
+                     x=&quot;683.794&quot;
+-                    y=&quot;105.962&quot;
++                    y=&quot;108.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b13507; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Burundi&quot;
+                     x=&quot;683.794&quot;
+-                    y=&quot;136.16199999999998&quot;
++                    y=&quot;139.16199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #578145; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Uganda&quot;
+                     x=&quot;683.794&quot;
+-                    y=&quot;153.762&quot;
++                    y=&quot;156.762&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Central-African-Republic&quot;
+                     x=&quot;683.794&quot;
+-                    y=&quot;171.362&quot;
++                    y=&quot;174.362&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="monkeypox?Metric=Confirmed+deaths&Frequency=Daily&Relative+to+population=true">
+        <div class="header-with-actions">
+            <h2>monkeypox?Metric=Confirmed+deaths&Frequency=Daily&Relative+to+population=true</h2>
+            <button class="copy-slug-btn" data-slug="monkeypox?Metric=Confirmed+deaths&Frequency=Daily&Relative+to+population=true" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/monkeypox?Metric=Confirmed+deaths&Frequency=Daily&Relative+to+population=true" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/monkeypox-c9e7d32b2172718469d06603ccaa74aa_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-bar-align-legend/explorers/monkeypox?Metric=Confirmed+deaths&Frequency=Daily&Relative+to+population=true" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/monkeypox-c9e7d32b2172718469d06603ccaa74aa_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/monkeypox-c9e7d32b2172718469d06603ccaa74aa_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/monkeypox-c9e7d32b2172718469d06603ccaa74aa_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: monkeypox-c9e7d32b2172718469d06603ccaa74aa_v0_850x600.svg
+===================================================================
+--- monkeypox-c9e7d32b2172718469d06603ccaa74aa_v0_850x600.svg	
++++ monkeypox-c9e7d32b2172718469d06603ccaa74aa_v0_850x600.svg	
+@@ -47488,76 +47488,76 @@
+             <g id=&quot;labels&quot;>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;697.8&quot;
+-                    y=&quot;136.6&quot;
++                    y=&quot;139.6&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;697.794&quot; y=&quot;136.56199999999998&quot;>
++                    <tspan x=&quot;697.794&quot; y=&quot;139.56199999999998&quot;>
+                         Democratic Republic of
+                     </tspan>
+-                    <tspan x=&quot;697.794&quot; y=&quot;149.16199999999998&quot;>Congo</tspan>
++                    <tspan x=&quot;697.794&quot; y=&quot;152.16199999999998&quot;>Congo</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;697.8&quot;
+-                    y=&quot;166.8&quot;
++                    y=&quot;169.8&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;697.794&quot; y=&quot;166.76199999999997&quot;>Burundi</tspan>
++                    <tspan x=&quot;697.794&quot; y=&quot;169.76199999999997&quot;>Burundi</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;697.8&quot;
+-                    y=&quot;184.4&quot;
++                    y=&quot;187.4&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;697.794&quot; y=&quot;184.36199999999997&quot;>Uganda</tspan>
++                    <tspan x=&quot;697.794&quot; y=&quot;187.36199999999997&quot;>Uganda</tspan>
+                 </text>
+                 <text
+                     font-size=&quot;12.60&quot;
+                     x=&quot;697.8&quot;
+-                    y=&quot;202.0&quot;
++                    y=&quot;205.0&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     color=&quot;#5b5b5b&quot;
+                 >
+-                    <tspan x=&quot;697.794&quot; y=&quot;201.962&quot;>
++                    <tspan x=&quot;697.794&quot; y=&quot;204.962&quot;>
+                         Central African Republic
+                     </tspan>
+                 </text>
+             </g>
+             <g id=&quot;swatches&quot;>
+                 <rect
+                     id=&quot;Democratic-Republic-of-Congo&quot;
+                     x=&quot;683.794&quot;
+-                    y=&quot;127.56199999999998&quot;
++                    y=&quot;130.56199999999998&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #b13507; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Burundi&quot;
+                     x=&quot;683.794&quot;
+-                    y=&quot;157.76199999999997&quot;
++                    y=&quot;160.76199999999997&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #578145; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Uganda&quot;
+                     x=&quot;683.794&quot;
+-                    y=&quot;175.36199999999997&quot;
++                    y=&quot;178.36199999999997&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #883039; opacity: 0.8&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Central-African-Republic&quot;
+                     x=&quot;683.794&quot;
+-                    y=&quot;192.962&quot;
++                    y=&quot;195.962&quot;
+                     width=&quot;9&quot;
+                     height=&quot;9&quot;
+                     style=&quot;fill: #4c6a9c; opacity: 0.8&quot;
+                 ></rect>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section
+                    if (diffContainer && !renderedDiffs.has(diffId)) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
