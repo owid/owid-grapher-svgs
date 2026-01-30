@@ -1,0 +1,932 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        /* Tab content */
+        .tab-content {
+            min-height: 400px;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: 800px;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 100%;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="summary">Number of differences: 2</p><section data-slug="religious-composition?religion=religion_distrib&indicator=count_unrounded">
+        <div class="header-with-actions">
+            <h2>religious-composition?religion=religion_distrib&indicator=count_unrounded</h2>
+            <button class="copy-slug-btn" data-slug="religious-composition?religion=religion_distrib&indicator=count_unrounded" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/religious-composition?religion=religion_distrib&indicator=count_unrounded" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/religious-composition%3Freligion=religion_distrib&indicator=count_unrounded_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-discrete-bar-highlig/grapher/religious-composition?religion=religion_distrib&indicator=count_unrounded" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/religious-composition%3Freligion=religion_distrib&indicator=count_unrounded_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/religious-composition%3Freligion=religion_distrib&indicator=count_unrounded_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/religious-composition%3Freligion=religion_distrib&indicator=count_unrounded_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: religious-composition?religion=religion_distrib&indicator=count_unrounded_v0_850x600.svg
+===================================================================
+--- religious-composition?religion=religion_distrib&indicator=count_unrounded_v0_850x600.svg	
++++ religious-composition?religion=religion_distrib&indicator=count_unrounded_v0_850x600.svg	
+@@ -213,9 +213,8 @@
+             <g
+                 id=&quot;World&quot;
+                 class=&quot;bar&quot;
+                 transform=&quot;translate(0, 155.34285714285716)&quot;
+-                opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Christians&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+@@ -350,9 +349,9 @@
+                         y=&quot;0&quot;
+                         width=&quot;151.00000000000003&quot;
+                         height=&quot;37.49571428571429&quot;
+                         fill=&quot;#000&quot;
+-                        opacity=&quot;1&quot;
++                        opacity=&quot;0.8&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -365,14 +364,16 @@
+                     x=&quot;109.1&quot;
+                     y=&quot;5.0&quot;
+                     text-anchor=&quot;end&quot;
+                     fill=&quot;#555&quot;
++                    opacity=&quot;0.8&quot;
+                 >
+                     <tspan x=&quot;109.1&quot; y=&quot;4.995000000000001&quot;>World</tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(743.8, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;0.8&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     7.89 billion
+@@ -381,9 +382,8 @@
+             <g
+                 id=&quot;China&quot;
+                 class=&quot;bar&quot;
+                 transform=&quot;translate(0, 213.02857142857147)&quot;
+-                opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Christians&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+@@ -479,9 +479,9 @@
+                         y=&quot;0&quot;
+                         width=&quot;101.30000000000001&quot;
+                         height=&quot;37.49571428571429&quot;
+                         fill=&quot;#000&quot;
+-                        opacity=&quot;1&quot;
++                        opacity=&quot;0.8&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -494,14 +494,16 @@
+                     x=&quot;109.1&quot;
+                     y=&quot;5.0&quot;
+                     text-anchor=&quot;end&quot;
+                     fill=&quot;#555&quot;
++                    opacity=&quot;0.8&quot;
+                 >
+                     <tspan x=&quot;109.1&quot; y=&quot;4.995000000000001&quot;>China</tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(232.1, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;0.8&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     1.43 billion
+@@ -510,9 +512,8 @@
+             <g
+                 id=&quot;India&quot;
+                 class=&quot;bar&quot;
+                 transform=&quot;translate(0, 270.7142857142858)&quot;
+-                opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Christians&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+@@ -623,14 +624,16 @@
+                     x=&quot;109.1&quot;
+                     y=&quot;5.0&quot;
+                     text-anchor=&quot;end&quot;
+                     fill=&quot;#555&quot;
++                    opacity=&quot;0.8&quot;
+                 >
+                     <tspan x=&quot;109.1&quot; y=&quot;4.995000000000001&quot;>India</tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(230.3, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;0.8&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     1.4 billion
+@@ -639,9 +642,8 @@
+             <g
+                 id=&quot;United-States&quot;
+                 class=&quot;bar&quot;
+                 transform=&quot;translate(0, 328.40000000000003)&quot;
+-                opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Christians&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+@@ -739,14 +741,16 @@
+                     x=&quot;109.1&quot;
+                     y=&quot;5.0&quot;
+                     text-anchor=&quot;end&quot;
+                     fill=&quot;#555&quot;
++                    opacity=&quot;0.8&quot;
+                 >
+                     <tspan x=&quot;109.1&quot; y=&quot;4.995000000000001&quot;>United States</tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(146, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;0.8&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     339.44 million
+@@ -755,9 +759,8 @@
+             <g
+                 id=&quot;Indonesia&quot;
+                 class=&quot;bar&quot;
+                 transform=&quot;translate(0, 386.08571428571435)&quot;
+-                opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Christians&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+@@ -855,14 +858,16 @@
+                     x=&quot;109.1&quot;
+                     y=&quot;5.0&quot;
+                     text-anchor=&quot;end&quot;
+                     fill=&quot;#555&quot;
++                    opacity=&quot;0.8&quot;
+                 >
+                     <tspan x=&quot;109.1&quot; y=&quot;4.995000000000001&quot;>Indonesia</tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(140.9, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;0.8&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     274.81 million
+@@ -871,9 +876,8 @@
+             <g
+                 id=&quot;Egypt&quot;
+                 class=&quot;bar&quot;
+                 transform=&quot;translate(0, 443.77142857142866)&quot;
+-                opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Christians&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+@@ -971,14 +975,16 @@
+                     x=&quot;109.1&quot;
+                     y=&quot;5.0&quot;
+                     text-anchor=&quot;end&quot;
+                     fill=&quot;#555&quot;
++                    opacity=&quot;0.8&quot;
+                 >
+                     <tspan x=&quot;109.1&quot; y=&quot;4.995000000000001&quot;>Egypt</tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(127.8, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;0.8&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     109.32 million
+@@ -987,9 +993,8 @@
+             <g
+                 id=&quot;United-Kingdom&quot;
+                 class=&quot;bar&quot;
+                 transform=&quot;translate(0, 501.4571428571429)&quot;
+-                opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Christians&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+@@ -1087,16 +1092,18 @@
+                     x=&quot;109.1&quot;
+                     y=&quot;5.0&quot;
+                     text-anchor=&quot;end&quot;
+                     fill=&quot;#555&quot;
++                    opacity=&quot;0.8&quot;
+                 >
+                     <tspan x=&quot;109.1&quot; y=&quot;4.995000000000001&quot;>
+                         United Kingdom
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(124.5, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;0.8&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     67.35 million
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="religious-composition?religion=religion_distrib&indicator=share">
+        <div class="header-with-actions">
+            <h2>religious-composition?religion=religion_distrib&indicator=share</h2>
+            <button class="copy-slug-btn" data-slug="religious-composition?religion=religion_distrib&indicator=share" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/religious-composition?religion=religion_distrib&indicator=share" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/religious-composition%3Freligion=religion_distrib&indicator=share_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-stacked-discrete-bar-highlig/grapher/religious-composition?religion=religion_distrib&indicator=share" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/religious-composition%3Freligion=religion_distrib&indicator=share_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/religious-composition%3Freligion=religion_distrib&indicator=share_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/religious-composition%3Freligion=religion_distrib&indicator=share_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: religious-composition?religion=religion_distrib&indicator=share_v0_850x600.svg
+===================================================================
+--- religious-composition?religion=religion_distrib&indicator=share_v0_850x600.svg	
++++ religious-composition?religion=religion_distrib&indicator=share_v0_850x600.svg	
+@@ -213,9 +213,8 @@
+             <g
+                 id=&quot;India&quot;
+                 class=&quot;bar&quot;
+                 transform=&quot;translate(0, 156.7785714285714)&quot;
+-                opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Christians&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+@@ -339,14 +338,16 @@
+                     x=&quot;109.1&quot;
+                     y=&quot;5.0&quot;
+                     text-anchor=&quot;end&quot;
+                     fill=&quot;#555&quot;
++                    opacity=&quot;0.8&quot;
+                 >
+                     <tspan x=&quot;109.1&quot; y=&quot;4.995000000000001&quot;>India</tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(794.7, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;0.8&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     100%
+@@ -355,9 +356,8 @@
+             <g
+                 id=&quot;Indonesia&quot;
+                 class=&quot;bar&quot;
+                 transform=&quot;translate(0, 217.33571428571426)&quot;
+-                opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Christians&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+@@ -481,14 +481,16 @@
+                     x=&quot;109.1&quot;
+                     y=&quot;5.0&quot;
+                     text-anchor=&quot;end&quot;
+                     fill=&quot;#555&quot;
++                    opacity=&quot;0.8&quot;
+                 >
+                     <tspan x=&quot;109.1&quot; y=&quot;4.995000000000001&quot;>Indonesia</tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(794.7, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;0.8&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     100%
+@@ -497,9 +499,8 @@
+             <g
+                 id=&quot;United-Kingdom&quot;
+                 class=&quot;bar&quot;
+                 transform=&quot;translate(0, 277.8928571428571)&quot;
+-                opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Christians&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+@@ -621,9 +622,9 @@
+                         y=&quot;0&quot;
+                         width=&quot;271.70000000000005&quot;
+                         height=&quot;39.36214285714285&quot;
+                         fill=&quot;#000&quot;
+-                        opacity=&quot;1&quot;
++                        opacity=&quot;0.8&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -636,16 +637,18 @@
+                     x=&quot;109.1&quot;
+                     y=&quot;5.0&quot;
+                     text-anchor=&quot;end&quot;
+                     fill=&quot;#555&quot;
++                    opacity=&quot;0.8&quot;
+                 >
+                     <tspan x=&quot;109.1&quot; y=&quot;4.995000000000001&quot;>
+                         United Kingdom
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(794.7, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;0.8&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     100%
+@@ -654,9 +657,8 @@
+             <g
+                 id=&quot;Egypt&quot;
+                 class=&quot;bar&quot;
+                 transform=&quot;translate(0, 338.44999999999993)&quot;
+-                opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Christians&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+@@ -767,14 +769,16 @@
+                     x=&quot;109.1&quot;
+                     y=&quot;5.0&quot;
+                     text-anchor=&quot;end&quot;
+                     fill=&quot;#555&quot;
++                    opacity=&quot;0.8&quot;
+                 >
+                     <tspan x=&quot;109.1&quot; y=&quot;4.995000000000001&quot;>Egypt</tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(794.7, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;0.8&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     100%
+@@ -783,9 +787,8 @@
+             <g
+                 id=&quot;World&quot;
+                 class=&quot;bar&quot;
+                 transform=&quot;translate(0, 399.0071428571428)&quot;
+-                opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Christians&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+@@ -920,9 +923,9 @@
+                         y=&quot;0&quot;
+                         width=&quot;163.29999999999998&quot;
+                         height=&quot;39.36214285714285&quot;
+                         fill=&quot;#000&quot;
+-                        opacity=&quot;1&quot;
++                        opacity=&quot;0.8&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -935,14 +938,16 @@
+                     x=&quot;109.1&quot;
+                     y=&quot;5.0&quot;
+                     text-anchor=&quot;end&quot;
+                     fill=&quot;#555&quot;
++                    opacity=&quot;0.8&quot;
+                 >
+                     <tspan x=&quot;109.1&quot; y=&quot;4.995000000000001&quot;>World</tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(794.7, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;0.8&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     100%
+@@ -951,9 +956,8 @@
+             <g
+                 id=&quot;United-States&quot;
+                 class=&quot;bar&quot;
+                 transform=&quot;translate(0, 459.56428571428563)&quot;
+-                opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Christians&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+@@ -1062,9 +1066,9 @@
+                         y=&quot;0&quot;
+                         width=&quot;200.9&quot;
+                         height=&quot;39.36214285714285&quot;
+                         fill=&quot;#000&quot;
+-                        opacity=&quot;1&quot;
++                        opacity=&quot;0.8&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -1077,14 +1081,16 @@
+                     x=&quot;109.1&quot;
+                     y=&quot;5.0&quot;
+                     text-anchor=&quot;end&quot;
+                     fill=&quot;#555&quot;
++                    opacity=&quot;0.8&quot;
+                 >
+                     <tspan x=&quot;109.1&quot; y=&quot;4.995000000000001&quot;>United States</tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(794.7, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;0.8&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     100%
+@@ -1093,9 +1099,8 @@
+             <g
+                 id=&quot;China&quot;
+                 class=&quot;bar&quot;
+                 transform=&quot;translate(0, 520.1214285714285)&quot;
+-                opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Christians&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+@@ -1191,9 +1196,9 @@
+                         y=&quot;0&quot;
+                         width=&quot;605.5&quot;
+                         height=&quot;39.36214285714285&quot;
+                         fill=&quot;#000&quot;
+-                        opacity=&quot;1&quot;
++                        opacity=&quot;0.8&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -1206,14 +1211,16 @@
+                     x=&quot;109.1&quot;
+                     y=&quot;5.0&quot;
+                     text-anchor=&quot;end&quot;
+                     fill=&quot;#555&quot;
++                    opacity=&quot;0.8&quot;
+                 >
+                     <tspan x=&quot;109.1&quot; y=&quot;4.995000000000001&quot;>China</tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(794.7, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;0.8&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     100%
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section
+                    if (diffContainer && !renderedDiffs.has(diffId)) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
