@@ -1,0 +1,1689 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        /* Filter dropdown */
+        .filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        .filter-container label {
+            font-weight: 500;
+            color: #24292e;
+        }
+
+        .filter-container select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            background: #fafbfc;
+            font-size: 0.9rem;
+            color: #24292e;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-container select:hover {
+            border-color: #a0a8b0;
+        }
+
+        .filter-container select:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        section.hidden {
+            display: none;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        /* Tab content */
+        .tab-content {
+            min-height: 400px;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: 800px;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 100%;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="filter-container">
+        <label for="chart-type-filter">Chart Type:</label>
+        <select id="chart-type-filter">
+            <option value="all" selected>All (4)</option>
+            <option value="StackedDiscreteBar">StackedDiscreteBar (3)</option>
+<option value="WorldMap">WorldMap (1)</option>
+        </select>
+    </div><p class="summary">Showing <span id="visible-count">4</span> of 4 differences</p><section data-slug="countries-with-minimum-urban-threshold" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>countries-with-minimum-urban-threshold</h2>
+            <button class="copy-slug-btn" data-slug="countries-with-minimum-urban-threshold" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/countries-with-minimum-urban-threshold" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/countries-with-minimum-urban-threshold_v6_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-hide-map-legend/grapher/countries-with-minimum-urban-threshold" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/countries-with-minimum-urban-threshold_v6_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/countries-with-minimum-urban-threshold_v6_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/countries-with-minimum-urban-threshold_v6_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: countries-with-minimum-urban-threshold_v6_850x600.svg
+===================================================================
+--- countries-with-minimum-urban-threshold_v6_850x600.svg	
++++ countries-with-minimum-urban-threshold_v6_850x600.svg	
+@@ -74,22 +74,45 @@
+             </text>
+         </g>
+     </g>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
++        <g id=&quot;categorical-color-legend&quot; class=&quot;categoricalColorLegend&quot;>
++            <g id=&quot;swatches&quot;>
++                <rect
++                    id=&quot;Number-of-countries-with-minimum-urban-population-threshold&quot;
++                    x=&quot;16&quot;
++                    y=&quot;125.6&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #4c6a9c; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++            </g>
++            <g id=&quot;labels&quot;>
++                <text
++                    x=&quot;34.5&quot;
++                    y=&quot;132.35&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Number of countries with minimum urban population threshold
++                </text>
++            </g>
++        </g>
+         <line
+             id=&quot;vertical-zero-line&quot;
+             x1=&quot;220.95&quot;
+             y1=&quot;510.20&quot;
+             x2=&quot;220.95&quot;
+-            y2=&quot;125.60&quot;
++            y2=&quot;148.10&quot;
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+         ></line>
+         <g id=&quot;bars&quot;>
+             <g
+                 id=&quot;100,000-inhabitants&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 135.215)&quot;
++                transform=&quot;translate(0, 157.1525)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g
+                     id=&quot;Number-of-countries-with-minimum-urban-population-threshold&quot;
+@@ -97,11 +120,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(221.2, -6.249750000000001)&quot;
++                        transform=&quot;translate(221.2, -5.884125)&quot;
+                         width=&quot;4.5&quot;
+-                        height=&quot;12.499500000000001&quot;
++                        height=&quot;11.76825&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -122,9 +145,9 @@
+             </g>
+             <g
+                 id=&quot;50,000-inhabitants&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 154.445)&quot;
++                transform=&quot;translate(0, 175.2575)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g
+                     id=&quot;Number-of-countries-with-minimum-urban-population-threshold&quot;
+@@ -132,11 +155,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(221.2, -6.249750000000001)&quot;
++                        transform=&quot;translate(221.2, -5.884125)&quot;
+                         width=&quot;4.5&quot;
+-                        height=&quot;12.499500000000001&quot;
++                        height=&quot;11.76825&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -157,9 +180,9 @@
+             </g>
+             <g
+                 id=&quot;30,000-inhabitants&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 173.675)&quot;
++                transform=&quot;translate(0, 193.3625)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g
+                     id=&quot;Number-of-countries-with-minimum-urban-population-threshold&quot;
+@@ -167,11 +190,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(221.2, -6.249750000000001)&quot;
++                        transform=&quot;translate(221.2, -5.884125)&quot;
+                         width=&quot;4.5&quot;
+-                        height=&quot;12.499500000000001&quot;
++                        height=&quot;11.76825&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -192,9 +215,9 @@
+             </g>
+             <g
+                 id=&quot;20,000-inhabitants&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 192.905)&quot;
++                transform=&quot;translate(0, 211.4675)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g
+                     id=&quot;Number-of-countries-with-minimum-urban-population-threshold&quot;
+@@ -202,11 +225,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(221.2, -6.249750000000001)&quot;
++                        transform=&quot;translate(221.2, -5.884125)&quot;
+                         width=&quot;13.5&quot;
+-                        height=&quot;12.499500000000001&quot;
++                        height=&quot;11.76825&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -227,9 +250,9 @@
+             </g>
+             <g
+                 id=&quot;10,000-inhabitants&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 212.135)&quot;
++                transform=&quot;translate(0, 229.5725)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g
+                     id=&quot;Number-of-countries-with-minimum-urban-population-threshold&quot;
+@@ -237,11 +260,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(221.2, -6.249750000000001)&quot;
++                        transform=&quot;translate(221.2, -5.884125)&quot;
+                         width=&quot;58.400000000000034&quot;
+-                        height=&quot;12.499500000000001&quot;
++                        height=&quot;11.76825&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -262,9 +285,9 @@
+             </g>
+             <g
+                 id=&quot;9,000-inhabitants&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 231.365)&quot;
++                transform=&quot;translate(0, 247.67749999999998)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g
+                     id=&quot;Number-of-countries-with-minimum-urban-population-threshold&quot;
+@@ -272,11 +295,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(221.2, -6.249750000000001)&quot;
++                        transform=&quot;translate(221.2, -5.884125)&quot;
+                         width=&quot;4.5&quot;
+-                        height=&quot;12.499500000000001&quot;
++                        height=&quot;11.76825&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -297,9 +320,9 @@
+             </g>
+             <g
+                 id=&quot;5,000-inhabitants&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 250.595)&quot;
++                transform=&quot;translate(0, 265.78249999999997)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g
+                     id=&quot;Number-of-countries-with-minimum-urban-population-threshold&quot;
+@@ -307,11 +330,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(221.2, -6.249750000000001)&quot;
++                        transform=&quot;translate(221.2, -5.884125)&quot;
+                         width=&quot;103.30000000000001&quot;
+-                        height=&quot;12.499500000000001&quot;
++                        height=&quot;11.76825&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -332,9 +355,9 @@
+             </g>
+             <g
+                 id=&quot;4,000-inhabitants&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 269.82500000000005)&quot;
++                transform=&quot;translate(0, 283.8875)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g
+                     id=&quot;Number-of-countries-with-minimum-urban-population-threshold&quot;
+@@ -342,11 +365,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(221.2, -6.249750000000001)&quot;
++                        transform=&quot;translate(221.2, -5.884125)&quot;
+                         width=&quot;4.5&quot;
+-                        height=&quot;12.499500000000001&quot;
++                        height=&quot;11.76825&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -367,9 +390,9 @@
+             </g>
+             <g
+                 id=&quot;3,000-inhabitants&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 289.055)&quot;
++                transform=&quot;translate(0, 301.99249999999995)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g
+                     id=&quot;Number-of-countries-with-minimum-urban-population-threshold&quot;
+@@ -377,11 +400,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(221.2, -6.249750000000001)&quot;
++                        transform=&quot;translate(221.2, -5.884125)&quot;
+                         width=&quot;13.5&quot;
+-                        height=&quot;12.499500000000001&quot;
++                        height=&quot;11.76825&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -402,9 +425,9 @@
+             </g>
+             <g
+                 id=&quot;2,000-inhabitants&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 308.28499999999997)&quot;
++                transform=&quot;translate(0, 320.09749999999997)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g
+                     id=&quot;Number-of-countries-with-minimum-urban-population-threshold&quot;
+@@ -412,11 +435,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(221.2, -6.249750000000001)&quot;
++                        transform=&quot;translate(221.2, -5.884125)&quot;
+                         width=&quot;98.80000000000001&quot;
+-                        height=&quot;12.499500000000001&quot;
++                        height=&quot;11.76825&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -437,9 +460,9 @@
+             </g>
+             <g
+                 id=&quot;2,500-inhabitants&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 327.515)&quot;
++                transform=&quot;translate(0, 338.2025)&quot;
+                 opacity=&quot;1&quot;
+             >
+
+... (diff truncated: showing 300 of 542 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="maize-exports-ukraine-russia-perspective" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>maize-exports-ukraine-russia-perspective</h2>
+            <button class="copy-slug-btn" data-slug="maize-exports-ukraine-russia-perspective" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/maize-exports-ukraine-russia-perspective" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/maize-exports-ukraine-russia-perspective_v13_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-hide-map-legend/grapher/maize-exports-ukraine-russia-perspective" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/maize-exports-ukraine-russia-perspective_v13_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/maize-exports-ukraine-russia-perspective_v13_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/maize-exports-ukraine-russia-perspective_v13_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: maize-exports-ukraine-russia-perspective_v13_850x600.svg
+===================================================================
+--- maize-exports-ukraine-russia-perspective_v13_850x600.svg	
++++ maize-exports-ukraine-russia-perspective_v13_850x600.svg	
+@@ -58,41 +58,183 @@
+             </text>
+         </a>
+     </g>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
++        <g id=&quot;categorical-color-legend&quot; class=&quot;categoricalColorLegend&quot;>
++            <g id=&quot;swatches&quot;>
++                <rect
++                    id=&quot;Maize-exported-by_ukraine&quot;
++                    x=&quot;16&quot;
++                    y=&quot;68&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #bc8e5a; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++                <rect
++                    id=&quot;Maize-exported-by_russia&quot;
++                    x=&quot;218.436&quot;
++                    y=&quot;68&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #4c6a9c; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++                <rect
++                    id=&quot;Maize-used-for-biofuels-in_eu&quot;
++                    x=&quot;410.216&quot;
++                    y=&quot;68&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #6d3e91; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++                <rect
++                    id=&quot;Maize-used-for-animal-feed-in_eu&quot;
++                    x=&quot;16&quot;
++                    y=&quot;86.5&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #6d3e91; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++                <rect
++                    id=&quot;Maize-used-for-animal-feed-in_uk&quot;
++                    x=&quot;255.15600000000003&quot;
++                    y=&quot;86.5&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #58ac8c; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++                <rect
++                    id=&quot;Maize-used-for-biofuels-in_uk&quot;
++                    x=&quot;494.02400000000006&quot;
++                    y=&quot;86.5&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #58ac8c; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++                <rect
++                    id=&quot;Maize-used-for-animal-feed-in_us&quot;
++                    x=&quot;16&quot;
++                    y=&quot;105&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #e56e5a; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++                <rect
++                    id=&quot;Maize-used-for-biofuels-in_us&quot;
++                    x=&quot;253.71600000000004&quot;
++                    y=&quot;105&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #e56e5a; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++            </g>
++            <g id=&quot;labels&quot;>
++                <text
++                    x=&quot;34.5&quot;
++                    y=&quot;74.75&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Maize exported by_ukraine
++                </text>
++                <text
++                    x=&quot;236.936&quot;
++                    y=&quot;74.75&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Maize exported by_russia
++                </text>
++                <text
++                    x=&quot;428.716&quot;
++                    y=&quot;74.75&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Maize used for biofuels in_eu
++                </text>
++                <text
++                    x=&quot;34.5&quot;
++                    y=&quot;93.25&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Maize used for animal feed in_eu
++                </text>
++                <text
++                    x=&quot;273.65600000000006&quot;
++                    y=&quot;93.25&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Maize used for animal feed in_uk
++                </text>
++                <text
++                    x=&quot;512.5240000000001&quot;
++                    y=&quot;93.25&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Maize used for biofuels in_uk
++                </text>
++                <text
++                    x=&quot;34.5&quot;
++                    y=&quot;111.75&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Maize used for animal feed in_us
++                </text>
++                <text
++                    x=&quot;272.216&quot;
++                    y=&quot;111.75&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Maize used for biofuels in_us
++                </text>
++            </g>
++        </g>
+         <line
+             id=&quot;vertical-zero-line&quot;
+             x1=&quot;178.55&quot;
+             y1=&quot;514.70&quot;
+             x2=&quot;178.55&quot;
+-            y2=&quot;68.00&quot;
++            y2=&quot;127.50&quot;
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+         ></line>
+         <g id=&quot;bars&quot;>
+             <g
+                 id=&quot;Ukraine-and-Russia-exports&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 112.67)&quot;
++                transform=&quot;translate(0, 166.22)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Maize-exported-by_ukraine&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(178.8, -29.035500000000003)&quot;
++                        transform=&quot;translate(178.8, -25.168)&quot;
+                         width=&quot;102.69999999999999&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#bc8e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+                         x=&quot;230.15&quot;
+                         y=&quot;0&quot;
+                         width=&quot;102.69999999999999&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#000&quot;
+                         opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -105,11 +247,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(281.5, -29.035500000000003)&quot;
++                        transform=&quot;translate(281.5, -25.168)&quot;
+                         width=&quot;8.799999999999983&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -118,11 +260,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(290.3, -29.035500000000003)&quot;
++                        transform=&quot;translate(290.3, -25.168)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#6d3e91&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -131,11 +273,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(290.3, -29.035500000000003)&quot;
++                        transform=&quot;translate(290.3, -25.168)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#6d3e91&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -144,11 +286,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(290.3, -29.035500000000003)&quot;
++                        transform=&quot;translate(290.3, -25.168)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#58ac8c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -157,11 +299,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(290.3, -29.035500000000003)&quot;
++                        transform=&quot;translate(290.3, -25.168)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#58ac8c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -170,11 +312,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(290.3, -29.035500000000003)&quot;
++                        transform=&quot;translate(290.3, -25.168)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#e56e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -183,11 +325,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(290.3, -29.035500000000003)&quot;
++                        transform=&quot;translate(290.3, -25.168)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#e56e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -208,19 +350,19 @@
+             </g>
+             <g
+                 id=&quot;US-biofuels&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 202.01)&quot;
++                transform=&quot;translate(0, 243.66)&quot;
+                 opacity=&quot;1&quot;
+             >
+
+... (diff truncated: showing 300 of 806 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="share-of-global-habitable-land-needed-for-agriculture-if-everyone-had-the-diet-of" data-chart-type="WorldMap">
+        <div class="header-with-actions">
+            <h2>share-of-global-habitable-land-needed-for-agriculture-if-everyone-had-the-diet-of</h2>
+            <button class="copy-slug-btn" data-slug="share-of-global-habitable-land-needed-for-agriculture-if-everyone-had-the-diet-of" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/share-of-global-habitable-land-needed-for-agriculture-if-everyone-had-the-diet-of" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/share-of-global-habitable-land-needed-for-agriculture-if-everyone-had-the-diet-of_v10_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-hide-map-legend/grapher/share-of-global-habitable-land-needed-for-agriculture-if-everyone-had-the-diet-of" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/share-of-global-habitable-land-needed-for-agriculture-if-everyone-had-the-diet-of_v10_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/share-of-global-habitable-land-needed-for-agriculture-if-everyone-had-the-diet-of_v10_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/share-of-global-habitable-land-needed-for-agriculture-if-everyone-had-the-diet-of_v10_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: share-of-global-habitable-land-needed-for-agriculture-if-everyone-had-the-diet-of_v10_850x600.svg
+===================================================================
+--- share-of-global-habitable-land-needed-for-agriculture-if-everyone-had-the-diet-of_v10_850x600.svg	
++++ share-of-global-habitable-land-needed-for-agriculture-if-everyone-had-the-diet-of_v10_850x600.svg	
+@@ -78,9 +78,9 @@
+             </text>
+         </g>
+     </g>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <g id=&quot;map&quot; transform=&quot;matrix(0.8661,0,0,0.8661,-52.7564,143.2822)&quot;>
++        <g id=&quot;map&quot; transform=&quot;matrix(0.8661,0,0,0.8661,-52.7564,123.4072)&quot;>
+             <g id=&quot;countries-without-data&quot; class=&quot;noDataFeatures&quot;>
+                 <defs>
+                     <pattern
+                         id=&quot;noDataPatternForMap&quot;
+@@ -2321,8 +2321,124 @@
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+             </g>
+         </g>
++        <g id=&quot;numeric-color-legend&quot; class=&quot;numericColorLegend&quot;>
++            <g id=&quot;lines&quot;>
++                <line
++                    id=&quot;No-data&quot;
++                    x1=&quot;149.5&quot;
++                    y1=&quot;537.15&quot;
++                    x2=&quot;149.5&quot;
++                    y2=&quot;534.15&quot;
++                    stroke=&quot;#333&quot;
++                    stroke-width=&quot;0.3&quot;
++                ></line>
++                <line
++                    id=&quot;Less-than-currently-used&quot;
++                    x1=&quot;281.6925&quot;
++                    y1=&quot;537.15&quot;
++                    x2=&quot;281.6925&quot;
++                    y2=&quot;534.15&quot;
++                    stroke=&quot;#333&quot;
++                    stroke-width=&quot;0.3&quot;
++                ></line>
++                <line
++                    id=&quot;Greater-than-currently-used&quot;
++                    x1=&quot;458.6925&quot;
++                    y1=&quot;537.15&quot;
++                    x2=&quot;458.6925&quot;
++                    y2=&quot;534.15&quot;
++                    stroke=&quot;#333&quot;
++                    stroke-width=&quot;0.3&quot;
++                ></line>
++                <line
++                    id=&quot;Not-possible-with-global-land&quot;
++                    x1=&quot;635.6925&quot;
++                    y1=&quot;537.15&quot;
++                    x2=&quot;635.6925&quot;
++                    y2=&quot;534.15&quot;
++                    stroke=&quot;#333&quot;
++                    stroke-width=&quot;0.3&quot;
++                ></line>
++            </g>
++            <g id=&quot;swatches&quot;>
++                <rect
++                    x=&quot;125.8075&quot;
++                    y=&quot;537.15&quot;
++                    width=&quot;47.385000000000005&quot;
++                    height=&quot;11.25&quot;
++                    fill=&quot;url(#noDataPattern)&quot;
++                    stroke=&quot;#333&quot;
++                    stroke-width=&quot;0.3&quot;
++                ></rect>
++                <rect
++                    x=&quot;193.1925&quot;
++                    y=&quot;537.15&quot;
++                    width=&quot;177&quot;
++                    height=&quot;11.25&quot;
++                    fill=&quot;#4e9ebd&quot;
++                    stroke=&quot;#333&quot;
++                    stroke-width=&quot;0.3&quot;
++                ></rect>
++                <rect
++                    x=&quot;370.1925&quot;
++                    y=&quot;537.15&quot;
++                    width=&quot;177&quot;
++                    height=&quot;11.25&quot;
++                    fill=&quot;#e9cc66&quot;
++                    stroke=&quot;#333&quot;
++                    stroke-width=&quot;0.3&quot;
++                ></rect>
++                <rect
++                    x=&quot;547.1925&quot;
++                    y=&quot;537.15&quot;
++                    width=&quot;177&quot;
++                    height=&quot;11.25&quot;
++                    fill=&quot;#f08d5c&quot;
++                    stroke=&quot;#333&quot;
++                    stroke-width=&quot;0.3&quot;
++                ></rect>
++            </g>
++            <g id=&quot;labels&quot;>
++                <text
++                    x=&quot;125.8075&quot;
++                    y=&quot;520.65&quot;
++                    dy=&quot;.71em&quot;
++                    font-size=&quot;13.5&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    No data
++                </text>
++                <text
++                    x=&quot;209.39999999999998&quot;
++                    y=&quot;520.65&quot;
++                    dy=&quot;.71em&quot;
++                    font-size=&quot;13.5&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Less than currently used
++                </text>
++                <text
++                    x=&quot;376.47749999999996&quot;
++                    y=&quot;520.65&quot;
++                    dy=&quot;.71em&quot;
++                    font-size=&quot;13.5&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Greater than currently used
++                </text>
++                <text
++                    x=&quot;549.765&quot;
++                    y=&quot;520.65&quot;
++                    dy=&quot;.71em&quot;
++                    font-size=&quot;13.5&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Not possible with global land
++                </text>
++            </g>
++        </g>
+     </g>
+     <g id=&quot;footer&quot; class=&quot;SourcesFooter&quot; style=&quot;fill: #767676&quot;>
+         <g id=&quot;sources&quot; class=&quot;markdown-text-wrap&quot;>
+             <text x=&quot;16.0&quot; y=&quot;581.0&quot; style=&quot;font-size: 13px; line-height: 1.2&quot;>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="wheat-exports-ukraine-russia-perspective" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>wheat-exports-ukraine-russia-perspective</h2>
+            <button class="copy-slug-btn" data-slug="wheat-exports-ukraine-russia-perspective" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/wheat-exports-ukraine-russia-perspective" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/wheat-exports-ukraine-russia-perspective_v13_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-hide-map-legend/grapher/wheat-exports-ukraine-russia-perspective" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/wheat-exports-ukraine-russia-perspective_v13_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/wheat-exports-ukraine-russia-perspective_v13_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/wheat-exports-ukraine-russia-perspective_v13_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: wheat-exports-ukraine-russia-perspective_v13_850x600.svg
+===================================================================
+--- wheat-exports-ukraine-russia-perspective_v13_850x600.svg	
++++ wheat-exports-ukraine-russia-perspective_v13_850x600.svg	
+@@ -58,41 +58,183 @@
+             </text>
+         </a>
+     </g>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
++        <g id=&quot;categorical-color-legend&quot; class=&quot;categoricalColorLegend&quot;>
++            <g id=&quot;swatches&quot;>
++                <rect
++                    id=&quot;Wheat-exported-by_ukraine&quot;
++                    x=&quot;16&quot;
++                    y=&quot;68&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #bc8e5a; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++                <rect
++                    id=&quot;Wheat-exported-by_russia&quot;
++                    x=&quot;223.33200000000002&quot;
++                    y=&quot;68&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #4c6a9c; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++                <rect
++                    id=&quot;Wheat-used-for-animal-feed-in_us&quot;
++                    x=&quot;420.00800000000004&quot;
++                    y=&quot;68&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #e56e5a; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++                <rect
++                    id=&quot;Wheat-used-for-biofuels-in_us&quot;
++                    x=&quot;16&quot;
++                    y=&quot;86.5&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #e56e5a; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++                <rect
++                    id=&quot;Wheat-used-for-animal-feed-in_eu&quot;
++                    x=&quot;235.42800000000003&quot;
++                    y=&quot;86.5&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #6d3e91; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++                <rect
++                    id=&quot;Wheat-used-for-biofuels-in_eu&quot;
++                    x=&quot;479.48&quot;
++                    y=&quot;86.5&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #6d3e91; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++                <rect
++                    id=&quot;Wheat-used-for-biofuels-in_uk&quot;
++                    x=&quot;16&quot;
++                    y=&quot;105&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #58ac8c; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++                <rect
++                    id=&quot;Wheat-used-for-animal-feed-in_uk&quot;
++                    x=&quot;236.58&quot;
++                    y=&quot;105&quot;
++                    width=&quot;13.5&quot;
++                    height=&quot;13.5&quot;
++                    style=&quot;fill: #58ac8c; stroke-width: 0.4; opacity: 0.8&quot;
++                ></rect>
++            </g>
++            <g id=&quot;labels&quot;>
++                <text
++                    x=&quot;34.5&quot;
++                    y=&quot;74.75&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Wheat exported by_ukraine
++                </text>
++                <text
++                    x=&quot;241.83200000000002&quot;
++                    y=&quot;74.75&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Wheat exported by_russia
++                </text>
++                <text
++                    x=&quot;438.50800000000004&quot;
++                    y=&quot;74.75&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Wheat used for animal feed in_us
++                </text>
++                <text
++                    x=&quot;34.5&quot;
++                    y=&quot;93.25&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Wheat used for biofuels in_us
++                </text>
++                <text
++                    x=&quot;253.92800000000003&quot;
++                    y=&quot;93.25&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Wheat used for animal feed in_eu
++                </text>
++                <text
++                    x=&quot;497.98&quot;
++                    y=&quot;93.25&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Wheat used for biofuels in_eu
++                </text>
++                <text
++                    x=&quot;34.5&quot;
++                    y=&quot;111.75&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Wheat used for biofuels in_uk
++                </text>
++                <text
++                    x=&quot;255.08&quot;
++                    y=&quot;111.75&quot;
++                    dy=&quot;.32em&quot;
++                    font-size=&quot;14.4&quot;
++                    style=&quot;fill: #5b5b5b; color: #5b5b5b&quot;
++                >
++                    Wheat used for animal feed in_uk
++                </text>
++            </g>
++        </g>
+         <line
+             id=&quot;vertical-zero-line&quot;
+             x1=&quot;178.55&quot;
+             y1=&quot;514.70&quot;
+             x2=&quot;178.55&quot;
+-            y2=&quot;68.00&quot;
++            y2=&quot;127.50&quot;
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+         ></line>
+         <g id=&quot;bars&quot;>
+             <g
+                 id=&quot;Ukraine-and-Russia-exports&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 112.67)&quot;
++                transform=&quot;translate(0, 166.22)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Wheat-exported-by_ukraine&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(178.8, -29.035500000000003)&quot;
++                        transform=&quot;translate(178.8, -25.168)&quot;
+                         width=&quot;197.89999999999998&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#bc8e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+                         x=&quot;277.75&quot;
+                         y=&quot;0&quot;
+                         width=&quot;197.89999999999998&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#000&quot;
+                         opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -105,20 +247,20 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(376.7, -29.035500000000003)&quot;
++                        transform=&quot;translate(376.7, -25.168)&quot;
+                         width=&quot;284.2&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+                         x=&quot;518.8&quot;
+                         y=&quot;0&quot;
+                         width=&quot;284.2&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#fff&quot;
+                         opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -131,11 +273,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(660.9, -29.035500000000003)&quot;
++                        transform=&quot;translate(660.9, -25.168)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#e56e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -144,11 +286,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(660.9, -29.035500000000003)&quot;
++                        transform=&quot;translate(660.9, -25.168)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#e56e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -157,11 +299,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(660.9, -29.035500000000003)&quot;
++                        transform=&quot;translate(660.9, -25.168)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#6d3e91&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -170,11 +312,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(660.9, -29.035500000000003)&quot;
++                        transform=&quot;translate(660.9, -25.168)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#6d3e91&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -183,11 +325,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(660.9, -29.035500000000003)&quot;
++                        transform=&quot;translate(660.9, -25.168)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#58ac8c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -196,11 +338,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(660.9, -29.035500000000003)&quot;
++                        transform=&quot;translate(660.9, -25.168)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;58.071000000000005&quot;
++                        height=&quot;50.336&quot;
+                         fill=&quot;#58ac8c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+
+... (diff truncated: showing 300 of 806 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Chart type filtering
+        const chartTypeFilter = document.getElementById('chart-type-filter');
+        const visibleCountSpan = document.getElementById('visible-count');
+
+        function filterByChartType(chartType) {
+            const sections = document.querySelectorAll('section[data-chart-type]');
+            let visibleCount = 0;
+
+            sections.forEach(section => {
+                if (chartType === 'all' || section.dataset.chartType === chartType) {
+                    section.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            if (visibleCountSpan) {
+                visibleCountSpan.textContent = visibleCount;
+            }
+        }
+
+        if (chartTypeFilter) {
+            chartTypeFilter.addEventListener('change', (e) => {
+                filterByChartType(e.target.value);
+            });
+        }
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section
+                    if (diffContainer && !renderedDiffs.has(diffId)) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
