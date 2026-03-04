@@ -3,7 +3,7 @@
   "name": "Population density of the top 100 most populous cities",
   "unit": "people per km²",
   "createdAt": "2025-12-12T10:04:16.000Z",
-  "updatedAt": "2025-12-13T14:07:25.000Z",
+  "updatedAt": "2026-02-23T10:21:11.000Z",
   "coverage": "",
   "timespan": "1975-2020",
   "datasetId": 7291,
@@ -11,12 +11,12 @@
   "columnOrder": 0,
   "shortName": "urban_density_top_100_estimates",
   "catalogPath": "grapher/urbanization/2025-12-10/ghsl_urban_centers/ghsl_urban_centers#urban_density_top_100_estimates",
-  "descriptionShort": "The number of people per km² of land area for cities ranked among the top 100 most populous in 2020.",
-  "descriptionProcessing": "Population density was calculated by dividing the population of the city by the total area it covers, providing a measure of the number of people living in each km².",
+  "descriptionShort": "The number of people per km² of land area for cities ranked among the top 100 most populous in 2020. [Cities](#dod:cities-degurba) are identified using satellite imagery and population data, applying the same density and size thresholds across all countries.",
+  "descriptionProcessing": "Population density was calculated by dividing the population of the urban centre by its total land area.",
   "type": "float",
   "dataChecksum": "11987577063109747802",
-  "metadataChecksum": "-2808155814654938169",
-  "datasetName": "Global Human Settlement Layer Dataset",
+  "metadataChecksum": "-4123747150418453206",
+  "datasetName": "GHSL Urban Centre Database 2025 (GHS-UCDB R2024A)",
   "updatePeriodDays": 365,
   "datasetVersion": "2025-12-10",
   "nonRedistributable": false,
@@ -34,7 +34,14 @@
     ]
   },
   "descriptionKey": [
-    "The European Commission integrates satellite imagery with national census data to delineate the boundaries of capital cities and estimate their populations.\nTo predict future urbanization (2025 to 2100), both static (land features) and dynamic (past satellite images) components are used to project growth. DEGURBA defines cities by population, not administrative borders, aligning with UN guidelines, though fixed thresholds may not always capture local differences."
+    "Estimated population density of each of the world's 100 most populous cities (as ranked in 2020), based on satellite imagery and census data.",
+    "The [GHSL Urban Centre Database (GHS-UCDB R2024A)](https://human-settlement.emergency.copernicus.eu/ghs_ucdb2024.php) tracks population and land use for 11,422 [cities](#dod:cities-degurba) around the world. Cities are identified using the [Degree of Urbanization](https://human-settlement.emergency.copernicus.eu/degurba.php), based on population density and settlement size rather than administrative boundaries. To qualify as a city, an area must have at least 1,500 people per square kilometre and a total population of at least 50,000. The classification uses 1 km² grid cells, combining satellite imagery with census data to map where people actually live.",
+    "City boundaries are fixed at their 2025 extent and held constant across all years. This means historical values reflect conditions within today's city boundary, not the city as it was defined at the time. For density in particular, this can make fast-growing cities appear less dense in the past than they actually were, since the area used in the calculation includes land that wasn't yet part of the city.",
+    "Cities are also split at country borders, so a city that straddles two countries will appear as two separate entries.",
+    "City boundaries are model-derived and won't always match official administrative limits. In some countries, what is considered a single city may appear as multiple cities in this data, depending on how built-up areas are distributed. Data quality also varies by region and tends to be less reliable in countries with sparse or outdated census data.",
+    "The underlying population figures have been rescaled to match UN World Population Prospects 2022 national totals, so country-level numbers are consistent with UN estimates.",
+    "For the years 1950–1975, there are no detailed maps showing where people lived within countries. So instead of using grid-level or satellite data, the estimates are reconstructed using national statistics from the UN. From 1975 onwards, population is mapped to 1 km² grid cells by combining census data with satellite imagery of built-up areas from the [Global Human Settlement Layer (GHSL)](https://human-settlement.emergency.copernicus.eu/).",
+    "The ranking of the top 100 cities is fixed based on their population in 2020. Historical values show the density of those same cities across time."
   ],
   "dimensions": {
     "years": {

@@ -3,7 +3,7 @@
   "name": "Projected share of population living in towns",
   "unit": "%",
   "createdAt": "2025-12-12T10:03:19.000Z",
-  "updatedAt": "2025-12-13T14:06:27.000Z",
+  "updatedAt": "2026-02-24T11:30:19.000Z",
   "coverage": "",
   "timespan": "2020-2100",
   "datasetId": 7290,
@@ -77,7 +77,7 @@
         {
           "id": 273,
           "name": "Africa",
-          "code": null
+          "code": "OWID_AFR"
         },
         {
           "id": 16,
@@ -132,7 +132,7 @@
         {
           "id": 275,
           "name": "Asia",
-          "code": null
+          "code": "OWID_ASI"
         },
         {
           "id": 23,
@@ -422,7 +422,7 @@
         {
           "id": 276,
           "name": "Europe",
-          "code": null
+          "code": "OWID_EUR"
         },
         {
           "id": 249,
@@ -547,7 +547,7 @@
         {
           "id": 457,
           "name": "High-income countries",
-          "code": null
+          "code": "OWID_HIC"
         },
         {
           "id": 139,
@@ -702,12 +702,12 @@
         {
           "id": 461,
           "name": "Low-income countries",
-          "code": null
+          "code": "OWID_LIC"
         },
         {
           "id": 460,
           "name": "Lower-middle-income countries",
-          "code": null
+          "code": "OWID_LMC"
         },
         {
           "id": 210,
@@ -877,7 +877,7 @@
         {
           "id": 294,
           "name": "North America",
-          "code": null
+          "code": "OWID_NAM"
         },
         {
           "id": 128,
@@ -902,7 +902,7 @@
         {
           "id": 277,
           "name": "Oceania",
-          "code": null
+          "code": "OWID_OCE"
         },
         {
           "id": 217,
@@ -1102,7 +1102,7 @@
         {
           "id": 295,
           "name": "South America",
-          "code": null
+          "code": "OWID_SAM"
         },
         {
           "id": 127,
@@ -1247,7 +1247,7 @@
         {
           "id": 459,
           "name": "Upper-middle-income countries",
-          "code": null
+          "code": "OWID_UMC"
         },
         {
           "id": 63,
@@ -1312,29 +1312,38 @@
       ]
     }
   },
-  "descriptionShort": "The European Commission combines satellite imagery with national census data to identify [cities](#dod:cities-degurba), [towns](#dod:towns-degurba), and [villages](#dod:villages-degurba) and estimate their respective populations.",
-  "descriptionProcessing": "The share of total area or population for each urbanization level was calculated by dividing the area or population of each level (cities, towns, villages) by the overall total, providing a percentage representation for each category.",
+  "descriptionShort": "Projected share of population living in [towns and suburbs](#dod:towns-degurba). Identified using satellite imagery and population data, applying the same density and size thresholds across all countries.",
+  "descriptionProcessing": "Shares were calculated by dividing the area or population of each settlement type by the total, then multiplying by 100.",
   "type": "float",
-  "dataChecksum": "10915225605098370850",
-  "metadataChecksum": "-9209448734907392015",
+  "grapherConfigIdETL": "019c8f6a-1216-788f-a86b-e1fdd8a0f0ac",
+  "dataChecksum": "3625180564669807910",
+  "metadataChecksum": "8573969861316980553",
   "datasetName": "Global Human Settlement Layer Dataset",
   "updatePeriodDays": 365,
   "datasetVersion": "2025-12-10",
   "nonRedistributable": false,
   "display": {
+    "name": "Towns and suburbs",
     "unit": "%",
     "shortUnit": "%",
+    "isProjection": true,
     "numDecimalPlaces": 1
   },
   "schemaVersion": 2,
   "processingLevel": "major",
   "presentation": {
+    "titlePublic": "Projected share of population living in towns",
     "topicTagsLinks": [
       "Urbanization"
     ]
   },
   "descriptionKey": [
-    "**The Degree of Urbanisation (DEGURBA)**  is a method for capturing the urban-rural divide, designed for international comparisons. Developed by six organizations and endorsed by the UN, it uses a two-level classification.\n\nThe first level divides areas into cities, towns, and villages, distinguishing between urban (cities, towns, suburbs) and rural regions. The second level adds detail, splitting towns and villages further.\n\nThis classification is based on 1 km² grid cells, grouped into urban centers, urban clusters, and rural cells. These grids are then used to classify smaller areas, typically using residential population grids from censuses or registers. If detailed data isn't available, a disaggregation grid estimates population distribution.\n\nTo predict future urbanization (2025 to 2100), both static (land features) and dynamic (past satellite images) components are used to project growth. DEGURBA defines cities by population, not administrative borders, aligning with UN guidelines, though fixed thresholds may not always capture local differences."
+    "The [Degree of Urbanization](https://human-settlement.emergency.copernicus.eu/degurba.php) classifies areas as [cities](#dod:cities-degurba), [towns and suburbs](#dod:towns-degurba), or [rural areas](#dod:rural-areas-degurba) based on population density and settlement size rather than administrative boundaries. Developed by six international organizations and endorsed by the UN Statistical Commission in 2020, it provides consistent definitions for comparing urbanization across countries.",
+    "Towns and suburbs are settlements outside cities where people live at moderate density. They have at least 300 people per square kilometre and at least 5,000 people in total. This includes smaller towns, suburban areas, and peri-urban areas around cities.",
+    "The classification uses 1 km² grid cells, combining satellite imagery with census data to map where people actually live.",
+    "From 2020 onwards, population distribution and built-up areas are projected at 1 km² resolution using the [Cities and Rural Integrated Spatial Projections spatial model](https://www.researchgate.net/publication/384062691_Calibration_of_the_CRISP_model_A_global_assessment_of_local_built-up_area_presence). The projections follow the UN World Population Prospects 2024 medium scenario, and country totals are aligned with UN projections.",
+    "Different countries use different definitions and criteria to define urban and rural areas, such as population size, population density, infrastructure, employment patterns, or official city status. The [Degree of Urbanization](https://human-settlement.emergency.copernicus.eu/degurba.php) applies a single global standard using population density grids, meaning its classifications won’t always match official city boundaries and therefore urbanization rates may differ from country-reported figures.",
+    "For small countries, values can change sharply when an entire area shifts from one classification to another."
   ],
   "origins": [
     {

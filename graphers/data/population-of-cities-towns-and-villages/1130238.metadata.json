@@ -1,9 +1,9 @@
 {
   "id": 1130238,
-  "name": "Population living in villages",
+  "name": "Population living in rural areas",
   "unit": "people",
   "createdAt": "2025-12-12T10:03:19.000Z",
-  "updatedAt": "2025-12-13T14:06:27.000Z",
+  "updatedAt": "2026-02-24T11:30:19.000Z",
   "coverage": "",
   "timespan": "1950-2020",
   "datasetId": 7290,
@@ -71,7 +71,7 @@
         {
           "id": 273,
           "name": "Africa",
-          "code": null
+          "code": "OWID_AFR"
         },
         {
           "id": 16,
@@ -126,7 +126,7 @@
         {
           "id": 275,
           "name": "Asia",
-          "code": null
+          "code": "OWID_ASI"
         },
         {
           "id": 23,
@@ -416,7 +416,7 @@
         {
           "id": 276,
           "name": "Europe",
-          "code": null
+          "code": "OWID_EUR"
         },
         {
           "id": 249,
@@ -541,7 +541,7 @@
         {
           "id": 457,
           "name": "High-income countries",
-          "code": null
+          "code": "OWID_HIC"
         },
         {
           "id": 139,
@@ -696,12 +696,12 @@
         {
           "id": 461,
           "name": "Low-income countries",
-          "code": null
+          "code": "OWID_LIC"
         },
         {
           "id": 460,
           "name": "Lower-middle-income countries",
-          "code": null
+          "code": "OWID_LMC"
         },
         {
           "id": 210,
@@ -871,7 +871,7 @@
         {
           "id": 294,
           "name": "North America",
-          "code": null
+          "code": "OWID_NAM"
         },
         {
           "id": 128,
@@ -896,7 +896,7 @@
         {
           "id": 277,
           "name": "Oceania",
-          "code": null
+          "code": "OWID_OCE"
         },
         {
           "id": 217,
@@ -1096,7 +1096,7 @@
         {
           "id": 295,
           "name": "South America",
-          "code": null
+          "code": "OWID_SAM"
         },
         {
           "id": 127,
@@ -1241,7 +1241,7 @@
         {
           "id": 459,
           "name": "Upper-middle-income countries",
-          "code": null
+          "code": "OWID_UMC"
         },
         {
           "id": 63,
@@ -1306,28 +1306,37 @@
       ]
     }
   },
-  "descriptionShort": "The European Commission combines satellite imagery with national census data to identify [cities](#dod:cities-degurba), [towns](#dod:towns-degurba), and [villages](#dod:villages-degurba) and estimate their respective populations.",
+  "descriptionShort": "Estimated number of people living in [rural areas](#dod:rural-areas-degurba). Identified using satellite imagery and population data, applying the same density and size thresholds across all countries.",
   "descriptionProcessing": "",
   "type": "float",
-  "dataChecksum": "7851956378182193351",
-  "metadataChecksum": "3531616184210671638",
+  "grapherConfigIdETL": "019c8f6a-14a8-7f22-bcf6-32b8b70bcd81",
+  "dataChecksum": "10402854954149500900",
+  "metadataChecksum": "-7056626007940963682",
   "datasetName": "Global Human Settlement Layer Dataset",
   "updatePeriodDays": 365,
   "datasetVersion": "2025-12-10",
   "nonRedistributable": false,
   "display": {
+    "name": "Rural areas",
     "unit": "people",
+    "isProjection": false,
     "numDecimalPlaces": 0
   },
   "schemaVersion": 2,
   "processingLevel": "major",
   "presentation": {
+    "titlePublic": "Population living in rural areas",
     "topicTagsLinks": [
       "Urbanization"
     ]
   },
   "descriptionKey": [
-    "**The Degree of Urbanisation (DEGURBA)**  is a method for capturing the urban-rural divide, designed for international comparisons. Developed by six organizations and endorsed by the UN, it uses a two-level classification.\n\nThe first level divides areas into cities, towns, and villages, distinguishing between urban (cities, towns, suburbs) and rural regions. The second level adds detail, splitting towns and villages further.\n\nThis classification is based on 1 km² grid cells, grouped into urban centers, urban clusters, and rural cells. These grids are then used to classify smaller areas, typically using residential population grids from censuses or registers. If detailed data isn't available, a disaggregation grid estimates population distribution.\n\nTo predict future urbanization (2025 to 2100), both static (land features) and dynamic (past satellite images) components are used to project growth. DEGURBA defines cities by population, not administrative borders, aligning with UN guidelines, though fixed thresholds may not always capture local differences."
+    "The [Degree of Urbanization](https://human-settlement.emergency.copernicus.eu/degurba.php) classifies areas as [cities](#dod:cities-degurba), [towns and suburbs](#dod:towns-degurba), or [rural areas](#dod:rural-areas-degurba) based on population density and settlement size rather than administrative boundaries. Developed by six international organizations and endorsed by the UN Statistical Commission in 2020, it provides consistent definitions for comparing urbanization across countries.",
+    "Rural areas are places with less than 300 people per km² or a total population of less than 5,000.",
+    "The classification uses 1 km² grid cells, combining satellite imagery with census data to map where people actually live.",
+    "For the years 1950–1975, there are no detailed maps showing where people lived within countries. So instead of using grid-level or satellite data, the estimates are reconstructed using national statistics from the UN.\n\nFrom 1975 onwards, population is mapped to 1 km² grid cells by combining census data with satellite imagery of built-up areas from the [Global Human Settlement Layer](https://human-settlement.emergency.copernicus.eu/).",
+    "Different countries use different definitions and criteria to define urban and rural areas, such as population size, population density, infrastructure, employment patterns, or official city status. The [Degree of Urbanization](https://human-settlement.emergency.copernicus.eu/degurba.php) applies a single global standard using population density grids, meaning its classifications won’t always match official city boundaries and therefore urbanization rates may differ from country-reported figures.",
+    "For small countries, values can change sharply when an entire area shifts from one classification to another."
   ],
   "origins": [
     {

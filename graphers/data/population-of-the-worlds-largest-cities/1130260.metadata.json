@@ -3,18 +3,18 @@
   "name": "Population of the top 100 most populous cities (projected)",
   "unit": "people",
   "createdAt": "2025-12-12T10:04:16.000Z",
-  "updatedAt": "2025-12-13T14:07:25.000Z",
+  "updatedAt": "2026-02-23T10:21:14.000Z",
   "coverage": "",
   "timespan": "2020-2100",
   "datasetId": 7291,
   "columnOrder": 0,
   "shortName": "urban_pop_top_100_projections",
   "catalogPath": "grapher/urbanization/2025-12-10/ghsl_urban_centers/ghsl_urban_centers#urban_pop_top_100_projections",
-  "descriptionShort": "The total number of people living in cities ranked among the top 100 most populous in 2020.",
+  "descriptionShort": "Projected total number of people living in cities ranked among the top 100 most populous in 2020. [Cities](#dod:cities-degurba) are identified using satellite imagery and population data, applying the same density and size thresholds across all countries.",
   "type": "int",
   "dataChecksum": "14432658191965484564",
-  "metadataChecksum": "6730185161451856900",
-  "datasetName": "Global Human Settlement Layer Dataset",
+  "metadataChecksum": "-5961746592498959221",
+  "datasetName": "GHSL Urban Centre Database 2025 (GHS-UCDB R2024A)",
   "updatePeriodDays": 365,
   "datasetVersion": "2025-12-10",
   "nonRedistributable": false,
@@ -32,7 +32,14 @@
     ]
   },
   "descriptionKey": [
-    "The European Commission integrates satellite imagery with national census data to delineate the boundaries of capital cities and estimate their populations.\nTo predict future urbanization (2025 to 2100), both static (land features) and dynamic (past satellite images) components are used to project growth. DEGURBA defines cities by population, not administrative borders, aligning with UN guidelines, though fixed thresholds may not always capture local differences."
+    "Projected total population living in each of the world's 100 most populous cities (as ranked in 2020), based on the GHSL modelling framework anchored to UN World Population Prospects 2022.",
+    "The [GHSL Urban Centre Database (GHS-UCDB R2024A)](https://human-settlement.emergency.copernicus.eu/ghs_ucdb2024.php) tracks population and land use for 11,422 [cities](#dod:cities-degurba) around the world. Cities are identified using the [Degree of Urbanization](https://human-settlement.emergency.copernicus.eu/degurba.php), based on population density and settlement size rather than administrative boundaries. To qualify as a city, an area must have at least 1,500 people per square kilometre and a total population of at least 50,000. The classification uses 1 km² grid cells, combining satellite imagery with census data to map where people actually live.",
+    "City boundaries are fixed at their 2025 extent and held constant across all years. This means historical values reflect conditions within today's city boundary, not the city as it was defined at the time. For density in particular, this can make fast-growing cities appear less dense in the past than they actually were, since the area used in the calculation includes land that wasn't yet part of the city.",
+    "Cities are also split at country borders, so a city that straddles two countries will appear as two separate entries.",
+    "City boundaries are model-derived and won't always match official administrative limits. In some countries, what is considered a single city may appear as multiple cities in this data, depending on how built-up areas are distributed. Data quality also varies by region and tends to be less reliable in countries with sparse or outdated census data.",
+    "The underlying population figures have been rescaled to match UN World Population Prospects 2022 national totals, so country-level numbers are consistent with UN estimates.",
+    "From 2020 onwards, population distribution and built-up areas are projected at 1 km² resolution using the [Cities and Rural Integrated Spatial Projections spatial model](https://www.researchgate.net/publication/384062691_Calibration_of_the_CRISP_model_A_global_assessment_of_local_built-up_area_presence). The projections follow the UN World Population Prospects 2024 medium scenario, and country totals are aligned with UN projections.",
+    "The ranking of the top 100 cities is fixed based on their population in 2020. Projected values show the population of those same cities in future years."
   ],
   "dimensions": {
     "years": {
