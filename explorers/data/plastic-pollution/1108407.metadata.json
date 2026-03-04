@@ -1,9 +1,9 @@
 {
   "id": 1108407,
-  "name": "Net exports of plastic waste via all modes of transport",
+  "name": "Net plastic waste exports",
   "unit": "tonnes",
   "createdAt": "2025-10-07T11:14:05.000Z",
-  "updatedAt": "2025-10-07T11:59:40.000Z",
+  "updatedAt": "2026-02-05T12:40:53.000Z",
   "coverage": "",
   "timespan": "1988-2024",
   "datasetId": 7225,
@@ -11,11 +11,12 @@
   "columnOrder": 0,
   "shortName": "net_export",
   "catalogPath": "grapher/un/2025-09-25/plastic_waste_2023_2024/plastic_waste_2023_2024#net_export",
-  "descriptionShort": "Net plastic waste trade balance (exports minus imports), measured in tonnes.",
-  "descriptionProcessing": "Computed as export_total_mot − import_total_mot for each country and year.",
+  "descriptionShort": "Net plastic waste trade, calculated as exports minus imports, measured in tonnes per year. A positive number means a country is a net exporter of plastics; a negative number means it's a net importer.",
+  "descriptionProcessing": "We calculated this by subtracting total imports from total exports for each country and year.",
   "type": "float",
-  "dataChecksum": "15480673640571610623",
-  "metadataChecksum": "-3202040913333579403",
+  "grapherConfigIdETL": "019c09aa-200c-7c63-8ad9-9b561e2e1865",
+  "dataChecksum": "15051147116118060416",
+  "metadataChecksum": "-4984498005825847558",
   "datasetName": "Comtrade Database",
   "updatePeriodDays": 365,
   "datasetVersion": "2025-09-25",
@@ -23,20 +24,22 @@
   "display": {
     "unit": "tonnes",
     "shortUnit": "t",
-    "numSignificantFigures": 2
+    "tolerance": 5,
+    "numDecimalPlaces": 0
   },
   "schemaVersion": 2,
-  "processingLevel": "minor",
+  "processingLevel": "major",
   "presentation": {
     "topicTagsLinks": [
       "Plastic Pollution"
     ]
   },
   "descriptionKey": [
-    "This is calculated as total exports minus total imports of plastic waste (HS 3915).",
-    "A positive number means the country is a net exporter of plastic waste.",
-    "A negative number means the country is a net importer of plastic waste.",
-    "Differences in how countries report trade, and re-exports, can affect these figures."
+    "Data covers plastic waste classified under HS code 3915 ('waste, parings and scrap, of plastics') in UN Comtrade trade statistics. This includes waste from different polymer types such as polyethylene (PE), polystyrene (PS), and polyvinyl chloride (PVC).",
+    "Data includes all transport methods: air, sea, road, rail, inland waterways, and cases where the transport mode was not specified.",
+    "Calculated as total exports minus total imports of plastic waste.",
+    "Positive values indicate net exports (more sent than received), while negative values indicate net imports (more received than sent).",
+    "This data may not capture all plastic waste trade. Some plastic waste is traded under other codes (such as HS 3825 for refuse-derived fuels), and discrepancies can exist between what exporting and importing countries report."
   ],
   "dimensions": {
     "years": {
@@ -164,7 +167,7 @@
         {
           "id": 273,
           "name": "Africa",
-          "code": null
+          "code": "OWID_AFR"
         },
         {
           "id": 16,
@@ -209,7 +212,7 @@
         {
           "id": 275,
           "name": "Asia",
-          "code": null
+          "code": "OWID_ASI"
         },
         {
           "id": 23,
@@ -454,12 +457,12 @@
         {
           "id": 276,
           "name": "Europe",
-          "code": null
+          "code": "OWID_EUR"
         },
         {
           "id": 115117,
           "name": "European Union (27)",
-          "code": null
+          "code": "OWID_EU27"
         },
         {
           "id": 250,
@@ -549,7 +552,7 @@
         {
           "id": 457,
           "name": "High-income countries",
-          "code": null
+          "code": "OWID_HIC"
         },
         {
           "id": 139,
@@ -674,12 +677,12 @@
         {
           "id": 461,
           "name": "Low-income countries",
-          "code": null
+          "code": "OWID_LIC"
         },
         {
           "id": 460,
           "name": "Lower-middle-income countries",
-          "code": null
+          "code": "OWID_LMC"
         },
         {
           "id": 210,
@@ -814,7 +817,7 @@
         {
           "id": 294,
           "name": "North America",
-          "code": null
+          "code": "OWID_NAM"
         },
         {
           "id": 66,
@@ -829,7 +832,7 @@
         {
           "id": 277,
           "name": "Oceania",
-          "code": null
+          "code": "OWID_OCE"
         },
         {
           "id": 217,
@@ -984,7 +987,7 @@
         {
           "id": 295,
           "name": "South America",
-          "code": null
+          "code": "OWID_SAM"
         },
         {
           "id": 127,
@@ -1009,7 +1012,7 @@
         {
           "id": 5396,
           "name": "Sudan (former)",
-          "code": null
+          "code": "OWID_SDN"
         },
         {
           "id": 234,
@@ -1094,7 +1097,7 @@
         {
           "id": 459,
           "name": "Upper-middle-income countries",
-          "code": null
+          "code": "OWID_UMC"
         },
         {
           "id": 63,
