@@ -1,0 +1,2624 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        /* Filter dropdown */
+        .filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        .filter-container label {
+            font-weight: 500;
+            color: #24292e;
+        }
+
+        .filter-container select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            background: #fafbfc;
+            font-size: 0.9rem;
+            color: #24292e;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-container select:hover {
+            border-color: #a0a8b0;
+        }
+
+        .filter-container select:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        section.hidden {
+            display: none;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 0 1 auto;
+            display: flex;
+            flex-direction: column;
+            max-width: 850px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 850px;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            height: auto;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="filter-container">
+        <label for="chart-type-filter">Chart Type:</label>
+        <select id="chart-type-filter">
+            <option value="all" selected>All (8)</option>
+            <option value="LineChart">LineChart (5)</option>
+<option value="ScatterPlot">ScatterPlot (3)</option>
+        </select>
+    </div><p class="summary">Showing <span id="visible-count">8</span> of 8 differences</p><section data-slug="covid-vaccinations-vs-covid-death-rate" data-chart-type="ScatterPlot">
+        <div class="header-with-actions">
+            <h2>covid-vaccinations-vs-covid-death-rate?tab=chart&time=latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=0</h2>
+            <button class="copy-slug-btn" data-slug="covid-vaccinations-vs-covid-death-rate?tab=chart&time=latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=0" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (100)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/covid-vaccinations-vs-covid-death-rate?tab=chart&time=latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/covid-vaccinations-vs-covid-death-rate-3cce01ed41b45e65c9da042b6e44b695_v4142_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-refactor-minimal-thumbnails/grapher/covid-vaccinations-vs-covid-death-rate?tab=chart&time=latest&stackMode=absolute&xScale=log&yScale=linear&endpointsOnly=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/covid-vaccinations-vs-covid-death-rate-3cce01ed41b45e65c9da042b6e44b695_v4142_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/covid-vaccinations-vs-covid-death-rate-3cce01ed41b45e65c9da042b6e44b695_v4142_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/covid-vaccinations-vs-covid-death-rate-3cce01ed41b45e65c9da042b6e44b695_v4142_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: covid-vaccinations-vs-covid-death-rate-3cce01ed41b45e65c9da042b6e44b695_v4142_850x600.svg
+===================================================================
+--- covid-vaccinations-vs-covid-death-rate-3cce01ed41b45e65c9da042b6e44b695_v4142_850x600.svg	
++++ covid-vaccinations-vs-covid-death-rate-3cce01ed41b45e65c9da042b6e44b695_v4142_850x600.svg	
+@@ -113,8 +113,98 @@
+                     font-size=&quot;13&quot;
+                 >
+                     200
+                 </text>
++                <text
++                    x=&quot;69.36&quot;
++                    y=&quot;527.4&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    text-anchor=&quot;start&quot;
++                    font-size=&quot;13&quot;
++                >
++                    155
++                </text>
++                <text
++                    x=&quot;140&quot;
++                    y=&quot;527.4&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;13&quot;
++                >
++                    160
++                </text>
++                <text
++                    x=&quot;206.2&quot;
++                    y=&quot;527.4&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;13&quot;
++                >
++                    165
++                </text>
++                <text
++                    x=&quot;270.3&quot;
++                    y=&quot;527.4&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;13&quot;
++                >
++                    170
++                </text>
++                <text
++                    x=&quot;332.6&quot;
++                    y=&quot;527.4&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;13&quot;
++                >
++                    175
++                </text>
++                <text
++                    x=&quot;393.1&quot;
++                    y=&quot;527.4&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;13&quot;
++                >
++                    180
++                </text>
++                <text
++                    x=&quot;452&quot;
++                    y=&quot;527.4&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;13&quot;
++                >
++                    185
++                </text>
++                <text
++                    x=&quot;509.3&quot;
++                    y=&quot;527.4&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;13&quot;
++                >
++                    190
++                </text>
++                <text
++                    x=&quot;565.1&quot;
++                    y=&quot;527.4&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;13&quot;
++                >
++                    195
++                </text>
++                <text
++                    x=&quot;672.6&quot;
++                    y=&quot;527.4&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;13&quot;
++                >
++                    205
++                </text>
+             </g>
+         </g>
+         <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+             <g id=&quot;vertical-axis-label&quot; class=&quot;markdown-text-wrap&quot;>
+@@ -276,81 +366,81 @@
+                 x1=&quot;71.8&quot;
+                 y1=&quot;509.40&quot;
+                 x2=&quot;71.8&quot;
+                 y2=&quot;167.00&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;160&quot;
+                 x1=&quot;140&quot;
+                 y1=&quot;509.40&quot;
+                 x2=&quot;140&quot;
+                 y2=&quot;167.00&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;165&quot;
+                 x1=&quot;206.2&quot;
+                 y1=&quot;509.40&quot;
+                 x2=&quot;206.2&quot;
+                 y2=&quot;167.00&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;170&quot;
+                 x1=&quot;270.3&quot;
+                 y1=&quot;509.40&quot;
+                 x2=&quot;270.3&quot;
+                 y2=&quot;167.00&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;175&quot;
+                 x1=&quot;332.6&quot;
+                 y1=&quot;509.40&quot;
+                 x2=&quot;332.6&quot;
+                 y2=&quot;167.00&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;180&quot;
+                 x1=&quot;393.1&quot;
+                 y1=&quot;509.40&quot;
+                 x2=&quot;393.1&quot;
+                 y2=&quot;167.00&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;185&quot;
+                 x1=&quot;452&quot;
+                 y1=&quot;509.40&quot;
+                 x2=&quot;452&quot;
+                 y2=&quot;167.00&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;190&quot;
+                 x1=&quot;509.3&quot;
+                 y1=&quot;509.40&quot;
+                 x2=&quot;509.3&quot;
+                 y2=&quot;167.00&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;195&quot;
+                 x1=&quot;565.1&quot;
+                 y1=&quot;509.40&quot;
+                 x2=&quot;565.1&quot;
+                 y2=&quot;167.00&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;200&quot;
+@@ -366,9 +456,9 @@
+                 x1=&quot;672.6&quot;
+                 y1=&quot;509.40&quot;
+                 x2=&quot;672.6&quot;
+                 y2=&quot;167.00&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+         </g>
+         <g clip-path=&quot;url(#boundsClip-1)&quot;>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="human-development-index" data-chart-type="LineChart">
+        <div class="header-with-actions">
+            <h2>human-development-index?tab=line&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0</h2>
+            <button class="copy-slug-btn" data-slug="human-development-index?tab=line&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (83)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/human-development-index?tab=line&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/human-development-index-a2e83d395d4ba45de21b14d7bd9fbeb7_v31_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-refactor-minimal-thumbnails/grapher/human-development-index?tab=line&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/human-development-index-a2e83d395d4ba45de21b14d7bd9fbeb7_v31_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/human-development-index-a2e83d395d4ba45de21b14d7bd9fbeb7_v31_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/human-development-index-a2e83d395d4ba45de21b14d7bd9fbeb7_v31_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: human-development-index-a2e83d395d4ba45de21b14d7bd9fbeb7_v31_850x600.svg
+===================================================================
+--- human-development-index-a2e83d395d4ba45de21b14d7bd9fbeb7_v31_850x600.svg	
++++ human-development-index-a2e83d395d4ba45de21b14d7bd9fbeb7_v31_850x600.svg	
+@@ -358,8 +358,48 @@
+                         font-size=&quot;10&quot;
+                     >
+                         1
+                     </text>
++                    <text
++                        x=&quot;243.80&quot;
++                        y=&quot;237.6&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        0.88
++                    </text>
++                    <text
++                        x=&quot;243.80&quot;
++                        y=&quot;220.8&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        0.9
++                    </text>
++                    <text
++                        x=&quot;243.80&quot;
++                        y=&quot;204.4&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        0.92
++                    </text>
++                    <text
++                        x=&quot;243.80&quot;
++                        y=&quot;172.7&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        0.96
++                    </text>
+                 </g>
+             </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+@@ -367,54 +407,54 @@
+                     x1=&quot;248.80&quot;
+                     y1=&quot;237.6&quot;
+                     x2=&quot;417.00&quot;
+                     y2=&quot;237.6&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;0.9&quot;
+                     x1=&quot;248.80&quot;
+                     y1=&quot;220.8&quot;
+                     x2=&quot;417.00&quot;
+                     y2=&quot;220.8&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;0.92&quot;
+                     x1=&quot;248.80&quot;
+                     y1=&quot;204.4&quot;
+                     x2=&quot;417.00&quot;
+                     y2=&quot;204.4&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;0.94&quot;
+                     x1=&quot;248.80&quot;
+                     y1=&quot;188.4&quot;
+                     x2=&quot;417.00&quot;
+                     y2=&quot;188.4&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;0.96&quot;
+                     x1=&quot;248.80&quot;
+                     y1=&quot;172.7&quot;
+                     x2=&quot;417.00&quot;
+                     y2=&quot;172.7&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;0.98&quot;
+                     x1=&quot;248.80&quot;
+                     y1=&quot;157.3&quot;
+                     x2=&quot;417.00&quot;
+                     y2=&quot;157.3&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;1&quot;
+@@ -1626,8 +1666,38 @@
+                         font-size=&quot;10&quot;
+                     >
+                         1
+                     </text>
++                    <text
++                        x=&quot;35.80&quot;
++                        y=&quot;533.8&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        0.86
++                    </text>
++                    <text
++                        x=&quot;35.80&quot;
++                        y=&quot;505&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        0.9
++                    </text>
++                    <text
++                        x=&quot;35.80&quot;
++                        y=&quot;477.4&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        0.94
++                    </text>
+                 </g>
+             </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+@@ -1635,63 +1705,63 @@
+                     x1=&quot;40.80&quot;
+                     y1=&quot;533.8&quot;
+                     x2=&quot;209.00&quot;
+                     y2=&quot;533.8&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;0.88&quot;
+                     x1=&quot;40.80&quot;
+                     y1=&quot;519.2&quot;
+                     x2=&quot;209.00&quot;
+                     y2=&quot;519.2&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;0.9&quot;
+                     x1=&quot;40.80&quot;
+                     y1=&quot;505&quot;
+                     x2=&quot;209.00&quot;
+                     y2=&quot;505&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;0.92&quot;
+                     x1=&quot;40.80&quot;
+                     y1=&quot;491.1&quot;
+                     x2=&quot;209.00&quot;
+                     y2=&quot;491.1&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;0.94&quot;
+                     x1=&quot;40.80&quot;
+                     y1=&quot;477.4&quot;
+                     x2=&quot;209.00&quot;
+                     y2=&quot;477.4&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;0.96&quot;
+                     x1=&quot;40.80&quot;
+                     y1=&quot;464.1&quot;
+                     x2=&quot;209.00&quot;
+                     y2=&quot;464.1&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;0.98&quot;
+                     x1=&quot;40.80&quot;
+                     y1=&quot;451&quot;
+                     x2=&quot;209.00&quot;
+                     y2=&quot;451&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;1&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy" data-chart-type="LineChart">
+        <div class="header-with-actions">
+            <h2>life-expectancy?tab=line&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy?tab=line&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (72)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy?tab=line&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/life-expectancy-2d63e33f4ac34395c7f1c42276c82bbe_v62_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-refactor-minimal-thumbnails/grapher/life-expectancy?tab=line&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/life-expectancy-2d63e33f4ac34395c7f1c42276c82bbe_v62_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/life-expectancy-2d63e33f4ac34395c7f1c42276c82bbe_v62_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/life-expectancy-2d63e33f4ac34395c7f1c42276c82bbe_v62_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-2d63e33f4ac34395c7f1c42276c82bbe_v62_850x600.svg
+===================================================================
+--- life-expectancy-2d63e33f4ac34395c7f1c42276c82bbe_v62_850x600.svg	
++++ life-expectancy-2d63e33f4ac34395c7f1c42276c82bbe_v62_850x600.svg	
+@@ -218,8 +218,28 @@
+                         font-size=&quot;10&quot;
+                     >
+                         50 years
+                     </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;216.7&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        30 years
++                    </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;155.8&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        70 years
++                    </text>
+                 </g>
+             </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+@@ -227,18 +247,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;216.7&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;216.7&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;40-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;196&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;196&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;50-years&quot;
+@@ -254,18 +274,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;166.9&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;166.9&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;70-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;155.8&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;155.8&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+             </g>
+             <g id=&quot;lines&quot;>
+@@ -618,8 +638,28 @@
+                         font-size=&quot;10&quot;
+                     >
+                         50 years
+                     </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;370.7&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        30 years
++                    </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;309.8&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        70 years
++                    </text>
+                 </g>
+             </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+@@ -627,18 +667,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;370.7&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;370.7&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;40-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;350&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;350&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;50-years&quot;
+@@ -654,18 +694,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;320.9&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;320.9&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;70-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;309.8&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;309.8&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+             </g>
+             <g id=&quot;lines&quot;>
+@@ -1018,8 +1058,28 @@
+                         font-size=&quot;10&quot;
+                     >
+                         50 years
+                     </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;524.7&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        30 years
++                    </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;463.8&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        70 years
++                    </text>
+                 </g>
+             </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+@@ -1027,18 +1087,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;524.7&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;524.7&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;40-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;504&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;504&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;50-years&quot;
+@@ -1054,18 +1114,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;474.9&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;474.9&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;70-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;463.8&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;463.8&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+             </g>
+             <g id=&quot;lines&quot;>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy" data-chart-type="LineChart">
+        <div class="header-with-actions">
+            <h2>life-expectancy?tab=line&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy?tab=line&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (68)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy?tab=line&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/life-expectancy-a2e83d395d4ba45de21b14d7bd9fbeb7_v62_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-refactor-minimal-thumbnails/grapher/life-expectancy?tab=line&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/life-expectancy-a2e83d395d4ba45de21b14d7bd9fbeb7_v62_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/life-expectancy-a2e83d395d4ba45de21b14d7bd9fbeb7_v62_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/life-expectancy-a2e83d395d4ba45de21b14d7bd9fbeb7_v62_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-a2e83d395d4ba45de21b14d7bd9fbeb7_v62_850x600.svg
+===================================================================
+--- life-expectancy-a2e83d395d4ba45de21b14d7bd9fbeb7_v62_850x600.svg	
++++ life-expectancy-a2e83d395d4ba45de21b14d7bd9fbeb7_v62_850x600.svg	
+@@ -218,8 +218,38 @@
+                         font-size=&quot;10&quot;
+                     >
+                         50 years
+                     </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;221.6&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        30 years
++                    </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;197.5&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        40 years
++                    </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;150.6&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        70 years
++                    </text>
+                 </g>
+             </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+@@ -227,18 +257,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;221.6&quot;
+                     x2=&quot;416.00&quot;
+                     y2=&quot;221.6&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;40-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;197.5&quot;
+                     x2=&quot;416.00&quot;
+                     y2=&quot;197.5&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;50-years&quot;
+@@ -254,18 +284,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;163.6&quot;
+                     x2=&quot;416.00&quot;
+                     y2=&quot;163.6&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;70-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;150.6&quot;
+                     x2=&quot;416.00&quot;
+                     y2=&quot;150.6&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+             </g>
+             <g id=&quot;lines&quot;>
+@@ -1113,8 +1143,38 @@
+                         font-size=&quot;10&quot;
+                     >
+                         50 years
+                     </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;527&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        30 years
++                    </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;504.3&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        40 years
++                    </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;459.9&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        70 years
++                    </text>
+                 </g>
+             </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+@@ -1122,18 +1182,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;527&quot;
+                     x2=&quot;416.00&quot;
+                     y2=&quot;527&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;40-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;504.3&quot;
+                     x2=&quot;416.00&quot;
+                     y2=&quot;504.3&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;50-years&quot;
+@@ -1149,18 +1209,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;472.2&quot;
+                     x2=&quot;416.00&quot;
+                     y2=&quot;472.2&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;70-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;459.9&quot;
+                     x2=&quot;416.00&quot;
+                     y2=&quot;459.9&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+             </g>
+             <g id=&quot;lines&quot;>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy" data-chart-type="LineChart">
+        <div class="header-with-actions">
+            <h2>life-expectancy?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (72)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/life-expectancy-ac638c4f34d948fe349a20d2dfb61ce7_v62_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-refactor-minimal-thumbnails/grapher/life-expectancy?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/life-expectancy-ac638c4f34d948fe349a20d2dfb61ce7_v62_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/life-expectancy-ac638c4f34d948fe349a20d2dfb61ce7_v62_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/life-expectancy-ac638c4f34d948fe349a20d2dfb61ce7_v62_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-ac638c4f34d948fe349a20d2dfb61ce7_v62_850x600.svg
+===================================================================
+--- life-expectancy-ac638c4f34d948fe349a20d2dfb61ce7_v62_850x600.svg	
++++ life-expectancy-ac638c4f34d948fe349a20d2dfb61ce7_v62_850x600.svg	
+@@ -218,8 +218,28 @@
+                         font-size=&quot;10&quot;
+                     >
+                         50 years
+                     </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;216.7&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        30 years
++                    </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;155.8&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        70 years
++                    </text>
+                 </g>
+             </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+@@ -227,18 +247,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;216.7&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;216.7&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;40-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;196&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;196&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;50-years&quot;
+@@ -254,18 +274,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;166.9&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;166.9&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;70-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;155.8&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;155.8&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+             </g>
+             <g id=&quot;lines&quot;>
+@@ -618,8 +638,28 @@
+                         font-size=&quot;10&quot;
+                     >
+                         50 years
+                     </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;370.7&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        30 years
++                    </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;309.8&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        70 years
++                    </text>
+                 </g>
+             </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+@@ -627,18 +667,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;370.7&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;370.7&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;40-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;350&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;350&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;50-years&quot;
+@@ -654,18 +694,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;320.9&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;320.9&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;70-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;309.8&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;309.8&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+             </g>
+             <g id=&quot;lines&quot;>
+@@ -1018,8 +1058,28 @@
+                         font-size=&quot;10&quot;
+                     >
+                         50 years
+                     </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;524.7&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        30 years
++                    </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;463.8&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        70 years
++                    </text>
+                 </g>
+             </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+@@ -1027,18 +1087,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;524.7&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;524.7&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;40-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;504&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;504&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;50-years&quot;
+@@ -1054,18 +1114,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;474.9&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;474.9&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;70-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;463.8&quot;
+                     x2=&quot;437.60&quot;
+                     y2=&quot;463.8&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+             </g>
+             <g id=&quot;lines&quot;>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy" data-chart-type="LineChart">
+        <div class="header-with-actions">
+            <h2>life-expectancy?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (68)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/life-expectancy-602cf15b8e4cf555a48aab50e95a8aac_v62_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-refactor-minimal-thumbnails/grapher/life-expectancy?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/life-expectancy-602cf15b8e4cf555a48aab50e95a8aac_v62_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/life-expectancy-602cf15b8e4cf555a48aab50e95a8aac_v62_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/life-expectancy-602cf15b8e4cf555a48aab50e95a8aac_v62_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-602cf15b8e4cf555a48aab50e95a8aac_v62_850x600.svg
+===================================================================
+--- life-expectancy-602cf15b8e4cf555a48aab50e95a8aac_v62_850x600.svg	
++++ life-expectancy-602cf15b8e4cf555a48aab50e95a8aac_v62_850x600.svg	
+@@ -218,8 +218,38 @@
+                         font-size=&quot;10&quot;
+                     >
+                         50 years
+                     </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;221.6&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        30 years
++                    </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;197.5&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        40 years
++                    </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;150.6&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        70 years
++                    </text>
+                 </g>
+             </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+@@ -227,18 +257,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;221.6&quot;
+                     x2=&quot;416.00&quot;
+                     y2=&quot;221.6&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;40-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;197.5&quot;
+                     x2=&quot;416.00&quot;
+                     y2=&quot;197.5&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;50-years&quot;
+@@ -254,18 +284,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;163.6&quot;
+                     x2=&quot;416.00&quot;
+                     y2=&quot;163.6&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;70-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;150.6&quot;
+                     x2=&quot;416.00&quot;
+                     y2=&quot;150.6&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+             </g>
+             <g id=&quot;lines&quot;>
+@@ -1113,8 +1143,38 @@
+                         font-size=&quot;10&quot;
+                     >
+                         50 years
+                     </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;527&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        30 years
++                    </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;504.3&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        40 years
++                    </text>
++                    <text
++                        x=&quot;53.60&quot;
++                        y=&quot;459.9&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
++                        fill=&quot;#5b5b5b&quot;
++                        font-size=&quot;10&quot;
++                    >
++                        70 years
++                    </text>
+                 </g>
+             </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+@@ -1122,18 +1182,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;527&quot;
+                     x2=&quot;416.00&quot;
+                     y2=&quot;527&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;40-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;504.3&quot;
+                     x2=&quot;416.00&quot;
+                     y2=&quot;504.3&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;50-years&quot;
+@@ -1149,18 +1209,18 @@
+                     x1=&quot;58.60&quot;
+                     y1=&quot;472.2&quot;
+                     x2=&quot;416.00&quot;
+                     y2=&quot;472.2&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;70-years&quot;
+                     x1=&quot;58.60&quot;
+                     y1=&quot;459.9&quot;
+                     x2=&quot;416.00&quot;
+                     y2=&quot;459.9&quot;
+-                    stroke=&quot;#eee&quot;
++                    stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+             </g>
+             <g id=&quot;lines&quot;>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-vs-health-expenditure" data-chart-type="ScatterPlot">
+        <div class="header-with-actions">
+            <h2>life-expectancy-vs-health-expenditure?tab=chart&time=latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=0</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-vs-health-expenditure?tab=chart&time=latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=0" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (237)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-vs-health-expenditure?tab=chart&time=latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/life-expectancy-vs-health-expenditure-b3c883fa0dad54e80e145fc8c582847d_v40_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-refactor-minimal-thumbnails/grapher/life-expectancy-vs-health-expenditure?tab=chart&time=latest&stackMode=absolute&xScale=linear&yScale=log&endpointsOnly=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/life-expectancy-vs-health-expenditure-b3c883fa0dad54e80e145fc8c582847d_v40_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/life-expectancy-vs-health-expenditure-b3c883fa0dad54e80e145fc8c582847d_v40_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/life-expectancy-vs-health-expenditure-b3c883fa0dad54e80e145fc8c582847d_v40_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-vs-health-expenditure-b3c883fa0dad54e80e145fc8c582847d_v40_850x600.svg
+===================================================================
+--- life-expectancy-vs-health-expenditure-b3c883fa0dad54e80e145fc8c582847d_v40_850x600.svg	
++++ life-expectancy-vs-health-expenditure-b3c883fa0dad54e80e145fc8c582847d_v40_850x600.svg	
+@@ -88,15 +88,15 @@
+         </defs>
+         <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+             <g id=&quot;horizontal-axis-label&quot; class=&quot;markdown-text-wrap&quot;>
+                 <text
+-                    x=&quot;367.2&quot;
++                    x=&quot;394.1&quot;
+                     y=&quot;528.6&quot;
+                     style=&quot;font-size: 13px; line-height: 1&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                 >
+-                    <tspan x=&quot;367.176&quot; y=&quot;528.6&quot;>
++                    <tspan x=&quot;394.116&quot; y=&quot;528.6&quot;>
+                         <tspan style=&quot;font-weight: 700&quot;>
+                             Health expenditure per capita
+                         </tspan>
+                         (international-\$ in 2020 prices)
+@@ -104,45 +104,45 @@
+                 </text>
+             </g>
+             <g id=&quot;tick-labels&quot;>
+                 <text
+-                    x=&quot;118.4&quot;
++                    x=&quot;164.4&quot;
+                     y=&quot;507.29999999999995&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                 >
+                     \$2,000
+                 </text>
+                 <text
+-                    x=&quot;238.1&quot;
++                    x=&quot;274.9&quot;
+                     y=&quot;507.29999999999995&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                 >
+                     \$4,000
+                 </text>
+                 <text
+-                    x=&quot;357.8&quot;
++                    x=&quot;385.4&quot;
+                     y=&quot;507.29999999999995&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                 >
+                     \$6,000
+                 </text>
+                 <text
+-                    x=&quot;477.5&quot;
++                    x=&quot;496&quot;
+                     y=&quot;507.29999999999995&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                 >
+                     \$8,000
+                 </text>
+                 <text
+-                    x=&quot;597.2&quot;
++                    x=&quot;606.5&quot;
+                     y=&quot;507.29999999999995&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+@@ -173,153 +173,254 @@
+                         (plotted on a logarithmic axis)
+                     </tspan>
+                 </text>
+             </g>
+-            <g id=&quot;tick-labels&quot;></g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;478.3&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    66 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;438.9&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    68 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;400.7&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    70 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;363.5&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    72 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;327.4&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    74 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;292.2&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    76 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;257.9&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    78 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;224.5&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    80 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;191.9&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    82 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;160.1&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    84 years
++                </text>
++            </g>
+         </g>
+         <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+             <line
+                 id=&quot;66-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;478.3&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;478.3&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;68-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;438.9&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;438.9&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;70-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;400.7&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;400.7&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;72-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;363.5&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;363.5&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;74-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;327.4&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;327.4&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;76-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;292.2&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;292.2&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;78-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;257.9&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;257.9&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;80-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;224.5&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;224.5&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;82-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;191.9&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;191.9&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;84-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;160.1&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;160.1&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+         </g>
+         <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+             <line
+                 id=&quot;\$2,000&quot;
+-                x1=&quot;118.4&quot;
++                x1=&quot;164.4&quot;
+                 y1=&quot;489.30&quot;
+
+... (diff truncated: showing 300 of 1397 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="life-expectancy-vs-health-expenditure" data-chart-type="ScatterPlot">
+        <div class="header-with-actions">
+            <h2>life-expectancy-vs-health-expenditure?tab=chart&time=latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0</h2>
+            <button class="copy-slug-btn" data-slug="life-expectancy-vs-health-expenditure?tab=chart&time=latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (257)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/life-expectancy-vs-health-expenditure?tab=chart&time=latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/life-expectancy-vs-health-expenditure-3339c38abf8f713a17874e94b7b273eb_v40_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-refactor-minimal-thumbnails/grapher/life-expectancy-vs-health-expenditure?tab=chart&time=latest&stackMode=absolute&xScale=log&yScale=log&endpointsOnly=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/life-expectancy-vs-health-expenditure-3339c38abf8f713a17874e94b7b273eb_v40_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/life-expectancy-vs-health-expenditure-3339c38abf8f713a17874e94b7b273eb_v40_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/life-expectancy-vs-health-expenditure-3339c38abf8f713a17874e94b7b273eb_v40_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: life-expectancy-vs-health-expenditure-3339c38abf8f713a17874e94b7b273eb_v40_850x600.svg
+===================================================================
+--- life-expectancy-vs-health-expenditure-3339c38abf8f713a17874e94b7b273eb_v40_850x600.svg	
++++ life-expectancy-vs-health-expenditure-3339c38abf8f713a17874e94b7b273eb_v40_850x600.svg	
+@@ -88,15 +88,15 @@
+         </defs>
+         <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+             <g id=&quot;horizontal-axis-label&quot; class=&quot;markdown-text-wrap&quot;>
+                 <text
+-                    x=&quot;367.2&quot;
++                    x=&quot;394.1&quot;
+                     y=&quot;528.6&quot;
+                     style=&quot;font-size: 13px; line-height: 1&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                 >
+-                    <tspan x=&quot;367.176&quot; y=&quot;528.6&quot;>
++                    <tspan x=&quot;394.116&quot; y=&quot;528.6&quot;>
+                         <tspan style=&quot;font-weight: 700&quot;>
+                             Health expenditure per capita
+                         </tspan>
+                         (international-\$ in 2020 prices; plotted on a
+@@ -105,45 +105,45 @@
+                 </text>
+             </g>
+             <g id=&quot;tick-labels&quot;>
+                 <text
+-                    x=&quot;249.3&quot;
++                    x=&quot;285.3&quot;
+                     y=&quot;507.29999999999995&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                 >
+                     \$1,000
+                 </text>
+                 <text
+-                    x=&quot;683.6&quot;
++                    x=&quot;686.3&quot;
+                     y=&quot;507.29999999999995&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                 >
+                     \$10,000
+                 </text>
+                 <text
+-                    x=&quot;118.6&quot;
++                    x=&quot;164.6&quot;
+                     y=&quot;507.29999999999995&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                 >
+                     \$500
+                 </text>
+                 <text
+-                    x=&quot;380.1&quot;
++                    x=&quot;406&quot;
+                     y=&quot;507.29999999999995&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                 >
+                     \$2,000
+                 </text>
+                 <text
+-                    x=&quot;552.9&quot;
++                    x=&quot;565.6&quot;
+                     y=&quot;507.29999999999995&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+@@ -165,252 +165,353 @@
+                         (plotted on a logarithmic axis)
+                     </tspan>
+                 </text>
+             </g>
+-            <g id=&quot;tick-labels&quot;></g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;478.3&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    66 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;438.9&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    68 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;400.7&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    70 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;363.5&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    72 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;327.4&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    74 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;292.2&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    76 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;257.9&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    78 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;224.5&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    80 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;191.9&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    82 years
++                </text>
++                <text
++                    x=&quot;64.88&quot;
++                    y=&quot;160.1&quot;
++                    dy=&quot;.32em&quot;
++                    text-anchor=&quot;end&quot;
++                    fill=&quot;#5b5b5b&quot;
++                    font-size=&quot;13&quot;
++                >
++                    84 years
++                </text>
++            </g>
+         </g>
+         <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+             <line
+                 id=&quot;66-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;478.3&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;478.3&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;68-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;438.9&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;438.9&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;70-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;400.7&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;400.7&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;72-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;363.5&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;363.5&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;74-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;327.4&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;327.4&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;76-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;292.2&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;292.2&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;78-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;257.9&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;257.9&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;80-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;224.5&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;224.5&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;82-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;191.9&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;191.9&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;84-years&quot;
+-                x1=&quot;16.00&quot;
++                x1=&quot;69.88&quot;
+                 y1=&quot;160.1&quot;
+                 x2=&quot;718.35&quot;
+                 y2=&quot;160.1&quot;
+-                stroke=&quot;#eee&quot;
++                stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+         </g>
+         <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+             <line
+                 id=&quot;\$300&quot;
+-                x1=&quot;22.3&quot;
++                x1=&quot;75.7&quot;
+                 y1=&quot;489.30&quot;
+
+... (diff truncated: showing 300 of 1540 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Chart type filtering
+        const chartTypeFilter = document.getElementById('chart-type-filter');
+        const visibleCountSpan = document.getElementById('visible-count');
+
+        function filterByChartType(chartType) {
+            const sections = document.querySelectorAll('section[data-chart-type]');
+            let visibleCount = 0;
+
+            sections.forEach(section => {
+                if (chartType === 'all' || section.dataset.chartType === chartType) {
+                    section.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            if (visibleCountSpan) {
+                visibleCountSpan.textContent = visibleCount;
+            }
+        }
+
+        if (chartTypeFilter) {
+            chartTypeFilter.addEventListener('change', (e) => {
+                filterByChartType(e.target.value);
+            });
+        }
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section, and skip if diff was too large
+                    if (diffContainer && !renderedDiffs.has(diffId) && !diffContainer.dataset.skipped) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
