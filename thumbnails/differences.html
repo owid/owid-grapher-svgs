@@ -1,0 +1,3928 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        /* Filter dropdown */
+        .filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        .filter-container label {
+            font-weight: 500;
+            color: #24292e;
+        }
+
+        .filter-container select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            background: #fafbfc;
+            font-size: 0.9rem;
+            color: #24292e;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-container select:hover {
+            border-color: #a0a8b0;
+        }
+
+        .filter-container select:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        section.hidden {
+            display: none;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 0 1 auto;
+            display: flex;
+            flex-direction: column;
+            max-width: 850px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 850px;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            height: auto;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="filter-container">
+        <label for="chart-type-filter">Chart Type:</label>
+        <select id="chart-type-filter">
+            <option value="all" selected>All (10)</option>
+            <option value="StackedDiscreteBar">StackedDiscreteBar (10)</option>
+        </select>
+    </div><p class="summary">Showing <span id="visible-count">10</span> of 10 differences</p><section data-slug="access-drinking-water-stacked" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>access-drinking-water-stacked?tab=stacked-discrete-bar</h2>
+            <button class="copy-slug-btn" data-slug="access-drinking-water-stacked?tab=stacked-discrete-bar" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (137)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/access-drinking-water-stacked?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/access-drinking-water-stacked-a7a77a74cb2b694300091c7481efc11f_v18_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-focus-stacked-discrete-bar/grapher/access-drinking-water-stacked?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/access-drinking-water-stacked-a7a77a74cb2b694300091c7481efc11f_v18_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/access-drinking-water-stacked-a7a77a74cb2b694300091c7481efc11f_v18_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/access-drinking-water-stacked-a7a77a74cb2b694300091c7481efc11f_v18_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: access-drinking-water-stacked-a7a77a74cb2b694300091c7481efc11f_v18_300x160.svg
+===================================================================
+--- access-drinking-water-stacked-a7a77a74cb2b694300091c7481efc11f_v18_300x160.svg	
++++ access-drinking-water-stacked-a7a77a74cb2b694300091c7481efc11f_v18_300x160.svg	
+@@ -26,45 +26,45 @@
+         <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+             <g id=&quot;tick-labels&quot;>
+                 <text
+                     x=&quot;109.22&quot;
+-                    y=&quot;152&quot;
++                    y=&quot;150&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;start&quot;
+                     font-size=&quot;10&quot;
+                 >
+                     0%
+                 </text>
+                 <text
+-                    x=&quot;145.8&quot;
+-                    y=&quot;152&quot;
++                    x=&quot;143.8&quot;
++                    y=&quot;150&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;10&quot;
+                 >
+                     20%
+                 </text>
+                 <text
+-                    x=&quot;182.3&quot;
+-                    y=&quot;152&quot;
++                    x=&quot;178.3&quot;
++                    y=&quot;150&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;10&quot;
+                 >
+                     40%
+                 </text>
+                 <text
+-                    x=&quot;218.9&quot;
+-                    y=&quot;152&quot;
++                    x=&quot;212.9&quot;
++                    y=&quot;150&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;10&quot;
+                 >
+                     60%
+                 </text>
+                 <text
+-                    x=&quot;255.4&quot;
+-                    y=&quot;152&quot;
++                    x=&quot;247.4&quot;
++                    y=&quot;150&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;10&quot;
+                 >
+@@ -75,63 +75,63 @@
+         <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+             <line
+                 id=&quot;0%&quot;
+                 x1=&quot;109.2&quot;
+-                y1=&quot;137.00&quot;
++                y1=&quot;135.00&quot;
+                 x2=&quot;109.2&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#999&quot;
+             ></line>
+             <line
+                 id=&quot;20%&quot;
+-                x1=&quot;145.8&quot;
+-                y1=&quot;137.00&quot;
+-                x2=&quot;145.8&quot;
++                x1=&quot;143.8&quot;
++                y1=&quot;135.00&quot;
++                x2=&quot;143.8&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;40%&quot;
+-                x1=&quot;182.3&quot;
+-                y1=&quot;137.00&quot;
+-                x2=&quot;182.3&quot;
++                x1=&quot;178.3&quot;
++                y1=&quot;135.00&quot;
++                x2=&quot;178.3&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;60%&quot;
+-                x1=&quot;218.9&quot;
+-                y1=&quot;137.00&quot;
+-                x2=&quot;218.9&quot;
++                x1=&quot;212.9&quot;
++                y1=&quot;135.00&quot;
++                x2=&quot;212.9&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;80%&quot;
+-                x1=&quot;255.4&quot;
+-                y1=&quot;137.00&quot;
+-                x2=&quot;255.4&quot;
++                x1=&quot;247.4&quot;
++                y1=&quot;135.00&quot;
++                x2=&quot;247.4&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;100%&quot;
+-                x1=&quot;292&quot;
+-                y1=&quot;137.00&quot;
+-                x2=&quot;292&quot;
++                x1=&quot;282&quot;
++                y1=&quot;135.00&quot;
++                x2=&quot;282&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+         </g>
+         <line
+             id=&quot;vertical-zero-line&quot;
+             x1=&quot;108.95&quot;
+-            y1=&quot;137.00&quot;
++            y1=&quot;135.00&quot;
+             x2=&quot;108.95&quot;
+             y2=&quot;8.00&quot;
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+@@ -139,28 +139,28 @@
+         <g id=&quot;bars&quot;>
+             <g
+                 id=&quot;World&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 20.9)&quot;
++                transform=&quot;translate(0, 20.700000000000003)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Safely-managed&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(109.2, -8.385)&quot;
+-                        width=&quot;134.8&quot;
+-                        height=&quot;16.77&quot;
++                        transform=&quot;translate(109.2, -8.255)&quot;
++                        width=&quot;127.39999999999999&quot;
++                        height=&quot;16.51&quot;
+                         fill=&quot;#2b83ba&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;176.60000000000002&quot;
++                        x=&quot;172.9&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;134.8&quot;
+-                        height=&quot;16.77&quot;
++                        width=&quot;127.39999999999999&quot;
++                        height=&quot;16.51&quot;
+                         fill=&quot;#fff&quot;
+                         opacity=&quot;1&quot;
+                         font-size=&quot;10.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -173,20 +173,20 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(244, -8.385)&quot;
+-                        width=&quot;32.39999999999999&quot;
+-                        height=&quot;16.77&quot;
++                        transform=&quot;translate(236.6, -8.255)&quot;
++                        width=&quot;30.700000000000003&quot;
++                        height=&quot;16.51&quot;
+                         fill=&quot;#abdda4&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;260.2&quot;
++                        x=&quot;251.95&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;32.39999999999999&quot;
+-                        height=&quot;16.77&quot;
++                        width=&quot;30.700000000000003&quot;
++                        height=&quot;16.51&quot;
+                         fill=&quot;#000&quot;
+                         opacity=&quot;1&quot;
+                         font-size=&quot;10.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -199,11 +199,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(276.4, -8.385)&quot;
+-                        width=&quot;6.5&quot;
+-                        height=&quot;16.77&quot;
++                        transform=&quot;translate(267.3, -8.255)&quot;
++                        width=&quot;6.099999999999994&quot;
++                        height=&quot;16.51&quot;
+                         fill=&quot;#ffffbf&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -212,11 +212,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(282.8, -8.385)&quot;
+-                        width=&quot;6.799999999999997&quot;
+-                        height=&quot;16.77&quot;
++                        transform=&quot;translate(273.3, -8.255)&quot;
++                        width=&quot;6.3999999999999915&quot;
++                        height=&quot;16.51&quot;
+                         fill=&quot;#fdae61&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -225,11 +225,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(289.6, -8.385)&quot;
+-                        width=&quot;2.3999999999999915&quot;
+-                        height=&quot;16.77&quot;
++                        transform=&quot;translate(279.7, -8.255)&quot;
++                        width=&quot;2.299999999999997&quot;
++                        height=&quot;16.51&quot;
+                         fill=&quot;#d7191c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -242,28 +242,28 @@
+             </g>
+             <g
+                 id=&quot;Low-income-countries&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 46.699999999999996)&quot;
++                transform=&quot;translate(0, 46.1)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Safely-managed&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(109.2, -8.385)&quot;
+-                        width=&quot;56.499999999999986&quot;
+-                        height=&quot;16.77&quot;
++                        transform=&quot;translate(109.2, -8.255)&quot;
++                        width=&quot;53.499999999999986&quot;
++                        height=&quot;16.51&quot;
+                         fill=&quot;#2b83ba&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;137.45&quot;
++                        x=&quot;135.95&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;56.499999999999986&quot;
+-                        height=&quot;16.77&quot;
++                        width=&quot;53.499999999999986&quot;
++                        height=&quot;16.51&quot;
+                         fill=&quot;#fff&quot;
+                         opacity=&quot;1&quot;
+                         font-size=&quot;10.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -276,20 +276,20 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(165.7, -8.385)&quot;
+-                        width=&quot;56.2&quot;
+-                        height=&quot;16.77&quot;
++                        transform=&quot;translate(162.7, -8.255)&quot;
++                        width=&quot;53.10000000000001&quot;
++                        height=&quot;16.51&quot;
+                         fill=&quot;#abdda4&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+
+... (diff truncated: showing 300 of 691 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="food-emissions-supply-chain" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>food-emissions-supply-chain?tab=stacked-discrete-bar</h2>
+            <button class="copy-slug-btn" data-slug="food-emissions-supply-chain?tab=stacked-discrete-bar" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (535)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/food-emissions-supply-chain?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/food-emissions-supply-chain-a7a77a74cb2b694300091c7481efc11f_v21_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-focus-stacked-discrete-bar/grapher/food-emissions-supply-chain?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/food-emissions-supply-chain-a7a77a74cb2b694300091c7481efc11f_v21_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/food-emissions-supply-chain-a7a77a74cb2b694300091c7481efc11f_v21_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/food-emissions-supply-chain-a7a77a74cb2b694300091c7481efc11f_v21_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: food-emissions-supply-chain-a7a77a74cb2b694300091c7481efc11f_v21_300x160.svg
+===================================================================
+--- food-emissions-supply-chain-a7a77a74cb2b694300091c7481efc11f_v21_300x160.svg	
++++ food-emissions-supply-chain-a7a77a74cb2b694300091c7481efc11f_v21_300x160.svg	
+@@ -24,30 +24,30 @@
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+         <line
+             id=&quot;vertical-zero-line&quot;
+-            x1=&quot;67.45&quot;
+-            y1=&quot;152.00&quot;
+-            x2=&quot;67.45&quot;
++            x1=&quot;66.65&quot;
++            y1=&quot;150.00&quot;
++            x2=&quot;66.65&quot;
+             y2=&quot;8.00&quot;
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+         ></line>
+         <g id=&quot;bars&quot;>
+             <g
+                 id=&quot;Beef-(beef-herd)&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 11.6)&quot;
++                transform=&quot;translate(0, 11.55)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Land-use-change&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(67.7, -2.34)&quot;
+-                        width=&quot;46.39999999999999&quot;
+-                        height=&quot;4.68&quot;
++                        transform=&quot;translate(66.9, -2.3075)&quot;
++                        width=&quot;44.3&quot;
++                        height=&quot;4.615&quot;
+                         fill=&quot;#578145&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -56,11 +56,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(114.1, -2.34)&quot;
+-                        width=&quot;112.2&quot;
+-                        height=&quot;4.68&quot;
++                        transform=&quot;translate(111.2, -2.3075)&quot;
++                        width=&quot;107.1&quot;
++                        height=&quot;4.615&quot;
+                         fill=&quot;#bc8e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -69,11 +69,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(226.2, -2.34)&quot;
+-                        width=&quot;5.3999999999999915&quot;
+-                        height=&quot;4.68&quot;
++                        transform=&quot;translate(218.3, -2.3075)&quot;
++                        width=&quot;5.099999999999994&quot;
++                        height=&quot;4.615&quot;
+                         fill=&quot;#f37104&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -82,11 +82,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(231.5, -2.34)&quot;
+-                        width=&quot;3.5999999999999943&quot;
+-                        height=&quot;4.68&quot;
++                        transform=&quot;translate(223.4, -2.3075)&quot;
++                        width=&quot;3.3999999999999915&quot;
++                        height=&quot;4.615&quot;
+                         fill=&quot;#004d84&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -95,11 +95,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(235.2, -2.34)&quot;
+-                        width=&quot;1&quot;
+-                        height=&quot;4.68&quot;
++                        transform=&quot;translate(226.9, -2.3075)&quot;
++                        width=&quot;0.8999999999999915&quot;
++                        height=&quot;4.615&quot;
+                         fill=&quot;#c45267&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -108,11 +108,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(236.1, -2.34)&quot;
+-                        width=&quot;0.5&quot;
+-                        height=&quot;4.68&quot;
++                        transform=&quot;translate(227.8, -2.3075)&quot;
++                        width=&quot;0.3999999999999915&quot;
++                        height=&quot;4.615&quot;
+                         fill=&quot;#f1dc19&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -121,11 +121,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(236.6, -2.34)&quot;
+-                        width=&quot;0.7000000000000028&quot;
+-                        height=&quot;4.68&quot;
++                        transform=&quot;translate(228.3, -2.3075)&quot;
++                        width=&quot;0.6999999999999886&quot;
++                        height=&quot;4.615&quot;
+                         fill=&quot;#939597&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -134,44 +134,44 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(237.3, -2.34)&quot;
+-                        width=&quot;28.799999999999997&quot;
+-                        height=&quot;4.68&quot;
++                        transform=&quot;translate(228.9, -2.3075)&quot;
++                        width=&quot;27.5&quot;
++                        height=&quot;4.615&quot;
+                         fill=&quot;#c4b4b6&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;62.7&quot; y=&quot;2.9&quot; text-anchor=&quot;end&quot; font-size=&quot;7.92&quot;>
+-                    <tspan x=&quot;62.7&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
++                <text x=&quot;61.9&quot; y=&quot;2.9&quot; text-anchor=&quot;end&quot; font-size=&quot;7.81&quot;>
++                    <tspan x=&quot;61.9&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Beef (beef herd)
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(271.1, 0)&quot;
++                    transform=&quot;translate(261.5, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     fill=&quot;#555&quot;
+-                    font-size=&quot;7.920000000000001&quot;
++                    font-size=&quot;7.8100000000000005&quot;
+                 >
+                     99 kg
+                 </text>
+             </g>
+             <g
+                 id=&quot;Dark-Chocolate&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 18.799999999999997)&quot;
++                transform=&quot;translate(0, 18.65)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Land-use-change&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(67.7, -2.34)&quot;
+-                        width=&quot;51.5&quot;
+-                        height=&quot;4.68&quot;
++                        transform=&quot;translate(66.9, -2.3075)&quot;
++                        width=&quot;49.19999999999999&quot;
++                        height=&quot;4.615&quot;
+                         fill=&quot;#578145&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -180,11 +180,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(119.2, -2.34)&quot;
+-                        width=&quot;13.399999999999991&quot;
+-                        height=&quot;4.68&quot;
++                        transform=&quot;translate(116.1, -2.3075)&quot;
++                        width=&quot;12.699999999999989&quot;
++                        height=&quot;4.615&quot;
+                         fill=&quot;#bc8e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -193,11 +193,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(132.5, -2.34)&quot;
++                        transform=&quot;translate(128.8, -2.3075)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;4.68&quot;
++                        height=&quot;4.615&quot;
+                         fill=&quot;#f37104&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -206,11 +206,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(132.5, -2.34)&quot;
+-                        width=&quot;0.7000000000000028&quot;
+-                        height=&quot;4.68&quot;
++                        transform=&quot;translate(128.8, -2.3075)&quot;
++                        width=&quot;0.5999999999999943&quot;
++                        height=&quot;4.615&quot;
+                         fill=&quot;#004d84&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -219,11 +219,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(133.2, -2.34)&quot;
+-                        width=&quot;0.20000000000000284&quot;
+-                        height=&quot;4.68&quot;
++                        transform=&quot;translate(129.5, -2.3075)&quot;
++                        width=&quot;0.19999999999998863&quot;
++                        height=&quot;4.615&quot;
+                         fill=&quot;#c45267&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -232,11 +232,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(133.4, -2.34)&quot;
++                        transform=&quot;translate(129.7, -2.3075)&quot;
+                         width=&quot;0.09999999999999432&quot;
+-                        height=&quot;4.68&quot;
++                        height=&quot;4.615&quot;
+                         fill=&quot;#f1dc19&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -245,11 +245,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(133.5, -2.34)&quot;
+-                        width=&quot;1.5&quot;
+-                        height=&quot;4.68&quot;
++                        transform=&quot;translate(129.7, -2.3075)&quot;
++                        width=&quot;1.3999999999999915&quot;
++                        height=&quot;4.615&quot;
+                         fill=&quot;#939597&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -258,44 +258,44 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(134.9, -2.34)&quot;
+-                        width=&quot;25.799999999999997&quot;
+-                        height=&quot;4.68&quot;
++                        transform=&quot;translate(131.1, -2.3075)&quot;
++                        width=&quot;24.599999999999994&quot;
++                        height=&quot;4.615&quot;
+                         fill=&quot;#c4b4b6&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;62.7&quot; y=&quot;2.9&quot; text-anchor=&quot;end&quot; font-size=&quot;7.92&quot;>
+-                    <tspan x=&quot;62.7&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
++                <text x=&quot;61.9&quot; y=&quot;2.9&quot; text-anchor=&quot;end&quot; font-size=&quot;7.81&quot;>
++                    <tspan x=&quot;61.9&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Dark Chocolate
+                     </tspan>
+                 </text>
+                 <text
+
+... (diff truncated: showing 300 of 2893 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="food-waste-per-capita" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>food-waste-per-capita?tab=stacked-discrete-bar</h2>
+            <button class="copy-slug-btn" data-slug="food-waste-per-capita?tab=stacked-discrete-bar" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (120)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/food-waste-per-capita?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/food-waste-per-capita-a7a77a74cb2b694300091c7481efc11f_v14_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-focus-stacked-discrete-bar/grapher/food-waste-per-capita?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/food-waste-per-capita-a7a77a74cb2b694300091c7481efc11f_v14_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/food-waste-per-capita-a7a77a74cb2b694300091c7481efc11f_v14_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/food-waste-per-capita-a7a77a74cb2b694300091c7481efc11f_v14_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: food-waste-per-capita-a7a77a74cb2b694300091c7481efc11f_v14_300x160.svg
+===================================================================
+--- food-waste-per-capita-a7a77a74cb2b694300091c7481efc11f_v14_300x160.svg	
++++ food-waste-per-capita-a7a77a74cb2b694300091c7481efc11f_v14_300x160.svg	
+@@ -25,9 +25,9 @@
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+         <line
+             id=&quot;vertical-zero-line&quot;
+             x1=&quot;71.05&quot;
+-            y1=&quot;152.00&quot;
++            y1=&quot;150.00&quot;
+             x2=&quot;71.05&quot;
+             y2=&quot;8.00&quot;
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+@@ -35,19 +35,19 @@
+         <g id=&quot;bars&quot;>
+             <g
+                 id=&quot;United-States&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 18.285714285714285)&quot;
++                transform=&quot;translate(0, 18.142857142857142)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Retail&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(71.3, -6.685714285714285)&quot;
+-                        width=&quot;14.100000000000009&quot;
+-                        height=&quot;13.37142857142857&quot;
++                        transform=&quot;translate(71.3, -6.592857142857143)&quot;
++                        width=&quot;13.400000000000006&quot;
++                        height=&quot;13.185714285714287&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -56,20 +56,20 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(85.4, -6.685714285714285)&quot;
+-                        width=&quot;87.8&quot;
+-                        height=&quot;13.37142857142857&quot;
++                        transform=&quot;translate(84.7, -6.592857142857143)&quot;
++                        width=&quot;83.10000000000001&quot;
++                        height=&quot;13.185714285714287&quot;
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;129.3&quot;
++                        x=&quot;126.25&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;87.8&quot;
+-                        height=&quot;13.37142857142857&quot;
++                        width=&quot;83.10000000000001&quot;
++                        height=&quot;13.185714285714287&quot;
+                         fill=&quot;#fff&quot;
+                         opacity=&quot;1&quot;
+                         font-size=&quot;10.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -82,20 +82,20 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(173.2, -6.685714285714285)&quot;
+-                        width=&quot;87.00000000000001&quot;
+-                        height=&quot;13.37142857142857&quot;
++                        transform=&quot;translate(167.8, -6.592857142857143)&quot;
++                        width=&quot;82.39999999999999&quot;
++                        height=&quot;13.185714285714287&quot;
+                         fill=&quot;#578145&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;216.7&quot;
++                        x=&quot;209&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;87.00000000000001&quot;
+-                        height=&quot;13.37142857142857&quot;
++                        width=&quot;82.39999999999999&quot;
++                        height=&quot;13.185714285714287&quot;
+                         fill=&quot;#fff&quot;
+                         opacity=&quot;1&quot;
+                         font-size=&quot;10.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -109,9 +109,9 @@
+                         United States
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(265.2, 0)&quot;
++                    transform=&quot;translate(255.2, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;10.5&quot;
+                 >
+@@ -120,19 +120,19 @@
+             </g>
+             <g
+                 id=&quot;Brazil&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 38.857142857142854)&quot;
++                transform=&quot;translate(0, 38.42857142857143)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Retail&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(71.3, -6.685714285714285)&quot;
+-                        width=&quot;3.200000000000003&quot;
+-                        height=&quot;13.37142857142857&quot;
++                        transform=&quot;translate(71.3, -6.592857142857143)&quot;
++                        width=&quot;3&quot;
++                        height=&quot;13.185714285714287&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -141,20 +141,20 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(74.5, -6.685714285714285)&quot;
+-                        width=&quot;56.60000000000001&quot;
+-                        height=&quot;13.37142857142857&quot;
++                        transform=&quot;translate(74.3, -6.592857142857143)&quot;
++                        width=&quot;53.60000000000001&quot;
++                        height=&quot;13.185714285714287&quot;
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;102.80000000000001&quot;
++                        x=&quot;101.1&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;56.60000000000001&quot;
+-                        height=&quot;13.37142857142857&quot;
++                        width=&quot;53.60000000000001&quot;
++                        height=&quot;13.185714285714287&quot;
+                         fill=&quot;#fff&quot;
+                         opacity=&quot;1&quot;
+                         font-size=&quot;10.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -167,20 +167,20 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(131.1, -6.685714285714285)&quot;
+-                        width=&quot;112.2&quot;
+-                        height=&quot;13.37142857142857&quot;
++                        transform=&quot;translate(127.9, -6.592857142857143)&quot;
++                        width=&quot;106.3&quot;
++                        height=&quot;13.185714285714287&quot;
+                         fill=&quot;#578145&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;187.2&quot;
++                        x=&quot;181.05&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;112.2&quot;
+-                        height=&quot;13.37142857142857&quot;
++                        width=&quot;106.3&quot;
++                        height=&quot;13.185714285714287&quot;
+                         fill=&quot;#fff&quot;
+                         opacity=&quot;1&quot;
+                         font-size=&quot;10.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -194,9 +194,9 @@
+                         Brazil
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(248.3, 0)&quot;
++                    transform=&quot;translate(239.2, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;10.5&quot;
+                 >
+@@ -205,28 +205,28 @@
+             </g>
+             <g
+                 id=&quot;Indonesia&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 59.42857142857142)&quot;
++                transform=&quot;translate(0, 58.71428571428571)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Retail&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(71.3, -6.685714285714285)&quot;
+-                        width=&quot;59.500000000000014&quot;
+-                        height=&quot;13.37142857142857&quot;
++                        transform=&quot;translate(71.3, -6.592857142857143)&quot;
++                        width=&quot;56.3&quot;
++                        height=&quot;13.185714285714287&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;101.05000000000001&quot;
++                        x=&quot;99.44999999999999&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;59.500000000000014&quot;
+-                        height=&quot;13.37142857142857&quot;
++                        width=&quot;56.3&quot;
++                        height=&quot;13.185714285714287&quot;
+                         fill=&quot;#fff&quot;
+                         opacity=&quot;1&quot;
+                         font-size=&quot;10.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -239,20 +239,20 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(130.8, -6.685714285714285)&quot;
+-                        width=&quot;47.8&quot;
+-                        height=&quot;13.37142857142857&quot;
++                        transform=&quot;translate(127.6, -6.592857142857143)&quot;
++                        width=&quot;45.2&quot;
++                        height=&quot;13.185714285714287&quot;
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;154.70000000000002&quot;
++                        x=&quot;150.2&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;47.8&quot;
+-                        height=&quot;13.37142857142857&quot;
++                        width=&quot;45.2&quot;
++                        height=&quot;13.185714285714287&quot;
+                         fill=&quot;#fff&quot;
+                         opacity=&quot;1&quot;
+                         font-size=&quot;10.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -265,20 +265,20 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(178.5, -6.685714285714285)&quot;
+-                        width=&quot;63.7&quot;
+-                        height=&quot;13.37142857142857&quot;
++                        transform=&quot;translate(172.8, -6.592857142857143)&quot;
++                        width=&quot;60.3&quot;
++                        height=&quot;13.185714285714287&quot;
+                         fill=&quot;#578145&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;210.35&quot;
++                        x=&quot;202.95000000000002&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;63.7&quot;
+-                        height=&quot;13.37142857142857&quot;
++                        width=&quot;60.3&quot;
++                        height=&quot;13.185714285714287&quot;
+                         fill=&quot;#fff&quot;
+                         opacity=&quot;1&quot;
+                         font-size=&quot;10.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -292,25 +292,25 @@
+                         Indonesia
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(247.2, 0)&quot;
++                    transform=&quot;translate(238.1, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;10.5&quot;
+                 >
+                     144 kg
+                 </text>
+             </g>
+-            <g id=&quot;China&quot; class=&quot;bar&quot; transform=&quot;translate(0, 80)&quot; opacity=&quot;1&quot;>
++            <g id=&quot;China&quot; class=&quot;bar&quot; transform=&quot;translate(0, 79)&quot; opacity=&quot;1&quot;>
+                 <g id=&quot;Retail&quot;>
+
+... (diff truncated: showing 300 of 635 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="homelessness-rate-point-in-time-count" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>homelessness-rate-point-in-time-count?tab=stacked-discrete-bar</h2>
+            <button class="copy-slug-btn" data-slug="homelessness-rate-point-in-time-count?tab=stacked-discrete-bar" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (262)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/homelessness-rate-point-in-time-count?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/homelessness-rate-point-in-time-count-a7a77a74cb2b694300091c7481efc11f_v46_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-focus-stacked-discrete-bar/grapher/homelessness-rate-point-in-time-count?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/homelessness-rate-point-in-time-count-a7a77a74cb2b694300091c7481efc11f_v46_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/homelessness-rate-point-in-time-count-a7a77a74cb2b694300091c7481efc11f_v46_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/homelessness-rate-point-in-time-count-a7a77a74cb2b694300091c7481efc11f_v46_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: homelessness-rate-point-in-time-count-a7a77a74cb2b694300091c7481efc11f_v46_300x160.svg
+===================================================================
+--- homelessness-rate-point-in-time-count-a7a77a74cb2b694300091c7481efc11f_v46_300x160.svg	
++++ homelessness-rate-point-in-time-count-a7a77a74cb2b694300091c7481efc11f_v46_300x160.svg	
+@@ -25,46 +25,46 @@
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+         <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+             <g id=&quot;tick-labels&quot;>
+                 <text
+-                    x=&quot;60.34400000000001&quot;
+-                    y=&quot;152&quot;
++                    x=&quot;59.617000000000004&quot;
++                    y=&quot;150&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;start&quot;
+                     font-size=&quot;10&quot;
+                 >
+                     0
+                 </text>
+                 <text
+-                    x=&quot;114.7&quot;
+-                    y=&quot;152&quot;
++                    x=&quot;111.8&quot;
++                    y=&quot;150&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;10&quot;
+                 >
+                     100
+                 </text>
+                 <text
+-                    x=&quot;169&quot;
+-                    y=&quot;152&quot;
++                    x=&quot;163.9&quot;
++                    y=&quot;150&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;10&quot;
+                 >
+                     200
+                 </text>
+                 <text
+-                    x=&quot;223.4&quot;
+-                    y=&quot;152&quot;
++                    x=&quot;216.1&quot;
++                    y=&quot;150&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;10&quot;
+                 >
+                     300
+                 </text>
+                 <text
+-                    x=&quot;277.7&quot;
+-                    y=&quot;152&quot;
++                    x=&quot;268.3&quot;
++                    y=&quot;150&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;10&quot;
+                 >
+@@ -74,75 +74,75 @@
+         </g>
+         <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+             <line
+                 id=&quot;0&quot;
+-                x1=&quot;60.3&quot;
+-                y1=&quot;137.00&quot;
+-                x2=&quot;60.3&quot;
++                x1=&quot;59.6&quot;
++                y1=&quot;135.00&quot;
++                x2=&quot;59.6&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#999&quot;
+             ></line>
+             <line
+                 id=&quot;100&quot;
+-                x1=&quot;114.7&quot;
+-                y1=&quot;137.00&quot;
+-                x2=&quot;114.7&quot;
++                x1=&quot;111.8&quot;
++                y1=&quot;135.00&quot;
++                x2=&quot;111.8&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;200&quot;
+-                x1=&quot;169&quot;
+-                y1=&quot;137.00&quot;
+-                x2=&quot;169&quot;
++                x1=&quot;163.9&quot;
++                y1=&quot;135.00&quot;
++                x2=&quot;163.9&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;300&quot;
+-                x1=&quot;223.4&quot;
+-                y1=&quot;137.00&quot;
+-                x2=&quot;223.4&quot;
++                x1=&quot;216.1&quot;
++                y1=&quot;135.00&quot;
++                x2=&quot;216.1&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;400&quot;
+-                x1=&quot;277.7&quot;
+-                y1=&quot;137.00&quot;
+-                x2=&quot;277.7&quot;
++                x1=&quot;268.3&quot;
++                y1=&quot;135.00&quot;
++                x2=&quot;268.3&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+         </g>
+         <line
+             id=&quot;vertical-zero-line&quot;
+-            x1=&quot;60.05&quot;
+-            y1=&quot;137.00&quot;
+-            x2=&quot;60.05&quot;
++            x1=&quot;59.35&quot;
++            y1=&quot;135.00&quot;
++            x2=&quot;59.35&quot;
+             y2=&quot;8.00&quot;
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+         ></line>
+         <g id=&quot;bars&quot;>
+             <g
+                 id=&quot;United-Kingdom&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 10.931818181818182)&quot;
++                transform=&quot;translate(0, 10.886363636363637)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Living-in-the-streets-or-public-spaces&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(60.3, -1.905681818181818)&quot;
+-                        width=&quot;9&quot;
+-                        height=&quot;3.811363636363636&quot;
++                        transform=&quot;translate(59.6, -1.876136363636364)&quot;
++                        width=&quot;8.600000000000001&quot;
++                        height=&quot;3.752272727272728&quot;
+                         fill=&quot;#c15065&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -151,11 +151,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(69.3, -1.905681818181818)&quot;
+-                        width=&quot;222.7&quot;
+-                        height=&quot;3.811363636363636&quot;
++                        transform=&quot;translate(68.2, -1.876136363636364)&quot;
++                        width=&quot;213.79999999999998&quot;
++                        height=&quot;3.752272727272728&quot;
+                         fill=&quot;#18470f&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -164,36 +164,36 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(292, -1.905681818181818)&quot;
++                        transform=&quot;translate(282, -1.876136363636364)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;3.811363636363636&quot;
++                        height=&quot;3.752272727272728&quot;
+                         fill=&quot;#bc8e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;55.3&quot; y=&quot;2.7&quot; text-anchor=&quot;end&quot; font-size=&quot;7.20&quot;>
+-                    <tspan x=&quot;55.3&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
++                <text x=&quot;54.6&quot; y=&quot;2.6&quot; text-anchor=&quot;end&quot; font-size=&quot;7.10&quot;>
++                    <tspan x=&quot;54.6&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         United Kingdom
+                     </tspan>
+                 </text>
+             </g>
+             <g
+                 id=&quot;France&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 16.795454545454547)&quot;
++                transform=&quot;translate(0, 16.65909090909091)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Living-in-the-streets-or-public-spaces&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(60.3, -1.905681818181818)&quot;
+-                        width=&quot;4.400000000000006&quot;
+-                        height=&quot;3.811363636363636&quot;
++                        transform=&quot;translate(59.6, -1.876136363636364)&quot;
++                        width=&quot;4.199999999999996&quot;
++                        height=&quot;3.752272727272728&quot;
+                         fill=&quot;#c15065&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -202,11 +202,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(64.7, -1.905681818181818)&quot;
+-                        width=&quot;162.39999999999998&quot;
+-                        height=&quot;3.811363636363636&quot;
++                        transform=&quot;translate(63.8, -1.876136363636364)&quot;
++                        width=&quot;155.9&quot;
++                        height=&quot;3.752272727272728&quot;
+                         fill=&quot;#18470f&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -215,36 +215,36 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(227.1, -1.905681818181818)&quot;
++                        transform=&quot;translate(219.7, -1.876136363636364)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;3.811363636363636&quot;
++                        height=&quot;3.752272727272728&quot;
+                         fill=&quot;#bc8e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;55.3&quot; y=&quot;2.7&quot; text-anchor=&quot;end&quot; font-size=&quot;7.20&quot;>
+-                    <tspan x=&quot;55.3&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
++                <text x=&quot;54.6&quot; y=&quot;2.6&quot; text-anchor=&quot;end&quot; font-size=&quot;7.10&quot;>
++                    <tspan x=&quot;54.6&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         France
+                     </tspan>
+                 </text>
+             </g>
+             <g
+                 id=&quot;Czechia&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 22.659090909090907)&quot;
++                transform=&quot;translate(0, 22.431818181818183)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Living-in-the-streets-or-public-spaces&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(60.3, -1.905681818181818)&quot;
+-                        width=&quot;46.7&quot;
+-                        height=&quot;3.811363636363636&quot;
++                        transform=&quot;translate(59.6, -1.876136363636364)&quot;
++                        width=&quot;44.800000000000004&quot;
++                        height=&quot;3.752272727272728&quot;
+                         fill=&quot;#c15065&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -253,11 +253,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(107, -1.905681818181818)&quot;
+-                        width=&quot;107.89999999999999&quot;
+-                        height=&quot;3.811363636363636&quot;
++                        transform=&quot;translate(104.4, -1.876136363636364)&quot;
++                        width=&quot;103.5&quot;
++                        height=&quot;3.752272727272728&quot;
+                         fill=&quot;#18470f&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -266,36 +266,36 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(214.8, -1.905681818181818)&quot;
+
+... (diff truncated: showing 300 of 1450 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="how-important-religion-is-in-your-life" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>how-important-religion-is-in-your-life?tab=stacked-discrete-bar</h2>
+            <button class="copy-slug-btn" data-slug="how-important-religion-is-in-your-life?tab=stacked-discrete-bar" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (237)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/how-important-religion-is-in-your-life?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/how-important-religion-is-in-your-life-a7a77a74cb2b694300091c7481efc11f_v28_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-focus-stacked-discrete-bar/grapher/how-important-religion-is-in-your-life?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/how-important-religion-is-in-your-life-a7a77a74cb2b694300091c7481efc11f_v28_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/how-important-religion-is-in-your-life-a7a77a74cb2b694300091c7481efc11f_v28_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/how-important-religion-is-in-your-life-a7a77a74cb2b694300091c7481efc11f_v28_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: how-important-religion-is-in-your-life-a7a77a74cb2b694300091c7481efc11f_v28_300x160.svg
+===================================================================
+--- how-important-religion-is-in-your-life-a7a77a74cb2b694300091c7481efc11f_v28_300x160.svg	
++++ how-important-religion-is-in-your-life-a7a77a74cb2b694300091c7481efc11f_v28_300x160.svg	
+@@ -26,121 +26,112 @@
+         <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+             <g id=&quot;tick-labels&quot;>
+                 <text
+                     x=&quot;84.335&quot;
+-                    y=&quot;152&quot;
++                    y=&quot;150&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;start&quot;
+                     font-size=&quot;10&quot;
+                 >
+                     0%
+                 </text>
+                 <text
+-                    x=&quot;125.9&quot;
+-                    y=&quot;152&quot;
++                    x=&quot;123.9&quot;
++                    y=&quot;150&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;10&quot;
+                 >
+                     20%
+                 </text>
+                 <text
+-                    x=&quot;167.4&quot;
+-                    y=&quot;152&quot;
++                    x=&quot;163.4&quot;
++                    y=&quot;150&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;10&quot;
+                 >
+                     40%
+                 </text>
+                 <text
+-                    x=&quot;208.9&quot;
+-                    y=&quot;152&quot;
++                    x=&quot;202.9&quot;
++                    y=&quot;150&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;10&quot;
+                 >
+                     60%
+                 </text>
+                 <text
+-                    x=&quot;250.5&quot;
+-                    y=&quot;152&quot;
++                    x=&quot;242.5&quot;
++                    y=&quot;150&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;10&quot;
+                 >
+                     80%
+                 </text>
+-                <text
+-                    x=&quot;292&quot;
+-                    y=&quot;152&quot;
+-                    fill=&quot;#5b5b5b&quot;
+-                    text-anchor=&quot;end&quot;
+-                    font-size=&quot;10&quot;
+-                >
+-                    100%
+-                </text>
+             </g>
+         </g>
+         <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+             <line
+                 id=&quot;0%&quot;
+                 x1=&quot;84.3&quot;
+-                y1=&quot;137.00&quot;
++                y1=&quot;135.00&quot;
+                 x2=&quot;84.3&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#999&quot;
+             ></line>
+             <line
+                 id=&quot;20%&quot;
+-                x1=&quot;125.9&quot;
+-                y1=&quot;137.00&quot;
+-                x2=&quot;125.9&quot;
++                x1=&quot;123.9&quot;
++                y1=&quot;135.00&quot;
++                x2=&quot;123.9&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;40%&quot;
+-                x1=&quot;167.4&quot;
+-                y1=&quot;137.00&quot;
+-                x2=&quot;167.4&quot;
++                x1=&quot;163.4&quot;
++                y1=&quot;135.00&quot;
++                x2=&quot;163.4&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;60%&quot;
+-                x1=&quot;208.9&quot;
+-                y1=&quot;137.00&quot;
+-                x2=&quot;208.9&quot;
++                x1=&quot;202.9&quot;
++                y1=&quot;135.00&quot;
++                x2=&quot;202.9&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;80%&quot;
+-                x1=&quot;250.5&quot;
+-                y1=&quot;137.00&quot;
+-                x2=&quot;250.5&quot;
++                x1=&quot;242.5&quot;
++                y1=&quot;135.00&quot;
++                x2=&quot;242.5&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;100%&quot;
+-                x1=&quot;292&quot;
+-                y1=&quot;137.00&quot;
+-                x2=&quot;292&quot;
++                x1=&quot;282&quot;
++                y1=&quot;135.00&quot;
++                x2=&quot;282&quot;
+                 y2=&quot;8.00&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+         </g>
+         <line
+             id=&quot;vertical-zero-line&quot;
+             x1=&quot;84.05&quot;
+-            y1=&quot;137.00&quot;
++            y1=&quot;135.00&quot;
+             x2=&quot;84.05&quot;
+             y2=&quot;8.00&quot;
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+@@ -148,19 +139,19 @@
+         <g id=&quot;bars&quot;>
+             <g
+                 id=&quot;Indonesia&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 13.375)&quot;
++                transform=&quot;translate(0, 13.291666666666666)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Very-important&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(84.3, -3.49375)&quot;
+-                        width=&quot;203.7&quot;
+-                        height=&quot;6.9875&quot;
++                        transform=&quot;translate(84.3, -3.439583333333333)&quot;
++                        width=&quot;193.89999999999998&quot;
++                        height=&quot;6.879166666666666&quot;
+                         fill=&quot;#2c7bb7&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -169,11 +160,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(288, -3.49375)&quot;
+-                        width=&quot;3.700000000000003&quot;
+-                        height=&quot;6.9875&quot;
++                        transform=&quot;translate(278.2, -3.439583333333333)&quot;
++                        width=&quot;3.5&quot;
++                        height=&quot;6.879166666666666&quot;
+                         fill=&quot;#abd9e9&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -182,11 +173,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(291.7, -3.49375)&quot;
++                        transform=&quot;translate(281.7, -3.439583333333333)&quot;
+                         width=&quot;0.29999999999999716&quot;
+-                        height=&quot;6.9875&quot;
++                        height=&quot;6.879166666666666&quot;
+                         fill=&quot;#fdae61&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -195,11 +186,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(292, -3.49375)&quot;
++                        transform=&quot;translate(282, -3.439583333333333)&quot;
+                         width=&quot;0.10000000000000853&quot;
+-                        height=&quot;6.9875&quot;
++                        height=&quot;6.879166666666666&quot;
+                         fill=&quot;#d7191c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -208,11 +199,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(292, -3.49375)&quot;
++                        transform=&quot;translate(282, -3.439583333333333)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;6.9875&quot;
++                        height=&quot;6.879166666666666&quot;
+                         fill=&quot;#252525&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -221,11 +212,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(292, -3.49375)&quot;
++                        transform=&quot;translate(282, -3.439583333333333)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;6.9875&quot;
++                        height=&quot;6.879166666666666&quot;
+                         fill=&quot;#636363&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -238,19 +229,19 @@
+             </g>
+             <g
+                 id=&quot;Egypt&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 24.125)&quot;
++                transform=&quot;translate(0, 23.875)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Very-important&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(84.3, -3.49375)&quot;
+-                        width=&quot;202.2&quot;
+-                        height=&quot;6.9875&quot;
++                        transform=&quot;translate(84.3, -3.439583333333333)&quot;
++                        width=&quot;192.39999999999998&quot;
++                        height=&quot;6.879166666666666&quot;
+                         fill=&quot;#2c7bb7&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -259,11 +250,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(286.5, -3.49375)&quot;
+-                        width=&quot;5.6000000000000085&quot;
+-                        height=&quot;6.9875&quot;
++                        transform=&quot;translate(276.7, -3.439583333333333)&quot;
++                        width=&quot;5.299999999999997&quot;
++                        height=&quot;6.879166666666666&quot;
+                         fill=&quot;#abd9e9&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -272,11 +263,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(292, -3.49375)&quot;
++                        transform=&quot;translate(282, -3.439583333333333)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;6.9875&quot;
++                        height=&quot;6.879166666666666&quot;
+                         fill=&quot;#fdae61&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+
+... (diff truncated: showing 300 of 1315 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="nuclear-warhead-inventories" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>nuclear-warhead-inventories?tab=stacked-discrete-bar</h2>
+            <button class="copy-slug-btn" data-slug="nuclear-warhead-inventories?tab=stacked-discrete-bar" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (117)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/nuclear-warhead-inventories?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/nuclear-warhead-inventories-a7a77a74cb2b694300091c7481efc11f_v74_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-focus-stacked-discrete-bar/grapher/nuclear-warhead-inventories?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/nuclear-warhead-inventories-a7a77a74cb2b694300091c7481efc11f_v74_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/nuclear-warhead-inventories-a7a77a74cb2b694300091c7481efc11f_v74_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/nuclear-warhead-inventories-a7a77a74cb2b694300091c7481efc11f_v74_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: nuclear-warhead-inventories-a7a77a74cb2b694300091c7481efc11f_v74_300x160.svg
+===================================================================
+--- nuclear-warhead-inventories-a7a77a74cb2b694300091c7481efc11f_v74_300x160.svg	
++++ nuclear-warhead-inventories-a7a77a74cb2b694300091c7481efc11f_v74_300x160.svg	
+@@ -25,24 +25,29 @@
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+         <line
+             id=&quot;vertical-zero-line&quot;
+             x1=&quot;84.05&quot;
+-            y1=&quot;152.00&quot;
++            y1=&quot;150.00&quot;
+             x2=&quot;84.05&quot;
+             y2=&quot;8.00&quot;
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+         ></line>
+         <g id=&quot;bars&quot;>
+-            <g id=&quot;Russia&quot; class=&quot;bar&quot; transform=&quot;translate(0, 16)&quot; opacity=&quot;1&quot;>
++            <g
++                id=&quot;Russia&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(0, 15.888888888888888)&quot;
++                opacity=&quot;1&quot;
++            >
+                 <g id=&quot;Deployed-strategic-warheads&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(84.3, -5.199999999999999)&quot;
+-                        width=&quot;56.8&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(84.3, -5.127777777777777)&quot;
++                        width=&quot;53.7&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#d7301f&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -51,11 +56,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(141.1, -5.199999999999999)&quot;
++                        transform=&quot;translate(138, -5.127777777777777)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#fc8d59&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -64,11 +69,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(141.1, -5.199999999999999)&quot;
+-                        width=&quot;86.00000000000001&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(138, -5.127777777777777)&quot;
++                        width=&quot;81.2&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#fdcc8a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -77,11 +82,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(227, -5.199999999999999)&quot;
+-                        width=&quot;38.2&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(219.2, -5.127777777777777)&quot;
++                        width=&quot;36.10000000000001&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#fef0d9&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -91,9 +96,9 @@
+                         Russia
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(270.2, 0)&quot;
++                    transform=&quot;translate(260.2, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;10.5&quot;
+                 >
+@@ -102,19 +107,19 @@
+             </g>
+             <g
+                 id=&quot;United-States&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 32)&quot;
++                transform=&quot;translate(0, 31.666666666666664)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Deployed-strategic-warheads&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(84.3, -5.199999999999999)&quot;
+-                        width=&quot;55.500000000000014&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(84.3, -5.127777777777777)&quot;
++                        width=&quot;52.39999999999999&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#d7301f&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -123,11 +128,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(139.8, -5.199999999999999)&quot;
+-                        width=&quot;3.4000000000000057&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(136.7, -5.127777777777777)&quot;
++                        width=&quot;3.200000000000003&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#fc8d59&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -136,11 +141,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(143.1, -5.199999999999999)&quot;
+-                        width=&quot;64.10000000000001&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(139.8, -5.127777777777777)&quot;
++                        width=&quot;60.60000000000001&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#fdcc8a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -149,11 +154,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(207.2, -5.199999999999999)&quot;
+-                        width=&quot;52.39999999999999&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(200.4, -5.127777777777777)&quot;
++                        width=&quot;49.500000000000014&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#fef0d9&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -163,25 +168,30 @@
+                         United States
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(264.5, 0)&quot;
++                    transform=&quot;translate(254.8, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;10.5&quot;
+                 >
+                     5,277
+                 </text>
+             </g>
+-            <g id=&quot;China&quot; class=&quot;bar&quot; transform=&quot;translate(0, 48)&quot; opacity=&quot;1&quot;>
++            <g
++                id=&quot;China&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(0, 47.44444444444444)&quot;
++                opacity=&quot;1&quot;
++            >
+                 <g id=&quot;Deployed-strategic-warheads&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(84.3, -5.199999999999999)&quot;
++                        transform=&quot;translate(84.3, -5.127777777777777)&quot;
+                         width=&quot;0.7999999999999972&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#d7301f&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -190,11 +200,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(85.1, -5.199999999999999)&quot;
++                        transform=&quot;translate(85.1, -5.127777777777777)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#fc8d59&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -203,11 +213,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(85.1, -5.199999999999999)&quot;
+-                        width=&quot;19.200000000000003&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(85.1, -5.127777777777777)&quot;
++                        width=&quot;18.10000000000001&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#fdcc8a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -216,11 +226,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(104.3, -5.199999999999999)&quot;
++                        transform=&quot;translate(103.2, -5.127777777777777)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#fef0d9&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -230,9 +240,9 @@
+                         China
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(109.3, 0)&quot;
++                    transform=&quot;translate(108.2, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;10.5&quot;
+                 >
+@@ -241,19 +251,19 @@
+             </g>
+             <g
+                 id=&quot;France&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 63.99999999999999)&quot;
++                transform=&quot;translate(0, 63.222222222222214)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Deployed-strategic-warheads&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(84.3, -5.199999999999999)&quot;
+-                        width=&quot;9.299999999999997&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(84.3, -5.127777777777777)&quot;
++                        width=&quot;8.799999999999997&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#d7301f&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -262,11 +272,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(93.6, -5.199999999999999)&quot;
++                        transform=&quot;translate(93.1, -5.127777777777777)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#fc8d59&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -275,11 +285,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(93.6, -5.199999999999999)&quot;
+-                        width=&quot;0.4000000000000057&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(93.1, -5.127777777777777)&quot;
++                        width=&quot;0.29999999999999716&quot;
+
+... (diff truncated: showing 300 of 717 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="per-capita-energy-stacked" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>per-capita-energy-stacked?tab=stacked-discrete-bar</h2>
+            <button class="copy-slug-btn" data-slug="per-capita-energy-stacked?tab=stacked-discrete-bar" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (273)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/per-capita-energy-stacked?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/per-capita-energy-stacked-a7a77a74cb2b694300091c7481efc11f_v22_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-focus-stacked-discrete-bar/grapher/per-capita-energy-stacked?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/per-capita-energy-stacked-a7a77a74cb2b694300091c7481efc11f_v22_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/per-capita-energy-stacked-a7a77a74cb2b694300091c7481efc11f_v22_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/per-capita-energy-stacked-a7a77a74cb2b694300091c7481efc11f_v22_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: per-capita-energy-stacked-a7a77a74cb2b694300091c7481efc11f_v22_300x160.svg
+===================================================================
+--- per-capita-energy-stacked-a7a77a74cb2b694300091c7481efc11f_v22_300x160.svg	
++++ per-capita-energy-stacked-a7a77a74cb2b694300091c7481efc11f_v22_300x160.svg	
+@@ -25,9 +25,9 @@
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+         <line
+             id=&quot;vertical-zero-line&quot;
+             x1=&quot;84.05&quot;
+-            y1=&quot;152.00&quot;
++            y1=&quot;150.00&quot;
+             x2=&quot;84.05&quot;
+             y2=&quot;8.00&quot;
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+@@ -35,19 +35,19 @@
+         <g id=&quot;bars&quot;>
+             <g
+                 id=&quot;United-States&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 14.545454545454545)&quot;
++                transform=&quot;translate(0, 14.454545454545453)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Coal&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(84.3, -4.254545454545454)&quot;
+-                        width=&quot;12.799999999999997&quot;
+-                        height=&quot;8.509090909090908&quot;
++                        transform=&quot;translate(84.3, -4.195454545454546)&quot;
++                        width=&quot;11.900000000000006&quot;
++                        height=&quot;8.390909090909092&quot;
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -56,11 +56,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(97.1, -4.254545454545454)&quot;
+-                        width=&quot;57.8&quot;
+-                        height=&quot;8.509090909090908&quot;
++                        transform=&quot;translate(96.2, -4.195454545454546)&quot;
++                        width=&quot;53.89999999999999&quot;
++                        height=&quot;8.390909090909092&quot;
+                         fill=&quot;#c15065&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -69,11 +69,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(154.8, -4.254545454545454)&quot;
+-                        width=&quot;52.39999999999999&quot;
+-                        height=&quot;8.509090909090908&quot;
++                        transform=&quot;translate(150.1, -4.195454545454546)&quot;
++                        width=&quot;48.89999999999999&quot;
++                        height=&quot;8.390909090909092&quot;
+                         fill=&quot;#6d3e91&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -82,11 +82,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(207.2, -4.254545454545454)&quot;
+-                        width=&quot;11.700000000000003&quot;
+-                        height=&quot;8.509090909090908&quot;
++                        transform=&quot;translate(199, -4.195454545454546)&quot;
++                        width=&quot;10.900000000000006&quot;
++                        height=&quot;8.390909090909092&quot;
+                         fill=&quot;#00847e&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -95,11 +95,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(218.9, -4.254545454545454)&quot;
+-                        width=&quot;3.4000000000000057&quot;
+-                        height=&quot;8.509090909090908&quot;
++                        transform=&quot;translate(209.9, -4.195454545454546)&quot;
++                        width=&quot;3.200000000000003&quot;
++                        height=&quot;8.390909090909092&quot;
+                         fill=&quot;#286bbb&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -108,11 +108,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(222.2, -4.254545454545454)&quot;
+-                        width=&quot;6.5&quot;
+-                        height=&quot;8.509090909090908&quot;
++                        transform=&quot;translate(213, -4.195454545454546)&quot;
++                        width=&quot;6.1000000000000085&quot;
++                        height=&quot;8.390909090909092&quot;
+                         fill=&quot;#00295b&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -121,11 +121,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(228.7, -4.254545454545454)&quot;
+-                        width=&quot;4.400000000000006&quot;
+-                        height=&quot;8.509090909090908&quot;
++                        transform=&quot;translate(219.1, -4.195454545454546)&quot;
++                        width=&quot;4.1000000000000085&quot;
++                        height=&quot;8.390909090909092&quot;
+                         fill=&quot;#e56e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -134,11 +134,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(233.1, -4.254545454545454)&quot;
+-                        width=&quot;1.2000000000000028&quot;
+-                        height=&quot;8.509090909090908&quot;
++                        transform=&quot;translate(223.1, -4.195454545454546)&quot;
++                        width=&quot;1.1000000000000085&quot;
++                        height=&quot;8.390909090909092&quot;
+                         fill=&quot;#578145&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -148,9 +148,9 @@
+                         United States
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(239.3, 0)&quot;
++                    transform=&quot;translate(229.3, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;10.5&quot;
+                 >
+@@ -159,19 +159,19 @@
+             </g>
+             <g
+                 id=&quot;Sweden&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 27.636363636363633)&quot;
++                transform=&quot;translate(0, 27.363636363636363)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Coal&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(84.3, -4.254545454545454)&quot;
+-                        width=&quot;3.6000000000000085&quot;
+-                        height=&quot;8.509090909090908&quot;
++                        transform=&quot;translate(84.3, -4.195454545454546)&quot;
++                        width=&quot;3.299999999999997&quot;
++                        height=&quot;8.390909090909092&quot;
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -180,11 +180,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(87.9, -4.254545454545454)&quot;
+-                        width=&quot;25.700000000000003&quot;
+-                        height=&quot;8.509090909090908&quot;
++                        transform=&quot;translate(87.6, -4.195454545454546)&quot;
++                        width=&quot;24&quot;
++                        height=&quot;8.390909090909092&quot;
+                         fill=&quot;#c15065&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -193,11 +193,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(113.6, -4.254545454545454)&quot;
+-                        width=&quot;1.7999999999999972&quot;
+-                        height=&quot;8.509090909090908&quot;
++                        transform=&quot;translate(111.6, -4.195454545454546)&quot;
++                        width=&quot;1.7000000000000028&quot;
++                        height=&quot;8.390909090909092&quot;
+                         fill=&quot;#6d3e91&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -206,11 +206,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(115.4, -4.254545454545454)&quot;
+-                        width=&quot;23.400000000000006&quot;
+-                        height=&quot;8.509090909090908&quot;
++                        transform=&quot;translate(113.3, -4.195454545454546)&quot;
++                        width=&quot;21.799999999999997&quot;
++                        height=&quot;8.390909090909092&quot;
+                         fill=&quot;#00847e&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -219,11 +219,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(138.7, -4.254545454545454)&quot;
+-                        width=&quot;29.799999999999997&quot;
+-                        height=&quot;8.509090909090908&quot;
++                        transform=&quot;translate(135.1, -4.195454545454546)&quot;
++                        width=&quot;27.799999999999997&quot;
++                        height=&quot;8.390909090909092&quot;
+                         fill=&quot;#286bbb&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -232,11 +232,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(168.5, -4.254545454545454)&quot;
+-                        width=&quot;18.700000000000003&quot;
+-                        height=&quot;8.509090909090908&quot;
++                        transform=&quot;translate(162.9, -4.195454545454546)&quot;
++                        width=&quot;17.5&quot;
++                        height=&quot;8.390909090909092&quot;
+                         fill=&quot;#00295b&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -245,11 +245,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(187.2, -4.254545454545454)&quot;
+-                        width=&quot;1.9000000000000057&quot;
+-                        height=&quot;8.509090909090908&quot;
++                        transform=&quot;translate(180.3, -4.195454545454546)&quot;
++                        width=&quot;1.7999999999999972&quot;
++                        height=&quot;8.390909090909092&quot;
+                         fill=&quot;#e56e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -258,11 +258,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(189.1, -4.254545454545454)&quot;
+-                        width=&quot;6.200000000000003&quot;
+-                        height=&quot;8.509090909090908&quot;
++                        transform=&quot;translate(182.1, -4.195454545454546)&quot;
++                        width=&quot;5.700000000000003&quot;
++                        height=&quot;8.390909090909092&quot;
+                         fill=&quot;#578145&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -272,9 +272,9 @@
+                         Sweden
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(200.2, 0)&quot;
++                    transform=&quot;translate(192.8, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;10.5&quot;
+                 >
+@@ -283,19 +283,19 @@
+             </g>
+             <g
+                 id=&quot;Japan&quot;
+                 class=&quot;bar&quot;
+
+... (diff truncated: showing 300 of 1538 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="per-capita-meat-type" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>per-capita-meat-type?tab=stacked-discrete-bar</h2>
+            <button class="copy-slug-btn" data-slug="per-capita-meat-type?tab=stacked-discrete-bar" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (194)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/per-capita-meat-type?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/per-capita-meat-type-a7a77a74cb2b694300091c7481efc11f_v19_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-focus-stacked-discrete-bar/grapher/per-capita-meat-type?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/per-capita-meat-type-a7a77a74cb2b694300091c7481efc11f_v19_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/per-capita-meat-type-a7a77a74cb2b694300091c7481efc11f_v19_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/per-capita-meat-type-a7a77a74cb2b694300091c7481efc11f_v19_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: per-capita-meat-type-a7a77a74cb2b694300091c7481efc11f_v19_300x160.svg
+===================================================================
+--- per-capita-meat-type-a7a77a74cb2b694300091c7481efc11f_v19_300x160.svg	
++++ per-capita-meat-type-a7a77a74cb2b694300091c7481efc11f_v19_300x160.svg	
+@@ -25,9 +25,9 @@
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+         <line
+             id=&quot;vertical-zero-line&quot;
+             x1=&quot;71.05&quot;
+-            y1=&quot;152.00&quot;
++            y1=&quot;150.00&quot;
+             x2=&quot;71.05&quot;
+             y2=&quot;8.00&quot;
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+@@ -35,19 +35,19 @@
+         <g id=&quot;bars&quot;>
+             <g
+                 id=&quot;Portugal&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 15.2)&quot;
++                transform=&quot;translate(0, 15.1)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Poultry&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(71.3, -4.68)&quot;
+-                        width=&quot;43.2&quot;
+-                        height=&quot;9.36&quot;
++                        transform=&quot;translate(71.3, -4.615)&quot;
++                        width=&quot;40.900000000000006&quot;
++                        height=&quot;9.23&quot;
+                         fill=&quot;#bc8e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -56,11 +56,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(114.5, -4.68)&quot;
+-                        width=&quot;27.700000000000003&quot;
+-                        height=&quot;9.36&quot;
++                        transform=&quot;translate(112.2, -4.615)&quot;
++                        width=&quot;26.299999999999997&quot;
++                        height=&quot;9.23&quot;
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -69,11 +69,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(142.2, -4.68)&quot;
+-                        width=&quot;2.5&quot;
+-                        height=&quot;9.36&quot;
++                        transform=&quot;translate(138.5, -4.615)&quot;
++                        width=&quot;2.4000000000000057&quot;
++                        height=&quot;9.23&quot;
+                         fill=&quot;#6d3e91&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -82,11 +82,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(144.7, -4.68)&quot;
+-                        width=&quot;48.60000000000001&quot;
+-                        height=&quot;9.36&quot;
++                        transform=&quot;translate(140.8, -4.615)&quot;
++                        width=&quot;46&quot;
++                        height=&quot;9.23&quot;
+                         fill=&quot;#d73c50&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -95,11 +95,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(193.3, -4.68)&quot;
++                        transform=&quot;translate(186.8, -4.615)&quot;
+                         width=&quot;0.7999999999999972&quot;
+-                        height=&quot;9.36&quot;
++                        height=&quot;9.23&quot;
+                         fill=&quot;#585c64&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -108,11 +108,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(194.1, -4.68)&quot;
+-                        width=&quot;66.10000000000001&quot;
+-                        height=&quot;9.36&quot;
++                        transform=&quot;translate(187.6, -4.615)&quot;
++                        width=&quot;62.60000000000001&quot;
++                        height=&quot;9.23&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -122,9 +122,9 @@
+                         Portugal
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(265.2, 0)&quot;
++                    transform=&quot;translate(255.2, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;10.5&quot;
+                 >
+@@ -133,19 +133,19 @@
+             </g>
+             <g
+                 id=&quot;United-States&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 29.599999999999998)&quot;
++                transform=&quot;translate(0, 29.299999999999997)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Poultry&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(71.3, -4.68)&quot;
+-                        width=&quot;67.39999999999999&quot;
+-                        height=&quot;9.36&quot;
++                        transform=&quot;translate(71.3, -4.615)&quot;
++                        width=&quot;63.89999999999999&quot;
++                        height=&quot;9.23&quot;
+                         fill=&quot;#bc8e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -154,11 +154,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(138.7, -4.68)&quot;
+-                        width=&quot;45.8&quot;
+-                        height=&quot;9.36&quot;
++                        transform=&quot;translate(135.2, -4.615)&quot;
++                        width=&quot;43.400000000000006&quot;
++                        height=&quot;9.23&quot;
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -167,11 +167,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(184.5, -4.68)&quot;
++                        transform=&quot;translate(178.5, -4.615)&quot;
+                         width=&quot;0.7000000000000028&quot;
+-                        height=&quot;9.36&quot;
++                        height=&quot;9.23&quot;
+                         fill=&quot;#6d3e91&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -180,11 +180,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(185.2, -4.68)&quot;
+-                        width=&quot;36&quot;
+-                        height=&quot;9.36&quot;
++                        transform=&quot;translate(179.2, -4.615)&quot;
++                        width=&quot;34.10000000000001&quot;
++                        height=&quot;9.23&quot;
+                         fill=&quot;#d73c50&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -193,11 +193,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(221.2, -4.68)&quot;
+-                        width=&quot;1&quot;
+-                        height=&quot;9.36&quot;
++                        transform=&quot;translate(213.3, -4.615)&quot;
++                        width=&quot;0.9000000000000057&quot;
++                        height=&quot;9.23&quot;
+                         fill=&quot;#585c64&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -206,11 +206,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(222.2, -4.68)&quot;
+-                        width=&quot;27.10000000000001&quot;
+-                        height=&quot;9.36&quot;
++                        transform=&quot;translate(214.2, -4.615)&quot;
++                        width=&quot;25.700000000000003&quot;
++                        height=&quot;9.23&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -220,25 +220,30 @@
+                         United States
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(254.3, 0)&quot;
++                    transform=&quot;translate(244.9, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;10.5&quot;
+                 >
+                     144 kg
+                 </text>
+             </g>
+-            <g id=&quot;Spain&quot; class=&quot;bar&quot; transform=&quot;translate(0, 44)&quot; opacity=&quot;1&quot;>
++            <g
++                id=&quot;Spain&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(0, 43.5)&quot;
++                opacity=&quot;1&quot;
++            >
+                 <g id=&quot;Poultry&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(71.3, -4.68)&quot;
+-                        width=&quot;40.8&quot;
+-                        height=&quot;9.36&quot;
++                        transform=&quot;translate(71.3, -4.615)&quot;
++                        width=&quot;38.60000000000001&quot;
++                        height=&quot;9.23&quot;
+                         fill=&quot;#bc8e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -247,11 +252,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(112.1, -4.68)&quot;
+-                        width=&quot;14.600000000000009&quot;
+-                        height=&quot;9.36&quot;
++                        transform=&quot;translate(109.9, -4.615)&quot;
++                        width=&quot;13.799999999999997&quot;
++                        height=&quot;9.23&quot;
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -260,11 +265,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(126.6, -4.68)&quot;
+-                        width=&quot;2&quot;
+-                        height=&quot;9.36&quot;
++                        transform=&quot;translate(123.7, -4.615)&quot;
++                        width=&quot;1.9000000000000057&quot;
++                        height=&quot;9.23&quot;
+                         fill=&quot;#6d3e91&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -273,11 +278,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(128.6, -4.68)&quot;
+-                        width=&quot;65.60000000000001&quot;
+-                        height=&quot;9.36&quot;
++                        transform=&quot;translate(125.5, -4.615)&quot;
++                        width=&quot;62.10000000000001&quot;
++                        height=&quot;9.23&quot;
+                         fill=&quot;#d73c50&quot;
+
+... (diff truncated: showing 300 of 1105 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="primary-energy-source-bar" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>primary-energy-source-bar?tab=stacked-discrete-bar</h2>
+            <button class="copy-slug-btn" data-slug="primary-energy-source-bar?tab=stacked-discrete-bar" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (212)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/primary-energy-source-bar?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/primary-energy-source-bar-a7a77a74cb2b694300091c7481efc11f_v24_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-focus-stacked-discrete-bar/grapher/primary-energy-source-bar?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/primary-energy-source-bar-a7a77a74cb2b694300091c7481efc11f_v24_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/primary-energy-source-bar-a7a77a74cb2b694300091c7481efc11f_v24_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/primary-energy-source-bar-a7a77a74cb2b694300091c7481efc11f_v24_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: primary-energy-source-bar-a7a77a74cb2b694300091c7481efc11f_v24_300x160.svg
+===================================================================
+--- primary-energy-source-bar-a7a77a74cb2b694300091c7481efc11f_v24_300x160.svg	
++++ primary-energy-source-bar-a7a77a74cb2b694300091c7481efc11f_v24_300x160.svg	
+@@ -25,24 +25,29 @@
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+         <line
+             id=&quot;vertical-zero-line&quot;
+             x1=&quot;84.05&quot;
+-            y1=&quot;152.00&quot;
++            y1=&quot;150.00&quot;
+             x2=&quot;84.05&quot;
+             y2=&quot;8.00&quot;
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+         ></line>
+         <g id=&quot;bars&quot;>
+-            <g id=&quot;China&quot; class=&quot;bar&quot; transform=&quot;translate(0, 16)&quot; opacity=&quot;1&quot;>
++            <g
++                id=&quot;China&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(0, 15.888888888888888)&quot;
++                opacity=&quot;1&quot;
++            >
+                 <g id=&quot;Coal&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(84.3, -5.199999999999999)&quot;
+-                        width=&quot;78.8&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(84.3, -5.127777777777777)&quot;
++                        width=&quot;73.50000000000001&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -51,11 +56,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(163.1, -5.199999999999999)&quot;
+-                        width=&quot;27.60000000000001&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(157.8, -5.127777777777777)&quot;
++                        width=&quot;25.799999999999997&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#c15065&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -64,11 +69,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(190.7, -5.199999999999999)&quot;
+-                        width=&quot;13.400000000000006&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(183.6, -5.127777777777777)&quot;
++                        width=&quot;12.5&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#6d3e91&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -77,11 +82,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(204.1, -5.199999999999999)&quot;
+-                        width=&quot;3.4000000000000057&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(196, -5.127777777777777)&quot;
++                        width=&quot;3.200000000000003&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#00847e&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -90,11 +95,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(207.5, -5.199999999999999)&quot;
+-                        width=&quot;10.200000000000003&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(199.2, -5.127777777777777)&quot;
++                        width=&quot;9.5&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#286bbb&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -103,11 +108,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(217.6, -5.199999999999999)&quot;
+-                        width=&quot;7.5&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(208.7, -5.127777777777777)&quot;
++                        width=&quot;7&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#00295b&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -116,11 +121,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(225.1, -5.199999999999999)&quot;
+-                        width=&quot;6.299999999999997&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(215.7, -5.127777777777777)&quot;
++                        width=&quot;5.900000000000006&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#e56e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -129,11 +134,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(231.4, -5.199999999999999)&quot;
+-                        width=&quot;2&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(221.5, -5.127777777777777)&quot;
++                        width=&quot;1.9000000000000057&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#578145&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -143,9 +148,9 @@
+                         China
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(238.4, 0)&quot;
++                    transform=&quot;translate(228.4, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;10.5&quot;
+                 >
+@@ -154,19 +159,19 @@
+             </g>
+             <g
+                 id=&quot;United-States&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 32)&quot;
++                transform=&quot;translate(0, 31.666666666666664)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Coal&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(84.3, -5.199999999999999)&quot;
+-                        width=&quot;6.799999999999997&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(84.3, -5.127777777777777)&quot;
++                        width=&quot;6.299999999999997&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -175,11 +180,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(91.1, -5.199999999999999)&quot;
+-                        width=&quot;30.700000000000003&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(90.6, -5.127777777777777)&quot;
++                        width=&quot;28.60000000000001&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#c15065&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -188,11 +193,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(121.7, -5.199999999999999)&quot;
+-                        width=&quot;27.799999999999997&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(119.2, -5.127777777777777)&quot;
++                        width=&quot;25.900000000000006&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#6d3e91&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -201,11 +206,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(149.5, -5.199999999999999)&quot;
+-                        width=&quot;6.200000000000003&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(145.1, -5.127777777777777)&quot;
++                        width=&quot;5.799999999999997&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#00847e&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -214,11 +219,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(155.7, -5.199999999999999)&quot;
+-                        width=&quot;1.7999999999999972&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(150.9, -5.127777777777777)&quot;
++                        width=&quot;1.7000000000000028&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#286bbb&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -227,11 +232,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(157.4, -5.199999999999999)&quot;
+-                        width=&quot;3.5&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(152.5, -5.127777777777777)&quot;
++                        width=&quot;3.200000000000003&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#00295b&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -240,11 +245,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(160.9, -5.199999999999999)&quot;
+-                        width=&quot;2.299999999999997&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(155.7, -5.127777777777777)&quot;
++                        width=&quot;2.200000000000003&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#e56e5a&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -253,11 +258,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(163.2, -5.199999999999999)&quot;
+-                        width=&quot;0.7000000000000028&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(157.9, -5.127777777777777)&quot;
++                        width=&quot;0.6000000000000085&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#578145&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -267,25 +272,30 @@
+                         United States
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(168.8, 0)&quot;
++                    transform=&quot;translate(163.5, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;10.5&quot;
+                 >
+                     25,826 TWh
+                 </text>
+             </g>
+-            <g id=&quot;India&quot; class=&quot;bar&quot; transform=&quot;translate(0, 48)&quot; opacity=&quot;1&quot;>
++            <g
+
+... (diff truncated: showing 300 of 1240 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="share-of-households-by-type" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>share-of-households-by-type?tab=stacked-discrete-bar</h2>
+            <button class="copy-slug-btn" data-slug="share-of-households-by-type?tab=stacked-discrete-bar" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (204)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/share-of-households-by-type?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/share-of-households-by-type-a7a77a74cb2b694300091c7481efc11f_v24_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-focus-stacked-discrete-bar/grapher/share-of-households-by-type?tab=stacked-discrete-bar" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/share-of-households-by-type-a7a77a74cb2b694300091c7481efc11f_v24_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/share-of-households-by-type-a7a77a74cb2b694300091c7481efc11f_v24_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/share-of-households-by-type-a7a77a74cb2b694300091c7481efc11f_v24_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: share-of-households-by-type-a7a77a74cb2b694300091c7481efc11f_v24_300x160.svg
+===================================================================
+--- share-of-households-by-type-a7a77a74cb2b694300091c7481efc11f_v24_300x160.svg	
++++ share-of-households-by-type-a7a77a74cb2b694300091c7481efc11f_v24_300x160.svg	
+@@ -25,9 +25,9 @@
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+         <line
+             id=&quot;vertical-zero-line&quot;
+             x1=&quot;71.05&quot;
+-            y1=&quot;152.00&quot;
++            y1=&quot;150.00&quot;
+             x2=&quot;71.05&quot;
+             y2=&quot;8.00&quot;
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+@@ -35,19 +35,19 @@
+         <g id=&quot;bars&quot;>
+             <g
+                 id=&quot;Algeria&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 16)&quot;
++                transform=&quot;translate(0, 15.888888888888888)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Couple-with-children&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(71.3, -5.199999999999999)&quot;
+-                        width=&quot;126.2&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(71.3, -5.127777777777777)&quot;
++                        width=&quot;119.7&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#00847e&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -56,11 +56,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(197.5, -5.199999999999999)&quot;
+-                        width=&quot;12.900000000000006&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(191, -5.127777777777777)&quot;
++                        width=&quot;12.299999999999997&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#38aaba&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -69,11 +69,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(210.4, -5.199999999999999)&quot;
+-                        width=&quot;11.5&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(203.2, -5.127777777777777)&quot;
++                        width=&quot;10.900000000000006&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#00295b&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -82,11 +82,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(221.9, -5.199999999999999)&quot;
+-                        width=&quot;3.1000000000000085&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(214.1, -5.127777777777777)&quot;
++                        width=&quot;3&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#c15065&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -95,11 +95,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(225, -5.199999999999999)&quot;
+-                        width=&quot;40.10000000000001&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(217.1, -5.127777777777777)&quot;
++                        width=&quot;38&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#18470f&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -108,11 +108,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(265.1, -5.199999999999999)&quot;
++                        transform=&quot;translate(255.1, -5.127777777777777)&quot;
+                         width=&quot;0.20000000000000284&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#b13507&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -121,11 +121,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(265.3, -5.199999999999999)&quot;
++                        transform=&quot;translate(255.3, -5.127777777777777)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#807c7c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -135,9 +135,9 @@
+                         Algeria
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(270.3, 0)&quot;
++                    transform=&quot;translate(260.3, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;10.5&quot;
+                 >
+@@ -146,19 +146,19 @@
+             </g>
+             <g
+                 id=&quot;Indonesia&quot;
+                 class=&quot;bar&quot;
+-                transform=&quot;translate(0, 32)&quot;
++                transform=&quot;translate(0, 31.666666666666664)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Couple-with-children&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(71.3, -5.199999999999999)&quot;
+-                        width=&quot;88.60000000000001&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(71.3, -5.127777777777777)&quot;
++                        width=&quot;84.00000000000001&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#00847e&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -167,11 +167,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(159.9, -5.199999999999999)&quot;
+-                        width=&quot;11&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(155.3, -5.127777777777777)&quot;
++                        width=&quot;10.400000000000006&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#38aaba&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -180,11 +180,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(170.8, -5.199999999999999)&quot;
+-                        width=&quot;18.299999999999997&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(165.7, -5.127777777777777)&quot;
++                        width=&quot;17.400000000000006&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#00295b&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -193,11 +193,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(189.2, -5.199999999999999)&quot;
+-                        width=&quot;13.799999999999997&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(183.1, -5.127777777777777)&quot;
++                        width=&quot;13.100000000000009&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#c15065&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -206,11 +206,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(202.9, -5.199999999999999)&quot;
+-                        width=&quot;59.2&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(196.2, -5.127777777777777)&quot;
++                        width=&quot;56.2&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#18470f&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -219,11 +219,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(262.2, -5.199999999999999)&quot;
+-                        width=&quot;3.1000000000000085&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(252.3, -5.127777777777777)&quot;
++                        width=&quot;3&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#b13507&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -232,11 +232,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(265.3, -5.199999999999999)&quot;
++                        transform=&quot;translate(255.3, -5.127777777777777)&quot;
+                         width=&quot;0&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#807c7c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -246,25 +246,30 @@
+                         Indonesia
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(270.3, 0)&quot;
++                    transform=&quot;translate(260.3, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;10.5&quot;
+                 >
+                     100%
+                 </text>
+             </g>
+-            <g id=&quot;Mexico&quot; class=&quot;bar&quot; transform=&quot;translate(0, 48)&quot; opacity=&quot;1&quot;>
++            <g
++                id=&quot;Mexico&quot;
++                class=&quot;bar&quot;
++                transform=&quot;translate(0, 47.44444444444444)&quot;
++                opacity=&quot;1&quot;
++            >
+                 <g id=&quot;Couple-with-children&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(71.3, -5.199999999999999)&quot;
+-                        width=&quot;80.7&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(71.3, -5.127777777777777)&quot;
++                        width=&quot;76.60000000000001&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#00847e&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+@@ -273,11 +278,11 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(152, -5.199999999999999)&quot;
+-                        width=&quot;19.700000000000003&quot;
+-                        height=&quot;10.399999999999999&quot;
++                        transform=&quot;translate(147.9, -5.127777777777777)&quot;
++                        width=&quot;18.700000000000003&quot;
++                        height=&quot;10.255555555555555&quot;
+                         fill=&quot;#38aaba&quot;
+                         opacity=&quot;0.8&quot;
+
+... (diff truncated: showing 300 of 1129 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Chart type filtering
+        const chartTypeFilter = document.getElementById('chart-type-filter');
+        const visibleCountSpan = document.getElementById('visible-count');
+
+        function filterByChartType(chartType) {
+            const sections = document.querySelectorAll('section[data-chart-type]');
+            let visibleCount = 0;
+
+            sections.forEach(section => {
+                if (chartType === 'all' || section.dataset.chartType === chartType) {
+                    section.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            if (visibleCountSpan) {
+                visibleCountSpan.textContent = visibleCount;
+            }
+        }
+
+        if (chartTypeFilter) {
+            chartTypeFilter.addEventListener('change', (e) => {
+                filterByChartType(e.target.value);
+            });
+        }
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section, and skip if diff was too large
+                    if (diffContainer && !renderedDiffs.has(diffId) && !diffContainer.dataset.skipped) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
