@@ -1,0 +1,2263 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        /* Filter dropdown */
+        .filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        .filter-container label {
+            font-weight: 500;
+            color: #24292e;
+        }
+
+        .filter-container select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            background: #fafbfc;
+            font-size: 0.9rem;
+            color: #24292e;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-container select:hover {
+            border-color: #a0a8b0;
+        }
+
+        .filter-container select:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        section.hidden {
+            display: none;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 0 1 auto;
+            display: flex;
+            flex-direction: column;
+            max-width: 850px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 850px;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            height: auto;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="filter-container">
+        <label for="chart-type-filter">Chart Type:</label>
+        <select id="chart-type-filter">
+            <option value="all" selected>All (6)</option>
+            <option value="StackedDiscreteBar">StackedDiscreteBar (4)</option>
+<option value="StackedBar">StackedBar (2)</option>
+        </select>
+    </div><p class="summary">Showing <span id="visible-count">6</span> of 6 differences</p><section data-slug="education-spending?level=level_side_by_side&spending_type=constant_ppp" data-chart-type="StackedBar">
+        <div class="header-with-actions">
+            <h2>education-spending?level=level_side_by_side&spending_type=constant_ppp</h2>
+            <button class="copy-slug-btn" data-slug="education-spending?level=level_side_by_side&spending_type=constant_ppp" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (225)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/education-spending?level=level_side_by_side&spending_type=constant_ppp" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/education-spending%3Flevel=level_side_by_side&spending_type=constant_ppp_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-refactor-cleanup/grapher/education-spending?level=level_side_by_side&spending_type=constant_ppp" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/education-spending%3Flevel=level_side_by_side&spending_type=constant_ppp_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/education-spending%3Flevel=level_side_by_side&spending_type=constant_ppp_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/education-spending%3Flevel=level_side_by_side&spending_type=constant_ppp_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: education-spending?level=level_side_by_side&spending_type=constant_ppp_v0_850x600.svg
+===================================================================
+--- education-spending?level=level_side_by_side&spending_type=constant_ppp_v0_850x600.svg	
++++ education-spending?level=level_side_by_side&spending_type=constant_ppp_v0_850x600.svg	
+@@ -1090,26 +1090,8 @@
+                         fill=&quot;#D73C50&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;487.53194444444455&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#D73C50&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;502.4319444444445&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#D73C50&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2003&quot;
+                         x=&quot;517.3319444444445&quot;
+                         y=&quot;316.6&quot;
+                         width=&quot;11.93611111111095&quot;
+@@ -1144,26 +1126,8 @@
+                         fill=&quot;#D73C50&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;577.0319444444445&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#D73C50&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;591.9319444444445&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#D73C50&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2009&quot;
+                         x=&quot;606.8319444444445&quot;
+                         y=&quot;316.6&quot;
+                         width=&quot;11.93611111111095&quot;
+@@ -1207,17 +1171,8 @@
+                         fill=&quot;#D73C50&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;681.4319444444445&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#D73C50&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2015&quot;
+                         x=&quot;696.4319444444445&quot;
+                         y=&quot;316.9&quot;
+                         width=&quot;11.93611111111095&quot;
+@@ -1290,26 +1245,8 @@
+                         fill=&quot;#4C6A9C&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;487.53194444444455&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#4C6A9C&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;502.4319444444445&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#4C6A9C&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2003&quot;
+                         x=&quot;517.3319444444445&quot;
+                         y=&quot;310.8&quot;
+                         width=&quot;11.93611111111095&quot;
+@@ -1344,26 +1281,8 @@
+                         fill=&quot;#4C6A9C&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;577.0319444444445&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#4C6A9C&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;591.9319444444445&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#4C6A9C&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2009&quot;
+                         x=&quot;606.8319444444445&quot;
+                         y=&quot;310.7&quot;
+                         width=&quot;11.93611111111095&quot;
+@@ -1407,17 +1326,8 @@
+                         fill=&quot;#4C6A9C&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;681.4319444444445&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#4C6A9C&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2015&quot;
+                         x=&quot;696.4319444444445&quot;
+                         y=&quot;304.8&quot;
+                         width=&quot;11.93611111111095&quot;
+@@ -1490,26 +1400,8 @@
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;487.53194444444455&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#883039&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;502.4319444444445&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#883039&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2003&quot;
+                         x=&quot;517.3319444444445&quot;
+                         y=&quot;308.7&quot;
+                         width=&quot;11.93611111111095&quot;
+@@ -1544,26 +1436,8 @@
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;577.0319444444445&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#883039&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;591.9319444444445&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#883039&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2009&quot;
+                         x=&quot;606.8319444444445&quot;
+                         y=&quot;308.3&quot;
+                         width=&quot;11.93611111111095&quot;
+@@ -1607,17 +1481,8 @@
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;681.4319444444445&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#883039&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2015&quot;
+                         x=&quot;696.4319444444445&quot;
+                         y=&quot;298.6&quot;
+                         width=&quot;11.93611111111095&quot;
+@@ -1690,26 +1555,8 @@
+                         fill=&quot;#578145&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;487.53194444444455&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#578145&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;502.4319444444445&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#578145&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2003&quot;
+                         x=&quot;517.3319444444445&quot;
+                         y=&quot;304&quot;
+                         width=&quot;11.93611111111095&quot;
+@@ -1744,26 +1591,8 @@
+                         fill=&quot;#578145&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;577.0319444444445&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#578145&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;591.9319444444445&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#578145&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2009&quot;
+                         x=&quot;606.8319444444445&quot;
+                         y=&quot;303&quot;
+                         width=&quot;11.93611111111095&quot;
+@@ -1807,17 +1636,8 @@
+                         fill=&quot;#578145&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;681.4319444444445&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;11.93611111111095&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#578145&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2015&quot;
+                         x=&quot;696.4319444444445&quot;
+                         y=&quot;288.5&quot;
+                         width=&quot;11.93611111111095&quot;
+@@ -1890,26 +1710,8 @@
+                         fill=&quot;#B16214&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;487.53194444444455&quot;
+-                        y=&quot;316.9&quot;
+
+... (diff truncated: showing 300 of 365 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="education-spending?level=level_side_by_side&spending_type=gdp_share" data-chart-type="StackedBar">
+        <div class="header-with-actions">
+            <h2>education-spending?level=level_side_by_side&spending_type=gdp_share</h2>
+            <button class="copy-slug-btn" data-slug="education-spending?level=level_side_by_side&spending_type=gdp_share" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (225)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/education-spending?level=level_side_by_side&spending_type=gdp_share" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/education-spending%3Flevel=level_side_by_side&spending_type=gdp_share_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-refactor-cleanup/grapher/education-spending?level=level_side_by_side&spending_type=gdp_share" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/education-spending%3Flevel=level_side_by_side&spending_type=gdp_share_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/education-spending%3Flevel=level_side_by_side&spending_type=gdp_share_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/education-spending%3Flevel=level_side_by_side&spending_type=gdp_share_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: education-spending?level=level_side_by_side&spending_type=gdp_share_v0_850x600.svg
+===================================================================
+--- education-spending?level=level_side_by_side&spending_type=gdp_share_v0_850x600.svg	
++++ education-spending?level=level_side_by_side&spending_type=gdp_share_v0_850x600.svg	
+@@ -1088,26 +1088,8 @@
+                         fill=&quot;#D73C50&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;478.70416666666677&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#D73C50&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;493.90416666666675&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#D73C50&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2003&quot;
+                         x=&quot;509.2041666666667&quot;
+                         y=&quot;315.5&quot;
+                         width=&quot;12.191666666666515&quot;
+@@ -1142,26 +1124,8 @@
+                         fill=&quot;#D73C50&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;570.1041666666667&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#D73C50&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;585.4041666666667&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#D73C50&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2009&quot;
+                         x=&quot;600.6041666666667&quot;
+                         y=&quot;315.9&quot;
+                         width=&quot;12.191666666666515&quot;
+@@ -1205,17 +1169,8 @@
+                         fill=&quot;#D73C50&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;676.8041666666667&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#D73C50&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2015&quot;
+                         x=&quot;692.0041666666667&quot;
+                         y=&quot;316.9&quot;
+                         width=&quot;12.191666666666515&quot;
+@@ -1306,26 +1261,8 @@
+                         fill=&quot;#4C6A9C&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;478.70416666666677&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#4C6A9C&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;493.90416666666675&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#4C6A9C&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2003&quot;
+                         x=&quot;509.2041666666667&quot;
+                         y=&quot;283.3&quot;
+                         width=&quot;12.191666666666515&quot;
+@@ -1360,26 +1297,8 @@
+                         fill=&quot;#4C6A9C&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;570.1041666666667&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#4C6A9C&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;585.4041666666667&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#4C6A9C&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2009&quot;
+                         x=&quot;600.6041666666667&quot;
+                         y=&quot;294.3&quot;
+                         width=&quot;12.191666666666515&quot;
+@@ -1423,17 +1342,8 @@
+                         fill=&quot;#4C6A9C&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;676.8041666666667&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#4C6A9C&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2015&quot;
+                         x=&quot;692.0041666666667&quot;
+                         y=&quot;287&quot;
+                         width=&quot;12.191666666666515&quot;
+@@ -1524,26 +1434,8 @@
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;478.70416666666677&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#883039&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;493.90416666666675&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#883039&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2003&quot;
+                         x=&quot;509.2041666666667&quot;
+                         y=&quot;272&quot;
+                         width=&quot;12.191666666666515&quot;
+@@ -1578,26 +1470,8 @@
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;570.1041666666667&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#883039&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;585.4041666666667&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#883039&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2009&quot;
+                         x=&quot;600.6041666666667&quot;
+                         y=&quot;285.5&quot;
+                         width=&quot;12.191666666666515&quot;
+@@ -1641,17 +1515,8 @@
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;676.8041666666667&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#883039&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2015&quot;
+                         x=&quot;692.0041666666667&quot;
+                         y=&quot;271.8&quot;
+                         width=&quot;12.191666666666515&quot;
+@@ -1742,26 +1607,8 @@
+                         fill=&quot;#578145&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;478.70416666666677&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#578145&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;493.90416666666675&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#578145&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2003&quot;
+                         x=&quot;509.2041666666667&quot;
+                         y=&quot;246.2&quot;
+                         width=&quot;12.191666666666515&quot;
+@@ -1796,26 +1643,8 @@
+                         fill=&quot;#578145&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;570.1041666666667&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#578145&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;585.4041666666667&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#578145&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2009&quot;
+                         x=&quot;600.6041666666667&quot;
+                         y=&quot;266&quot;
+                         width=&quot;12.191666666666515&quot;
+@@ -1859,17 +1688,8 @@
+                         fill=&quot;#578145&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;676.8041666666667&quot;
+-                        y=&quot;316.9&quot;
+-                        width=&quot;12.191666666666515&quot;
+-                        height=&quot;0&quot;
+-                        fill=&quot;#578145&quot;
+-                        opacity=&quot;0.8&quot;
+-                    ></rect>
+-                    <rect
+                         id=&quot;2015&quot;
+                         x=&quot;692.0041666666667&quot;
+                         y=&quot;246.9&quot;
+                         width=&quot;12.191666666666515&quot;
+@@ -1960,26 +1780,8 @@
+                         fill=&quot;#B16214&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+-                        id=&quot;0&quot;
+-                        x=&quot;478.70416666666677&quot;
+-                        y=&quot;316.9&quot;
+
+... (diff truncated: showing 300 of 365 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="plastic-pollution?measure=per_person&emission_type=total_burned_debris&emissions_source=total_by_source" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>plastic-pollution?measure=per_person&emission_type=total_burned_debris&emissions_source=total_by_source</h2>
+            <button class="copy-slug-btn" data-slug="plastic-pollution?measure=per_person&emission_type=total_burned_debris&emissions_source=total_by_source" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (41)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/plastic-pollution?measure=per_person&emission_type=total_burned_debris&emissions_source=total_by_source" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/plastic-pollution%3Fmeasure=per_person&emission_type=total_burned_debris&emissions_source=total_by_source_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-refactor-cleanup/grapher/plastic-pollution?measure=per_person&emission_type=total_burned_debris&emissions_source=total_by_source" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/plastic-pollution%3Fmeasure=per_person&emission_type=total_burned_debris&emissions_source=total_by_source_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/plastic-pollution%3Fmeasure=per_person&emission_type=total_burned_debris&emissions_source=total_by_source_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/plastic-pollution%3Fmeasure=per_person&emission_type=total_burned_debris&emissions_source=total_by_source_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: plastic-pollution?measure=per_person&emission_type=total_burned_debris&emissions_source=total_by_source_v0_850x600.svg
+===================================================================
+--- plastic-pollution?measure=per_person&emission_type=total_burned_debris&emissions_source=total_by_source_v0_850x600.svg	
++++ plastic-pollution?measure=per_person&emission_type=total_burned_debris&emissions_source=total_by_source_v0_850x600.svg	
+@@ -177,14 +177,9 @@
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+         ></line>
+         <g id=&quot;bars&quot;>
+-            <g
+-                id=&quot;Nigeria&quot;
+-                class=&quot;bar&quot;
+-                transform=&quot;translate(0, 168.89)&quot;
+-                opacity=&quot;1&quot;
+-            >
++            <g id=&quot;Nigeria&quot; transform=&quot;translate(0, 168.89)&quot; opacity=&quot;1&quot;>
+                 <g id=&quot;Uncollected-waste&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+@@ -201,9 +196,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;532.2&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -261,25 +255,31 @@
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Nigeria
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(738.1, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     17 kg/person
+                 </text>
+             </g>
+             <g
+                 id=&quot;Russia&quot;
+-                class=&quot;bar&quot;
+                 transform=&quot;translate(0, 253.66999999999996)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Uncollected-waste&quot;>
+@@ -299,9 +299,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;162.20000000000002&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -338,9 +337,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;259.6&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -372,25 +370,31 @@
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Russia
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(541.4, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     12 kg/person
+                 </text>
+             </g>
+             <g
+                 id=&quot;Brazil&quot;
+-                class=&quot;bar&quot;
+                 transform=&quot;translate(0, 338.44999999999993)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Uncollected-waste&quot;>
+@@ -410,9 +414,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;180.49999999999997&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -470,25 +473,31 @@
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Brazil
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(356.5, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     6.8 kg/person
+                 </text>
+             </g>
+             <g
+                 id=&quot;China&quot;
+-                class=&quot;bar&quot;
+                 transform=&quot;translate(0, 423.22999999999996)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Uncollected-waste&quot;>
+@@ -555,25 +564,31 @@
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         China
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(176.3, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     2 kg/person
+                 </text>
+             </g>
+             <g
+                 id=&quot;United-States&quot;
+-                class=&quot;bar&quot;
+                 transform=&quot;translate(0, 508.00999999999993)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Uncollected-waste&quot;>
+@@ -640,16 +655,23 @@
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         United States
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(107.7, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     0.14 kg/person
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="plastic-pollution?measure=per_person&emission_type=total_by_type&emissions_source=all" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>plastic-pollution?measure=per_person&emission_type=total_by_type&emissions_source=all</h2>
+            <button class="copy-slug-btn" data-slug="plastic-pollution?measure=per_person&emission_type=total_by_type&emissions_source=all" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (41)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/plastic-pollution?measure=per_person&emission_type=total_by_type&emissions_source=all" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/plastic-pollution%3Fmeasure=per_person&emission_type=total_by_type&emissions_source=all_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-refactor-cleanup/grapher/plastic-pollution?measure=per_person&emission_type=total_by_type&emissions_source=all" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/plastic-pollution%3Fmeasure=per_person&emission_type=total_by_type&emissions_source=all_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/plastic-pollution%3Fmeasure=per_person&emission_type=total_by_type&emissions_source=all_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/plastic-pollution%3Fmeasure=per_person&emission_type=total_by_type&emissions_source=all_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: plastic-pollution?measure=per_person&emission_type=total_by_type&emissions_source=all_v0_850x600.svg
+===================================================================
+--- plastic-pollution?measure=per_person&emission_type=total_by_type&emissions_source=all_v0_850x600.svg	
++++ plastic-pollution?measure=per_person&emission_type=total_by_type&emissions_source=all_v0_850x600.svg	
+@@ -125,14 +125,9 @@
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+         ></line>
+         <g id=&quot;bars&quot;>
+-            <g
+-                id=&quot;Nigeria&quot;
+-                class=&quot;bar&quot;
+-                transform=&quot;translate(0, 168.89)&quot;
+-                opacity=&quot;1&quot;
+-            >
++            <g id=&quot;Nigeria&quot; transform=&quot;translate(0, 168.89)&quot; opacity=&quot;1&quot;>
+                 <g id=&quot;Open-burning-pollution-per-capita&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+@@ -149,9 +144,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;309&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -175,33 +169,38 @@
+                         y=&quot;0&quot;
+                         width=&quot;326.70000000000005&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+                         8.7 kg/person
+                     </text>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Nigeria
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(738.1, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     17 kg/person
+                 </text>
+             </g>
+             <g
+                 id=&quot;Russia&quot;
+-                class=&quot;bar&quot;
+                 transform=&quot;translate(0, 253.66999999999996)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Open-burning-pollution-per-capita&quot;>
+@@ -221,9 +220,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;366.70000000000005&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -242,25 +240,31 @@
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Russia
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(541.4, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     12 kg/person
+                 </text>
+             </g>
+             <g
+                 id=&quot;Brazil&quot;
+-                class=&quot;bar&quot;
+                 transform=&quot;translate(0, 338.44999999999993)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Open-burning-pollution-per-capita&quot;>
+@@ -280,9 +284,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;183.1&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -301,25 +304,31 @@
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Brazil
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(356.5, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     6.8 kg/person
+                 </text>
+             </g>
+             <g
+                 id=&quot;China&quot;
+-                class=&quot;bar&quot;
+                 transform=&quot;translate(0, 423.22999999999996)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Open-burning-pollution-per-capita&quot;>
+@@ -347,25 +356,31 @@
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         China
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(176.3, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     2 kg/person
+                 </text>
+             </g>
+             <g
+                 id=&quot;United-States&quot;
+-                class=&quot;bar&quot;
+                 transform=&quot;translate(0, 508.00999999999993)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Open-burning-pollution-per-capita&quot;>
+@@ -393,16 +408,23 @@
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         United States
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(107.7, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     0.14 kg/person
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="plastic-pollution?measure=total&emission_type=total_burned_debris&emissions_source=total_by_source" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>plastic-pollution?measure=total&emission_type=total_burned_debris&emissions_source=total_by_source</h2>
+            <button class="copy-slug-btn" data-slug="plastic-pollution?measure=total&emission_type=total_burned_debris&emissions_source=total_by_source" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (41)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/plastic-pollution?measure=total&emission_type=total_burned_debris&emissions_source=total_by_source" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/plastic-pollution%3Fmeasure=total&emission_type=total_burned_debris&emissions_source=total_by_source_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-refactor-cleanup/grapher/plastic-pollution?measure=total&emission_type=total_burned_debris&emissions_source=total_by_source" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/plastic-pollution%3Fmeasure=total&emission_type=total_burned_debris&emissions_source=total_by_source_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/plastic-pollution%3Fmeasure=total&emission_type=total_burned_debris&emissions_source=total_by_source_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/plastic-pollution%3Fmeasure=total&emission_type=total_burned_debris&emissions_source=total_by_source_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: plastic-pollution?measure=total&emission_type=total_burned_debris&emissions_source=total_by_source_v0_850x600.svg
+===================================================================
+--- plastic-pollution?measure=total&emission_type=total_burned_debris&emissions_source=total_by_source_v0_850x600.svg	
++++ plastic-pollution?measure=total&emission_type=total_burned_debris&emissions_source=total_by_source_v0_850x600.svg	
+@@ -176,14 +176,9 @@
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+         ></line>
+         <g id=&quot;bars&quot;>
+-            <g
+-                id=&quot;Nigeria&quot;
+-                class=&quot;bar&quot;
+-                transform=&quot;translate(0, 168.89)&quot;
+-                opacity=&quot;1&quot;
+-            >
++            <g id=&quot;Nigeria&quot; transform=&quot;translate(0, 168.89)&quot; opacity=&quot;1&quot;>
+                 <g id=&quot;Uncollected-waste&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+@@ -200,9 +195,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;543.1&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -239,9 +233,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;76.1&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -273,25 +266,31 @@
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Nigeria
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(751.1, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     3.53 million t
+                 </text>
+             </g>
+             <g
+                 id=&quot;China&quot;
+-                class=&quot;bar&quot;
+                 transform=&quot;translate(0, 253.66999999999996)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Uncollected-waste&quot;>
+@@ -311,9 +310,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;436.80000000000007&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -371,25 +369,31 @@
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         China
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(618.1, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     2.81 million t
+                 </text>
+             </g>
+             <g
+                 id=&quot;Russia&quot;
+-                class=&quot;bar&quot;
+                 transform=&quot;translate(0, 338.44999999999993)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Uncollected-waste&quot;>
+@@ -409,9 +413,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;115.5&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -448,9 +451,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;184.9&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -482,25 +484,31 @@
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Russia
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(415, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     1.70 million t
+                 </text>
+             </g>
+             <g
+                 id=&quot;Brazil&quot;
+-                class=&quot;bar&quot;
+                 transform=&quot;translate(0, 423.22999999999996)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Uncollected-waste&quot;>
+@@ -520,9 +528,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;188.49999999999997&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -580,25 +587,31 @@
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Brazil
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(367.7, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     1.44 million t
+                 </text>
+             </g>
+             <g
+                 id=&quot;United-States&quot;
+-                class=&quot;bar&quot;
+                 transform=&quot;translate(0, 508.00999999999993)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Uncollected-waste&quot;>
+@@ -665,16 +678,23 @@
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         United States
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(111.2, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     47,600 t
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="plastic-pollution?measure=total&emission_type=total_by_type&emissions_source=all" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>plastic-pollution?measure=total&emission_type=total_by_type&emissions_source=all</h2>
+            <button class="copy-slug-btn" data-slug="plastic-pollution?measure=total&emission_type=total_by_type&emissions_source=all" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (41)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/plastic-pollution?measure=total&emission_type=total_by_type&emissions_source=all" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/plastic-pollution%3Fmeasure=total&emission_type=total_by_type&emissions_source=all_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-refactor-cleanup/grapher/plastic-pollution?measure=total&emission_type=total_by_type&emissions_source=all" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/plastic-pollution%3Fmeasure=total&emission_type=total_by_type&emissions_source=all_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/plastic-pollution%3Fmeasure=total&emission_type=total_by_type&emissions_source=all_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/plastic-pollution%3Fmeasure=total&emission_type=total_by_type&emissions_source=all_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: plastic-pollution?measure=total&emission_type=total_by_type&emissions_source=all_v0_850x600.svg
+===================================================================
+--- plastic-pollution?measure=total&emission_type=total_by_type&emissions_source=all_v0_850x600.svg	
++++ plastic-pollution?measure=total&emission_type=total_by_type&emissions_source=all_v0_850x600.svg	
+@@ -125,14 +125,9 @@
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+         ></line>
+         <g id=&quot;bars&quot;>
+-            <g
+-                id=&quot;Nigeria&quot;
+-                class=&quot;bar&quot;
+-                transform=&quot;translate(0, 168.89)&quot;
+-                opacity=&quot;1&quot;
+-            >
++            <g id=&quot;Nigeria&quot; transform=&quot;translate(0, 168.89)&quot; opacity=&quot;1&quot;>
+                 <g id=&quot;Open-burning-pollution&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+@@ -149,9 +144,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;315.29999999999995&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -175,33 +169,38 @@
+                         y=&quot;0&quot;
+                         width=&quot;333.4&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+                         1.82 million t
+                     </text>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Nigeria
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(751.1, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     3.53 million t
+                 </text>
+             </g>
+             <g
+                 id=&quot;China&quot;
+-                class=&quot;bar&quot;
+                 transform=&quot;translate(0, 253.66999999999996)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Open-burning-pollution&quot;>
+@@ -221,9 +220,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;301.1&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -247,33 +245,38 @@
+                         y=&quot;0&quot;
+                         width=&quot;214.6&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+                         1.17 million t
+                     </text>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         China
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(618.1, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     2.81 million t
+                 </text>
+             </g>
+             <g
+                 id=&quot;Russia&quot;
+-                class=&quot;bar&quot;
+                 transform=&quot;translate(0, 338.44999999999993)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Open-burning-pollution&quot;>
+@@ -293,9 +296,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;261.20000000000005&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -314,25 +316,31 @@
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Russia
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(415, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     1.70 million t
+                 </text>
+             </g>
+             <g
+                 id=&quot;Brazil&quot;
+-                class=&quot;bar&quot;
+                 transform=&quot;translate(0, 423.22999999999996)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Open-burning-pollution&quot;>
+@@ -352,9 +360,8 @@
+                         y=&quot;0&quot;
+                         width=&quot;191.20000000000002&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+@@ -378,33 +385,38 @@
+                         y=&quot;0&quot;
+                         width=&quot;74.1&quot;
+                         height=&quot;55.10699999999999&quot;
+                         fill=&quot;#fff&quot;
+-                        opacity=&quot;1&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+                         404,000 t
+                     </text>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Brazil
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(367.7, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     1.44 million t
+                 </text>
+             </g>
+             <g
+                 id=&quot;United-States&quot;
+-                class=&quot;bar&quot;
+                 transform=&quot;translate(0, 508.00999999999993)&quot;
+                 opacity=&quot;1&quot;
+             >
+                 <g id=&quot;Open-burning-pollution&quot;>
+@@ -432,16 +444,23 @@
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+-                <text x=&quot;92.4&quot; y=&quot;5.0&quot; text-anchor=&quot;end&quot; font-size=&quot;13.50&quot;>
++                <text
++                    x=&quot;92.4&quot;
++                    y=&quot;5.0&quot;
++                    text-anchor=&quot;end&quot;
++                    font-size=&quot;13.50&quot;
++                    opacity=&quot;1&quot;
++                >
+                     <tspan x=&quot;92.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         United States
+                     </tspan>
+                 </text>
+                 <text
+                     transform=&quot;translate(111.2, 0)&quot;
+                     dy=&quot;.32em&quot;
++                    opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+                     47,600 t
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Chart type filtering
+        const chartTypeFilter = document.getElementById('chart-type-filter');
+        const visibleCountSpan = document.getElementById('visible-count');
+
+        function filterByChartType(chartType) {
+            const sections = document.querySelectorAll('section[data-chart-type]');
+            let visibleCount = 0;
+
+            sections.forEach(section => {
+                if (chartType === 'all' || section.dataset.chartType === chartType) {
+                    section.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            if (visibleCountSpan) {
+                visibleCountSpan.textContent = visibleCount;
+            }
+        }
+
+        if (chartTypeFilter) {
+            chartTypeFilter.addEventListener('change', (e) => {
+                filterByChartType(e.target.value);
+            });
+        }
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section, and skip if diff was too large
+                    if (diffContainer && !renderedDiffs.has(diffId) && !diffContainer.dataset.skipped) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
