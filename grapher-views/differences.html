@@ -1,0 +1,1208 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        /* Filter dropdown */
+        .filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        .filter-container label {
+            font-weight: 500;
+            color: #24292e;
+        }
+
+        .filter-container select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            background: #fafbfc;
+            font-size: 0.9rem;
+            color: #24292e;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-container select:hover {
+            border-color: #a0a8b0;
+        }
+
+        .filter-container select:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        section.hidden {
+            display: none;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 0 1 auto;
+            display: flex;
+            flex-direction: column;
+            max-width: 850px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 850px;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            height: auto;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="filter-container">
+        <label for="chart-type-filter">Chart Type:</label>
+        <select id="chart-type-filter">
+            <option value="all" selected>All (10)</option>
+            <option value="StackedArea">StackedArea (10)</option>
+        </select>
+    </div><p class="summary">Showing <span id="visible-count">10</span> of 10 differences</p><section data-slug="annual-co-emissions-by-region" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>annual-co-emissions-by-region?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Europe+%28excl.+EU-27%29</h2>
+            <button class="copy-slug-btn" data-slug="annual-co-emissions-by-region?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Europe+%28excl.+EU-27%29" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (4)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/annual-co-emissions-by-region?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Europe+%28excl.+EU-27%29" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/annual-co-emissions-by-region-63cd741c4cf1d831a298f34c39d53d3d_v54_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-causes-of-death-treemap-touc/grapher/annual-co-emissions-by-region?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Europe+%28excl.+EU-27%29" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/annual-co-emissions-by-region-63cd741c4cf1d831a298f34c39d53d3d_v54_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/annual-co-emissions-by-region-63cd741c4cf1d831a298f34c39d53d3d_v54_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/annual-co-emissions-by-region-63cd741c4cf1d831a298f34c39d53d3d_v54_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: annual-co-emissions-by-region-63cd741c4cf1d831a298f34c39d53d3d_v54_850x600.svg
+===================================================================
+--- annual-co-emissions-by-region-63cd741c4cf1d831a298f34c39d53d3d_v54_850x600.svg	
++++ annual-co-emissions-by-region-63cd741c4cf1d831a298f34c39d53d3d_v54_850x600.svg	
+@@ -86,20 +86,20 @@
+         <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+             <g id=&quot;tick-marks&quot;>
+                 <line
+                     id=&quot;1750&quot;
+-                    x1=&quot;82.5&quot;
++                    x1=&quot;82&quot;
+                     y1=&quot;531.9&quot;
+-                    x2=&quot;82.5&quot;
++                    x2=&quot;82&quot;
+                     y2=&quot;537.4&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2024&quot;
+-                    x1=&quot;711.4&quot;
++                    x1=&quot;711.9&quot;
+                     y1=&quot;531.9&quot;
+-                    x2=&quot;711.4&quot;
++                    x2=&quot;711.9&quot;
+                     y2=&quot;537.4&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="cumulative-covid-deaths-region" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>cumulative-covid-deaths-region?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=China</h2>
+            <button class="copy-slug-btn" data-slug="cumulative-covid-deaths-region?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=China" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (4)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/cumulative-covid-deaths-region?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=China" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/cumulative-covid-deaths-region-86adcdb4f35abe4a1eee9fc88de0e180_v3095_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-causes-of-death-treemap-touc/grapher/cumulative-covid-deaths-region?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=China" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/cumulative-covid-deaths-region-86adcdb4f35abe4a1eee9fc88de0e180_v3095_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/cumulative-covid-deaths-region-86adcdb4f35abe4a1eee9fc88de0e180_v3095_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/cumulative-covid-deaths-region-86adcdb4f35abe4a1eee9fc88de0e180_v3095_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: cumulative-covid-deaths-region-86adcdb4f35abe4a1eee9fc88de0e180_v3095_850x600.svg
+===================================================================
+--- cumulative-covid-deaths-region-86adcdb4f35abe4a1eee9fc88de0e180_v3095_850x600.svg	
++++ cumulative-covid-deaths-region-86adcdb4f35abe4a1eee9fc88de0e180_v3095_850x600.svg	
+@@ -79,20 +79,20 @@
+         <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+             <g id=&quot;tick-marks&quot;>
+                 <line
+                     id=&quot;Jan-4,-2020&quot;
+-                    x1=&quot;70.3&quot;
++                    x1=&quot;69.8&quot;
+                     y1=&quot;531.9&quot;
+-                    x2=&quot;70.3&quot;
++                    x2=&quot;69.8&quot;
+                     y2=&quot;537.4&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;Feb-8,-2026&quot;
+-                    x1=&quot;714.9&quot;
++                    x1=&quot;715.4&quot;
+                     y1=&quot;531.9&quot;
+-                    x2=&quot;714.9&quot;
++                    x2=&quot;715.4&quot;
+                     y2=&quot;537.4&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="electricity-prod-source-stacked" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>electricity-prod-source-stacked?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Coal</h2>
+            <button class="copy-slug-btn" data-slug="electricity-prod-source-stacked?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Coal" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (4)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/electricity-prod-source-stacked?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Coal" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/electricity-prod-source-stacked-058d77da6d53ddfc47e12c5984c0fa6e_v53_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-causes-of-death-treemap-touc/grapher/electricity-prod-source-stacked?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Coal" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/electricity-prod-source-stacked-058d77da6d53ddfc47e12c5984c0fa6e_v53_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/electricity-prod-source-stacked-058d77da6d53ddfc47e12c5984c0fa6e_v53_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/electricity-prod-source-stacked-058d77da6d53ddfc47e12c5984c0fa6e_v53_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: electricity-prod-source-stacked-058d77da6d53ddfc47e12c5984c0fa6e_v53_850x600.svg
+===================================================================
+--- electricity-prod-source-stacked-058d77da6d53ddfc47e12c5984c0fa6e_v53_850x600.svg	
++++ electricity-prod-source-stacked-058d77da6d53ddfc47e12c5984c0fa6e_v53_850x600.svg	
+@@ -78,20 +78,20 @@
+         <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+             <g id=&quot;tick-marks&quot;>
+                 <line
+                     id=&quot;1985&quot;
+-                    x1=&quot;94&quot;
++                    x1=&quot;93.5&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;94&quot;
++                    x2=&quot;93.5&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2024&quot;
+-                    x1=&quot;701.8&quot;
++                    x1=&quot;702.3&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;701.8&quot;
++                    x2=&quot;702.3&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="energy-consumption-by-source-and-country" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>energy-consumption-by-source-and-country?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Oil</h2>
+            <button class="copy-slug-btn" data-slug="energy-consumption-by-source-and-country?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Oil" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (4)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/energy-consumption-by-source-and-country?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Oil" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/energy-consumption-by-source-and-country-75942e67b417d97387ef7279223913a6_v46_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-causes-of-death-treemap-touc/grapher/energy-consumption-by-source-and-country?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Oil" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/energy-consumption-by-source-and-country-75942e67b417d97387ef7279223913a6_v46_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/energy-consumption-by-source-and-country-75942e67b417d97387ef7279223913a6_v46_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/energy-consumption-by-source-and-country-75942e67b417d97387ef7279223913a6_v46_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: energy-consumption-by-source-and-country-75942e67b417d97387ef7279223913a6_v46_850x600.svg
+===================================================================
+--- energy-consumption-by-source-and-country-75942e67b417d97387ef7279223913a6_v46_850x600.svg	
++++ energy-consumption-by-source-and-country-75942e67b417d97387ef7279223913a6_v46_850x600.svg	
+@@ -82,20 +82,20 @@
+         <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+             <g id=&quot;tick-marks&quot;>
+                 <line
+                     id=&quot;1965&quot;
+-                    x1=&quot;101.6&quot;
++                    x1=&quot;101.1&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;101.6&quot;
++                    x2=&quot;101.1&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2024&quot;
+-                    x1=&quot;701.8&quot;
++                    x1=&quot;702.3&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;701.8&quot;
++                    x2=&quot;702.3&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="global-energy-substitution" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>global-energy-substitution?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Traditional+biomass</h2>
+            <button class="copy-slug-btn" data-slug="global-energy-substitution?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Traditional+biomass" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (4)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/global-energy-substitution?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Traditional+biomass" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/global-energy-substitution-24206d3f8351d35849aa9ac89e52698f_v22_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-causes-of-death-treemap-touc/grapher/global-energy-substitution?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Traditional+biomass" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/global-energy-substitution-24206d3f8351d35849aa9ac89e52698f_v22_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/global-energy-substitution-24206d3f8351d35849aa9ac89e52698f_v22_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/global-energy-substitution-24206d3f8351d35849aa9ac89e52698f_v22_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: global-energy-substitution-24206d3f8351d35849aa9ac89e52698f_v22_850x600.svg
+===================================================================
+--- global-energy-substitution-24206d3f8351d35849aa9ac89e52698f_v22_850x600.svg	
++++ global-energy-substitution-24206d3f8351d35849aa9ac89e52698f_v22_850x600.svg	
+@@ -85,20 +85,20 @@
+         <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+             <g id=&quot;tick-marks&quot;>
+                 <line
+                     id=&quot;1800&quot;
+-                    x1=&quot;101.6&quot;
++                    x1=&quot;101.1&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;101.6&quot;
++                    x2=&quot;101.1&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2024&quot;
+-                    x1=&quot;693.6&quot;
++                    x1=&quot;694.1&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;693.6&quot;
++                    x2=&quot;694.1&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="global-primary-energy" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>global-primary-energy?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Traditional+biomass</h2>
+            <button class="copy-slug-btn" data-slug="global-primary-energy?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Traditional+biomass" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (4)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/global-primary-energy?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Traditional+biomass" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/global-primary-energy-24206d3f8351d35849aa9ac89e52698f_v26_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-causes-of-death-treemap-touc/grapher/global-primary-energy?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Traditional+biomass" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/global-primary-energy-24206d3f8351d35849aa9ac89e52698f_v26_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/global-primary-energy-24206d3f8351d35849aa9ac89e52698f_v26_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/global-primary-energy-24206d3f8351d35849aa9ac89e52698f_v26_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: global-primary-energy-24206d3f8351d35849aa9ac89e52698f_v26_850x600.svg
+===================================================================
+--- global-primary-energy-24206d3f8351d35849aa9ac89e52698f_v26_850x600.svg	
++++ global-primary-energy-24206d3f8351d35849aa9ac89e52698f_v26_850x600.svg	
+@@ -86,20 +86,20 @@
+         <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+             <g id=&quot;tick-marks&quot;>
+                 <line
+                     id=&quot;1800&quot;
+-                    x1=&quot;101.6&quot;
++                    x1=&quot;101.1&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;101.6&quot;
++                    x2=&quot;101.1&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2024&quot;
+-                    x1=&quot;693.6&quot;
++                    x1=&quot;694.1&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;693.6&quot;
++                    x2=&quot;694.1&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="modern-renewable-energy-consumption" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>modern-renewable-energy-consumption?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Hydropower</h2>
+            <button class="copy-slug-btn" data-slug="modern-renewable-energy-consumption?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Hydropower" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (4)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/modern-renewable-energy-consumption?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Hydropower" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/modern-renewable-energy-consumption-73293dad0f9bb51d444ef96fecc7ffc3_v26_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-causes-of-death-treemap-touc/grapher/modern-renewable-energy-consumption?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Hydropower" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/modern-renewable-energy-consumption-73293dad0f9bb51d444ef96fecc7ffc3_v26_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/modern-renewable-energy-consumption-73293dad0f9bb51d444ef96fecc7ffc3_v26_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/modern-renewable-energy-consumption-73293dad0f9bb51d444ef96fecc7ffc3_v26_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: modern-renewable-energy-consumption-73293dad0f9bb51d444ef96fecc7ffc3_v26_850x600.svg
+===================================================================
+--- modern-renewable-energy-consumption-73293dad0f9bb51d444ef96fecc7ffc3_v26_850x600.svg	
++++ modern-renewable-energy-consumption-73293dad0f9bb51d444ef96fecc7ffc3_v26_850x600.svg	
+@@ -62,20 +62,20 @@
+         <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+             <g id=&quot;tick-marks&quot;>
+                 <line
+                     id=&quot;1965&quot;
+-                    x1=&quot;94&quot;
++                    x1=&quot;93.5&quot;
+                     y1=&quot;496.2&quot;
+-                    x2=&quot;94&quot;
++                    x2=&quot;93.5&quot;
+                     y2=&quot;501.7&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2024&quot;
+-                    x1=&quot;701.8&quot;
++                    x1=&quot;702.3&quot;
+                     y1=&quot;496.2&quot;
+-                    x2=&quot;701.8&quot;
++                    x2=&quot;702.3&quot;
+                     y2=&quot;501.7&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="per-capita-meat-consumption-by-type-kilograms-per-year" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>per-capita-meat-consumption-by-type-kilograms-per-year?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Poultry</h2>
+            <button class="copy-slug-btn" data-slug="per-capita-meat-consumption-by-type-kilograms-per-year?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Poultry" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (4)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/per-capita-meat-consumption-by-type-kilograms-per-year?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Poultry" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/per-capita-meat-consumption-by-type-kilograms-per-year-7fc0e8aedb68c68db0715fd311128c90_v18_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-causes-of-death-treemap-touc/grapher/per-capita-meat-consumption-by-type-kilograms-per-year?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Poultry" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/per-capita-meat-consumption-by-type-kilograms-per-year-7fc0e8aedb68c68db0715fd311128c90_v18_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/per-capita-meat-consumption-by-type-kilograms-per-year-7fc0e8aedb68c68db0715fd311128c90_v18_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/per-capita-meat-consumption-by-type-kilograms-per-year-7fc0e8aedb68c68db0715fd311128c90_v18_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: per-capita-meat-consumption-by-type-kilograms-per-year-7fc0e8aedb68c68db0715fd311128c90_v18_850x600.svg
+===================================================================
+--- per-capita-meat-consumption-by-type-kilograms-per-year-7fc0e8aedb68c68db0715fd311128c90_v18_850x600.svg	
++++ per-capita-meat-consumption-by-type-kilograms-per-year-7fc0e8aedb68c68db0715fd311128c90_v18_850x600.svg	
+@@ -76,20 +76,20 @@
+         <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+             <g id=&quot;tick-marks&quot;>
+                 <line
+                     id=&quot;1961&quot;
+-                    x1=&quot;53.4&quot;
++                    x1=&quot;52.9&quot;
+                     y1=&quot;496.2&quot;
+-                    x2=&quot;53.4&quot;
++                    x2=&quot;52.9&quot;
+                     y2=&quot;501.7&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2023&quot;
+-                    x1=&quot;709.2&quot;
++                    x1=&quot;709.7&quot;
+                     y1=&quot;496.2&quot;
+-                    x2=&quot;709.2&quot;
++                    x2=&quot;709.7&quot;
+                     y2=&quot;501.7&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="population-by-age-group" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>population-by-age-group?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Under-5s</h2>
+            <button class="copy-slug-btn" data-slug="population-by-age-group?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Under-5s" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (4)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/population-by-age-group?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Under-5s" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/population-by-age-group-a4c20b311625d947b6adbdad771bdfff_v28_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-causes-of-death-treemap-touc/grapher/population-by-age-group?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Under-5s" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/population-by-age-group-a4c20b311625d947b6adbdad771bdfff_v28_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/population-by-age-group-a4c20b311625d947b6adbdad771bdfff_v28_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/population-by-age-group-a4c20b311625d947b6adbdad771bdfff_v28_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: population-by-age-group-a4c20b311625d947b6adbdad771bdfff_v28_850x600.svg
+===================================================================
+--- population-by-age-group-a4c20b311625d947b6adbdad771bdfff_v28_850x600.svg	
++++ population-by-age-group-a4c20b311625d947b6adbdad771bdfff_v28_850x600.svg	
+@@ -60,20 +60,20 @@
+         <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+             <g id=&quot;tick-marks&quot;>
+                 <line
+                     id=&quot;1950&quot;
+-                    x1=&quot;66.9&quot;
++                    x1=&quot;66.4&quot;
+                     y1=&quot;531.9&quot;
+-                    x2=&quot;66.9&quot;
++                    x2=&quot;66.4&quot;
+                     y2=&quot;537.4&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2023&quot;
+-                    x1=&quot;738.1&quot;
++                    x1=&quot;738.6&quot;
+                     y1=&quot;531.9&quot;
+-                    x2=&quot;738.1&quot;
++                    x2=&quot;738.6&quot;
+                     y2=&quot;537.4&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="population-regions-with-projections" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>population-regions-with-projections?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Europe</h2>
+            <button class="copy-slug-btn" data-slug="population-regions-with-projections?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Europe" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (4)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/population-regions-with-projections?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Europe" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/population-regions-with-projections-6b440a3fae750378c76be9230d5b46c5_v57_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-causes-of-death-treemap-touc/grapher/population-regions-with-projections?tab=chart&time=earliest..latest&stackMode=absolute&facet=none&uniformYAxis=0&focus=Europe" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/population-regions-with-projections-6b440a3fae750378c76be9230d5b46c5_v57_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/population-regions-with-projections-6b440a3fae750378c76be9230d5b46c5_v57_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/population-regions-with-projections-6b440a3fae750378c76be9230d5b46c5_v57_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: population-regions-with-projections-6b440a3fae750378c76be9230d5b46c5_v57_850x600.svg
+===================================================================
+--- population-regions-with-projections-6b440a3fae750378c76be9230d5b46c5_v57_850x600.svg	
++++ population-regions-with-projections-6b440a3fae750378c76be9230d5b46c5_v57_850x600.svg	
+@@ -76,20 +76,20 @@
+         <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+             <g id=&quot;tick-marks&quot;>
+                 <line
+                     id=&quot;10,000-BCE&quot;
+-                    x1=&quot;74.4&quot;
++                    x1=&quot;73.9&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;74.4&quot;
++                    x2=&quot;73.9&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2100&quot;
+-                    x1=&quot;720.3&quot;
++                    x1=&quot;720.8&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;720.3&quot;
++                    x2=&quot;720.8&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Chart type filtering
+        const chartTypeFilter = document.getElementById('chart-type-filter');
+        const visibleCountSpan = document.getElementById('visible-count');
+
+        function filterByChartType(chartType) {
+            const sections = document.querySelectorAll('section[data-chart-type]');
+            let visibleCount = 0;
+
+            sections.forEach(section => {
+                if (chartType === 'all' || section.dataset.chartType === chartType) {
+                    section.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            if (visibleCountSpan) {
+                visibleCountSpan.textContent = visibleCount;
+            }
+        }
+
+        if (chartTypeFilter) {
+            chartTypeFilter.addEventListener('change', (e) => {
+                filterByChartType(e.target.value);
+            });
+        }
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section, and skip if diff was too large
+                    if (diffContainer && !renderedDiffs.has(diffId) && !diffContainer.dataset.skipped) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
