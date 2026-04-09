@@ -1,0 +1,1958 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        /* Filter dropdown */
+        .filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        .filter-container label {
+            font-weight: 500;
+            color: #24292e;
+        }
+
+        .filter-container select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            background: #fafbfc;
+            font-size: 0.9rem;
+            color: #24292e;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-container select:hover {
+            border-color: #a0a8b0;
+        }
+
+        .filter-container select:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        section.hidden {
+            display: none;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 0 1 auto;
+            display: flex;
+            flex-direction: column;
+            max-width: 850px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 850px;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            height: auto;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="filter-container">
+        <label for="chart-type-filter">Chart Type:</label>
+        <select id="chart-type-filter">
+            <option value="all" selected>All (10)</option>
+            <option value="StackedArea">StackedArea (10)</option>
+        </select>
+    </div><p class="summary">Showing <span id="visible-count">10</span> of 10 differences</p><section data-slug="children-not-in-school?sex=both&level=level_side_by_side&metric_type=number" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>children-not-in-school?sex=both&level=level_side_by_side&metric_type=number</h2>
+            <button class="copy-slug-btn" data-slug="children-not-in-school?sex=both&level=level_side_by_side&metric_type=number" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (16)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/children-not-in-school?sex=both&level=level_side_by_side&metric_type=number" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/children-not-in-school%3Fsex=both&level=level_side_by_side&metric_type=number_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-edge-ticks-marks/grapher/children-not-in-school?sex=both&level=level_side_by_side&metric_type=number" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/children-not-in-school%3Fsex=both&level=level_side_by_side&metric_type=number_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/children-not-in-school%3Fsex=both&level=level_side_by_side&metric_type=number_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/children-not-in-school%3Fsex=both&level=level_side_by_side&metric_type=number_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: children-not-in-school?sex=both&level=level_side_by_side&metric_type=number_v0_850x600.svg
+===================================================================
+--- children-not-in-school?sex=both&level=level_side_by_side&metric_type=number_v0_850x600.svg	
++++ children-not-in-school?sex=both&level=level_side_by_side&metric_type=number_v0_850x600.svg	
+@@ -155,20 +155,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;46.6&quot;
++                        x1=&quot;47.1&quot;
+                         y1=&quot;317.975&quot;
+-                        x2=&quot;46.6&quot;
++                        x2=&quot;47.1&quot;
+                         y2=&quot;323.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;417&quot;
++                        x1=&quot;416.5&quot;
+                         y1=&quot;317.975&quot;
+-                        x2=&quot;417&quot;
++                        x2=&quot;416.5&quot;
+                         y2=&quot;323.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -491,20 +491,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;463.6&quot;
++                        x1=&quot;464.1&quot;
+                         y1=&quot;317.975&quot;
+-                        x2=&quot;463.6&quot;
++                        x2=&quot;464.1&quot;
+                         y2=&quot;323.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;834&quot;
++                        x1=&quot;833.5&quot;
+                         y1=&quot;317.975&quot;
+-                        x2=&quot;834&quot;
++                        x2=&quot;833.5&quot;
+                         y2=&quot;323.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -810,20 +810,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;46.6&quot;
++                        x1=&quot;47.1&quot;
+                         y1=&quot;532.975&quot;
+-                        x2=&quot;46.6&quot;
++                        x2=&quot;47.1&quot;
+                         y2=&quot;538.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;417&quot;
++                        x1=&quot;416.5&quot;
+                         y1=&quot;532.975&quot;
+-                        x2=&quot;417&quot;
++                        x2=&quot;416.5&quot;
+                         y2=&quot;538.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -1165,20 +1165,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;463.6&quot;
++                        x1=&quot;464.1&quot;
+                         y1=&quot;532.975&quot;
+-                        x2=&quot;463.6&quot;
++                        x2=&quot;464.1&quot;
+                         y2=&quot;538.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;834&quot;
++                        x1=&quot;833.5&quot;
+                         y1=&quot;532.975&quot;
+-                        x2=&quot;834&quot;
++                        x2=&quot;833.5&quot;
+                         y2=&quot;538.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="children-not-in-school?sex=female&level=level_side_by_side&metric_type=number" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>children-not-in-school?sex=female&level=level_side_by_side&metric_type=number</h2>
+            <button class="copy-slug-btn" data-slug="children-not-in-school?sex=female&level=level_side_by_side&metric_type=number" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (16)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/children-not-in-school?sex=female&level=level_side_by_side&metric_type=number" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/children-not-in-school%3Fsex=female&level=level_side_by_side&metric_type=number_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-edge-ticks-marks/grapher/children-not-in-school?sex=female&level=level_side_by_side&metric_type=number" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/children-not-in-school%3Fsex=female&level=level_side_by_side&metric_type=number_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/children-not-in-school%3Fsex=female&level=level_side_by_side&metric_type=number_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/children-not-in-school%3Fsex=female&level=level_side_by_side&metric_type=number_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: children-not-in-school?sex=female&level=level_side_by_side&metric_type=number_v0_850x600.svg
+===================================================================
+--- children-not-in-school?sex=female&level=level_side_by_side&metric_type=number_v0_850x600.svg	
++++ children-not-in-school?sex=female&level=level_side_by_side&metric_type=number_v0_850x600.svg	
+@@ -155,20 +155,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;46.6&quot;
++                        x1=&quot;47.1&quot;
+                         y1=&quot;317.975&quot;
+-                        x2=&quot;46.6&quot;
++                        x2=&quot;47.1&quot;
+                         y2=&quot;323.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;417&quot;
++                        x1=&quot;416.5&quot;
+                         y1=&quot;317.975&quot;
+-                        x2=&quot;417&quot;
++                        x2=&quot;416.5&quot;
+                         y2=&quot;323.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -491,20 +491,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;463.6&quot;
++                        x1=&quot;464.1&quot;
+                         y1=&quot;317.975&quot;
+-                        x2=&quot;463.6&quot;
++                        x2=&quot;464.1&quot;
+                         y2=&quot;323.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;834&quot;
++                        x1=&quot;833.5&quot;
+                         y1=&quot;317.975&quot;
+-                        x2=&quot;834&quot;
++                        x2=&quot;833.5&quot;
+                         y2=&quot;323.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -810,20 +810,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;46.6&quot;
++                        x1=&quot;47.1&quot;
+                         y1=&quot;532.975&quot;
+-                        x2=&quot;46.6&quot;
++                        x2=&quot;47.1&quot;
+                         y2=&quot;538.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;417&quot;
++                        x1=&quot;416.5&quot;
+                         y1=&quot;532.975&quot;
+-                        x2=&quot;417&quot;
++                        x2=&quot;416.5&quot;
+                         y2=&quot;538.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -1089,20 +1089,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;463.6&quot;
++                        x1=&quot;464.1&quot;
+                         y1=&quot;532.975&quot;
+-                        x2=&quot;463.6&quot;
++                        x2=&quot;464.1&quot;
+                         y2=&quot;538.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;834&quot;
++                        x1=&quot;833.5&quot;
+                         y1=&quot;532.975&quot;
+-                        x2=&quot;834&quot;
++                        x2=&quot;833.5&quot;
+                         y2=&quot;538.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="children-not-in-school?sex=male&level=level_side_by_side&metric_type=number" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>children-not-in-school?sex=male&level=level_side_by_side&metric_type=number</h2>
+            <button class="copy-slug-btn" data-slug="children-not-in-school?sex=male&level=level_side_by_side&metric_type=number" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (16)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/children-not-in-school?sex=male&level=level_side_by_side&metric_type=number" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/children-not-in-school%3Fsex=male&level=level_side_by_side&metric_type=number_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-edge-ticks-marks/grapher/children-not-in-school?sex=male&level=level_side_by_side&metric_type=number" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/children-not-in-school%3Fsex=male&level=level_side_by_side&metric_type=number_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/children-not-in-school%3Fsex=male&level=level_side_by_side&metric_type=number_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/children-not-in-school%3Fsex=male&level=level_side_by_side&metric_type=number_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: children-not-in-school?sex=male&level=level_side_by_side&metric_type=number_v0_850x600.svg
+===================================================================
+--- children-not-in-school?sex=male&level=level_side_by_side&metric_type=number_v0_850x600.svg	
++++ children-not-in-school?sex=male&level=level_side_by_side&metric_type=number_v0_850x600.svg	
+@@ -155,20 +155,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;46.6&quot;
++                        x1=&quot;47.1&quot;
+                         y1=&quot;317.975&quot;
+-                        x2=&quot;46.6&quot;
++                        x2=&quot;47.1&quot;
+                         y2=&quot;323.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;417&quot;
++                        x1=&quot;416.5&quot;
+                         y1=&quot;317.975&quot;
+-                        x2=&quot;417&quot;
++                        x2=&quot;416.5&quot;
+                         y2=&quot;323.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -491,20 +491,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;463.6&quot;
++                        x1=&quot;464.1&quot;
+                         y1=&quot;317.975&quot;
+-                        x2=&quot;463.6&quot;
++                        x2=&quot;464.1&quot;
+                         y2=&quot;323.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;834&quot;
++                        x1=&quot;833.5&quot;
+                         y1=&quot;317.975&quot;
+-                        x2=&quot;834&quot;
++                        x2=&quot;833.5&quot;
+                         y2=&quot;323.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -810,20 +810,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;46.6&quot;
++                        x1=&quot;47.1&quot;
+                         y1=&quot;532.975&quot;
+-                        x2=&quot;46.6&quot;
++                        x2=&quot;47.1&quot;
+                         y2=&quot;538.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;417&quot;
++                        x1=&quot;416.5&quot;
+                         y1=&quot;532.975&quot;
+-                        x2=&quot;417&quot;
++                        x2=&quot;416.5&quot;
+                         y2=&quot;538.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -1108,20 +1108,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;463.6&quot;
++                        x1=&quot;464.1&quot;
+                         y1=&quot;532.975&quot;
+-                        x2=&quot;463.6&quot;
++                        x2=&quot;464.1&quot;
+                         y2=&quot;538.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;834&quot;
++                        x1=&quot;833.5&quot;
+                         y1=&quot;532.975&quot;
+-                        x2=&quot;834&quot;
++                        x2=&quot;833.5&quot;
+                         y2=&quot;538.475&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="children-not-in-school?sex=sex_side_by_side&level=lower_secondary&metric_type=number" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>children-not-in-school?sex=sex_side_by_side&level=lower_secondary&metric_type=number</h2>
+            <button class="copy-slug-btn" data-slug="children-not-in-school?sex=sex_side_by_side&level=lower_secondary&metric_type=number" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (16)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/children-not-in-school?sex=sex_side_by_side&level=lower_secondary&metric_type=number" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/children-not-in-school%3Fsex=sex_side_by_side&level=lower_secondary&metric_type=number_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-edge-ticks-marks/grapher/children-not-in-school?sex=sex_side_by_side&level=lower_secondary&metric_type=number" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/children-not-in-school%3Fsex=sex_side_by_side&level=lower_secondary&metric_type=number_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/children-not-in-school%3Fsex=sex_side_by_side&level=lower_secondary&metric_type=number_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/children-not-in-school%3Fsex=sex_side_by_side&level=lower_secondary&metric_type=number_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: children-not-in-school?sex=sex_side_by_side&level=lower_secondary&metric_type=number_v0_850x600.svg
+===================================================================
+--- children-not-in-school?sex=sex_side_by_side&level=lower_secondary&metric_type=number_v0_850x600.svg	
++++ children-not-in-school?sex=sex_side_by_side&level=lower_secondary&metric_type=number_v0_850x600.svg	
+@@ -124,20 +124,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;46.6&quot;
++                        x1=&quot;47.1&quot;
+                         y1=&quot;315.175&quot;
+-                        x2=&quot;46.6&quot;
++                        x2=&quot;47.1&quot;
+                         y2=&quot;320.675&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;417&quot;
++                        x1=&quot;416.5&quot;
+                         y1=&quot;315.175&quot;
+-                        x2=&quot;417&quot;
++                        x2=&quot;416.5&quot;
+                         y2=&quot;320.675&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -424,20 +424,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;463.6&quot;
++                        x1=&quot;464.1&quot;
+                         y1=&quot;315.175&quot;
+-                        x2=&quot;463.6&quot;
++                        x2=&quot;464.1&quot;
+                         y2=&quot;320.675&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;834&quot;
++                        x1=&quot;833.5&quot;
+                         y1=&quot;315.175&quot;
+-                        x2=&quot;834&quot;
++                        x2=&quot;833.5&quot;
+                         y2=&quot;320.675&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -669,20 +669,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;46.6&quot;
++                        x1=&quot;47.1&quot;
+                         y1=&quot;532.175&quot;
+-                        x2=&quot;46.6&quot;
++                        x2=&quot;47.1&quot;
+                         y2=&quot;537.675&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;417&quot;
++                        x1=&quot;416.5&quot;
+                         y1=&quot;532.175&quot;
+-                        x2=&quot;417&quot;
++                        x2=&quot;416.5&quot;
+                         y2=&quot;537.675&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -931,20 +931,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;463.6&quot;
++                        x1=&quot;464.1&quot;
+                         y1=&quot;532.175&quot;
+-                        x2=&quot;463.6&quot;
++                        x2=&quot;464.1&quot;
+                         y2=&quot;537.675&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;834&quot;
++                        x1=&quot;833.5&quot;
+                         y1=&quot;532.175&quot;
+-                        x2=&quot;834&quot;
++                        x2=&quot;833.5&quot;
+                         y2=&quot;537.675&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="children-not-in-school?sex=sex_side_by_side&level=pre_primary&metric_type=number" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>children-not-in-school?sex=sex_side_by_side&level=pre_primary&metric_type=number</h2>
+            <button class="copy-slug-btn" data-slug="children-not-in-school?sex=sex_side_by_side&level=pre_primary&metric_type=number" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (16)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/children-not-in-school?sex=sex_side_by_side&level=pre_primary&metric_type=number" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/children-not-in-school%3Fsex=sex_side_by_side&level=pre_primary&metric_type=number_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-edge-ticks-marks/grapher/children-not-in-school?sex=sex_side_by_side&level=pre_primary&metric_type=number" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/children-not-in-school%3Fsex=sex_side_by_side&level=pre_primary&metric_type=number_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/children-not-in-school%3Fsex=sex_side_by_side&level=pre_primary&metric_type=number_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/children-not-in-school%3Fsex=sex_side_by_side&level=pre_primary&metric_type=number_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: children-not-in-school?sex=sex_side_by_side&level=pre_primary&metric_type=number_v0_850x600.svg
+===================================================================
+--- children-not-in-school?sex=sex_side_by_side&level=pre_primary&metric_type=number_v0_850x600.svg	
++++ children-not-in-school?sex=sex_side_by_side&level=pre_primary&metric_type=number_v0_850x600.svg	
+@@ -123,20 +123,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1998&quot;
+-                        x1=&quot;46.6&quot;
++                        x1=&quot;47.1&quot;
+                         y1=&quot;316.375&quot;
+-                        x2=&quot;46.6&quot;
++                        x2=&quot;47.1&quot;
+                         y2=&quot;321.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;417&quot;
++                        x1=&quot;416.5&quot;
+                         y1=&quot;316.375&quot;
+-                        x2=&quot;417&quot;
++                        x2=&quot;416.5&quot;
+                         y2=&quot;321.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -366,20 +366,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1998&quot;
+-                        x1=&quot;463.6&quot;
++                        x1=&quot;464.1&quot;
+                         y1=&quot;316.375&quot;
+-                        x2=&quot;463.6&quot;
++                        x2=&quot;464.1&quot;
+                         y2=&quot;321.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;834&quot;
++                        x1=&quot;833.5&quot;
+                         y1=&quot;316.375&quot;
+-                        x2=&quot;834&quot;
++                        x2=&quot;833.5&quot;
+                         y2=&quot;321.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -668,20 +668,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1998&quot;
+-                        x1=&quot;46.6&quot;
++                        x1=&quot;47.1&quot;
+                         y1=&quot;533.375&quot;
+-                        x2=&quot;46.6&quot;
++                        x2=&quot;47.1&quot;
+                         y2=&quot;538.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;417&quot;
++                        x1=&quot;416.5&quot;
+                         y1=&quot;533.375&quot;
+-                        x2=&quot;417&quot;
++                        x2=&quot;416.5&quot;
+                         y2=&quot;538.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -949,20 +949,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1998&quot;
+-                        x1=&quot;463.6&quot;
++                        x1=&quot;464.1&quot;
+                         y1=&quot;533.375&quot;
+-                        x2=&quot;463.6&quot;
++                        x2=&quot;464.1&quot;
+                         y2=&quot;538.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;834&quot;
++                        x1=&quot;833.5&quot;
+                         y1=&quot;533.375&quot;
+-                        x2=&quot;834&quot;
++                        x2=&quot;833.5&quot;
+                         y2=&quot;538.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="children-not-in-school?sex=sex_side_by_side&level=primary&metric_type=number" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>children-not-in-school?sex=sex_side_by_side&level=primary&metric_type=number</h2>
+            <button class="copy-slug-btn" data-slug="children-not-in-school?sex=sex_side_by_side&level=primary&metric_type=number" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (16)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/children-not-in-school?sex=sex_side_by_side&level=primary&metric_type=number" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/children-not-in-school%3Fsex=sex_side_by_side&level=primary&metric_type=number_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-edge-ticks-marks/grapher/children-not-in-school?sex=sex_side_by_side&level=primary&metric_type=number" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/children-not-in-school%3Fsex=sex_side_by_side&level=primary&metric_type=number_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/children-not-in-school%3Fsex=sex_side_by_side&level=primary&metric_type=number_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/children-not-in-school%3Fsex=sex_side_by_side&level=primary&metric_type=number_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: children-not-in-school?sex=sex_side_by_side&level=primary&metric_type=number_v0_850x600.svg
+===================================================================
+--- children-not-in-school?sex=sex_side_by_side&level=primary&metric_type=number_v0_850x600.svg	
++++ children-not-in-school?sex=sex_side_by_side&level=primary&metric_type=number_v0_850x600.svg	
+@@ -124,20 +124,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;46.6&quot;
++                        x1=&quot;47.1&quot;
+                         y1=&quot;316.375&quot;
+-                        x2=&quot;46.6&quot;
++                        x2=&quot;47.1&quot;
+                         y2=&quot;321.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;417&quot;
++                        x1=&quot;416.5&quot;
+                         y1=&quot;316.375&quot;
+-                        x2=&quot;417&quot;
++                        x2=&quot;416.5&quot;
+                         y2=&quot;321.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -386,20 +386,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;463.6&quot;
++                        x1=&quot;464.1&quot;
+                         y1=&quot;316.375&quot;
+-                        x2=&quot;463.6&quot;
++                        x2=&quot;464.1&quot;
+                         y2=&quot;321.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;834&quot;
++                        x1=&quot;833.5&quot;
+                         y1=&quot;316.375&quot;
+-                        x2=&quot;834&quot;
++                        x2=&quot;833.5&quot;
+                         y2=&quot;321.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -631,20 +631,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;46.6&quot;
++                        x1=&quot;47.1&quot;
+                         y1=&quot;533.375&quot;
+-                        x2=&quot;46.6&quot;
++                        x2=&quot;47.1&quot;
+                         y2=&quot;538.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;417&quot;
++                        x1=&quot;416.5&quot;
+                         y1=&quot;533.375&quot;
+-                        x2=&quot;417&quot;
++                        x2=&quot;416.5&quot;
+                         y2=&quot;538.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -912,20 +912,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;463.6&quot;
++                        x1=&quot;464.1&quot;
+                         y1=&quot;533.375&quot;
+-                        x2=&quot;463.6&quot;
++                        x2=&quot;464.1&quot;
+                         y2=&quot;538.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;834&quot;
++                        x1=&quot;833.5&quot;
+                         y1=&quot;533.375&quot;
+-                        x2=&quot;834&quot;
++                        x2=&quot;833.5&quot;
+                         y2=&quot;538.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="children-not-in-school?sex=sex_side_by_side&level=upper_secondary&metric_type=number" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>children-not-in-school?sex=sex_side_by_side&level=upper_secondary&metric_type=number</h2>
+            <button class="copy-slug-btn" data-slug="children-not-in-school?sex=sex_side_by_side&level=upper_secondary&metric_type=number" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (16)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/children-not-in-school?sex=sex_side_by_side&level=upper_secondary&metric_type=number" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/children-not-in-school%3Fsex=sex_side_by_side&level=upper_secondary&metric_type=number_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-edge-ticks-marks/grapher/children-not-in-school?sex=sex_side_by_side&level=upper_secondary&metric_type=number" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/children-not-in-school%3Fsex=sex_side_by_side&level=upper_secondary&metric_type=number_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/children-not-in-school%3Fsex=sex_side_by_side&level=upper_secondary&metric_type=number_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/children-not-in-school%3Fsex=sex_side_by_side&level=upper_secondary&metric_type=number_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: children-not-in-school?sex=sex_side_by_side&level=upper_secondary&metric_type=number_v0_850x600.svg
+===================================================================
+--- children-not-in-school?sex=sex_side_by_side&level=upper_secondary&metric_type=number_v0_850x600.svg	
++++ children-not-in-school?sex=sex_side_by_side&level=upper_secondary&metric_type=number_v0_850x600.svg	
+@@ -124,20 +124,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;46.6&quot;
++                        x1=&quot;47.1&quot;
+                         y1=&quot;315.175&quot;
+-                        x2=&quot;46.6&quot;
++                        x2=&quot;47.1&quot;
+                         y2=&quot;320.675&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;417&quot;
++                        x1=&quot;416.5&quot;
+                         y1=&quot;315.175&quot;
+-                        x2=&quot;417&quot;
++                        x2=&quot;416.5&quot;
+                         y2=&quot;320.675&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -367,20 +367,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;463.6&quot;
++                        x1=&quot;464.1&quot;
+                         y1=&quot;315.175&quot;
+-                        x2=&quot;463.6&quot;
++                        x2=&quot;464.1&quot;
+                         y2=&quot;320.675&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;834&quot;
++                        x1=&quot;833.5&quot;
+                         y1=&quot;315.175&quot;
+-                        x2=&quot;834&quot;
++                        x2=&quot;833.5&quot;
+                         y2=&quot;320.675&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -688,20 +688,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;46.6&quot;
++                        x1=&quot;47.1&quot;
+                         y1=&quot;532.175&quot;
+-                        x2=&quot;46.6&quot;
++                        x2=&quot;47.1&quot;
+                         y2=&quot;537.675&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;417&quot;
++                        x1=&quot;416.5&quot;
+                         y1=&quot;532.175&quot;
+-                        x2=&quot;417&quot;
++                        x2=&quot;416.5&quot;
+                         y2=&quot;537.675&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -988,20 +988,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1970&quot;
+-                        x1=&quot;463.6&quot;
++                        x1=&quot;464.1&quot;
+                         y1=&quot;532.175&quot;
+-                        x2=&quot;463.6&quot;
++                        x2=&quot;464.1&quot;
+                         y2=&quot;537.675&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;834&quot;
++                        x1=&quot;833.5&quot;
+                         y1=&quot;532.175&quot;
+-                        x2=&quot;834&quot;
++                        x2=&quot;833.5&quot;
+                         y2=&quot;537.675&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="years-of-schooling?sex=both&level=level_side_by_side&metric_type=expected_years_schooling" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>years-of-schooling?sex=both&level=level_side_by_side&metric_type=expected_years_schooling</h2>
+            <button class="copy-slug-btn" data-slug="years-of-schooling?sex=both&level=level_side_by_side&metric_type=expected_years_schooling" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (16)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/years-of-schooling?sex=both&level=level_side_by_side&metric_type=expected_years_schooling" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/years-of-schooling%3Fsex=both&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-edge-ticks-marks/grapher/years-of-schooling?sex=both&level=level_side_by_side&metric_type=expected_years_schooling" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/years-of-schooling%3Fsex=both&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/years-of-schooling%3Fsex=both&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/years-of-schooling%3Fsex=both&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: years-of-schooling?sex=both&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg
+===================================================================
+--- years-of-schooling?sex=both&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg	
++++ years-of-schooling?sex=both&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg	
+@@ -158,20 +158,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1971&quot;
+-                        x1=&quot;36.6&quot;
++                        x1=&quot;37.1&quot;
+                         y1=&quot;315.775&quot;
+-                        x2=&quot;36.6&quot;
++                        x2=&quot;37.1&quot;
+                         y2=&quot;321.275&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;426.6&quot;
++                        x1=&quot;426.1&quot;
+                         y1=&quot;315.775&quot;
+-                        x2=&quot;426.6&quot;
++                        x2=&quot;426.1&quot;
+                         y2=&quot;321.275&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -458,20 +458,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1971&quot;
+-                        x1=&quot;442.6&quot;
++                        x1=&quot;443.1&quot;
+                         y1=&quot;315.775&quot;
+-                        x2=&quot;442.6&quot;
++                        x2=&quot;443.1&quot;
+                         y2=&quot;321.275&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;832.6&quot;
++                        x1=&quot;832.1&quot;
+                         y1=&quot;315.775&quot;
+-                        x2=&quot;832.6&quot;
++                        x2=&quot;832.1&quot;
+                         y2=&quot;321.275&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -702,20 +702,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1971&quot;
+-                        x1=&quot;36.6&quot;
++                        x1=&quot;37.1&quot;
+                         y1=&quot;532.775&quot;
+-                        x2=&quot;36.6&quot;
++                        x2=&quot;37.1&quot;
+                         y2=&quot;538.275&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;426.6&quot;
++                        x1=&quot;426.1&quot;
+                         y1=&quot;532.775&quot;
+-                        x2=&quot;426.6&quot;
++                        x2=&quot;426.1&quot;
+                         y2=&quot;538.275&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -1000,20 +1000,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1971&quot;
+-                        x1=&quot;442.6&quot;
++                        x1=&quot;443.1&quot;
+                         y1=&quot;532.775&quot;
+-                        x2=&quot;442.6&quot;
++                        x2=&quot;443.1&quot;
+                         y2=&quot;538.275&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;832.6&quot;
++                        x1=&quot;832.1&quot;
+                         y1=&quot;532.775&quot;
+-                        x2=&quot;832.6&quot;
++                        x2=&quot;832.1&quot;
+                         y2=&quot;538.275&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="years-of-schooling?sex=boys&level=level_side_by_side&metric_type=expected_years_schooling" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>years-of-schooling?sex=boys&level=level_side_by_side&metric_type=expected_years_schooling</h2>
+            <button class="copy-slug-btn" data-slug="years-of-schooling?sex=boys&level=level_side_by_side&metric_type=expected_years_schooling" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (16)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/years-of-schooling?sex=boys&level=level_side_by_side&metric_type=expected_years_schooling" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/years-of-schooling%3Fsex=boys&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-edge-ticks-marks/grapher/years-of-schooling?sex=boys&level=level_side_by_side&metric_type=expected_years_schooling" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/years-of-schooling%3Fsex=boys&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/years-of-schooling%3Fsex=boys&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/years-of-schooling%3Fsex=boys&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: years-of-schooling?sex=boys&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg
+===================================================================
+--- years-of-schooling?sex=boys&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg	
++++ years-of-schooling?sex=boys&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg	
+@@ -157,20 +157,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1971&quot;
+-                        x1=&quot;36.6&quot;
++                        x1=&quot;37.1&quot;
+                         y1=&quot;316.375&quot;
+-                        x2=&quot;36.6&quot;
++                        x2=&quot;37.1&quot;
+                         y2=&quot;321.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;426.6&quot;
++                        x1=&quot;426.1&quot;
+                         y1=&quot;316.375&quot;
+-                        x2=&quot;426.6&quot;
++                        x2=&quot;426.1&quot;
+                         y2=&quot;321.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -476,20 +476,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1971&quot;
+-                        x1=&quot;442.6&quot;
++                        x1=&quot;443.1&quot;
+                         y1=&quot;316.375&quot;
+-                        x2=&quot;442.6&quot;
++                        x2=&quot;443.1&quot;
+                         y2=&quot;321.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;832.6&quot;
++                        x1=&quot;832.1&quot;
+                         y1=&quot;316.375&quot;
+-                        x2=&quot;832.6&quot;
++                        x2=&quot;832.1&quot;
+                         y2=&quot;321.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -729,20 +729,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1971&quot;
+-                        x1=&quot;36.6&quot;
++                        x1=&quot;37.1&quot;
+                         y1=&quot;533.375&quot;
+-                        x2=&quot;36.6&quot;
++                        x2=&quot;37.1&quot;
+                         y2=&quot;538.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;426.6&quot;
++                        x1=&quot;426.1&quot;
+                         y1=&quot;533.375&quot;
+-                        x2=&quot;426.6&quot;
++                        x2=&quot;426.1&quot;
+                         y2=&quot;538.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -1046,20 +1046,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1971&quot;
+-                        x1=&quot;442.6&quot;
++                        x1=&quot;443.1&quot;
+                         y1=&quot;533.375&quot;
+-                        x2=&quot;442.6&quot;
++                        x2=&quot;443.1&quot;
+                         y2=&quot;538.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;832.6&quot;
++                        x1=&quot;832.1&quot;
+                         y1=&quot;533.375&quot;
+-                        x2=&quot;832.6&quot;
++                        x2=&quot;832.1&quot;
+                         y2=&quot;538.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="years-of-schooling?sex=girls&level=level_side_by_side&metric_type=expected_years_schooling" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>years-of-schooling?sex=girls&level=level_side_by_side&metric_type=expected_years_schooling</h2>
+            <button class="copy-slug-btn" data-slug="years-of-schooling?sex=girls&level=level_side_by_side&metric_type=expected_years_schooling" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (16)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/years-of-schooling?sex=girls&level=level_side_by_side&metric_type=expected_years_schooling" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/years-of-schooling%3Fsex=girls&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-edge-ticks-marks/grapher/years-of-schooling?sex=girls&level=level_side_by_side&metric_type=expected_years_schooling" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/years-of-schooling%3Fsex=girls&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/years-of-schooling%3Fsex=girls&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/years-of-schooling%3Fsex=girls&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: years-of-schooling?sex=girls&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg
+===================================================================
+--- years-of-schooling?sex=girls&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg	
++++ years-of-schooling?sex=girls&level=level_side_by_side&metric_type=expected_years_schooling_v0_850x600.svg	
+@@ -157,20 +157,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1971&quot;
+-                        x1=&quot;36.6&quot;
++                        x1=&quot;37.1&quot;
+                         y1=&quot;316.375&quot;
+-                        x2=&quot;36.6&quot;
++                        x2=&quot;37.1&quot;
+                         y2=&quot;321.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;426.6&quot;
++                        x1=&quot;426.1&quot;
+                         y1=&quot;316.375&quot;
+-                        x2=&quot;426.6&quot;
++                        x2=&quot;426.1&quot;
+                         y2=&quot;321.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -457,20 +457,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1971&quot;
+-                        x1=&quot;442.6&quot;
++                        x1=&quot;443.1&quot;
+                         y1=&quot;316.375&quot;
+-                        x2=&quot;442.6&quot;
++                        x2=&quot;443.1&quot;
+                         y2=&quot;321.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;832.6&quot;
++                        x1=&quot;832.1&quot;
+                         y1=&quot;316.375&quot;
+-                        x2=&quot;832.6&quot;
++                        x2=&quot;832.1&quot;
+                         y2=&quot;321.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -701,20 +701,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1971&quot;
+-                        x1=&quot;36.6&quot;
++                        x1=&quot;37.1&quot;
+                         y1=&quot;533.375&quot;
+-                        x2=&quot;36.6&quot;
++                        x2=&quot;37.1&quot;
+                         y2=&quot;538.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;426.6&quot;
++                        x1=&quot;426.1&quot;
+                         y1=&quot;533.375&quot;
+-                        x2=&quot;426.6&quot;
++                        x2=&quot;426.1&quot;
+                         y2=&quot;538.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+@@ -999,20 +999,20 @@
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+                         id=&quot;1971&quot;
+-                        x1=&quot;442.6&quot;
++                        x1=&quot;443.1&quot;
+                         y1=&quot;533.375&quot;
+-                        x2=&quot;442.6&quot;
++                        x2=&quot;443.1&quot;
+                         y2=&quot;538.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+                         id=&quot;2023&quot;
+-                        x1=&quot;832.6&quot;
++                        x1=&quot;832.1&quot;
+                         y1=&quot;533.375&quot;
+-                        x2=&quot;832.6&quot;
++                        x2=&quot;832.1&quot;
+                         y2=&quot;538.875&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Chart type filtering
+        const chartTypeFilter = document.getElementById('chart-type-filter');
+        const visibleCountSpan = document.getElementById('visible-count');
+
+        function filterByChartType(chartType) {
+            const sections = document.querySelectorAll('section[data-chart-type]');
+            let visibleCount = 0;
+
+            sections.forEach(section => {
+                if (chartType === 'all' || section.dataset.chartType === chartType) {
+                    section.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            if (visibleCountSpan) {
+                visibleCountSpan.textContent = visibleCount;
+            }
+        }
+
+        if (chartTypeFilter) {
+            chartTypeFilter.addEventListener('change', (e) => {
+                filterByChartType(e.target.value);
+            });
+        }
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section, and skip if diff was too large
+                    if (diffContainer && !renderedDiffs.has(diffId) && !diffContainer.dataset.skipped) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
