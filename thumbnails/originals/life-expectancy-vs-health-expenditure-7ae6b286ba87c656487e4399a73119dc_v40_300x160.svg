@@ -1,0 +1,821 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    version="1.1"
+    style='font-family:Lato, &#x27;Helvetica Neue&#x27;, Helvetica, Arial, &#x27;Liberation Sans&#x27;, sans-serif;font-feature-settings:"liga", "kern", "calt", "lnum";text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased;font-size:14px;background-color:#ffffff'
+    width="300"
+    height="160"
+    viewBox="0 0 300 160"
+>
+    <defs>
+        <style>
+            @import url(https://ourworldindata.org/fonts.css);
+        </style>
+    </defs>
+    <defs>
+        <pattern
+            id="noDataPattern"
+            patternUnits="userSpaceOnUse"
+            width="4"
+            height="4"
+            patternTransform="rotate(-45 2 2)"
+        >
+            <path d="M -1,2 l 6,0" stroke="#ccc" stroke-width="0.7"></path>
+        </pattern>
+    </defs>
+    <g id="chart-area" style="pointer-events: none">
+        <g id="horizontal-axis" class="HorizontalAxis">
+            <g id="horizontal-axis-label" class="markdown-text-wrap">
+                <text
+                    x="171.3"
+                    y="140.7"
+                    style="font-size: 10px; line-height: 1"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                >
+                    <tspan x="171.3" y="140.7">
+                        <tspan style="font-weight: 700">
+                            Health expenditure per capita
+                        </tspan>
+                    </tspan>
+                    <tspan x="171.3" y="150.7">
+                        (international-$ in 2020 prices)
+                    </tspan>
+                </text>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="85.8"
+                    y="130"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="10"
+                >
+                    $2,000
+                </text>
+                <text
+                    x="250.4"
+                    y="130"
+                    fill="#5b5b5b"
+                    text-anchor="middle"
+                    font-size="10"
+                >
+                    $10,000
+                </text>
+            </g>
+        </g>
+        <g id="vertical-axis" class="VerticalAxis">
+            <g id="vertical-axis-label" class="markdown-text-wrap">
+                <text
+                    x="8.0"
+                    y="16.7"
+                    style="font-size: 10px; font-weight: 700; line-height: 1"
+                    fill="#5b5b5b"
+                >
+                    <tspan x="8" y="16.7">Life expectancy</tspan>
+                </text>
+            </g>
+            <g id="tick-labels">
+                <text
+                    x="45.60"
+                    y="101.6"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="10"
+                >
+                    70 years
+                </text>
+                <text
+                    x="45.60"
+                    y="50.2"
+                    dy=".32em"
+                    text-anchor="end"
+                    fill="#5b5b5b"
+                    font-size="10"
+                >
+                    80 years
+                </text>
+            </g>
+        </g>
+        <g id="horizontal-grid-lines" class="AxisGridLines horizontalLines">
+            <line
+                id="70-years"
+                x1="50.60"
+                y1="101.6"
+                x2="292.00"
+                y2="101.6"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="75-years"
+                x1="50.60"
+                y1="75.9"
+                x2="292.00"
+                y2="75.9"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="80-years"
+                x1="50.60"
+                y1="50.2"
+                x2="292.00"
+                y2="50.2"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g id="vertical-grid-lines" class="AxisGridLines verticalLines">
+            <line
+                id="$2,000"
+                x1="85.8"
+                y1="125.00"
+                x2="85.8"
+                y2="26.00"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$4,000"
+                x1="126.9"
+                y1="125.00"
+                x2="126.9"
+                y2="26.00"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$6,000"
+                x1="168.1"
+                y1="125.00"
+                x2="168.1"
+                y2="26.00"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$8,000"
+                x1="209.2"
+                y1="125.00"
+                x2="209.2"
+                y2="26.00"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$10,000"
+                x1="250.4"
+                y1="125.00"
+                x2="250.4"
+                y2="26.00"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+            <line
+                id="$12,000"
+                x1="291.5"
+                y1="125.00"
+                x2="291.5"
+                y2="26.00"
+                stroke="#ddd"
+                stroke-dasharray="4,4"
+            ></line>
+        </g>
+        <g
+            id="scatter-points"
+            class="PointsWithLabels clickable"
+            clip-path="url(#scatterBounds-1)"
+        >
+            <rect
+                x="50.6"
+                y="26"
+                width="241.4"
+                height="99"
+                fill="rgba(255,255,255,0)"
+            ></rect>
+            <defs>
+                <clipPath id="scatterBounds-1">
+                    <rect x="40.6" y="16" width="261.4" height="119"></rect>
+                </clipPath>
+            </defs>
+            <g id="points">
+                <g id="Argentina__datapoint" class="key-Argentina">
+                    <circle
+                        cx="103.00"
+                        cy="63.00"
+                        r="3.00"
+                        fill="#883039"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Australia__datapoint" class="key-Australia">
+                    <circle
+                        cx="163.00"
+                        cy="30.00"
+                        r="3.00"
+                        fill="#38aaba"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Austria__datapoint" class="key-Austria">
+                    <circle
+                        cx="175.00"
+                        cy="40.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Belgium__datapoint" class="key-Belgium">
+                    <circle
+                        cx="170.00"
+                        cy="39.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Brazil__datapoint" class="key-Brazil">
+                    <circle
+                        cx="78.00"
+                        cy="76.00"
+                        r="3.00"
+                        fill="#883039"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Bulgaria__datapoint" class="key-Bulgaria">
+                    <circle
+                        cx="98.00"
+                        cy="72.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Canada__datapoint" class="key-Canada">
+                    <circle
+                        cx="167.00"
+                        cy="36.00"
+                        r="3.00"
+                        fill="#e56e5a"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Chile__datapoint" class="key-Chile">
+                    <circle
+                        cx="105.00"
+                        cy="44.00"
+                        r="3.00"
+                        fill="#883039"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="China__datapoint" class="key-China">
+                    <circle
+                        cx="67.00"
+                        cy="59.00"
+                        r="3.00"
+                        fill="#00847e"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Colombia__datapoint" class="key-Colombia">
+                    <circle
+                        cx="76.00"
+                        cy="61.00"
+                        r="3.00"
+                        fill="#883039"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Costa-Rica__datapoint" class="key-Costa-Rica">
+                    <circle
+                        cx="76.00"
+                        cy="46.00"
+                        r="3.00"
+                        fill="#e56e5a"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Croatia__datapoint" class="key-Croatia">
+                    <circle
+                        cx="101.00"
+                        cy="57.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Cyprus__datapoint" class="key-Cyprus">
+                    <circle
+                        cx="124.00"
+                        cy="41.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Czechia__datapoint" class="key-Czechia">
+                    <circle
+                        cx="125.00"
+                        cy="51.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Denmark__datapoint" class="key-Denmark">
+                    <circle
+                        cx="164.00"
+                        cy="40.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Estonia__datapoint" class="key-Estonia">
+                    <circle
+                        cx="104.00"
+                        cy="54.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Finland__datapoint" class="key-Finland">
+                    <circle
+                        cx="155.00"
+                        cy="40.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="France__datapoint" class="key-France">
+                    <circle
+                        cx="168.00"
+                        cy="33.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Germany__datapoint" class="key-Germany">
+                    <circle
+                        cx="193.00"
+                        cy="43.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Greece__datapoint" class="key-Greece">
+                    <circle
+                        cx="105.00"
+                        cy="40.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Hungary__datapoint" class="key-Hungary">
+                    <circle
+                        cx="98.00"
+                        cy="65.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Iceland__datapoint" class="key-Iceland">
+                    <circle
+                        cx="152.00"
+                        cy="36.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="India__datapoint" class="key-India">
+                    <circle
+                        cx="50.00"
+                        cy="92.00"
+                        r="3.00"
+                        fill="#00847e"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Indonesia__datapoint" class="key-Indonesia">
+                    <circle
+                        cx="52.00"
+                        cy="95.00"
+                        r="3.00"
+                        fill="#00847e"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Ireland__datapoint" class="key-Ireland">
+                    <circle
+                        cx="161.00"
+                        cy="37.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Israel__datapoint" class="key-Israel">
+                    <circle
+                        cx="109.00"
+                        cy="37.00"
+                        r="3.00"
+                        fill="#00847e"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Italy__datapoint" class="key-Italy">
+                    <circle
+                        cx="127.00"
+                        cy="31.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Japan__datapoint" class="key-Japan">
+                    <circle
+                        cx="143.00"
+                        cy="26.00"
+                        r="3.00"
+                        fill="#00847e"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Latvia__datapoint" class="key-Latvia">
+                    <circle
+                        cx="95.00"
+                        cy="69.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Lithuania__datapoint" class="key-Lithuania">
+                    <circle
+                        cx="111.00"
+                        cy="70.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Luxembourg__datapoint" class="key-Luxembourg">
+                    <circle
+                        cx="169.00"
+                        cy="38.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Malta__datapoint" class="key-Malta">
+                    <circle
+                        cx="146.00"
+                        cy="33.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Mexico__datapoint" class="key-Mexico">
+                    <circle
+                        cx="70.00"
+                        cy="75.00"
+                        r="3.00"
+                        fill="#e56e5a"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Netherlands__datapoint" class="key-Netherlands">
+                    <circle
+                        cx="173.00"
+                        cy="39.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="New-Zealand__datapoint" class="key-New-Zealand">
+                    <circle
+                        cx="146.00"
+                        cy="39.00"
+                        r="3.00"
+                        fill="#38aaba"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Norway__datapoint" class="key-Norway">
+                    <circle
+                        cx="197.00"
+                        cy="33.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Peru__datapoint" class="key-Peru">
+                    <circle
+                        cx="61.00"
+                        cy="61.00"
+                        r="3.00"
+                        fill="#883039"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Poland__datapoint" class="key-Poland">
+                    <circle
+                        cx="108.00"
+                        cy="57.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Portugal__datapoint" class="key-Portugal">
+                    <circle
+                        cx="125.00"
+                        cy="38.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Romania__datapoint" class="key-Romania">
+                    <circle
+                        cx="93.00"
+                        cy="71.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Slovakia__datapoint" class="key-Slovakia">
+                    <circle
+                        cx="99.00"
+                        cy="58.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Slovenia__datapoint" class="key-Slovenia">
+                    <circle
+                        cx="129.00"
+                        cy="42.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="South-Africa__datapoint" class="key-South-Africa">
+                    <circle
+                        cx="69.00"
+                        cy="125.00"
+                        r="3.00"
+                        fill="#a2559c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="South-Korea__datapoint" class="key-South-Korea">
+                    <circle
+                        cx="128.00"
+                        cy="28.00"
+                        r="3.00"
+                        fill="#00847e"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Spain__datapoint" class="key-Spain">
+                    <circle
+                        cx="124.00"
+                        cy="31.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Sweden__datapoint" class="key-Sweden">
+                    <circle
+                        cx="172.00"
+                        cy="33.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Switzerland__datapoint" class="key-Switzerland">
+                    <circle
+                        cx="207.00"
+                        cy="29.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Turkey__datapoint" class="key-Turkey">
+                    <circle
+                        cx="82.00"
+                        cy="64.00"
+                        r="3.00"
+                        fill="#00847e"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="Ukraine__datapoint" class="key-Ukraine">
+                    <circle
+                        cx="74.00"
+                        cy="93.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="United-Kingdom__datapoint" class="key-United-Kingdom">
+                    <circle
+                        cx="156.00"
+                        cy="43.00"
+                        r="3.00"
+                        fill="#4c6a9c"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+                <g id="United-States__datapoint" class="key-United-States">
+                    <circle
+                        cx="292.00"
+                        cy="53.00"
+                        r="3.00"
+                        fill="#e56e5a"
+                        opacity="0.8"
+                        stroke="#666"
+                        stroke-width="0.5"
+                        style="transition: fill 250ms"
+                    ></circle>
+                </g>
+            </g>
+            <g id="labels" class="backgroundLabels" fill="#333"></g>
+            <g id="points"></g>
+            <g id="labels"></g>
+        </g>
+    </g>
+</svg>
