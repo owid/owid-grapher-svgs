@@ -1,0 +1,2888 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        /* Filter dropdown */
+        .filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        .filter-container label {
+            font-weight: 500;
+            color: #24292e;
+        }
+
+        .filter-container select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            background: #fafbfc;
+            font-size: 0.9rem;
+            color: #24292e;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-container select:hover {
+            border-color: #a0a8b0;
+        }
+
+        .filter-container select:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        section.hidden {
+            display: none;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 0 1 auto;
+            display: flex;
+            flex-direction: column;
+            max-width: 850px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 850px;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            height: auto;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="filter-container">
+        <label for="chart-type-filter">Chart Type:</label>
+        <select id="chart-type-filter">
+            <option value="all" selected>All (7)</option>
+            <option value="LineChart">LineChart (4)</option>
+<option value="StackedBar">StackedBar (3)</option>
+        </select>
+    </div><p class="summary">Showing <span id="visible-count">7</span> of 7 differences</p><section data-slug="annual-research-and-development-funding-for-technologies-infectious-diseases" data-chart-type="LineChart">
+        <div class="header-with-actions">
+            <h2>annual-research-and-development-funding-for-technologies-infectious-diseases</h2>
+            <button class="copy-slug-btn" data-slug="annual-research-and-development-funding-for-technologies-infectious-diseases" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (756)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/annual-research-and-development-funding-for-technologies-infectious-diseases" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/annual-research-and-development-funding-for-technologies-infectious-diseases_v9_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-facet-shared-x-axis/grapher/annual-research-and-development-funding-for-technologies-infectious-diseases" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/annual-research-and-development-funding-for-technologies-infectious-diseases_v9_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/annual-research-and-development-funding-for-technologies-infectious-diseases_v9_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/annual-research-and-development-funding-for-technologies-infectious-diseases_v9_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: annual-research-and-development-funding-for-technologies-infectious-diseases_v9_850x600.svg
+===================================================================
+--- annual-research-and-development-funding-for-technologies-infectious-diseases_v9_850x600.svg	
++++ annual-research-and-development-funding-for-technologies-infectious-diseases_v9_850x600.svg	
+@@ -84,91 +84,13 @@
+         <text x=&quot;53.5&quot; y=&quot;136.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.50&quot;>
+             <tspan x=&quot;53.5&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>Vaccines</tspan>
+         </text>
+         <g id=&quot;Vaccines&quot;>
+-            <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+-                <g id=&quot;tick-marks&quot;>
+-                    <line
+-                        id=&quot;2007&quot;
+-                        x1=&quot;53.5&quot;
+-                        y1=&quot;228.35&quot;
+-                        x2=&quot;53.5&quot;
+-                        y2=&quot;233.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2023&quot;
+-                        x1=&quot;209&quot;
+-                        y1=&quot;228.35&quot;
+-                        x2=&quot;209&quot;
+-                        y2=&quot;233.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2012&quot;
+-                        x1=&quot;102.1&quot;
+-                        y1=&quot;228.35&quot;
+-                        x2=&quot;102.1&quot;
+-                        y2=&quot;233.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2016&quot;
+-                        x1=&quot;141&quot;
+-                        y1=&quot;228.35&quot;
+-                        x2=&quot;141&quot;
+-                        y2=&quot;233.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                </g>
+-                <g id=&quot;tick-labels&quot;>
+-                    <text
+-                        x=&quot;53.5&quot;
+-                        y=&quot;243.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;start&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        2007
+-                    </text>
+-                    <text
+-                        x=&quot;209&quot;
+-                        y=&quot;243.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;end&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        2023
+-                    </text>
+-                    <text
+-                        x=&quot;102.1&quot;
+-                        y=&quot;243.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        2012
+-                    </text>
+-                    <text
+-                        x=&quot;141&quot;
+-                        y=&quot;243.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        2016
+-                    </text>
+-                </g>
+-            </g>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;48.50&quot;
+-                        y=&quot;228.8&quot;
++                        y=&quot;238.8&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -176,9 +98,9 @@
+                         \$0
+                     </text>
+                     <text
+                         x=&quot;48.50&quot;
+-                        y=&quot;200.5&quot;
++                        y=&quot;206.8&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -186,9 +108,9 @@
+                         \$2B
+                     </text>
+                     <text
+                         x=&quot;48.50&quot;
+-                        y=&quot;172.1&quot;
++                        y=&quot;174.8&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -201,31 +123,58 @@
+                 <line
+                     id=&quot;\$0&quot;
+                     class=&quot;zero-line&quot;
+                     x1=&quot;53.50&quot;
+-                    y1=&quot;228.8&quot;
++                    y1=&quot;238.8&quot;
+                     x2=&quot;209.00&quot;
+-                    y2=&quot;228.8&quot;
++                    y2=&quot;238.8&quot;
+                     stroke=&quot;#999&quot;
+                 ></line>
+                 <line
++                    id=&quot;\$1B&quot;
++                    x1=&quot;53.50&quot;
++                    y1=&quot;222.8&quot;
++                    x2=&quot;209.00&quot;
++                    y2=&quot;222.8&quot;
++                    stroke=&quot;#ddd&quot;
++                    stroke-dasharray=&quot;4,4&quot;
++                ></line>
++                <line
+                     id=&quot;\$2B&quot;
+                     x1=&quot;53.50&quot;
+-                    y1=&quot;200.5&quot;
++                    y1=&quot;206.8&quot;
+                     x2=&quot;209.00&quot;
+-                    y2=&quot;200.5&quot;
++                    y2=&quot;206.8&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
++                    id=&quot;\$3B&quot;
++                    x1=&quot;53.50&quot;
++                    y1=&quot;190.8&quot;
++                    x2=&quot;209.00&quot;
++                    y2=&quot;190.8&quot;
++                    stroke=&quot;#ddd&quot;
++                    stroke-dasharray=&quot;4,4&quot;
++                ></line>
++                <line
+                     id=&quot;\$4B&quot;
+                     x1=&quot;53.50&quot;
+-                    y1=&quot;172.1&quot;
++                    y1=&quot;174.8&quot;
+                     x2=&quot;209.00&quot;
+-                    y2=&quot;172.1&quot;
++                    y2=&quot;174.8&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
++                <line
++                    id=&quot;\$5B&quot;
++                    x1=&quot;53.50&quot;
++                    y1=&quot;158.8&quot;
++                    x2=&quot;209.00&quot;
++                    y2=&quot;158.8&quot;
++                    stroke=&quot;#ddd&quot;
++                    stroke-dasharray=&quot;4,4&quot;
++                ></line>
+             </g>
+             <g id=&quot;lines&quot;>
+                 <path
+                     fill=&quot;none&quot;
+@@ -233,9 +182,9 @@
+                     stroke-linejoin=&quot;round&quot;
+                     stroke=&quot;#fff&quot;
+                     id=&quot;outline__World&quot;
+                     stroke-width=&quot;3.0&quot;
+-                    d=&quot;M53.5 209.5L63.2 206.4L72.9 205.6L82.7 209L92.4 208.4L102.1 208.5L111.8 209L121.5 207.1L131.3 202.8L141 201.3L150.7 202.6L160.4 201.4L170.1 202.2L179.8 151.8L189.6 166.8L199.3 171.7L209 185.8&quot;
++                    d=&quot;M53.5 217L63.2 213.5L72.9 212.6L82.7 216.4L92.4 215.8L102.1 215.9L111.8 216.5L121.5 214.3L131.3 209.5L141 207.7L150.7 209.1L160.4 207.8L170.1 208.8L179.8 151.8L189.6 168.8L199.3 174.3L209 190.2&quot;
+                 ></path>
+                 <path
+                     fill=&quot;none&quot;
+                     stroke-linecap=&quot;butt&quot;
+@@ -243,9 +192,9 @@
+                     stroke=&quot;#4c6a9c&quot;
+                     id=&quot;line__World&quot;
+                     stroke-width=&quot;2.0&quot;
+                     stroke-opacity=&quot;1&quot;
+-                    d=&quot;M53.5 209.5L63.2 206.4L72.9 205.6L82.7 209L92.4 208.4L102.1 208.5L111.8 209L121.5 207.1L131.3 202.8L141 201.3L150.7 202.6L160.4 201.4L170.1 202.2L179.8 151.8L189.6 166.8L199.3 171.7L209 185.8&quot;
++                    d=&quot;M53.5 217L63.2 213.5L72.9 212.6L82.7 216.4L92.4 215.8L102.1 215.9L111.8 216.5L121.5 214.3L131.3 209.5L141 207.7L150.7 209.1L160.4 207.8L170.1 208.8L179.8 151.8L189.6 168.8L199.3 174.3L209 190.2&quot;
+                 ></path>
+             </g>
+         </g>
+         <text x=&quot;261.5&quot; y=&quot;136.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.50&quot;>
+@@ -253,111 +202,53 @@
+                 Basic research
+             </tspan>
+         </text>
+         <g id=&quot;Basic-research&quot;>
+-            <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+-                <g id=&quot;tick-marks&quot;>
+-                    <line
+-                        id=&quot;2007&quot;
+-                        x1=&quot;261.5&quot;
+-                        y1=&quot;228.35&quot;
+-                        x2=&quot;261.5&quot;
+-                        y2=&quot;233.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2023&quot;
+-                        x1=&quot;417&quot;
+-                        y1=&quot;228.35&quot;
+-                        x2=&quot;417&quot;
+-                        y2=&quot;233.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2012&quot;
+-                        x1=&quot;310.1&quot;
+-                        y1=&quot;228.35&quot;
+-                        x2=&quot;310.1&quot;
+-                        y2=&quot;233.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2016&quot;
+-                        x1=&quot;349&quot;
+-                        y1=&quot;228.35&quot;
+-                        x2=&quot;349&quot;
+-                        y2=&quot;233.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                </g>
++            <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+-                        x=&quot;261.5&quot;
+-                        y=&quot;243.85&quot;
++                        x=&quot;256.50&quot;
++                        y=&quot;238.8&quot;
++                        dy=&quot;.32em&quot;
++                        text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;start&quot;
+                         font-size=&quot;10&quot;
+                     >
+-                        2007
++                        \$0
+                     </text>
+                     <text
+-                        x=&quot;417&quot;
+-                        y=&quot;243.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
++                        x=&quot;256.50&quot;
++                        y=&quot;219.3&quot;
++                        dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        2023
+-                    </text>
+-                    <text
+-                        x=&quot;310.1&quot;
+-                        y=&quot;243.85&quot;
+                         fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+                         font-size=&quot;10&quot;
+                     >
+-                        2012
++                        \$500M
+                     </text>
+                     <text
+-                        x=&quot;349&quot;
+-                        y=&quot;243.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        2016
+-                    </text>
+-                </g>
+-            </g>
+-            <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+
+... (diff truncated: showing 300 of 1973 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="country-level-monthly-temperature-anomalies" data-chart-type="StackedBar">
+        <div class="header-with-actions">
+            <h2>country-level-monthly-temperature-anomalies</h2>
+            <button class="copy-slug-btn" data-slug="country-level-monthly-temperature-anomalies" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (3903)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/country-level-monthly-temperature-anomalies" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/country-level-monthly-temperature-anomalies_v18_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-facet-shared-x-axis/grapher/country-level-monthly-temperature-anomalies" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/country-level-monthly-temperature-anomalies_v18_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/country-level-monthly-temperature-anomalies_v18_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/country-level-monthly-temperature-anomalies_v18_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: country-level-monthly-temperature-anomalies_v18_850x600.svg
+===================================================================
+--- country-level-monthly-temperature-anomalies_v18_850x600.svg	
++++ country-level-monthly-temperature-anomalies_v18_850x600.svg	
+@@ -74,88 +74,12 @@
+             </text>
+         </g>
+     </g>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <text x=&quot;52.1&quot; y=&quot;115.1&quot; text-anchor=&quot;start&quot; font-size=&quot;13.50&quot;>
+-            <tspan x=&quot;52.1&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>January</tspan>
++        <text x=&quot;43.9&quot; y=&quot;115.1&quot; text-anchor=&quot;start&quot; font-size=&quot;13.50&quot;>
++            <tspan x=&quot;43.9&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>January</tspan>
+         </text>
+         <g id=&quot;January&quot;>
+-            <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+-                <g id=&quot;tick-marks&quot;>
+-                    <line
+-                        id=&quot;1940&quot;
+-                        x1=&quot;57.6&quot;
+-                        y1=&quot;198.75&quot;
+-                        x2=&quot;57.6&quot;
+-                        y2=&quot;204.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2026&quot;
+-                        x1=&quot;297.6&quot;
+-                        y1=&quot;198.75&quot;
+-                        x2=&quot;297.6&quot;
+-                        y2=&quot;204.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1953&quot;
+-                        x1=&quot;93.9&quot;
+-                        y1=&quot;198.75&quot;
+-                        x2=&quot;93.9&quot;
+-                        y2=&quot;204.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1964&quot;
+-                        x1=&quot;124.6&quot;
+-                        y1=&quot;198.75&quot;
+-                        x2=&quot;124.6&quot;
+-                        y2=&quot;204.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1975&quot;
+-                        x1=&quot;155.3&quot;
+-                        y1=&quot;198.75&quot;
+-                        x2=&quot;155.3&quot;
+-                        y2=&quot;204.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1986&quot;
+-                        x1=&quot;186&quot;
+-                        y1=&quot;198.75&quot;
+-                        x2=&quot;186&quot;
+-                        y2=&quot;204.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1997&quot;
+-                        x1=&quot;216.7&quot;
+-                        y1=&quot;198.75&quot;
+-                        x2=&quot;216.7&quot;
+-                        y2=&quot;204.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2008&quot;
+-                        x1=&quot;247.4&quot;
+-                        y1=&quot;198.75&quot;
+-                        x2=&quot;247.4&quot;
+-                        y2=&quot;204.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                </g>
+-            </g>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;47.10&quot;
+@@ -213,18 +137,18 @@
+                 <line
+                     id=&quot;-1-°C&quot;
+                     x1=&quot;52.10&quot;
+                     y1=&quot;197.2&quot;
+-                    x2=&quot;303.10&quot;
++                    x2=&quot;297.90&quot;
+                     y2=&quot;197.2&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;-0.5-°C&quot;
+                     x1=&quot;52.10&quot;
+                     y1=&quot;180.5&quot;
+-                    x2=&quot;303.10&quot;
++                    x2=&quot;297.90&quot;
+                     y2=&quot;180.5&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+@@ -232,26 +156,26 @@
+                     id=&quot;0-°C&quot;
+                     class=&quot;zero-line&quot;
+                     x1=&quot;52.10&quot;
+                     y1=&quot;163.7&quot;
+-                    x2=&quot;303.10&quot;
++                    x2=&quot;297.90&quot;
+                     y2=&quot;163.7&quot;
+                     stroke=&quot;#999&quot;
+                 ></line>
+                 <line
+                     id=&quot;0.5-°C&quot;
+                     x1=&quot;52.10&quot;
+                     y1=&quot;147&quot;
+-                    x2=&quot;303.10&quot;
++                    x2=&quot;297.90&quot;
+                     y2=&quot;147&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;1-°C&quot;
+                     x1=&quot;52.10&quot;
+                     y1=&quot;130.3&quot;
+-                    x2=&quot;303.10&quot;
++                    x2=&quot;297.90&quot;
+                     y2=&quot;130.3&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+@@ -259,914 +183,838 @@
+             <g id=&quot;bars&quot;>
+                 <g id=&quot;World&quot; class=&quot;World-segments&quot;>
+                     <rect
+                         id=&quot;1940&quot;
+-                        x=&quot;56.48334234721474&quot;
++                        x=&quot;56.40724716062739&quot;
+                         y=&quot;163.7&quot;
+-                        width=&quot;2.2333153055705224&quot;
++                        width=&quot;2.1855056787452214&quot;
+                         height=&quot;31.700000000000017&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1941&quot;
+-                        x=&quot;59.283342347214735&quot;
++                        x=&quot;59.20724716062739&quot;
+                         y=&quot;163.7&quot;
+-                        width=&quot;2.2333153055705224&quot;
++                        width=&quot;2.1855056787452214&quot;
+                         height=&quot;22.80000000000001&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1942&quot;
+-                        x=&quot;61.98334234721474&quot;
++                        x=&quot;61.90724716062739&quot;
+                         y=&quot;163.7&quot;
+-                        width=&quot;2.2333153055705224&quot;
++                        width=&quot;2.1855056787452214&quot;
+                         height=&quot;18.80000000000001&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1943&quot;
+-                        x=&quot;64.78334234721474&quot;
++                        x=&quot;64.6072471606274&quot;
+                         y=&quot;163.7&quot;
+-                        width=&quot;2.2333153055705224&quot;
++                        width=&quot;2.1855056787452214&quot;
+                         height=&quot;27.400000000000006&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1944&quot;
+-                        x=&quot;67.58334234721474&quot;
++                        x=&quot;67.40724716062739&quot;
+                         y=&quot;163.7&quot;
+-                        width=&quot;2.2333153055705224&quot;
++                        width=&quot;2.1855056787452214&quot;
+                         height=&quot;13.100000000000023&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1945&quot;
+-                        x=&quot;70.38334234721474&quot;
++                        x=&quot;70.1072471606274&quot;
+                         y=&quot;163.7&quot;
+-                        width=&quot;2.2333153055705224&quot;
++                        width=&quot;2.1855056787452214&quot;
+                         height=&quot;25&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1946&quot;
+-                        x=&quot;73.18334234721473&quot;
++                        x=&quot;72.8072471606274&quot;
+                         y=&quot;163.7&quot;
+-                        width=&quot;2.2333153055705224&quot;
++                        width=&quot;2.1855056787452214&quot;
+                         height=&quot;20.80000000000001&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1947&quot;
+-                        x=&quot;75.98334234721473&quot;
++                        x=&quot;75.6072471606274&quot;
+                         y=&quot;163.7&quot;
+-                        width=&quot;2.2333153055705224&quot;
++                        width=&quot;2.1855056787452214&quot;
+                         height=&quot;21.200000000000017&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1948&quot;
+-                        x=&quot;78.78334234721474&quot;
++                        x=&quot;78.3072471606274&quot;
+                         y=&quot;163.7&quot;
+-                        width=&quot;2.2333153055705224&quot;
++                        width=&quot;2.1855056787452214&quot;
+                         height=&quot;21.80000000000001&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1949&quot;
+-                        x=&quot;81.58334234721474&quot;
++                        x=&quot;81.00724716062739&quot;
+                         y=&quot;163.7&quot;
+-                        width=&quot;2.2333153055705224&quot;
++                        width=&quot;2.1855056787452214&quot;
+                         height=&quot;18.200000000000017&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1950&quot;
+-                        x=&quot;84.38334234721474&quot;
++                        x=&quot;83.70724716062739&quot;
+                         y=&quot;163.7&quot;
+-                        width=&quot;2.2333153055705224&quot;
++                        width=&quot;2.1855056787452214&quot;
+                         height=&quot;30.5&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1951&quot;
+-                        x=&quot;87.18334234721473&quot;
++                        x=&quot;86.50724716062739&quot;
+                         y=&quot;163.7&quot;
+-                        width=&quot;2.2333153055705224&quot;
++                        width=&quot;2.1855056787452214&quot;
+                         height=&quot;30.80000000000001&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1952&quot;
+-                        x=&quot;89.98334234721473&quot;
++                        x=&quot;89.20724716062739&quot;
+                         y=&quot;163.7&quot;
+-                        width=&quot;2.2333153055705224&quot;
++                        width=&quot;2.1855056787452214&quot;
+                         height=&quot;17.100000000000023&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1953&quot;
+-                        x=&quot;92.78334234721474&quot;
++                        x=&quot;91.90724716062739&quot;
+                         y=&quot;163.7&quot;
+-                        width=&quot;2.2333153055705224&quot;
++                        width=&quot;2.1855056787452214&quot;
+                         height=&quot;21.900000000000006&quot;
+
+... (diff truncated: showing 300 of 14476 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="primary-enrollment-selected-countries" data-chart-type="LineChart">
+        <div class="header-with-actions">
+            <h2>primary-enrollment-selected-countries</h2>
+            <button class="copy-slug-btn" data-slug="primary-enrollment-selected-countries" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (848)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/primary-enrollment-selected-countries" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/primary-enrollment-selected-countries_v27_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-facet-shared-x-axis/grapher/primary-enrollment-selected-countries" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/primary-enrollment-selected-countries_v27_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/primary-enrollment-selected-countries_v27_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/primary-enrollment-selected-countries_v27_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: primary-enrollment-selected-countries_v27_850x600.svg
+===================================================================
+--- primary-enrollment-selected-countries_v27_850x600.svg	
++++ primary-enrollment-selected-countries_v27_850x600.svg	
+@@ -80,91 +80,13 @@
+         <text x=&quot;46.4&quot; y=&quot;115.1&quot; text-anchor=&quot;start&quot; font-size=&quot;13.50&quot;>
+             <tspan x=&quot;46.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>World</tspan>
+         </text>
+         <g id=&quot;World&quot;>
+-            <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+-                <g id=&quot;tick-marks&quot;>
+-                    <line
+-                        id=&quot;1820&quot;
+-                        x1=&quot;46.4&quot;
+-                        y1=&quot;187.75&quot;
+-                        x2=&quot;46.4&quot;
+-                        y2=&quot;193.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2024&quot;
+-                        x1=&quot;298.4&quot;
+-                        y1=&quot;187.75&quot;
+-                        x2=&quot;298.4&quot;
+-                        y2=&quot;193.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1900&quot;
+-                        x1=&quot;145.2&quot;
+-                        y1=&quot;187.75&quot;
+-                        x2=&quot;145.2&quot;
+-                        y2=&quot;193.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1950&quot;
+-                        x1=&quot;207&quot;
+-                        y1=&quot;187.75&quot;
+-                        x2=&quot;207&quot;
+-                        y2=&quot;193.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                </g>
+-                <g id=&quot;tick-labels&quot;>
+-                    <text
+-                        x=&quot;46.400000000000006&quot;
+-                        y=&quot;203.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;start&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1820
+-                    </text>
+-                    <text
+-                        x=&quot;298.4&quot;
+-                        y=&quot;203.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;end&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        2024
+-                    </text>
+-                    <text
+-                        x=&quot;145.2&quot;
+-                        y=&quot;203.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1900
+-                    </text>
+-                    <text
+-                        x=&quot;207&quot;
+-                        y=&quot;203.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1950
+-                    </text>
+-                </g>
+-            </g>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;41.40&quot;
+-                        y=&quot;188.3&quot;
++                        y=&quot;199.3&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -172,9 +94,9 @@
+                         0%
+                     </text>
+                     <text
+                         x=&quot;41.40&quot;
+-                        y=&quot;159.3&quot;
++                        y=&quot;164.8&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -197,19 +119,19 @@
+                 <line
+                     id=&quot;0%&quot;
+                     class=&quot;zero-line&quot;
+                     x1=&quot;46.40&quot;
+-                    y1=&quot;188.3&quot;
++                    y1=&quot;199.3&quot;
+                     x2=&quot;298.40&quot;
+-                    y2=&quot;188.3&quot;
++                    y2=&quot;199.3&quot;
+                     stroke=&quot;#999&quot;
+                 ></line>
+                 <line
+                     id=&quot;50%&quot;
+                     x1=&quot;46.40&quot;
+-                    y1=&quot;159.3&quot;
++                    y1=&quot;164.8&quot;
+                     x2=&quot;298.40&quot;
+-                    y2=&quot;159.3&quot;
++                    y2=&quot;164.8&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+@@ -229,9 +151,9 @@
+                     stroke-linejoin=&quot;round&quot;
+                     stroke=&quot;#fff&quot;
+                     id=&quot;outline__Net-enrolment-rate-in-primary-education&quot;
+                     stroke-width=&quot;3.0&quot;
+-                    d=&quot;M46.4 185.8L52.6 185.6L58.8 185.2L64.9 184.9L71.1 184.4L77.3 183.9L83.5 183.3L89.6 182.6L95.8 181.6L102 181L108.2 178.5L114.3 177.3L120.5 176L126.7 174.9L132.9 174.2L139 172.9L145.2 172.4L151.4 171.4L157.6 169.5L163.8 168.8L169.9 167.9L176.1 165.9L182.3 162.5L188.5 161.2L194.6 160.8L200.8 158.4L207 155.4L213.2 151.5L219.3 148.5L225.5 146.9L231.7 146.5L237.9 142L244 142.6L250.2 141.5L251.5 141.1L252.7 141.1L253.9 140.7L255.2 140.7L256.4 141L257.6 141.1L258.9 141.2L260.1 141L261.3 140.8L262.6 140.7L263.8 140.6L265 140.3L266.3 139.9L267.5 139.3L268.8 139L270 138.3L271.2 138.2L272.5 137.4L273.7 136.7L274.9 136.3L276.2 136.1L277.4 135.5L278.6 135.4L279.9 135.5L281.1 135.3L282.3 135.4L283.6 135.3L284.8 135.2L286 135.4L287.3 135.7L288.5 135.6L289.8 135.7L291 135.8L292.2 135.8L293.5 135.9L294.7 135.9L295.9 135.8L297.2 136&quot;
++                    d=&quot;M46.4 196.4L52.6 196.1L58.8 195.7L64.9 195.2L71.1 194.7L77.3 194.1L83.5 193.4L89.6 192.6L95.8 191.4L102 190.6L108.2 187.7L114.3 186.2L120.5 184.7L126.7 183.4L132.9 182.5L139 181L145.2 180.4L151.4 179.2L157.6 177L163.8 176.2L169.9 175L176.1 172.7L182.3 168.6L188.5 167.1L194.6 166.6L200.8 163.7L207 160.2L213.2 155.5L219.3 151.9L225.5 150.1L231.7 149.6L237.9 144.2L244 144.9L250.2 143.6L251.5 143.1L252.7 143.2L253.9 142.7L255.2 142.7L256.4 143.1L257.6 143.2L258.9 143.3L260.1 143.1L261.3 142.8L262.6 142.7L263.8 142.6L265 142.2L266.3 141.7L267.5 141L268.8 140.7L270 139.8L271.2 139.7L272.5 138.8L273.7 137.9L274.9 137.4L276.2 137.2L277.4 136.5L278.6 136.4L279.9 136.5L281.1 136.3L282.3 136.3L283.6 136.3L284.8 136.2L286 136.4L287.3 136.8L288.5 136.7L289.8 136.7L291 136.8L292.2 136.8L293.5 136.9L294.7 137L295.9 136.8L297.2 137.1&quot;
+                 ></path>
+                 <path
+                     fill=&quot;none&quot;
+                     stroke-linecap=&quot;butt&quot;
+@@ -239,9 +161,9 @@
+                     stroke=&quot;#4c6a9c&quot;
+                     id=&quot;line__Net-enrolment-rate-in-primary-education&quot;
+                     stroke-width=&quot;2.0&quot;
+                     stroke-opacity=&quot;1&quot;
+-                    d=&quot;M46.4 185.8L52.6 185.6L58.8 185.2L64.9 184.9L71.1 184.4L77.3 183.9L83.5 183.3L89.6 182.6L95.8 181.6L102 181L108.2 178.5L114.3 177.3L120.5 176L126.7 174.9L132.9 174.2L139 172.9L145.2 172.4L151.4 171.4L157.6 169.5L163.8 168.8L169.9 167.9L176.1 165.9L182.3 162.5L188.5 161.2L194.6 160.8L200.8 158.4L207 155.4L213.2 151.5L219.3 148.5L225.5 146.9L231.7 146.5L237.9 142L244 142.6L250.2 141.5L251.5 141.1L252.7 141.1L253.9 140.7L255.2 140.7L256.4 141L257.6 141.1L258.9 141.2L260.1 141L261.3 140.8L262.6 140.7L263.8 140.6L265 140.3L266.3 139.9L267.5 139.3L268.8 139L270 138.3L271.2 138.2L272.5 137.4L273.7 136.7L274.9 136.3L276.2 136.1L277.4 135.5L278.6 135.4L279.9 135.5L281.1 135.3L282.3 135.4L283.6 135.3L284.8 135.2L286 135.4L287.3 135.7L288.5 135.6L289.8 135.7L291 135.8L292.2 135.8L293.5 135.9L294.7 135.9L295.9 135.8L297.2 136&quot;
++                    d=&quot;M46.4 196.4L52.6 196.1L58.8 195.7L64.9 195.2L71.1 194.7L77.3 194.1L83.5 193.4L89.6 192.6L95.8 191.4L102 190.6L108.2 187.7L114.3 186.2L120.5 184.7L126.7 183.4L132.9 182.5L139 181L145.2 180.4L151.4 179.2L157.6 177L163.8 176.2L169.9 175L176.1 172.7L182.3 168.6L188.5 167.1L194.6 166.6L200.8 163.7L207 160.2L213.2 155.5L219.3 151.9L225.5 150.1L231.7 149.6L237.9 144.2L244 144.9L250.2 143.6L251.5 143.1L252.7 143.2L253.9 142.7L255.2 142.7L256.4 143.1L257.6 143.2L258.9 143.3L260.1 143.1L261.3 142.8L262.6 142.7L263.8 142.6L265 142.2L266.3 141.7L267.5 141L268.8 140.7L270 139.8L271.2 139.7L272.5 138.8L273.7 137.9L274.9 137.4L276.2 137.2L277.4 136.5L278.6 136.4L279.9 136.5L281.1 136.3L282.3 136.3L283.6 136.3L284.8 136.2L286 136.4L287.3 136.8L288.5 136.7L289.8 136.7L291 136.8L292.2 136.8L293.5 136.9L294.7 137L295.9 136.8L297.2 137.1&quot;
+                 ></path>
+             </g>
+         </g>
+         <text x=&quot;313.4&quot; y=&quot;115.1&quot; text-anchor=&quot;start&quot; font-size=&quot;13.50&quot;>
+@@ -249,102 +171,24 @@
+                 United States
+             </tspan>
+         </text>
+         <g id=&quot;United-States&quot;>
+-            <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+-                <g id=&quot;tick-marks&quot;>
+-                    <line
+-                        id=&quot;1820&quot;
+-                        x1=&quot;313.4&quot;
+-                        y1=&quot;187.75&quot;
+-                        x2=&quot;313.4&quot;
+-                        y2=&quot;193.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2024&quot;
+-                        x1=&quot;565.4&quot;
+-                        y1=&quot;187.75&quot;
+-                        x2=&quot;565.4&quot;
+-                        y2=&quot;193.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1900&quot;
+-                        x1=&quot;412.2&quot;
+-                        y1=&quot;187.75&quot;
+-                        x2=&quot;412.2&quot;
+-                        y2=&quot;193.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1950&quot;
+-                        x1=&quot;474&quot;
+-                        y1=&quot;187.75&quot;
+-                        x2=&quot;474&quot;
+-                        y2=&quot;193.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                </g>
+-                <g id=&quot;tick-labels&quot;>
+-                    <text
+-                        x=&quot;313.4&quot;
+-                        y=&quot;203.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;start&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1820
+-                    </text>
+-                    <text
+-                        x=&quot;565.4&quot;
+-                        y=&quot;203.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;end&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        2024
+-                    </text>
+-                    <text
+-                        x=&quot;412.2&quot;
+-                        y=&quot;203.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1900
+-                    </text>
+-                    <text
+-                        x=&quot;474&quot;
+-                        y=&quot;203.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1950
+-                    </text>
+-                </g>
+-            </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+                     id=&quot;0%&quot;
+                     class=&quot;zero-line&quot;
+                     x1=&quot;313.40&quot;
+-                    y1=&quot;188.3&quot;
++                    y1=&quot;199.3&quot;
+                     x2=&quot;565.40&quot;
+-                    y2=&quot;188.3&quot;
++                    y2=&quot;199.3&quot;
+                     stroke=&quot;#999&quot;
+                 ></line>
+                 <line
+                     id=&quot;50%&quot;
+                     x1=&quot;313.40&quot;
+-                    y1=&quot;159.3&quot;
++                    y1=&quot;164.8&quot;
+                     x2=&quot;565.40&quot;
+-                    y2=&quot;159.3&quot;
++                    y2=&quot;164.8&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+@@ -364,9 +208,9 @@
+                     stroke-linejoin=&quot;round&quot;
+                     stroke=&quot;#fff&quot;
+                     id=&quot;outline__Net-enrolment-rate-in-primary-education&quot;
+                     stroke-width=&quot;3.0&quot;
+-                    d=&quot;M313.4 164.2L319.6 163.3L325.8 157.3L331.9 156.1L338.1 153.6L344.3 147.7L350.5 141.8L356.6 137.2L362.8 131.7L369 131.4L375.2 130.3L381.3 130.3L387.5 130.3L393.7 130.3L399.9 130.3L406 130.3L412.2 130.3L418.4 130.3L424.6 130.3L430.8 130.3L436.9 130.3L443.1 130.3L449.3 130.3L455.5 130.3L461.6 130.3L467.8 130.3L474 130.3L480.2 130.3L486.3 130.3L492.5 132.6L498.7 132.6L504.9 146.5L511 133.7L518.5 132.8L519.7 132.5L523.4 132L524.6 132.1L527.1 132.6L528.3 132.7L529.6 131.9L530.8 132.7L534.5 131.3L541.9 130.6L551.8 131.9L553 131.4L554.3 131.3L555.5 130.5L556.8 130.5L558 130.6L559.2 130.8L560.5 131.4L561.7 132.6L562.9 132.6&quot;
++                    d=&quot;M313.4 170.7L319.6 169.6L325.8 162.4L331.9 161L338.1 158L344.3 150.9L350.5 144L356.6 138.5L362.8 132L369 131.6L375.2 130.3L381.3 130.3L387.5 130.3L393.7 130.3L399.9 130.3L406 130.3L412.2 130.3L418.4 130.3L424.6 130.3L430.8 130.3L436.9 130.3L443.1 130.3L449.3 130.3L455.5 130.3L461.6 130.3L467.8 130.3L474 130.3L480.2 130.3L486.3 130.3L492.5 133.1L498.7 133.1L504.9 149.6L511 134.4L518.5 133.2L519.7 132.9L523.4 132.3L524.6 132.5L527.1 133.1L528.3 133.1L529.6 132.2L530.8 133.2L534.5 131.5L541.9 130.6L551.8 132.2L553 131.6L554.3 131.5L555.5 130.5L556.8 130.5L558 130.6L559.2 130.9L560.5 131.6L561.7 133.1L562.9 133&quot;
+                 ></path>
+                 <path
+                     fill=&quot;none&quot;
+                     stroke-linecap=&quot;butt&quot;
+@@ -374,9 +218,9 @@
+                     stroke=&quot;#4c6a9c&quot;
+                     id=&quot;line__Net-enrolment-rate-in-primary-education&quot;
+                     stroke-width=&quot;2.0&quot;
+                     stroke-opacity=&quot;1&quot;
+-                    d=&quot;M313.4 164.2L319.6 163.3L325.8 157.3L331.9 156.1L338.1 153.6L344.3 147.7L350.5 141.8L356.6 137.2L362.8 131.7L369 131.4L375.2 130.3L381.3 130.3L387.5 130.3L393.7 130.3L399.9 130.3L406 130.3L412.2 130.3L418.4 130.3L424.6 130.3L430.8 130.3L436.9 130.3L443.1 130.3L449.3 130.3L455.5 130.3L461.6 130.3L467.8 130.3L474 130.3L480.2 130.3L486.3 130.3L492.5 132.6L498.7 132.6L504.9 146.5L511 133.7L518.5 132.8L519.7 132.5L523.4 132L524.6 132.1L527.1 132.6L528.3 132.7L529.6 131.9L530.8 132.7L534.5 131.3L541.9 130.6L551.8 131.9L553 131.4L554.3 131.3L555.5 130.5L556.8 130.5L558 130.6L559.2 130.8L560.5 131.4L561.7 132.6L562.9 132.6&quot;
++                    d=&quot;M313.4 170.7L319.6 169.6L325.8 162.4L331.9 161L338.1 158L344.3 150.9L350.5 144L356.6 138.5L362.8 132L369 131.6L375.2 130.3L381.3 130.3L387.5 130.3L393.7 130.3L399.9 130.3L406 130.3L412.2 130.3L418.4 130.3L424.6 130.3L430.8 130.3L436.9 130.3L443.1 130.3L449.3 130.3L455.5 130.3L461.6 130.3L467.8 130.3L474 130.3L480.2 130.3L486.3 130.3L492.5 133.1L498.7 133.1L504.9 149.6L511 134.4L518.5 133.2L519.7 132.9L523.4 132.3L524.6 132.5L527.1 133.1L528.3 133.1L529.6 132.2L530.8 133.2L534.5 131.5L541.9 130.6L551.8 132.2L553 131.6L554.3 131.5L555.5 130.5L556.8 130.5L558 130.6L559.2 130.9L560.5 131.6L561.7 133.1L562.9 133&quot;
+                 ></path>
+             </g>
+         </g>
+         <text x=&quot;580.4&quot; y=&quot;115.1&quot; text-anchor=&quot;start&quot; font-size=&quot;13.50&quot;>
+@@ -384,102 +228,24 @@
+                 United Kingdom
+             </tspan>
+         </text>
+         <g id=&quot;United-Kingdom&quot;>
+-            <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+-                <g id=&quot;tick-marks&quot;>
+-                    <line
+-                        id=&quot;1820&quot;
+-                        x1=&quot;580.4&quot;
+-                        y1=&quot;187.75&quot;
+-                        x2=&quot;580.4&quot;
+-                        y2=&quot;193.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+
+... (diff truncated: showing 300 of 1788 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="sea-ice-anomaly-in-the-antarctic-by-month" data-chart-type="StackedBar">
+        <div class="header-with-actions">
+            <h2>sea-ice-anomaly-in-the-antarctic-by-month</h2>
+            <button class="copy-slug-btn" data-slug="sea-ice-anomaly-in-the-antarctic-by-month" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (1654)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/sea-ice-anomaly-in-the-antarctic-by-month" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/sea-ice-anomaly-in-the-antarctic-by-month_v14_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-facet-shared-x-axis/grapher/sea-ice-anomaly-in-the-antarctic-by-month" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/sea-ice-anomaly-in-the-antarctic-by-month_v14_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/sea-ice-anomaly-in-the-antarctic-by-month_v14_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/sea-ice-anomaly-in-the-antarctic-by-month_v14_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: sea-ice-anomaly-in-the-antarctic-by-month_v14_850x600.svg
+===================================================================
+--- sea-ice-anomaly-in-the-antarctic-by-month_v14_850x600.svg	
++++ sea-ice-anomaly-in-the-antarctic-by-month_v14_850x600.svg	
+@@ -79,71 +79,13 @@
+         <text x=&quot;81.4&quot; y=&quot;115.1&quot; text-anchor=&quot;start&quot; font-size=&quot;13.50&quot;>
+             <tspan x=&quot;81.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>January</tspan>
+         </text>
+         <g id=&quot;January&quot;>
+-            <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+-                <g id=&quot;tick-marks&quot;>
+-                    <line
+-                        id=&quot;1980&quot;
+-                        x1=&quot;87.4&quot;
+-                        y1=&quot;228.75&quot;
+-                        x2=&quot;87.4&quot;
+-                        y2=&quot;234.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2025&quot;
+-                        x1=&quot;252.4&quot;
+-                        y1=&quot;228.75&quot;
+-                        x2=&quot;252.4&quot;
+-                        y2=&quot;234.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1988&quot;
+-                        x1=&quot;116.7&quot;
+-                        y1=&quot;228.75&quot;
+-                        x2=&quot;116.7&quot;
+-                        y2=&quot;234.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1996&quot;
+-                        x1=&quot;146.1&quot;
+-                        y1=&quot;228.75&quot;
+-                        x2=&quot;146.1&quot;
+-                        y2=&quot;234.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2004&quot;
+-                        x1=&quot;175.4&quot;
+-                        y1=&quot;228.75&quot;
+-                        x2=&quot;175.4&quot;
+-                        y2=&quot;234.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2012&quot;
+-                        x1=&quot;204.7&quot;
+-                        y1=&quot;228.75&quot;
+-                        x2=&quot;204.7&quot;
+-                        y2=&quot;234.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                </g>
+-            </g>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;76.40&quot;
+-                        y=&quot;229.3&quot;
++                        y=&quot;230.3&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -151,9 +93,9 @@
+                         -3 million km²
+                     </text>
+                     <text
+                         x=&quot;76.40&quot;
+-                        y=&quot;209.5&quot;
++                        y=&quot;210.3&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -161,9 +103,9 @@
+                         -2 million km²
+                     </text>
+                     <text
+                         x=&quot;76.40&quot;
+-                        y=&quot;189.6&quot;
++                        y=&quot;190.3&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -171,9 +113,9 @@
+                         -1 million km²
+                     </text>
+                     <text
+                         x=&quot;76.40&quot;
+-                        y=&quot;169.8&quot;
++                        y=&quot;170.3&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -181,9 +123,9 @@
+                         0 million km²
+                     </text>
+                     <text
+                         x=&quot;76.40&quot;
+-                        y=&quot;150&quot;
++                        y=&quot;150.3&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -205,47 +147,47 @@
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+                     id=&quot;-3-million-km²&quot;
+                     x1=&quot;81.40&quot;
+-                    y1=&quot;229.3&quot;
++                    y1=&quot;230.3&quot;
+                     x2=&quot;258.40&quot;
+-                    y2=&quot;229.3&quot;
++                    y2=&quot;230.3&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;-2-million-km²&quot;
+                     x1=&quot;81.40&quot;
+-                    y1=&quot;209.5&quot;
++                    y1=&quot;210.3&quot;
+                     x2=&quot;258.40&quot;
+-                    y2=&quot;209.5&quot;
++                    y2=&quot;210.3&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;-1-million-km²&quot;
+                     x1=&quot;81.40&quot;
+-                    y1=&quot;189.6&quot;
++                    y1=&quot;190.3&quot;
+                     x2=&quot;258.40&quot;
+-                    y2=&quot;189.6&quot;
++                    y2=&quot;190.3&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;0-million-km²&quot;
+                     class=&quot;zero-line&quot;
+                     x1=&quot;81.40&quot;
+-                    y1=&quot;169.8&quot;
++                    y1=&quot;170.3&quot;
+                     x2=&quot;258.40&quot;
+-                    y2=&quot;169.8&quot;
++                    y2=&quot;170.3&quot;
+                     stroke=&quot;#999&quot;
+                 ></line>
+                 <line
+                     id=&quot;1-million-km²&quot;
+                     x1=&quot;81.40&quot;
+-                    y1=&quot;150&quot;
++                    y1=&quot;150.3&quot;
+                     x2=&quot;258.40&quot;
+-                    y2=&quot;150&quot;
++                    y2=&quot;150.3&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+@@ -265,405 +207,405 @@
+                 >
+                     <rect
+                         id=&quot;1980&quot;
+                         x=&quot;85.93274074074075&quot;
+-                        y=&quot;169.8&quot;
++                        y=&quot;170.3&quot;
+                         width=&quot;2.9345185185185074&quot;
+                         height=&quot;8.699999999999989&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1981&quot;
+                         x=&quot;89.53274074074075&quot;
+-                        y=&quot;169.8&quot;
++                        y=&quot;170.3&quot;
+                         width=&quot;2.9345185185185074&quot;
+                         height=&quot;11.699999999999989&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1982&quot;
+                         x=&quot;93.23274074074075&quot;
+-                        y=&quot;164.7&quot;
++                        y=&quot;165.1&quot;
+                         width=&quot;2.9345185185185074&quot;
+-                        height=&quot;5.100000000000023&quot;
++                        height=&quot;5.200000000000017&quot;
+                         fill=&quot;#f4a582&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1983&quot;
+                         x=&quot;96.93274074074075&quot;
+-                        y=&quot;169.8&quot;
++                        y=&quot;170.3&quot;
+                         width=&quot;2.9345185185185074&quot;
+                         height=&quot;4.599999999999994&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1984&quot;
+                         x=&quot;100.53274074074075&quot;
+-                        y=&quot;169.8&quot;
++                        y=&quot;170.3&quot;
+                         width=&quot;2.9345185185185074&quot;
+                         height=&quot;4.399999999999977&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1985&quot;
+                         x=&quot;104.23274074074075&quot;
+-                        y=&quot;169.8&quot;
++                        y=&quot;170.3&quot;
+                         width=&quot;2.9345185185185074&quot;
+                         height=&quot;10.899999999999977&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1986&quot;
+                         x=&quot;107.93274074074075&quot;
+-                        y=&quot;161.5&quot;
++                        y=&quot;161.8&quot;
+                         width=&quot;2.9345185185185074&quot;
+-                        height=&quot;8.300000000000011&quot;
++                        height=&quot;8.5&quot;
+                         fill=&quot;#f4a582&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1987&quot;
+                         x=&quot;111.53274074074075&quot;
+-                        y=&quot;167.4&quot;
++                        y=&quot;167.7&quot;
+                         width=&quot;2.9345185185185074&quot;
+-                        height=&quot;2.4000000000000057&quot;
++                        height=&quot;2.6000000000000227&quot;
+                         fill=&quot;#f4a582&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1989&quot;
+                         x=&quot;118.93274074074075&quot;
+-                        y=&quot;169.8&quot;
++                        y=&quot;170.3&quot;
+                         width=&quot;2.9345185185185074&quot;
+-                        height=&quot;5.299999999999983&quot;
++                        height=&quot;5.199999999999989&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1990&quot;
+                         x=&quot;122.53274074074075&quot;
+-                        y=&quot;169.8&quot;
++                        y=&quot;170.3&quot;
+                         width=&quot;2.9345185185185074&quot;
+-                        height=&quot;2.6999999999999886&quot;
++                        height=&quot;2.5999999999999943&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1991&quot;
+                         x=&quot;126.23274074074075&quot;
+-                        y=&quot;163.2&quot;
++                        y=&quot;163.5&quot;
+                         width=&quot;2.9345185185185074&quot;
+-                        height=&quot;6.600000000000023&quot;
++                        height=&quot;6.800000000000011&quot;
+                         fill=&quot;#f4a582&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1992&quot;
+                         x=&quot;129.93274074074074&quot;
+
+... (diff truncated: showing 300 of 7837 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="sea-ice-anomaly-in-the-arctic-by-month" data-chart-type="StackedBar">
+        <div class="header-with-actions">
+            <h2>sea-ice-anomaly-in-the-arctic-by-month</h2>
+            <button class="copy-slug-btn" data-slug="sea-ice-anomaly-in-the-arctic-by-month" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (1702)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/sea-ice-anomaly-in-the-arctic-by-month" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/sea-ice-anomaly-in-the-arctic-by-month_v14_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-facet-shared-x-axis/grapher/sea-ice-anomaly-in-the-arctic-by-month" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/sea-ice-anomaly-in-the-arctic-by-month_v14_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/sea-ice-anomaly-in-the-arctic-by-month_v14_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/sea-ice-anomaly-in-the-arctic-by-month_v14_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: sea-ice-anomaly-in-the-arctic-by-month_v14_850x600.svg
+===================================================================
+--- sea-ice-anomaly-in-the-arctic-by-month_v14_850x600.svg	
++++ sea-ice-anomaly-in-the-arctic-by-month_v14_850x600.svg	
+@@ -79,71 +79,13 @@
+         <text x=&quot;81.4&quot; y=&quot;115.1&quot; text-anchor=&quot;start&quot; font-size=&quot;13.50&quot;>
+             <tspan x=&quot;81.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>January</tspan>
+         </text>
+         <g id=&quot;January&quot;>
+-            <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+-                <g id=&quot;tick-marks&quot;>
+-                    <line
+-                        id=&quot;1980&quot;
+-                        x1=&quot;87.4&quot;
+-                        y1=&quot;228.75&quot;
+-                        x2=&quot;87.4&quot;
+-                        y2=&quot;234.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2025&quot;
+-                        x1=&quot;252.4&quot;
+-                        y1=&quot;228.75&quot;
+-                        x2=&quot;252.4&quot;
+-                        y2=&quot;234.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1988&quot;
+-                        x1=&quot;116.7&quot;
+-                        y1=&quot;228.75&quot;
+-                        x2=&quot;116.7&quot;
+-                        y2=&quot;234.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1996&quot;
+-                        x1=&quot;146.1&quot;
+-                        y1=&quot;228.75&quot;
+-                        x2=&quot;146.1&quot;
+-                        y2=&quot;234.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2004&quot;
+-                        x1=&quot;175.4&quot;
+-                        y1=&quot;228.75&quot;
+-                        x2=&quot;175.4&quot;
+-                        y2=&quot;234.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2012&quot;
+-                        x1=&quot;204.7&quot;
+-                        y1=&quot;228.75&quot;
+-                        x2=&quot;204.7&quot;
+-                        y2=&quot;234.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                </g>
+-            </g>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;76.40&quot;
+-                        y=&quot;229&quot;
++                        y=&quot;230&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -151,9 +93,9 @@
+                         -3 million km²
+                     </text>
+                     <text
+                         x=&quot;76.40&quot;
+-                        y=&quot;209.2&quot;
++                        y=&quot;210&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -161,9 +103,9 @@
+                         -2 million km²
+                     </text>
+                     <text
+                         x=&quot;76.40&quot;
+-                        y=&quot;189.5&quot;
++                        y=&quot;190.1&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -171,9 +113,9 @@
+                         -1 million km²
+                     </text>
+                     <text
+                         x=&quot;76.40&quot;
+-                        y=&quot;169.7&quot;
++                        y=&quot;170.1&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -181,9 +123,9 @@
+                         0 million km²
+                     </text>
+                     <text
+                         x=&quot;76.40&quot;
+-                        y=&quot;150&quot;
++                        y=&quot;150.2&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -205,47 +147,47 @@
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+                     id=&quot;-3-million-km²&quot;
+                     x1=&quot;81.40&quot;
+-                    y1=&quot;229&quot;
++                    y1=&quot;230&quot;
+                     x2=&quot;258.40&quot;
+-                    y2=&quot;229&quot;
++                    y2=&quot;230&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;-2-million-km²&quot;
+                     x1=&quot;81.40&quot;
+-                    y1=&quot;209.2&quot;
++                    y1=&quot;210&quot;
+                     x2=&quot;258.40&quot;
+-                    y2=&quot;209.2&quot;
++                    y2=&quot;210&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;-1-million-km²&quot;
+                     x1=&quot;81.40&quot;
+-                    y1=&quot;189.5&quot;
++                    y1=&quot;190.1&quot;
+                     x2=&quot;258.40&quot;
+-                    y2=&quot;189.5&quot;
++                    y2=&quot;190.1&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;0-million-km²&quot;
+                     class=&quot;zero-line&quot;
+                     x1=&quot;81.40&quot;
+-                    y1=&quot;169.7&quot;
++                    y1=&quot;170.1&quot;
+                     x2=&quot;258.40&quot;
+-                    y2=&quot;169.7&quot;
++                    y2=&quot;170.1&quot;
+                     stroke=&quot;#999&quot;
+                 ></line>
+                 <line
+                     id=&quot;1-million-km²&quot;
+                     x1=&quot;81.40&quot;
+-                    y1=&quot;150&quot;
++                    y1=&quot;150.2&quot;
+                     x2=&quot;258.40&quot;
+-                    y2=&quot;150&quot;
++                    y2=&quot;150.2&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+@@ -265,407 +207,407 @@
+                 >
+                     <rect
+                         id=&quot;1980&quot;
+                         x=&quot;85.93274074074075&quot;
+-                        y=&quot;161&quot;
++                        y=&quot;161.3&quot;
+                         width=&quot;2.9345185185185074&quot;
+-                        height=&quot;8.699999999999989&quot;
++                        height=&quot;8.799999999999983&quot;
+                         fill=&quot;#f4a582&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1981&quot;
+                         x=&quot;89.53274074074075&quot;
+-                        y=&quot;160.1&quot;
++                        y=&quot;160.4&quot;
+                         width=&quot;2.9345185185185074&quot;
+-                        height=&quot;9.599999999999994&quot;
++                        height=&quot;9.699999999999989&quot;
+                         fill=&quot;#f4a582&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1982&quot;
+                         x=&quot;93.23274074074075&quot;
+-                        y=&quot;154.8&quot;
++                        y=&quot;155.1&quot;
+                         width=&quot;2.9345185185185074&quot;
+-                        height=&quot;14.899999999999977&quot;
++                        height=&quot;15&quot;
+                         fill=&quot;#f4a582&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1983&quot;
+                         x=&quot;96.93274074074075&quot;
+-                        y=&quot;159.4&quot;
++                        y=&quot;159.7&quot;
+                         width=&quot;2.9345185185185074&quot;
+-                        height=&quot;10.299999999999983&quot;
++                        height=&quot;10.400000000000006&quot;
+                         fill=&quot;#f4a582&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1984&quot;
+                         x=&quot;100.53274074074075&quot;
+-                        y=&quot;168.7&quot;
++                        y=&quot;169.1&quot;
+                         width=&quot;2.9345185185185074&quot;
+                         height=&quot;1&quot;
+                         fill=&quot;#f4a582&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1985&quot;
+                         x=&quot;104.23274074074075&quot;
+-                        y=&quot;163.7&quot;
++                        y=&quot;164.1&quot;
+                         width=&quot;2.9345185185185074&quot;
+                         height=&quot;6&quot;
+                         fill=&quot;#f4a582&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1986&quot;
+                         x=&quot;107.93274074074075&quot;
+-                        y=&quot;160.5&quot;
++                        y=&quot;160.8&quot;
+                         width=&quot;2.9345185185185074&quot;
+-                        height=&quot;9.199999999999989&quot;
++                        height=&quot;9.299999999999983&quot;
+                         fill=&quot;#f4a582&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1987&quot;
+                         x=&quot;111.53274074074075&quot;
+-                        y=&quot;158.9&quot;
++                        y=&quot;159.2&quot;
+                         width=&quot;2.9345185185185074&quot;
+-                        height=&quot;10.799999999999983&quot;
++                        height=&quot;10.900000000000006&quot;
+                         fill=&quot;#f4a582&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1989&quot;
+                         x=&quot;118.93274074074075&quot;
+-                        y=&quot;159.2&quot;
++                        y=&quot;159.5&quot;
+                         width=&quot;2.9345185185185074&quot;
+-                        height=&quot;10.5&quot;
++                        height=&quot;10.599999999999994&quot;
+                         fill=&quot;#f4a582&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1990&quot;
+                         x=&quot;122.53274074074075&quot;
+-                        y=&quot;162.6&quot;
++                        y=&quot;162.9&quot;
+                         width=&quot;2.9345185185185074&quot;
+-                        height=&quot;7.099999999999994&quot;
++                        height=&quot;7.199999999999989&quot;
+                         fill=&quot;#f4a582&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+                         id=&quot;1991&quot;
+                         x=&quot;126.23274074074075&quot;
+-                        y=&quot;169.7&quot;
++                        y=&quot;170.1&quot;
+                         width=&quot;2.9345185185185074&quot;
+                         height=&quot;1.200000000000017&quot;
+                         fill=&quot;#92c5de&quot;
+                         opacity=&quot;0.8&quot;
+                     ></rect>
+                     <rect
+
+... (diff truncated: showing 300 of 7891 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="technology-adoption-by-households-in-the-united-states" data-chart-type="LineChart">
+        <div class="header-with-actions">
+            <h2>technology-adoption-by-households-in-the-united-states</h2>
+            <button class="copy-slug-btn" data-slug="technology-adoption-by-households-in-the-united-states" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (1355)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/technology-adoption-by-households-in-the-united-states" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/technology-adoption-by-households-in-the-united-states_v23_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-facet-shared-x-axis/grapher/technology-adoption-by-households-in-the-united-states" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/technology-adoption-by-households-in-the-united-states_v23_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/technology-adoption-by-households-in-the-united-states_v23_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/technology-adoption-by-households-in-the-united-states_v23_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: technology-adoption-by-households-in-the-united-states_v23_850x600.svg
+===================================================================
+--- technology-adoption-by-households-in-the-united-states_v23_850x600.svg	
++++ technology-adoption-by-households-in-the-united-states_v23_850x600.svg	
+@@ -65,109 +65,13 @@
+                 Running water
+             </tspan>
+         </text>
+         <g id=&quot;Running-water&quot;>
+-            <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+-                <g id=&quot;tick-marks&quot;>
+-                    <line
+-                        id=&quot;1860&quot;
+-                        x1=&quot;46.4&quot;
+-                        y1=&quot;155.75&quot;
+-                        x2=&quot;46.4&quot;
+-                        y2=&quot;161.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2019&quot;
+-                        x1=&quot;231.4&quot;
+-                        y1=&quot;155.75&quot;
+-                        x2=&quot;231.4&quot;
+-                        y2=&quot;161.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1900&quot;
+-                        x1=&quot;92.9&quot;
+-                        y1=&quot;155.75&quot;
+-                        x2=&quot;92.9&quot;
+-                        y2=&quot;161.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1940&quot;
+-                        x1=&quot;139.5&quot;
+-                        y1=&quot;155.75&quot;
+-                        x2=&quot;139.5&quot;
+-                        y2=&quot;161.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1980&quot;
+-                        x1=&quot;186&quot;
+-                        y1=&quot;155.75&quot;
+-                        x2=&quot;186&quot;
+-                        y2=&quot;161.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                </g>
+-                <g id=&quot;tick-labels&quot;>
+-                    <text
+-                        x=&quot;46.400000000000006&quot;
+-                        y=&quot;171.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;start&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1860
+-                    </text>
+-                    <text
+-                        x=&quot;231.4&quot;
+-                        y=&quot;171.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;end&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        2019
+-                    </text>
+-                    <text
+-                        x=&quot;92.9&quot;
+-                        y=&quot;171.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1900
+-                    </text>
+-                    <text
+-                        x=&quot;139.5&quot;
+-                        y=&quot;171.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1940
+-                    </text>
+-                    <text
+-                        x=&quot;186&quot;
+-                        y=&quot;171.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1980
+-                    </text>
+-                </g>
+-            </g>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;41.40&quot;
+-                        y=&quot;156.3&quot;
++                        y=&quot;167.3&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -175,9 +79,9 @@
+                         0%
+                     </text>
+                     <text
+                         x=&quot;41.40&quot;
+-                        y=&quot;125.3&quot;
++                        y=&quot;130.8&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -200,19 +104,19 @@
+                 <line
+                     id=&quot;0%&quot;
+                     class=&quot;zero-line&quot;
+                     x1=&quot;46.40&quot;
+-                    y1=&quot;156.3&quot;
++                    y1=&quot;167.3&quot;
+                     x2=&quot;231.40&quot;
+-                    y2=&quot;156.3&quot;
++                    y2=&quot;167.3&quot;
+                     stroke=&quot;#999&quot;
+                 ></line>
+                 <line
+                     id=&quot;50%&quot;
+                     x1=&quot;46.40&quot;
+-                    y1=&quot;125.3&quot;
++                    y1=&quot;130.8&quot;
+                     x2=&quot;231.40&quot;
+-                    y2=&quot;125.3&quot;
++                    y2=&quot;130.8&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+@@ -232,9 +136,9 @@
+                     stroke-linejoin=&quot;round&quot;
+                     stroke=&quot;#fff&quot;
+                     id=&quot;outline__Technology-Diffusion-(Comin-and-Hobijn-(2004)-and-others)&quot;
+                     stroke-width=&quot;3.0&quot;
+-                    d=&quot;M81.3 141.4L139.5 112.8L151.1 104.8L162.8 98.6L174.4 95.5L186 94.9L196.5 94.3&quot;
++                    d=&quot;M81.3 149.7L139.5 116.2L151.1 106.7L162.8 99.4L174.4 95.7L186 95L196.5 94.3&quot;
+                 ></path>
+                 <path
+                     fill=&quot;none&quot;
+                     stroke-linecap=&quot;butt&quot;
+@@ -242,9 +146,9 @@
+                     stroke=&quot;#ca2628&quot;
+                     id=&quot;line__Technology-Diffusion-(Comin-and-Hobijn-(2004)-and-others)&quot;
+                     stroke-width=&quot;2.0&quot;
+                     stroke-opacity=&quot;1&quot;
+-                    d=&quot;M81.3 141.4L139.5 112.8L151.1 104.8L162.8 98.6L174.4 95.5L186 94.9L196.5 94.3&quot;
++                    d=&quot;M81.3 149.7L139.5 116.2L151.1 106.7L162.8 99.4L174.4 95.7L186 95L196.5 94.3&quot;
+                 ></path>
+             </g>
+         </g>
+         <text x=&quot;246.4&quot; y=&quot;79.1&quot; text-anchor=&quot;start&quot; font-size=&quot;13.50&quot;>
+@@ -252,120 +156,24 @@
+                 Household refrigerator
+             </tspan>
+         </text>
+         <g id=&quot;Household-refrigerator&quot;>
+-            <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+-                <g id=&quot;tick-marks&quot;>
+-                    <line
+-                        id=&quot;1860&quot;
+-                        x1=&quot;246.4&quot;
+-                        y1=&quot;155.75&quot;
+-                        x2=&quot;246.4&quot;
+-                        y2=&quot;161.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2019&quot;
+-                        x1=&quot;431.4&quot;
+-                        y1=&quot;155.75&quot;
+-                        x2=&quot;431.4&quot;
+-                        y2=&quot;161.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1900&quot;
+-                        x1=&quot;292.9&quot;
+-                        y1=&quot;155.75&quot;
+-                        x2=&quot;292.9&quot;
+-                        y2=&quot;161.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1940&quot;
+-                        x1=&quot;339.5&quot;
+-                        y1=&quot;155.75&quot;
+-                        x2=&quot;339.5&quot;
+-                        y2=&quot;161.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1980&quot;
+-                        x1=&quot;386&quot;
+-                        y1=&quot;155.75&quot;
+-                        x2=&quot;386&quot;
+-                        y2=&quot;161.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                </g>
+-                <g id=&quot;tick-labels&quot;>
+-                    <text
+-                        x=&quot;246.4&quot;
+-                        y=&quot;171.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;start&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1860
+-                    </text>
+-                    <text
+-                        x=&quot;431.4&quot;
+-                        y=&quot;171.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;end&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        2019
+-                    </text>
+-                    <text
+-                        x=&quot;292.9&quot;
+-                        y=&quot;171.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1900
+-                    </text>
+-                    <text
+-                        x=&quot;339.5&quot;
+-                        y=&quot;171.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1940
+-                    </text>
+-                    <text
+-                        x=&quot;386&quot;
+-                        y=&quot;171.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1980
+-                    </text>
+-                </g>
+-            </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+                     id=&quot;0%&quot;
+                     class=&quot;zero-line&quot;
+                     x1=&quot;246.40&quot;
+-                    y1=&quot;156.3&quot;
++                    y1=&quot;167.3&quot;
+                     x2=&quot;431.40&quot;
+-                    y2=&quot;156.3&quot;
++                    y2=&quot;167.3&quot;
+                     stroke=&quot;#999&quot;
+                 ></line>
+                 <line
+                     id=&quot;50%&quot;
+                     x1=&quot;246.40&quot;
+-                    y1=&quot;125.3&quot;
++                    y1=&quot;130.8&quot;
+                     x2=&quot;431.40&quot;
+-                    y2=&quot;125.3&quot;
++                    y2=&quot;130.8&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+@@ -385,9 +193,9 @@
+                     stroke-linejoin=&quot;round&quot;
+                     stroke=&quot;#fff&quot;
+
+... (diff truncated: showing 300 of 2644 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="tfp-at-constant-national-prices-20111" data-chart-type="LineChart">
+        <div class="header-with-actions">
+            <h2>tfp-at-constant-national-prices-20111</h2>
+            <button class="copy-slug-btn" data-slug="tfp-at-constant-national-prices-20111" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (764)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/tfp-at-constant-national-prices-20111" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/tfp-at-constant-national-prices-20111_v20_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-facet-shared-x-axis/grapher/tfp-at-constant-national-prices-20111" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/tfp-at-constant-national-prices-20111_v20_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/tfp-at-constant-national-prices-20111_v20_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/tfp-at-constant-national-prices-20111_v20_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: tfp-at-constant-national-prices-20111_v20_850x600.svg
+===================================================================
+--- tfp-at-constant-national-prices-20111_v20_850x600.svg	
++++ tfp-at-constant-national-prices-20111_v20_850x600.svg	
+@@ -83,91 +83,13 @@
+         <text x=&quot;35.0&quot; y=&quot;133.1&quot; text-anchor=&quot;start&quot; font-size=&quot;13.50&quot;>
+             <tspan x=&quot;35.0&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>Peru</tspan>
+         </text>
+         <g id=&quot;Peru&quot;>
+-            <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+-                <g id=&quot;tick-marks&quot;>
+-                    <line
+-                        id=&quot;1954&quot;
+-                        x1=&quot;35&quot;
+-                        y1=&quot;238.75&quot;
+-                        x2=&quot;35&quot;
+-                        y2=&quot;244.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2023&quot;
+-                        x1=&quot;223&quot;
+-                        y1=&quot;238.75&quot;
+-                        x2=&quot;223&quot;
+-                        y2=&quot;244.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1970&quot;
+-                        x1=&quot;78.6&quot;
+-                        y1=&quot;238.75&quot;
+-                        x2=&quot;78.6&quot;
+-                        y2=&quot;244.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1990&quot;
+-                        x1=&quot;133.1&quot;
+-                        y1=&quot;238.75&quot;
+-                        x2=&quot;133.1&quot;
+-                        y2=&quot;244.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                </g>
+-                <g id=&quot;tick-labels&quot;>
+-                    <text
+-                        x=&quot;35&quot;
+-                        y=&quot;254.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;start&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1954
+-                    </text>
+-                    <text
+-                        x=&quot;223&quot;
+-                        y=&quot;254.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;end&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        2023
+-                    </text>
+-                    <text
+-                        x=&quot;78.6&quot;
+-                        y=&quot;254.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1970
+-                    </text>
+-                    <text
+-                        x=&quot;133.1&quot;
+-                        y=&quot;254.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1990
+-                    </text>
+-                </g>
+-            </g>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;30.00&quot;
+-                        y=&quot;239.3&quot;
++                        y=&quot;249.3&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -175,9 +97,9 @@
+                         0
+                     </text>
+                     <text
+                         x=&quot;30.00&quot;
+-                        y=&quot;216.5&quot;
++                        y=&quot;224&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -185,9 +107,9 @@
+                         0.5
+                     </text>
+                     <text
+                         x=&quot;30.00&quot;
+-                        y=&quot;193.8&quot;
++                        y=&quot;198.8&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -195,9 +117,9 @@
+                         1
+                     </text>
+                     <text
+                         x=&quot;30.00&quot;
+-                        y=&quot;171&quot;
++                        y=&quot;173.5&quot;
+                         dy=&quot;.32em&quot;
+                         text-anchor=&quot;end&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         font-size=&quot;10&quot;
+@@ -220,37 +142,37 @@
+                 <line
+                     id=&quot;0&quot;
+                     class=&quot;zero-line&quot;
+                     x1=&quot;35.00&quot;
+-                    y1=&quot;239.3&quot;
++                    y1=&quot;249.3&quot;
+                     x2=&quot;223.00&quot;
+-                    y2=&quot;239.3&quot;
++                    y2=&quot;249.3&quot;
+                     stroke=&quot;#999&quot;
+                 ></line>
+                 <line
+                     id=&quot;0.5&quot;
+                     x1=&quot;35.00&quot;
+-                    y1=&quot;216.5&quot;
++                    y1=&quot;224&quot;
+                     x2=&quot;223.00&quot;
+-                    y2=&quot;216.5&quot;
++                    y2=&quot;224&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;1&quot;
+                     x1=&quot;35.00&quot;
+-                    y1=&quot;193.8&quot;
++                    y1=&quot;198.8&quot;
+                     x2=&quot;223.00&quot;
+-                    y2=&quot;193.8&quot;
++                    y2=&quot;198.8&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+                     id=&quot;1.5&quot;
+                     x1=&quot;35.00&quot;
+-                    y1=&quot;171&quot;
++                    y1=&quot;173.5&quot;
+                     x2=&quot;223.00&quot;
+-                    y2=&quot;171&quot;
++                    y2=&quot;173.5&quot;
+                     stroke=&quot;#ddd&quot;
+                     stroke-dasharray=&quot;4,4&quot;
+                 ></line>
+                 <line
+@@ -270,9 +192,9 @@
+                     stroke-linejoin=&quot;round&quot;
+                     stroke=&quot;#fff&quot;
+                     id=&quot;outline__Total-factor-productivity-level&quot;
+                     stroke-width=&quot;3.0&quot;
+-                    d=&quot;M35 175.4L37.7 174.9L40.4 175.3L43.2 174.2L45.9 176.8L48.6 176.1L51.3 170.8L54.1 168.3L56.8 165.3L59.5 165.1L62.2 162.7L65 161.6L67.7 158.6L70.4 158.5L73.1 159.9L75.9 158.8L78.6 157.6L81.3 157.9L84 159L86.8 158.9L89.5 157.5L92.2 158.6L94.9 161L97.7 163.1L100.4 167.2L103.1 166.9L105.8 167.2L108.6 168.3L111.3 171.9L114 180.8L116.7 180L119.5 179.3L122.2 177.2L124.9 174L127.6 181.1L130.4 188.9L133.1 192.2L135.8 193.1L138.5 193.9L141.3 192.8L144 189.9L146.7 189.5L149.4 190.8L152.2 190.4L154.9 193.3L157.6 194.5L160.3 195.2L163.1 196L165.8 194.9L168.5 194.3L171.2 193.6L174 192.4L176.7 190.9L179.4 189.4L182.1 188.1L184.9 189.7L187.6 188.6L190.3 188.7L193 188.9L195.8 188.9L198.5 190.2L201.2 190.6L203.9 190.3L206.7 190.7L209.4 190.5L212.1 191.2L214.8 197.3L217.6 193.8L220.3 194.5L223 195.5&quot;
++                    d=&quot;M35 178.3L37.7 177.9L40.4 178.2L43.2 177L45.9 179.9L48.6 179.2L51.3 173.3L54.1 170.5L56.8 167.1L59.5 166.9L62.2 164.3L65 163.1L67.7 159.8L70.4 159.7L73.1 161.2L75.9 159.9L78.6 158.6L81.3 159L84 160.2L86.8 160.1L89.5 158.5L92.2 159.7L94.9 162.4L97.7 164.7L100.4 169.3L103.1 169L105.8 169.3L108.6 170.5L111.3 174.5L114 184.4L116.7 183.5L119.5 182.7L122.2 180.4L124.9 176.8L127.6 184.7L130.4 193.4L133.1 197L135.8 198L138.5 198.9L141.3 197.7L144 194.5L146.7 194L149.4 195.5L152.2 195L154.9 198.2L157.6 199.6L160.3 200.4L163.1 201.3L165.8 200L168.5 199.3L171.2 198.6L174 197.3L176.7 195.6L179.4 194L182.1 192.4L184.9 194.3L187.6 193L190.3 193.1L193 193.4L195.8 193.4L198.5 194.8L201.2 195.3L203.9 194.9L206.7 195.4L209.4 195.1L212.1 195.9L214.8 202.7L217.6 198.8L220.3 199.6L223 200.7&quot;
+                 ></path>
+                 <path
+                     fill=&quot;none&quot;
+                     stroke-linecap=&quot;butt&quot;
+@@ -280,9 +202,9 @@
+                     stroke=&quot;#4c6a9c&quot;
+                     id=&quot;line__Total-factor-productivity-level&quot;
+                     stroke-width=&quot;2.0&quot;
+                     stroke-opacity=&quot;1&quot;
+-                    d=&quot;M35 175.4L37.7 174.9L40.4 175.3L43.2 174.2L45.9 176.8L48.6 176.1L51.3 170.8L54.1 168.3L56.8 165.3L59.5 165.1L62.2 162.7L65 161.6L67.7 158.6L70.4 158.5L73.1 159.9L75.9 158.8L78.6 157.6L81.3 157.9L84 159L86.8 158.9L89.5 157.5L92.2 158.6L94.9 161L97.7 163.1L100.4 167.2L103.1 166.9L105.8 167.2L108.6 168.3L111.3 171.9L114 180.8L116.7 180L119.5 179.3L122.2 177.2L124.9 174L127.6 181.1L130.4 188.9L133.1 192.2L135.8 193.1L138.5 193.9L141.3 192.8L144 189.9L146.7 189.5L149.4 190.8L152.2 190.4L154.9 193.3L157.6 194.5L160.3 195.2L163.1 196L165.8 194.9L168.5 194.3L171.2 193.6L174 192.4L176.7 190.9L179.4 189.4L182.1 188.1L184.9 189.7L187.6 188.6L190.3 188.7L193 188.9L195.8 188.9L198.5 190.2L201.2 190.6L203.9 190.3L206.7 190.7L209.4 190.5L212.1 191.2L214.8 197.3L217.6 193.8L220.3 194.5L223 195.5&quot;
++                    d=&quot;M35 178.3L37.7 177.9L40.4 178.2L43.2 177L45.9 179.9L48.6 179.2L51.3 173.3L54.1 170.5L56.8 167.1L59.5 166.9L62.2 164.3L65 163.1L67.7 159.8L70.4 159.7L73.1 161.2L75.9 159.9L78.6 158.6L81.3 159L84 160.2L86.8 160.1L89.5 158.5L92.2 159.7L94.9 162.4L97.7 164.7L100.4 169.3L103.1 169L105.8 169.3L108.6 170.5L111.3 174.5L114 184.4L116.7 183.5L119.5 182.7L122.2 180.4L124.9 176.8L127.6 184.7L130.4 193.4L133.1 197L135.8 198L138.5 198.9L141.3 197.7L144 194.5L146.7 194L149.4 195.5L152.2 195L154.9 198.2L157.6 199.6L160.3 200.4L163.1 201.3L165.8 200L168.5 199.3L171.2 198.6L174 197.3L176.7 195.6L179.4 194L182.1 192.4L184.9 194.3L187.6 193L190.3 193.1L193 193.4L195.8 193.4L198.5 194.8L201.2 195.3L203.9 194.9L206.7 195.4L209.4 195.1L212.1 195.9L214.8 202.7L217.6 198.8L220.3 199.6L223 200.7&quot;
+                 ></path>
+             </g>
+         </g>
+         <text x=&quot;238.0&quot; y=&quot;133.1&quot; text-anchor=&quot;start&quot; font-size=&quot;13.50&quot;>
+@@ -290,120 +212,42 @@
+                 South Korea
+             </tspan>
+         </text>
+         <g id=&quot;South-Korea&quot;>
+-            <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+-                <g id=&quot;tick-marks&quot;>
+-                    <line
+-                        id=&quot;1954&quot;
+-                        x1=&quot;238&quot;
+-                        y1=&quot;238.75&quot;
+-                        x2=&quot;238&quot;
+-                        y2=&quot;244.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;2023&quot;
+-                        x1=&quot;426&quot;
+-                        y1=&quot;238.75&quot;
+-                        x2=&quot;426&quot;
+-                        y2=&quot;244.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1970&quot;
+-                        x1=&quot;281.6&quot;
+-                        y1=&quot;238.75&quot;
+-                        x2=&quot;281.6&quot;
+-                        y2=&quot;244.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1990&quot;
+-                        x1=&quot;336.1&quot;
+-                        y1=&quot;238.75&quot;
+-                        x2=&quot;336.1&quot;
+-                        y2=&quot;244.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                </g>
+-                <g id=&quot;tick-labels&quot;>
+-                    <text
+-                        x=&quot;238&quot;
+-                        y=&quot;254.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;start&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1954
+-                    </text>
+-                    <text
+-                        x=&quot;426&quot;
+-                        y=&quot;254.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;end&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        2023
+-                    </text>
+-                    <text
+-                        x=&quot;281.6&quot;
+-                        y=&quot;254.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1970
+-                    </text>
+-                    <text
+-                        x=&quot;336.1&quot;
+-                        y=&quot;254.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;10&quot;
+-                    >
+-                        1990
+-                    </text>
+-                </g>
+-            </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+                     id=&quot;0&quot;
+                     class=&quot;zero-line&quot;
+                     x1=&quot;238.00&quot;
+-                    y1=&quot;239.3&quot;
++                    y1=&quot;249.3&quot;
+                     x2=&quot;426.00&quot;
+-                    y2=&quot;239.3&quot;
++                    y2=&quot;249.3&quot;
+                     stroke=&quot;#999&quot;
+                 ></line>
+                 <line
+                     id=&quot;0.5&quot;
+                     x1=&quot;238.00&quot;
+-                    y1=&quot;216.5&quot;
++                    y1=&quot;224&quot;
+                     x2=&quot;426.00&quot;
+-                    y2=&quot;216.5&quot;
+
+... (diff truncated: showing 300 of 1647 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Chart type filtering
+        const chartTypeFilter = document.getElementById('chart-type-filter');
+        const visibleCountSpan = document.getElementById('visible-count');
+
+        function filterByChartType(chartType) {
+            const sections = document.querySelectorAll('section[data-chart-type]');
+            let visibleCount = 0;
+
+            sections.forEach(section => {
+                if (chartType === 'all' || section.dataset.chartType === chartType) {
+                    section.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            if (visibleCountSpan) {
+                visibleCountSpan.textContent = visibleCount;
+            }
+        }
+
+        if (chartTypeFilter) {
+            chartTypeFilter.addEventListener('change', (e) => {
+                filterByChartType(e.target.value);
+            });
+        }
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section, and skip if diff was too large
+                    if (diffContainer && !renderedDiffs.has(diffId) && !diffContainer.dataset.skipped) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
