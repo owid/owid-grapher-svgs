@@ -1,0 +1,3746 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        /* Filter dropdown */
+        .filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        .filter-container label {
+            font-weight: 500;
+            color: #24292e;
+        }
+
+        .filter-container select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            background: #fafbfc;
+            font-size: 0.9rem;
+            color: #24292e;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-container select:hover {
+            border-color: #a0a8b0;
+        }
+
+        .filter-container select:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        section.hidden {
+            display: none;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 0 1 auto;
+            display: flex;
+            flex-direction: column;
+            max-width: 850px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 850px;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            height: auto;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="filter-container">
+        <label for="chart-type-filter">Chart Type:</label>
+        <select id="chart-type-filter">
+            <option value="all" selected>All (17)</option>
+            <option value="SlopeChart">SlopeChart (17)</option>
+        </select>
+    </div><p class="summary">Showing <span id="visible-count">17</span> of 17 differences</p><section data-slug="americans-worry-work-being-automated" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>americans-worry-work-being-automated?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="americans-worry-work-being-automated?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (60)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/americans-worry-work-being-automated?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/americans-worry-work-being-automated-b641ba3f8c55310ebaa72a56775e90dd_v28_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/americans-worry-work-being-automated?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/americans-worry-work-being-automated-b641ba3f8c55310ebaa72a56775e90dd_v28_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/americans-worry-work-being-automated-b641ba3f8c55310ebaa72a56775e90dd_v28_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/americans-worry-work-being-automated-b641ba3f8c55310ebaa72a56775e90dd_v28_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: americans-worry-work-being-automated-b641ba3f8c55310ebaa72a56775e90dd_v28_300x160.svg
+===================================================================
+--- americans-worry-work-being-automated-b641ba3f8c55310ebaa72a56775e90dd_v28_300x160.svg	
++++ americans-worry-work-being-automated-b641ba3f8c55310ebaa72a56775e90dd_v28_300x160.svg	
+@@ -22,44 +22,48 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line
+-            id=&quot;Jan-14,-2021&quot;
+-            x1=&quot;76.5&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;76.5&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;76.5&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            Jan 14, 2021
+-        </text>
+-        <line
+-            id=&quot;Jul-10,-2025&quot;
+-            x1=&quot;264.75&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;264.75&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;264.75&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            Jul 10, 2025
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;Jan-14,-2021&quot;
++                    x1=&quot;76.5&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;76.5&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;Jul-10,-2025&quot;
++                    x1=&quot;264.8&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;264.8&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;76.5&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    Jan 14, 2021
++                </text>
++                <text
++                    x=&quot;264.8&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    Jul 10, 2025
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__Don&#x27;t-know&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+@@ -69,18 +73,18 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;264.75&quot;
++                    cx=&quot;264.8&quot;
+                     cy=&quot;117.7&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;76.5&quot;
+                     y1=&quot;114.6&quot;
+-                    x2=&quot;264.75&quot;
++                    x2=&quot;264.8&quot;
+                     y2=&quot;117.7&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -94,18 +98,18 @@
+                     fill=&quot;#b4b4b4&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;264.75&quot;
++                    cx=&quot;264.8&quot;
+                     cy=&quot;117.7&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#b4b4b4&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;76.5&quot;
+                     y1=&quot;114.6&quot;
+-                    x2=&quot;264.75&quot;
++                    x2=&quot;264.8&quot;
+                     y2=&quot;117.7&quot;
+                     stroke=&quot;#b4b4b4&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -119,18 +123,18 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;264.75&quot;
++                    cx=&quot;264.8&quot;
+                     cy=&quot;23.1&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;76.5&quot;
+                     y1=&quot;38.4&quot;
+-                    x2=&quot;264.75&quot;
++                    x2=&quot;264.8&quot;
+                     y2=&quot;23.1&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -144,18 +148,18 @@
+                     fill=&quot;#008291&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;264.75&quot;
++                    cx=&quot;264.8&quot;
+                     cy=&quot;23.1&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#008291&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;76.5&quot;
+                     y1=&quot;38.4&quot;
+-                    x2=&quot;264.75&quot;
++                    x2=&quot;264.8&quot;
+                     y2=&quot;23.1&quot;
+                     stroke=&quot;#008291&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -169,18 +173,18 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;264.75&quot;
++                    cx=&quot;264.8&quot;
+                     cy=&quot;59.8&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;76.5&quot;
+                     y1=&quot;20.1&quot;
+-                    x2=&quot;264.75&quot;
++                    x2=&quot;264.8&quot;
+                     y2=&quot;59.8&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -194,18 +198,18 @@
+                     fill=&quot;#00295b&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;264.75&quot;
++                    cx=&quot;264.8&quot;
+                     cy=&quot;59.8&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#00295b&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;76.5&quot;
+                     y1=&quot;20.1&quot;
+-                    x2=&quot;264.75&quot;
++                    x2=&quot;264.8&quot;
+                     y2=&quot;59.8&quot;
+                     stroke=&quot;#00295b&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -219,18 +223,18 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;264.75&quot;
++                    cx=&quot;264.8&quot;
+                     cy=&quot;108.6&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;76.5&quot;
+                     y1=&quot;108.6&quot;
+-                    x2=&quot;264.75&quot;
++                    x2=&quot;264.8&quot;
+                     y2=&quot;108.6&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -244,18 +248,18 @@
+                     fill=&quot;#d73c50&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;264.75&quot;
++                    cx=&quot;264.8&quot;
+                     cy=&quot;108.6&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#d73c50&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;76.5&quot;
+                     y1=&quot;108.6&quot;
+-                    x2=&quot;264.75&quot;
++                    x2=&quot;264.8&quot;
+                     y2=&quot;108.6&quot;
+                     stroke=&quot;#d73c50&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -269,18 +273,18 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;264.75&quot;
++                    cx=&quot;264.8&quot;
+                     cy=&quot;65.9&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;76.5&quot;
+                     y1=&quot;93.3&quot;
+-                    x2=&quot;264.75&quot;
++                    x2=&quot;264.8&quot;
+                     y2=&quot;65.9&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -294,18 +298,18 @@
+                     fill=&quot;#b16214&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;264.75&quot;
++                    cx=&quot;264.8&quot;
+                     cy=&quot;65.9&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#b16214&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;76.5&quot;
+                     y1=&quot;93.3&quot;
+-                    x2=&quot;264.75&quot;
++                    x2=&quot;264.8&quot;
+                     y2=&quot;65.9&quot;
+                     stroke=&quot;#b16214&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="artificial-intelligence-granted-patents-by-industry" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>artificial-intelligence-granted-patents-by-industry?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="artificial-intelligence-granted-patents-by-industry?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (80)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/artificial-intelligence-granted-patents-by-industry?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/artificial-intelligence-granted-patents-by-industry-b641ba3f8c55310ebaa72a56775e90dd_v16_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/artificial-intelligence-granted-patents-by-industry?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/artificial-intelligence-granted-patents-by-industry-b641ba3f8c55310ebaa72a56775e90dd_v16_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/artificial-intelligence-granted-patents-by-industry-b641ba3f8c55310ebaa72a56775e90dd_v16_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/artificial-intelligence-granted-patents-by-industry-b641ba3f8c55310ebaa72a56775e90dd_v16_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: artificial-intelligence-granted-patents-by-industry-b641ba3f8c55310ebaa72a56775e90dd_v16_300x160.svg
+===================================================================
+--- artificial-intelligence-granted-patents-by-industry-b641ba3f8c55310ebaa72a56775e90dd_v16_300x160.svg	
++++ artificial-intelligence-granted-patents-by-industry-b641ba3f8c55310ebaa72a56775e90dd_v16_300x160.svg	
+@@ -22,44 +22,48 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line
+-            id=&quot;2015&quot;
+-            x1=&quot;69.7&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;69.7&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;69.7&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2015
+-        </text>
+-        <line
+-            id=&quot;2018&quot;
+-            x1=&quot;259.59999999999997&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;259.59999999999997&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;259.59999999999997&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2018
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;2015&quot;
++                    x1=&quot;69.7&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;69.7&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;2018&quot;
++                    x1=&quot;259.6&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;259.6&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;69.7&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2015
++                </text>
++                <text
++                    x=&quot;259.6&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2018
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__Banking-and-finance&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+@@ -69,18 +73,18 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;259.59999999999997&quot;
++                    cx=&quot;259.6&quot;
+                     cy=&quot;129.3&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;69.7&quot;
+                     y1=&quot;134.6&quot;
+-                    x2=&quot;259.59999999999997&quot;
++                    x2=&quot;259.6&quot;
+                     y2=&quot;129.3&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -94,18 +98,18 @@
+                     fill=&quot;#4c6a9c&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;259.59999999999997&quot;
++                    cx=&quot;259.6&quot;
+                     cy=&quot;129.3&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#4c6a9c&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;69.7&quot;
+                     y1=&quot;134.6&quot;
+-                    x2=&quot;259.59999999999997&quot;
++                    x2=&quot;259.6&quot;
+                     y2=&quot;129.3&quot;
+                     stroke=&quot;#4c6a9c&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -119,18 +123,18 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;259.59999999999997&quot;
++                    cx=&quot;259.6&quot;
+                     cy=&quot;113.3&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;69.7&quot;
+                     y1=&quot;131.4&quot;
+-                    x2=&quot;259.59999999999997&quot;
++                    x2=&quot;259.6&quot;
+                     y2=&quot;113.3&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -144,18 +148,18 @@
+                     fill=&quot;#b13507&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;259.59999999999997&quot;
++                    cx=&quot;259.6&quot;
+                     cy=&quot;113.3&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#b13507&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;69.7&quot;
+                     y1=&quot;131.4&quot;
+-                    x2=&quot;259.59999999999997&quot;
++                    x2=&quot;259.6&quot;
+                     y2=&quot;113.3&quot;
+                     stroke=&quot;#b13507&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -169,18 +173,18 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;259.59999999999997&quot;
++                    cx=&quot;259.6&quot;
+                     cy=&quot;128.5&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;69.7&quot;
+                     y1=&quot;134&quot;
+-                    x2=&quot;259.59999999999997&quot;
++                    x2=&quot;259.6&quot;
+                     y2=&quot;128.5&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -194,18 +198,18 @@
+                     fill=&quot;#996d39&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;259.59999999999997&quot;
++                    cx=&quot;259.6&quot;
+                     cy=&quot;128.5&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#996d39&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;69.7&quot;
+                     y1=&quot;134&quot;
+-                    x2=&quot;259.59999999999997&quot;
++                    x2=&quot;259.6&quot;
+                     y2=&quot;128.5&quot;
+                     stroke=&quot;#996d39&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -223,18 +227,18 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;259.59999999999997&quot;
++                    cx=&quot;259.6&quot;
+                     cy=&quot;125.1&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;69.7&quot;
+                     y1=&quot;134.2&quot;
+-                    x2=&quot;259.59999999999997&quot;
++                    x2=&quot;259.6&quot;
+                     y2=&quot;125.1&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -248,18 +252,18 @@
+                     fill=&quot;#2c8465&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;259.59999999999997&quot;
++                    cx=&quot;259.6&quot;
+                     cy=&quot;125.1&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#2c8465&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;69.7&quot;
+                     y1=&quot;134.2&quot;
+-                    x2=&quot;259.59999999999997&quot;
++                    x2=&quot;259.6&quot;
+                     y2=&quot;125.1&quot;
+                     stroke=&quot;#2c8465&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -273,18 +277,18 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;259.59999999999997&quot;
++                    cx=&quot;259.6&quot;
+                     cy=&quot;110.4&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;69.7&quot;
+                     y1=&quot;129.4&quot;
+-                    x2=&quot;259.59999999999997&quot;
++                    x2=&quot;259.6&quot;
+                     y2=&quot;110.4&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -298,18 +302,18 @@
+                     fill=&quot;#6d3e91&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;259.59999999999997&quot;
++                    cx=&quot;259.6&quot;
+                     cy=&quot;110.4&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#6d3e91&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+                     x1=&quot;69.7&quot;
+                     y1=&quot;129.4&quot;
+-                    x2=&quot;259.59999999999997&quot;
++                    x2=&quot;259.6&quot;
+                     y2=&quot;110.4&quot;
+                     stroke=&quot;#6d3e91&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -327,18 +331,18 @@
+
+... (diff truncated: showing 300 of 510 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="bribery-prevalence-un" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>bribery-prevalence-un?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="bribery-prevalence-un?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (40)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/bribery-prevalence-un?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/bribery-prevalence-un-b641ba3f8c55310ebaa72a56775e90dd_v33_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/bribery-prevalence-un?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/bribery-prevalence-un-b641ba3f8c55310ebaa72a56775e90dd_v33_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/bribery-prevalence-un-b641ba3f8c55310ebaa72a56775e90dd_v33_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/bribery-prevalence-un-b641ba3f8c55310ebaa72a56775e90dd_v33_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: bribery-prevalence-un-b641ba3f8c55310ebaa72a56775e90dd_v33_300x160.svg
+===================================================================
+--- bribery-prevalence-un-b641ba3f8c55310ebaa72a56775e90dd_v33_300x160.svg	
++++ bribery-prevalence-un-b641ba3f8c55310ebaa72a56775e90dd_v33_300x160.svg	
+@@ -22,44 +22,48 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line
+-            id=&quot;2004&quot;
+-            x1=&quot;45.8&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;45.8&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;45.8&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2004
+-        </text>
+-        <line
+-            id=&quot;2024&quot;
+-            x1=&quot;264.9&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;264.9&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;264.9&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2024
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;2004&quot;
++                    x1=&quot;45.8&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;45.8&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;2024&quot;
++                    x1=&quot;264.9&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;264.9&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;45.8&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2004
++                </text>
++                <text
++                    x=&quot;264.9&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2024
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__Peru&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="co-emissions-per-capita" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>co-emissions-per-capita?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="co-emissions-per-capita?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (48)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/co-emissions-per-capita?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/co-emissions-per-capita-b641ba3f8c55310ebaa72a56775e90dd_v59_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/co-emissions-per-capita?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/co-emissions-per-capita-b641ba3f8c55310ebaa72a56775e90dd_v59_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/co-emissions-per-capita-b641ba3f8c55310ebaa72a56775e90dd_v59_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/co-emissions-per-capita-b641ba3f8c55310ebaa72a56775e90dd_v59_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: co-emissions-per-capita-b641ba3f8c55310ebaa72a56775e90dd_v59_300x160.svg
+===================================================================
+--- co-emissions-per-capita-b641ba3f8c55310ebaa72a56775e90dd_v59_300x160.svg	
++++ co-emissions-per-capita-b641ba3f8c55310ebaa72a56775e90dd_v59_300x160.svg	
+@@ -22,49 +22,53 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line
+-            id=&quot;1750&quot;
+-            x1=&quot;54.800000000000004&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;54.800000000000004&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;54.800000000000004&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            1750
+-        </text>
+-        <line
+-            id=&quot;2024&quot;
+-            x1=&quot;264.7&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;264.7&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;264.7&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2024
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;1750&quot;
++                    x1=&quot;54.8&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;54.8&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;2024&quot;
++                    x1=&quot;264.7&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;264.7&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;54.8&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    1750
++                </text>
++                <text
++                    x=&quot;264.7&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2024
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__World&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;54.800000000000004&quot;
++                    cx=&quot;54.8&quot;
+                     cy=&quot;135.7&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+@@ -76,9 +80,9 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;54.800000000000004&quot;
++                    x1=&quot;54.8&quot;
+                     y1=&quot;135.7&quot;
+                     x2=&quot;264.7&quot;
+                     y2=&quot;20.6&quot;
+                     stroke=&quot;#fff&quot;
+@@ -87,9 +91,9 @@
+             </g>
+             <g id=&quot;slope__World&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;54.800000000000004&quot;
++                    cx=&quot;54.8&quot;
+                     cy=&quot;135.7&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#4c6a9c&quot;
+                 ></circle>
+@@ -101,9 +105,9 @@
+                     fill=&quot;#4c6a9c&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;54.800000000000004&quot;
++                    x1=&quot;54.8&quot;
+                     y1=&quot;135.7&quot;
+                     x2=&quot;264.7&quot;
+                     y2=&quot;20.6&quot;
+                     stroke=&quot;#4c6a9c&quot;
+@@ -112,9 +116,9 @@
+             </g>
+             <g id=&quot;outline__United-Kingdom&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;54.800000000000004&quot;
++                    cx=&quot;54.8&quot;
+                     cy=&quot;111.6&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+@@ -126,9 +130,9 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;54.800000000000004&quot;
++                    x1=&quot;54.8&quot;
+                     y1=&quot;111.6&quot;
+                     x2=&quot;264.7&quot;
+                     y2=&quot;25.6&quot;
+                     stroke=&quot;#fff&quot;
+@@ -137,9 +141,9 @@
+             </g>
+             <g id=&quot;slope__United-Kingdom&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;54.800000000000004&quot;
++                    cx=&quot;54.8&quot;
+                     cy=&quot;111.6&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#996d39&quot;
+                 ></circle>
+@@ -151,9 +155,9 @@
+                     fill=&quot;#996d39&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;54.800000000000004&quot;
++                    x1=&quot;54.8&quot;
+                     y1=&quot;111.6&quot;
+                     x2=&quot;264.7&quot;
+                     y2=&quot;25.6&quot;
+                     stroke=&quot;#996d39&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="democracy-index-eiu" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>democracy-index-eiu?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="democracy-index-eiu?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (40)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/democracy-index-eiu?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/democracy-index-eiu-b641ba3f8c55310ebaa72a56775e90dd_v108_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/democracy-index-eiu?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/democracy-index-eiu-b641ba3f8c55310ebaa72a56775e90dd_v108_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/democracy-index-eiu-b641ba3f8c55310ebaa72a56775e90dd_v108_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/democracy-index-eiu-b641ba3f8c55310ebaa72a56775e90dd_v108_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: democracy-index-eiu-b641ba3f8c55310ebaa72a56775e90dd_v108_300x160.svg
+===================================================================
+--- democracy-index-eiu-b641ba3f8c55310ebaa72a56775e90dd_v108_300x160.svg	
++++ democracy-index-eiu-b641ba3f8c55310ebaa72a56775e90dd_v108_300x160.svg	
+@@ -22,44 +22,48 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line
+-            id=&quot;2006&quot;
+-            x1=&quot;58.6&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;58.6&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;58.6&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2006
+-        </text>
+-        <line
+-            id=&quot;2024&quot;
+-            x1=&quot;264.7&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;264.7&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;264.7&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2024
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;2006&quot;
++                    x1=&quot;58.6&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;58.6&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;2024&quot;
++                    x1=&quot;264.7&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;264.7&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;58.6&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2006
++                </text>
++                <text
++                    x=&quot;264.7&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2024
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__Argentina&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="gdp-per-capita-maddison-project-database" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>gdp-per-capita-maddison-project-database?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="gdp-per-capita-maddison-project-database?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (40)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/gdp-per-capita-maddison-project-database?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/gdp-per-capita-maddison-project-database-b641ba3f8c55310ebaa72a56775e90dd_v53_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/gdp-per-capita-maddison-project-database?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/gdp-per-capita-maddison-project-database-b641ba3f8c55310ebaa72a56775e90dd_v53_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/gdp-per-capita-maddison-project-database-b641ba3f8c55310ebaa72a56775e90dd_v53_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/gdp-per-capita-maddison-project-database-b641ba3f8c55310ebaa72a56775e90dd_v53_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: gdp-per-capita-maddison-project-database-b641ba3f8c55310ebaa72a56775e90dd_v53_300x160.svg
+===================================================================
+--- gdp-per-capita-maddison-project-database-b641ba3f8c55310ebaa72a56775e90dd_v53_300x160.svg	
++++ gdp-per-capita-maddison-project-database-b641ba3f8c55310ebaa72a56775e90dd_v53_300x160.svg	
+@@ -22,37 +22,48 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line
+-            id=&quot;1820&quot;
+-            x1=&quot;43.2&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;43.2&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;43.2&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            1820
+-        </text>
+-        <line id=&quot;2022&quot; x1=&quot;248&quot; y1=&quot;8&quot; x2=&quot;248&quot; y2=&quot;142&quot; stroke=&quot;#999&quot;></line>
+-        <text
+-            x=&quot;248&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2022
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;1820&quot;
++                    x1=&quot;43.2&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;43.2&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;2022&quot;
++                    x1=&quot;248&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;248&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;43.2&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    1820
++                </text>
++                <text
++                    x=&quot;248&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2022
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__World&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="gdp-per-capita-worldbank" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>gdp-per-capita-worldbank?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="gdp-per-capita-worldbank?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (40)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/gdp-per-capita-worldbank?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/gdp-per-capita-worldbank-b641ba3f8c55310ebaa72a56775e90dd_v57_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/gdp-per-capita-worldbank?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/gdp-per-capita-worldbank-b641ba3f8c55310ebaa72a56775e90dd_v57_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/gdp-per-capita-worldbank-b641ba3f8c55310ebaa72a56775e90dd_v57_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/gdp-per-capita-worldbank-b641ba3f8c55310ebaa72a56775e90dd_v57_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: gdp-per-capita-worldbank-b641ba3f8c55310ebaa72a56775e90dd_v57_300x160.svg
+===================================================================
+--- gdp-per-capita-worldbank-b641ba3f8c55310ebaa72a56775e90dd_v57_300x160.svg	
++++ gdp-per-capita-worldbank-b641ba3f8c55310ebaa72a56775e90dd_v57_300x160.svg	
+@@ -22,37 +22,48 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line
+-            id=&quot;1990&quot;
+-            x1=&quot;75.2&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;75.2&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;75.2&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            1990
+-        </text>
+-        <line id=&quot;2024&quot; x1=&quot;248&quot; y1=&quot;8&quot; x2=&quot;248&quot; y2=&quot;142&quot; stroke=&quot;#999&quot;></line>
+-        <text
+-            x=&quot;248&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2024
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;1990&quot;
++                    x1=&quot;75.2&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;75.2&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;2024&quot;
++                    x1=&quot;248&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;248&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;75.2&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    1990
++                </text>
++                <text
++                    x=&quot;248&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2024
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__United-States&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="global-child-deaths-by-cause" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>global-child-deaths-by-cause?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="global-child-deaths-by-cause?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (40)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/global-child-deaths-by-cause?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/global-child-deaths-by-cause-b641ba3f8c55310ebaa72a56775e90dd_v22_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/global-child-deaths-by-cause?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/global-child-deaths-by-cause-b641ba3f8c55310ebaa72a56775e90dd_v22_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/global-child-deaths-by-cause-b641ba3f8c55310ebaa72a56775e90dd_v22_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/global-child-deaths-by-cause-b641ba3f8c55310ebaa72a56775e90dd_v22_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: global-child-deaths-by-cause-b641ba3f8c55310ebaa72a56775e90dd_v22_300x160.svg
+===================================================================
+--- global-child-deaths-by-cause-b641ba3f8c55310ebaa72a56775e90dd_v22_300x160.svg	
++++ global-child-deaths-by-cause-b641ba3f8c55310ebaa72a56775e90dd_v22_300x160.svg	
+@@ -22,37 +22,48 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line
+-            id=&quot;1980&quot;
+-            x1=&quot;74.1&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;74.1&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;74.1&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            1980
+-        </text>
+-        <line id=&quot;2023&quot; x1=&quot;262&quot; y1=&quot;8&quot; x2=&quot;262&quot; y2=&quot;142&quot; stroke=&quot;#999&quot;></line>
+-        <text
+-            x=&quot;262&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2023
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;1980&quot;
++                    x1=&quot;74.1&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;74.1&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;2023&quot;
++                    x1=&quot;262&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;262&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;74.1&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    1980
++                </text>
++                <text
++                    x=&quot;262&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2023
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__Neonatal-preterm-birth&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="global-whale-biomass" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>global-whale-biomass?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="global-whale-biomass?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (40)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/global-whale-biomass?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/global-whale-biomass-b641ba3f8c55310ebaa72a56775e90dd_v6_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/global-whale-biomass?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/global-whale-biomass-b641ba3f8c55310ebaa72a56775e90dd_v6_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/global-whale-biomass-b641ba3f8c55310ebaa72a56775e90dd_v6_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/global-whale-biomass-b641ba3f8c55310ebaa72a56775e90dd_v6_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: global-whale-biomass-b641ba3f8c55310ebaa72a56775e90dd_v6_300x160.svg
+===================================================================
+--- global-whale-biomass-b641ba3f8c55310ebaa72a56775e90dd_v6_300x160.svg	
++++ global-whale-biomass-b641ba3f8c55310ebaa72a56775e90dd_v6_300x160.svg	
+@@ -22,37 +22,48 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line
+-            id=&quot;1890&quot;
+-            x1=&quot;65.6&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;65.6&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;65.6&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            1890
+-        </text>
+-        <line id=&quot;2001&quot; x1=&quot;248&quot; y1=&quot;8&quot; x2=&quot;248&quot; y2=&quot;142&quot; stroke=&quot;#999&quot;></line>
+-        <text
+-            x=&quot;248&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2001
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;1890&quot;
++                    x1=&quot;65.6&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;65.6&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;2001&quot;
++                    x1=&quot;248&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;248&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;65.6&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    1890
++                </text>
++                <text
++                    x=&quot;248&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2001
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__Blue-whale&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="human-capital-index-in-2018" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>human-capital-index-in-2018?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="human-capital-index-in-2018?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (52)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/human-capital-index-in-2018?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/human-capital-index-in-2018-b641ba3f8c55310ebaa72a56775e90dd_v17_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/human-capital-index-in-2018?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/human-capital-index-in-2018-b641ba3f8c55310ebaa72a56775e90dd_v17_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/human-capital-index-in-2018-b641ba3f8c55310ebaa72a56775e90dd_v17_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/human-capital-index-in-2018-b641ba3f8c55310ebaa72a56775e90dd_v17_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: human-capital-index-in-2018-b641ba3f8c55310ebaa72a56775e90dd_v17_300x160.svg
+===================================================================
+--- human-capital-index-in-2018-b641ba3f8c55310ebaa72a56775e90dd_v17_300x160.svg	
++++ human-capital-index-in-2018-b641ba3f8c55310ebaa72a56775e90dd_v17_300x160.svg	
+@@ -22,49 +22,53 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line
+-            id=&quot;2010&quot;
+-            x1=&quot;61.300000000000004&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;61.300000000000004&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;61.300000000000004&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2010
+-        </text>
+-        <line
+-            id=&quot;2020&quot;
+-            x1=&quot;264.7&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;264.7&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;264.7&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2020
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;2010&quot;
++                    x1=&quot;61.3&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;61.3&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;2020&quot;
++                    x1=&quot;264.7&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;264.7&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;61.3&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2010
++                </text>
++                <text
++                    x=&quot;264.7&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2020
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__Cameroon&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;61.300000000000004&quot;
++                    cx=&quot;61.3&quot;
+                     cy=&quot;78.1&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+@@ -76,9 +80,9 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;61.300000000000004&quot;
++                    x1=&quot;61.3&quot;
+                     y1=&quot;78.1&quot;
+                     x2=&quot;264.7&quot;
+                     y2=&quot;75.4&quot;
+                     stroke=&quot;#fff&quot;
+@@ -87,9 +91,9 @@
+             </g>
+             <g id=&quot;slope__Cameroon&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;61.300000000000004&quot;
++                    cx=&quot;61.3&quot;
+                     cy=&quot;78.1&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#4c6a9c&quot;
+                 ></circle>
+@@ -101,9 +105,9 @@
+                     fill=&quot;#4c6a9c&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;61.300000000000004&quot;
++                    x1=&quot;61.3&quot;
+                     y1=&quot;78.1&quot;
+                     x2=&quot;264.7&quot;
+                     y2=&quot;75.4&quot;
+                     stroke=&quot;#4c6a9c&quot;
+@@ -112,9 +116,9 @@
+             </g>
+             <g id=&quot;outline__Greece&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;61.300000000000004&quot;
++                    cx=&quot;61.3&quot;
+                     cy=&quot;27&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+@@ -126,9 +130,9 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;61.300000000000004&quot;
++                    x1=&quot;61.3&quot;
+                     y1=&quot;27&quot;
+                     x2=&quot;264.7&quot;
+                     y2=&quot;30.8&quot;
+                     stroke=&quot;#fff&quot;
+@@ -137,9 +141,9 @@
+             </g>
+             <g id=&quot;slope__Greece&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;61.300000000000004&quot;
++                    cx=&quot;61.3&quot;
+                     cy=&quot;27&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#b13507&quot;
+                 ></circle>
+@@ -151,9 +155,9 @@
+                     fill=&quot;#b13507&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;61.300000000000004&quot;
++                    x1=&quot;61.3&quot;
+                     y1=&quot;27&quot;
+                     x2=&quot;264.7&quot;
+                     y2=&quot;30.8&quot;
+                     stroke=&quot;#b13507&quot;
+@@ -162,9 +166,9 @@
+             </g>
+             <g id=&quot;outline__Slovenia&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;61.300000000000004&quot;
++                    cx=&quot;61.3&quot;
+                     cy=&quot;21.3&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+@@ -176,9 +180,9 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;61.300000000000004&quot;
++                    x1=&quot;61.3&quot;
+                     y1=&quot;21.3&quot;
+                     x2=&quot;264.7&quot;
+                     y2=&quot;17.8&quot;
+                     stroke=&quot;#fff&quot;
+@@ -187,9 +191,9 @@
+             </g>
+             <g id=&quot;slope__Slovenia&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;61.300000000000004&quot;
++                    cx=&quot;61.3&quot;
+                     cy=&quot;21.3&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#2c8465&quot;
+                 ></circle>
+@@ -201,9 +205,9 @@
+                     fill=&quot;#2c8465&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;61.300000000000004&quot;
++                    x1=&quot;61.3&quot;
+                     y1=&quot;21.3&quot;
+                     x2=&quot;264.7&quot;
+                     y2=&quot;17.8&quot;
+                     stroke=&quot;#2c8465&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="human-development-index" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>human-development-index?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="human-development-index?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (88)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/human-development-index?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/human-development-index-b641ba3f8c55310ebaa72a56775e90dd_v31_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/human-development-index?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/human-development-index-b641ba3f8c55310ebaa72a56775e90dd_v31_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/human-development-index-b641ba3f8c55310ebaa72a56775e90dd_v31_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/human-development-index-b641ba3f8c55310ebaa72a56775e90dd_v31_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: human-development-index-b641ba3f8c55310ebaa72a56775e90dd_v31_300x160.svg
+===================================================================
+--- human-development-index-b641ba3f8c55310ebaa72a56775e90dd_v31_300x160.svg	
++++ human-development-index-b641ba3f8c55310ebaa72a56775e90dd_v31_300x160.svg	
+@@ -22,49 +22,53 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line
+-            id=&quot;1990&quot;
+-            x1=&quot;54.800000000000004&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;54.800000000000004&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;54.800000000000004&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            1990
+-        </text>
+-        <line
+-            id=&quot;2023&quot;
+-            x1=&quot;258.9&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;258.9&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;258.9&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2023
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;1990&quot;
++                    x1=&quot;54.8&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;54.8&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;2023&quot;
++                    x1=&quot;258.9&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;258.9&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;54.8&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    1990
++                </text>
++                <text
++                    x=&quot;258.9&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2023
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__United-Kingdom&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;54.800000000000004&quot;
++                    cx=&quot;54.8&quot;
+                     cy=&quot;36.9&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+@@ -76,9 +80,9 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;54.800000000000004&quot;
++                    x1=&quot;54.8&quot;
+                     y1=&quot;36.9&quot;
+                     x2=&quot;258.9&quot;
+                     y2=&quot;20.6&quot;
+                     stroke=&quot;#fff&quot;
+@@ -87,9 +91,9 @@
+             </g>
+             <g id=&quot;slope__United-Kingdom&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;54.800000000000004&quot;
++                    cx=&quot;54.8&quot;
+                     cy=&quot;36.9&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#4c6a9c&quot;
+                 ></circle>
+@@ -101,9 +105,9 @@
+                     fill=&quot;#4c6a9c&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;54.800000000000004&quot;
++                    x1=&quot;54.8&quot;
+                     y1=&quot;36.9&quot;
+                     x2=&quot;258.9&quot;
+                     y2=&quot;20.6&quot;
+                     stroke=&quot;#4c6a9c&quot;
+@@ -112,9 +116,9 @@
+             </g>
+             <g id=&quot;outline__United-States&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;54.800000000000004&quot;
++                    cx=&quot;54.8&quot;
+                     cy=&quot;28.9&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+@@ -126,9 +130,9 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;54.800000000000004&quot;
++                    x1=&quot;54.8&quot;
+                     y1=&quot;28.9&quot;
+                     x2=&quot;258.9&quot;
+                     y2=&quot;21.6&quot;
+                     stroke=&quot;#fff&quot;
+@@ -137,9 +141,9 @@
+             </g>
+             <g id=&quot;slope__United-States&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;54.800000000000004&quot;
++                    cx=&quot;54.8&quot;
+                     cy=&quot;28.9&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#b13507&quot;
+                 ></circle>
+@@ -151,9 +155,9 @@
+                     fill=&quot;#b13507&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;54.800000000000004&quot;
++                    x1=&quot;54.8&quot;
+                     y1=&quot;28.9&quot;
+                     x2=&quot;258.9&quot;
+                     y2=&quot;21.6&quot;
+                     stroke=&quot;#b13507&quot;
+@@ -162,9 +166,9 @@
+             </g>
+             <g id=&quot;outline__South-Korea&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;54.800000000000004&quot;
++                    cx=&quot;54.8&quot;
+                     cy=&quot;46&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+@@ -176,9 +180,9 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;54.800000000000004&quot;
++                    x1=&quot;54.8&quot;
+                     y1=&quot;46&quot;
+                     x2=&quot;258.9&quot;
+                     y2=&quot;21.7&quot;
+                     stroke=&quot;#fff&quot;
+@@ -187,9 +191,9 @@
+             </g>
+             <g id=&quot;slope__South-Korea&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;54.800000000000004&quot;
++                    cx=&quot;54.8&quot;
+                     cy=&quot;46&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#996d39&quot;
+                 ></circle>
+@@ -201,9 +205,9 @@
+                     fill=&quot;#996d39&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;54.800000000000004&quot;
++                    x1=&quot;54.8&quot;
+                     y1=&quot;46&quot;
+                     x2=&quot;258.9&quot;
+                     y2=&quot;21.7&quot;
+                     stroke=&quot;#996d39&quot;
+@@ -212,9 +216,9 @@
+             </g>
+             <g id=&quot;outline__India&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;54.800000000000004&quot;
++                    cx=&quot;54.8&quot;
+                     cy=&quot;81.6&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+@@ -226,9 +230,9 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;54.800000000000004&quot;
++                    x1=&quot;54.8&quot;
+                     y1=&quot;81.6&quot;
+                     x2=&quot;258.9&quot;
+                     y2=&quot;52.4&quot;
+                     stroke=&quot;#fff&quot;
+@@ -237,9 +241,9 @@
+             </g>
+             <g id=&quot;slope__India&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;54.800000000000004&quot;
++                    cx=&quot;54.8&quot;
+                     cy=&quot;81.6&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#2c8465&quot;
+                 ></circle>
+@@ -251,9 +255,9 @@
+                     fill=&quot;#2c8465&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;54.800000000000004&quot;
++                    x1=&quot;54.8&quot;
+                     y1=&quot;81.6&quot;
+                     x2=&quot;258.9&quot;
+                     y2=&quot;52.4&quot;
+                     stroke=&quot;#2c8465&quot;
+@@ -262,9 +266,9 @@
+             </g>
+             <g id=&quot;outline__China&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;54.800000000000004&quot;
++                    cx=&quot;54.8&quot;
+                     cy=&quot;76.1&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+@@ -276,9 +280,9 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;54.800000000000004&quot;
++                    x1=&quot;54.8&quot;
+                     y1=&quot;76.1&quot;
+                     x2=&quot;258.9&quot;
+                     y2=&quot;38.8&quot;
+                     stroke=&quot;#fff&quot;
+@@ -287,9 +291,9 @@
+             </g>
+             <g id=&quot;slope__China&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;54.800000000000004&quot;
++                    cx=&quot;54.8&quot;
+                     cy=&quot;76.1&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#6d3e91&quot;
+                 ></circle>
+@@ -301,9 +305,9 @@
+                     fill=&quot;#6d3e91&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;54.800000000000004&quot;
++                    x1=&quot;54.8&quot;
+
+... (diff truncated: showing 300 of 613 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="plastic-waste-incinerated" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>plastic-waste-incinerated?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="plastic-waste-incinerated?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (40)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/plastic-waste-incinerated?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/plastic-waste-incinerated-b641ba3f8c55310ebaa72a56775e90dd_v11_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/plastic-waste-incinerated?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/plastic-waste-incinerated-b641ba3f8c55310ebaa72a56775e90dd_v11_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/plastic-waste-incinerated-b641ba3f8c55310ebaa72a56775e90dd_v11_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/plastic-waste-incinerated-b641ba3f8c55310ebaa72a56775e90dd_v11_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: plastic-waste-incinerated-b641ba3f8c55310ebaa72a56775e90dd_v11_300x160.svg
+===================================================================
+--- plastic-waste-incinerated-b641ba3f8c55310ebaa72a56775e90dd_v11_300x160.svg	
++++ plastic-waste-incinerated-b641ba3f8c55310ebaa72a56775e90dd_v11_300x160.svg	
+@@ -22,37 +22,48 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line id=&quot;2000&quot; x1=&quot;63&quot; y1=&quot;8&quot; x2=&quot;63&quot; y2=&quot;142&quot; stroke=&quot;#999&quot;></line>
+-        <text
+-            x=&quot;63&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2000
+-        </text>
+-        <line
+-            id=&quot;2019&quot;
+-            x1=&quot;256.7&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;256.7&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;256.7&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2019
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;2000&quot;
++                    x1=&quot;63&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;63&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;2019&quot;
++                    x1=&quot;256.7&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;256.7&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;63&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2000
++                </text>
++                <text
++                    x=&quot;256.7&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2019
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__Americas-(excl.-USA)&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="plastic-waste-landfill" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>plastic-waste-landfill?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="plastic-waste-landfill?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (40)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/plastic-waste-landfill?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/plastic-waste-landfill-b641ba3f8c55310ebaa72a56775e90dd_v12_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/plastic-waste-landfill?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/plastic-waste-landfill-b641ba3f8c55310ebaa72a56775e90dd_v12_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/plastic-waste-landfill-b641ba3f8c55310ebaa72a56775e90dd_v12_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/plastic-waste-landfill-b641ba3f8c55310ebaa72a56775e90dd_v12_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: plastic-waste-landfill-b641ba3f8c55310ebaa72a56775e90dd_v12_300x160.svg
+===================================================================
+--- plastic-waste-landfill-b641ba3f8c55310ebaa72a56775e90dd_v12_300x160.svg	
++++ plastic-waste-landfill-b641ba3f8c55310ebaa72a56775e90dd_v12_300x160.svg	
+@@ -22,37 +22,48 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line id=&quot;2000&quot; x1=&quot;71&quot; y1=&quot;8&quot; x2=&quot;71&quot; y2=&quot;142&quot; stroke=&quot;#999&quot;></line>
+-        <text
+-            x=&quot;71&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2000
+-        </text>
+-        <line
+-            id=&quot;2019&quot;
+-            x1=&quot;256.7&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;256.7&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;256.7&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2019
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;2000&quot;
++                    x1=&quot;71&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;71&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;2019&quot;
++                    x1=&quot;256.7&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;256.7&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;71&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2000
++                </text>
++                <text
++                    x=&quot;256.7&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2019
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__Americas-(excl.-USA)&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="share-of-plastic-waste-that-is-mismanaged" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>share-of-plastic-waste-that-is-mismanaged?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="share-of-plastic-waste-that-is-mismanaged?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (40)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/share-of-plastic-waste-that-is-mismanaged?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/share-of-plastic-waste-that-is-mismanaged-b641ba3f8c55310ebaa72a56775e90dd_v17_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/share-of-plastic-waste-that-is-mismanaged?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/share-of-plastic-waste-that-is-mismanaged-b641ba3f8c55310ebaa72a56775e90dd_v17_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/share-of-plastic-waste-that-is-mismanaged-b641ba3f8c55310ebaa72a56775e90dd_v17_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/share-of-plastic-waste-that-is-mismanaged-b641ba3f8c55310ebaa72a56775e90dd_v17_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: share-of-plastic-waste-that-is-mismanaged-b641ba3f8c55310ebaa72a56775e90dd_v17_300x160.svg
+===================================================================
+--- share-of-plastic-waste-that-is-mismanaged-b641ba3f8c55310ebaa72a56775e90dd_v17_300x160.svg	
++++ share-of-plastic-waste-that-is-mismanaged-b641ba3f8c55310ebaa72a56775e90dd_v17_300x160.svg	
+@@ -22,37 +22,48 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line id=&quot;2000&quot; x1=&quot;63&quot; y1=&quot;8&quot; x2=&quot;63&quot; y2=&quot;142&quot; stroke=&quot;#999&quot;></line>
+-        <text
+-            x=&quot;63&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2000
+-        </text>
+-        <line
+-            id=&quot;2019&quot;
+-            x1=&quot;256.7&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;256.7&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;256.7&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2019
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;2000&quot;
++                    x1=&quot;63&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;63&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;2019&quot;
++                    x1=&quot;256.7&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;256.7&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;63&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2000
++                </text>
++                <text
++                    x=&quot;256.7&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2019
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__Americas-(excl.-USA)&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="share-plastic-waste-recycled" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>share-plastic-waste-recycled?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="share-plastic-waste-recycled?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (40)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/share-plastic-waste-recycled?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/share-plastic-waste-recycled-b641ba3f8c55310ebaa72a56775e90dd_v13_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/share-plastic-waste-recycled?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/share-plastic-waste-recycled-b641ba3f8c55310ebaa72a56775e90dd_v13_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/share-plastic-waste-recycled-b641ba3f8c55310ebaa72a56775e90dd_v13_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/share-plastic-waste-recycled-b641ba3f8c55310ebaa72a56775e90dd_v13_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: share-plastic-waste-recycled-b641ba3f8c55310ebaa72a56775e90dd_v13_300x160.svg
+===================================================================
+--- share-plastic-waste-recycled-b641ba3f8c55310ebaa72a56775e90dd_v13_300x160.svg	
++++ share-plastic-waste-recycled-b641ba3f8c55310ebaa72a56775e90dd_v13_300x160.svg	
+@@ -22,44 +22,48 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line
+-            id=&quot;2000&quot;
+-            x1=&quot;75.2&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;75.2&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;75.2&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2000
+-        </text>
+-        <line
+-            id=&quot;2019&quot;
+-            x1=&quot;256.7&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;256.7&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;256.7&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2019
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;2000&quot;
++                    x1=&quot;75.2&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;75.2&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;2019&quot;
++                    x1=&quot;256.7&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;256.7&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;75.2&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2000
++                </text>
++                <text
++                    x=&quot;256.7&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2019
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__Americas-(excl.-USA)&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="views-of-americans-robot-vs-human-intelligence" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>views-of-americans-robot-vs-human-intelligence?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="views-of-americans-robot-vs-human-intelligence?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (80)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/views-of-americans-robot-vs-human-intelligence?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/views-of-americans-robot-vs-human-intelligence-b641ba3f8c55310ebaa72a56775e90dd_v23_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/views-of-americans-robot-vs-human-intelligence?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/views-of-americans-robot-vs-human-intelligence-b641ba3f8c55310ebaa72a56775e90dd_v23_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/views-of-americans-robot-vs-human-intelligence-b641ba3f8c55310ebaa72a56775e90dd_v23_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/views-of-americans-robot-vs-human-intelligence-b641ba3f8c55310ebaa72a56775e90dd_v23_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: views-of-americans-robot-vs-human-intelligence-b641ba3f8c55310ebaa72a56775e90dd_v23_300x160.svg
+===================================================================
+--- views-of-americans-robot-vs-human-intelligence-b641ba3f8c55310ebaa72a56775e90dd_v23_300x160.svg	
++++ views-of-americans-robot-vs-human-intelligence-b641ba3f8c55310ebaa72a56775e90dd_v23_300x160.svg	
+@@ -22,90 +22,94 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line
+-            id=&quot;Jan-7,-2021&quot;
+-            x1=&quot;75.80000000000001&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;75.80000000000001&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;75.80000000000001&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            Jan 7, 2021
+-        </text>
+-        <line
+-            id=&quot;Jun-26,-2025&quot;
+-            x1=&quot;263.15&quot;
+-            y1=&quot;8&quot;
+-            x2=&quot;263.15&quot;
+-            y2=&quot;142&quot;
+-            stroke=&quot;#999&quot;
+-        ></line>
+-        <text
+-            x=&quot;263.15&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            Jun 26, 2025
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;Jan-7,-2021&quot;
++                    x1=&quot;75.8&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;75.8&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;Jun-26,-2025&quot;
++                    x1=&quot;263.1&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;263.1&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;75.8&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    Jan 7, 2021
++                </text>
++                <text
++                    x=&quot;263.1&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    Jun 26, 2025
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__None-of-these&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;75.80000000000001&quot;
++                    cx=&quot;75.8&quot;
+                     cy=&quot;117.7&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;263.15&quot;
++                    cx=&quot;263.1&quot;
+                     cy=&quot;114.6&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;75.80000000000001&quot;
++                    x1=&quot;75.8&quot;
+                     y1=&quot;117.7&quot;
+-                    x2=&quot;263.15&quot;
++                    x2=&quot;263.1&quot;
+                     y2=&quot;114.6&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+             </g>
+             <g id=&quot;slope__None-of-these&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;75.80000000000001&quot;
++                    cx=&quot;75.8&quot;
+                     cy=&quot;117.7&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#4c6a9c&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;263.15&quot;
++                    cx=&quot;263.1&quot;
+                     cy=&quot;114.6&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#4c6a9c&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;75.80000000000001&quot;
++                    x1=&quot;75.8&quot;
+                     y1=&quot;117.7&quot;
+-                    x2=&quot;263.15&quot;
++                    x2=&quot;263.1&quot;
+                     y2=&quot;114.6&quot;
+                     stroke=&quot;#4c6a9c&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -116,25 +120,25 @@
+                 class=&quot;slope&quot;
+             >
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;75.80000000000001&quot;
++                    cx=&quot;75.8&quot;
+                     cy=&quot;62.8&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;263.15&quot;
++                    cx=&quot;263.1&quot;
+                     cy=&quot;71.9&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;75.80000000000001&quot;
++                    x1=&quot;75.8&quot;
+                     y1=&quot;62.8&quot;
+-                    x2=&quot;263.15&quot;
++                    x2=&quot;263.1&quot;
+                     y2=&quot;71.9&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -145,25 +149,25 @@
+                 class=&quot;slope&quot;
+             >
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;75.80000000000001&quot;
++                    cx=&quot;75.8&quot;
+                     cy=&quot;62.8&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#b13507&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;263.15&quot;
++                    cx=&quot;263.1&quot;
+                     cy=&quot;71.9&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#b13507&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;75.80000000000001&quot;
++                    x1=&quot;75.8&quot;
+                     y1=&quot;62.8&quot;
+-                    x2=&quot;263.15&quot;
++                    x2=&quot;263.1&quot;
+                     y2=&quot;71.9&quot;
+                     stroke=&quot;#b13507&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -174,25 +178,25 @@
+                 class=&quot;slope&quot;
+             >
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;75.80000000000001&quot;
++                    cx=&quot;75.8&quot;
+                     cy=&quot;102.4&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;263.15&quot;
++                    cx=&quot;263.1&quot;
+                     cy=&quot;96.4&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;75.80000000000001&quot;
++                    x1=&quot;75.8&quot;
+                     y1=&quot;102.4&quot;
+-                    x2=&quot;263.15&quot;
++                    x2=&quot;263.1&quot;
+                     y2=&quot;96.4&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -203,75 +207,75 @@
+                 class=&quot;slope&quot;
+             >
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;75.80000000000001&quot;
++                    cx=&quot;75.8&quot;
+                     cy=&quot;102.4&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#996d39&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;263.15&quot;
++                    cx=&quot;263.1&quot;
+                     cy=&quot;96.4&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#996d39&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;75.80000000000001&quot;
++                    x1=&quot;75.8&quot;
+                     y1=&quot;102.4&quot;
+-                    x2=&quot;263.15&quot;
++                    x2=&quot;263.1&quot;
+                     y2=&quot;96.4&quot;
+                     stroke=&quot;#996d39&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+             </g>
+             <g id=&quot;outline__Don&#x27;t-know&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;75.80000000000001&quot;
++                    cx=&quot;75.8&quot;
+                     cy=&quot;78.1&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;263.15&quot;
++                    cx=&quot;263.1&quot;
+                     cy=&quot;75&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;75.80000000000001&quot;
++                    x1=&quot;75.8&quot;
+                     y1=&quot;78.1&quot;
+-                    x2=&quot;263.15&quot;
++                    x2=&quot;263.1&quot;
+                     y2=&quot;75&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+             </g>
+             <g id=&quot;slope__Don&#x27;t-know&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;75.80000000000001&quot;
++                    cx=&quot;75.8&quot;
+                     cy=&quot;78.1&quot;
+                     r=&quot;3.5&quot;
+
+... (diff truncated: showing 300 of 382 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="whale-populations" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>whale-populations?tab=slope</h2>
+            <button class="copy-slug-btn" data-slug="whale-populations?tab=slope" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (40)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/whale-populations?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/whale-populations-b641ba3f8c55310ebaa72a56775e90dd_v10_300x160.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-shared-x-axis/grapher/whale-populations?tab=slope" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/whale-populations-b641ba3f8c55310ebaa72a56775e90dd_v10_300x160.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/whale-populations-b641ba3f8c55310ebaa72a56775e90dd_v10_300x160.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/whale-populations-b641ba3f8c55310ebaa72a56775e90dd_v10_300x160.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: whale-populations-b641ba3f8c55310ebaa72a56775e90dd_v10_300x160.svg
+===================================================================
+--- whale-populations-b641ba3f8c55310ebaa72a56775e90dd_v10_300x160.svg	
++++ whale-populations-b641ba3f8c55310ebaa72a56775e90dd_v10_300x160.svg	
+@@ -22,30 +22,48 @@
+             <path d=&quot;M -1,2 l 6,0&quot; stroke=&quot;#ccc&quot; stroke-width=&quot;0.7&quot;></path>
+         </pattern>
+     </defs>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+-        <line id=&quot;1890&quot; x1=&quot;72&quot; y1=&quot;8&quot; x2=&quot;72&quot; y2=&quot;142&quot; stroke=&quot;#999&quot;></line>
+-        <text
+-            x=&quot;72&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            1890
+-        </text>
+-        <line id=&quot;2001&quot; x1=&quot;248&quot; y1=&quot;8&quot; x2=&quot;248&quot; y2=&quot;142&quot; stroke=&quot;#999&quot;></line>
+-        <text
+-            x=&quot;248&quot;
+-            y=&quot;146&quot;
+-            dy=&quot;.71em&quot;
+-            text-anchor=&quot;middle&quot;
+-            fill=&quot;#5b5b5b&quot;
+-            font-size=&quot;10&quot;
+-        >
+-            2001
+-        </text>
++        <g id=&quot;horizontal-axis&quot;>
++            <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
++                <line
++                    id=&quot;1890&quot;
++                    x1=&quot;72&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;72&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++                <line
++                    id=&quot;2001&quot;
++                    x1=&quot;248&quot;
++                    y1=&quot;142.00&quot;
++                    x2=&quot;248&quot;
++                    y2=&quot;8.00&quot;
++                    stroke=&quot;#999&quot;
++                ></line>
++            </g>
++            <g id=&quot;tick-labels&quot;>
++                <text
++                    x=&quot;72&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    1890
++                </text>
++                <text
++                    x=&quot;248&quot;
++                    y=&quot;154&quot;
++                    text-anchor=&quot;middle&quot;
++                    font-size=&quot;10&quot;
++                    fill=&quot;#5b5b5b&quot;
++                >
++                    2001
++                </text>
++            </g>
++        </g>
+         <g>
+             <g id=&quot;outline__Blue-whale&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Chart type filtering
+        const chartTypeFilter = document.getElementById('chart-type-filter');
+        const visibleCountSpan = document.getElementById('visible-count');
+
+        function filterByChartType(chartType) {
+            const sections = document.querySelectorAll('section[data-chart-type]');
+            let visibleCount = 0;
+
+            sections.forEach(section => {
+                if (chartType === 'all' || section.dataset.chartType === chartType) {
+                    section.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            if (visibleCountSpan) {
+                visibleCountSpan.textContent = visibleCount;
+            }
+        }
+
+        if (chartTypeFilter) {
+            chartTypeFilter.addEventListener('change', (e) => {
+                filterByChartType(e.target.value);
+            });
+        }
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section, and skip if diff was too large
+                    if (diffContainer && !renderedDiffs.has(diffId) && !diffContainer.dataset.skipped) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
