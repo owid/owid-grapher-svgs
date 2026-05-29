@@ -1,0 +1,1127 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        /* Filter dropdown */
+        .filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        .filter-container label {
+            font-weight: 500;
+            color: #24292e;
+        }
+
+        .filter-container select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            background: #fafbfc;
+            font-size: 0.9rem;
+            color: #24292e;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-container select:hover {
+            border-color: #a0a8b0;
+        }
+
+        .filter-container select:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        section.hidden {
+            display: none;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 0 1 auto;
+            display: flex;
+            flex-direction: column;
+            max-width: 850px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 850px;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            height: auto;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="filter-container">
+        <label for="chart-type-filter">Chart Type:</label>
+        <select id="chart-type-filter">
+            <option value="all" selected>All (2)</option>
+            <option value="SlopeChart">SlopeChart (2)</option>
+        </select>
+    </div><p class="summary">Showing <span id="visible-count">2</span> of 2 differences</p><section data-slug="global-child-deaths-by-cause" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>global-child-deaths-by-cause</h2>
+            <button class="copy-slug-btn" data-slug="global-child-deaths-by-cause" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (26)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/global-child-deaths-by-cause" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/global-child-deaths-by-cause_v22_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-prefer-range-for-relative-sc/grapher/global-child-deaths-by-cause" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/global-child-deaths-by-cause_v22_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/global-child-deaths-by-cause_v22_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/global-child-deaths-by-cause_v22_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: global-child-deaths-by-cause_v22_850x600.svg
+===================================================================
+--- global-child-deaths-by-cause_v22_850x600.svg	
++++ global-child-deaths-by-cause_v22_850x600.svg	
+@@ -71,26 +71,26 @@
+     </g>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+         <line
+             id=&quot;horizontal-zero-line&quot;
+-            x1=&quot;25.83&quot;
++            x1=&quot;44.73&quot;
+             y1=&quot;512.30&quot;
+             x2=&quot;834.00&quot;
+             y2=&quot;512.30&quot;
+             stroke=&quot;#ddd&quot;
+             stroke-width=&quot;1&quot;
+             stroke-dasharray=&quot;3,2&quot;
+         ></line>
+         <text x=&quot;16&quot; y=&quot;512.30&quot; dy=&quot;.32em&quot; font-size=&quot;13.5&quot; fill=&quot;#5b5b5b&quot;>
+-            0
++            0.00
+         </text>
+         <g id=&quot;horizontal-axis&quot;>
+             <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                 <line
+                     id=&quot;1980&quot;
+-                    x1=&quot;229.9&quot;
++                    x1=&quot;244&quot;
+                     y1=&quot;512.30&quot;
+-                    x2=&quot;229.9&quot;
++                    x2=&quot;244&quot;
+                     y2=&quot;89.50&quot;
+                     stroke=&quot;#999&quot;
+                 ></line>
+                 <line
+@@ -103,9 +103,9 @@
+                 ></line>
+             </g>
+             <g id=&quot;tick-labels&quot;>
+                 <text
+-                    x=&quot;229.9&quot;
++                    x=&quot;244&quot;
+                     y=&quot;529.3&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                     fill=&quot;#5b5b5b&quot;
+@@ -126,9 +126,9 @@
+         <g id=&quot;slopes&quot;>
+             <g id=&quot;outline__Neonatal-preterm-birth&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;229.9&quot;
++                    cx=&quot;244&quot;
+                     cy=&quot;242.4&quot;
+                     r=&quot;4.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+@@ -140,9 +140,9 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;229.9&quot;
++                    x1=&quot;244&quot;
+                     y1=&quot;242.4&quot;
+                     x2=&quot;619.9&quot;
+                     y2=&quot;407.9&quot;
+                     stroke=&quot;#fff&quot;
+@@ -151,9 +151,9 @@
+             </g>
+             <g id=&quot;slope__Neonatal-preterm-birth&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;229.9&quot;
++                    cx=&quot;244&quot;
+                     cy=&quot;242.4&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#b13507&quot;
+                 ></circle>
+@@ -165,9 +165,9 @@
+                     fill=&quot;#b13507&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;229.9&quot;
++                    x1=&quot;244&quot;
+                     y1=&quot;242.4&quot;
+                     x2=&quot;619.9&quot;
+                     y2=&quot;407.9&quot;
+                     stroke=&quot;#b13507&quot;
+@@ -180,9 +180,9 @@
+                 class=&quot;slope&quot;
+             >
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;229.9&quot;
++                    cx=&quot;244&quot;
+                     cy=&quot;351.6&quot;
+                     r=&quot;4.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+@@ -194,9 +194,9 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;229.9&quot;
++                    x1=&quot;244&quot;
+                     y1=&quot;351.6&quot;
+                     x2=&quot;619.9&quot;
+                     y2=&quot;418.1&quot;
+                     stroke=&quot;#fff&quot;
+@@ -209,9 +209,9 @@
+                 class=&quot;slope&quot;
+             >
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;229.9&quot;
++                    cx=&quot;244&quot;
+                     cy=&quot;351.6&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#996d39&quot;
+                 ></circle>
+@@ -223,9 +223,9 @@
+                     fill=&quot;#996d39&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;229.9&quot;
++                    x1=&quot;244&quot;
+                     y1=&quot;351.6&quot;
+                     x2=&quot;619.9&quot;
+                     y2=&quot;418.1&quot;
+                     stroke=&quot;#996d39&quot;
+@@ -234,9 +234,9 @@
+             </g>
+             <g id=&quot;outline__Congenital-birth-defects&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;229.9&quot;
++                    cx=&quot;244&quot;
+                     cy=&quot;411.4&quot;
+                     r=&quot;4.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+@@ -248,9 +248,9 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;229.9&quot;
++                    x1=&quot;244&quot;
+                     y1=&quot;411.4&quot;
+                     x2=&quot;619.9&quot;
+                     y2=&quot;435.5&quot;
+                     stroke=&quot;#fff&quot;
+@@ -259,9 +259,9 @@
+             </g>
+             <g id=&quot;slope__Congenital-birth-defects&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;229.9&quot;
++                    cx=&quot;244&quot;
+                     cy=&quot;411.4&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#2c8465&quot;
+                 ></circle>
+@@ -273,9 +273,9 @@
+                     fill=&quot;#2c8465&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;229.9&quot;
++                    x1=&quot;244&quot;
+                     y1=&quot;411.4&quot;
+                     x2=&quot;619.9&quot;
+                     y2=&quot;435.5&quot;
+                     stroke=&quot;#2c8465&quot;
+@@ -284,9 +284,9 @@
+             </g>
+             <g id=&quot;outline__Diarrheal-diseases&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;229.9&quot;
++                    cx=&quot;244&quot;
+                     cy=&quot;89.5&quot;
+                     r=&quot;4.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+@@ -298,9 +298,9 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;229.9&quot;
++                    x1=&quot;244&quot;
+                     y1=&quot;89.5&quot;
+                     x2=&quot;619.9&quot;
+                     y2=&quot;459.2&quot;
+                     stroke=&quot;#fff&quot;
+@@ -309,9 +309,9 @@
+             </g>
+             <g id=&quot;slope__Diarrheal-diseases&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;229.9&quot;
++                    cx=&quot;244&quot;
+                     cy=&quot;89.5&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#6d3e91&quot;
+                 ></circle>
+@@ -323,9 +323,9 @@
+                     fill=&quot;#6d3e91&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;229.9&quot;
++                    x1=&quot;244&quot;
+                     y1=&quot;89.5&quot;
+                     x2=&quot;619.9&quot;
+                     y2=&quot;459.2&quot;
+                     stroke=&quot;#6d3e91&quot;
+@@ -334,9 +334,9 @@
+             </g>
+             <g id=&quot;outline__Malaria&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;229.9&quot;
++                    cx=&quot;244&quot;
+                     cy=&quot;431&quot;
+                     r=&quot;4.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+@@ -348,9 +348,9 @@
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;229.9&quot;
++                    x1=&quot;244&quot;
+                     y1=&quot;431&quot;
+                     x2=&quot;619.9&quot;
+                     y2=&quot;443.9&quot;
+                     stroke=&quot;#fff&quot;
+@@ -359,9 +359,9 @@
+             </g>
+             <g id=&quot;slope__Malaria&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;229.9&quot;
++                    cx=&quot;244&quot;
+                     cy=&quot;431&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#883039&quot;
+                 ></circle>
+@@ -373,18 +373,18 @@
+                     fill=&quot;#883039&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;229.9&quot;
++                    x1=&quot;244&quot;
+                     y1=&quot;431&quot;
+                     x2=&quot;619.9&quot;
+                     y2=&quot;443.9&quot;
+                     stroke=&quot;#883039&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+             </g>
+         </g>
+-        <g id=&quot;vertical-labels&quot; transform=&quot;translate(225.8725, 0)&quot;>
++        <g id=&quot;vertical-labels&quot; transform=&quot;translate(240.0475, 0)&quot;>
+             <g id=&quot;text-labels&quot; style=&quot;pointer-events: none&quot;>
+                 <text
+                     id=&quot;label__Diarrheal-diseases__halo&quot;
+                     style=&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="share-of-adults-who-report-saving-money-in-the-past-year" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>share-of-adults-who-report-saving-money-in-the-past-year</h2>
+            <button class="copy-slug-btn" data-slug="share-of-adults-who-report-saving-money-in-the-past-year" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (50)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/share-of-adults-who-report-saving-money-in-the-past-year" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/share-of-adults-who-report-saving-money-in-the-past-year_v10_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-prefer-range-for-relative-sc/grapher/share-of-adults-who-report-saving-money-in-the-past-year" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/share-of-adults-who-report-saving-money-in-the-past-year_v10_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/share-of-adults-who-report-saving-money-in-the-past-year_v10_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/share-of-adults-who-report-saving-money-in-the-past-year_v10_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: share-of-adults-who-report-saving-money-in-the-past-year_v10_850x600.svg
+===================================================================
+--- share-of-adults-who-report-saving-money-in-the-past-year_v10_850x600.svg	
++++ share-of-adults-who-report-saving-money-in-the-past-year_v10_850x600.svg	
+@@ -74,50 +74,50 @@
+     </g>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+         <line
+             id=&quot;horizontal-zero-line&quot;
+-            x1=&quot;36.63&quot;
++            x1=&quot;47.70&quot;
+             y1=&quot;532.40&quot;
+             x2=&quot;834.00&quot;
+             y2=&quot;532.40&quot;
+             stroke=&quot;#ddd&quot;
+             stroke-width=&quot;1&quot;
+             stroke-dasharray=&quot;3,2&quot;
+         ></line>
+         <text x=&quot;16&quot; y=&quot;532.40&quot; dy=&quot;.32em&quot; font-size=&quot;13.5&quot; fill=&quot;#5b5b5b&quot;>
+-            0%
++            0.0%
+         </text>
+         <g id=&quot;horizontal-axis&quot;>
+             <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                 <line
+                     id=&quot;2014&quot;
+-                    x1=&quot;238&quot;
++                    x1=&quot;246.3&quot;
+                     y1=&quot;532.40&quot;
+-                    x2=&quot;238&quot;
++                    x2=&quot;246.3&quot;
+                     y2=&quot;107.50&quot;
+                     stroke=&quot;#999&quot;
+                 ></line>
+                 <line
+                     id=&quot;2021&quot;
+-                    x1=&quot;628.7&quot;
++                    x1=&quot;631.4&quot;
+                     y1=&quot;532.40&quot;
+-                    x2=&quot;628.7&quot;
++                    x2=&quot;631.4&quot;
+                     y2=&quot;107.50&quot;
+                     stroke=&quot;#999&quot;
+                 ></line>
+             </g>
+             <g id=&quot;tick-labels&quot;>
+                 <text
+-                    x=&quot;238&quot;
++                    x=&quot;246.3&quot;
+                     y=&quot;549.4&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                     fill=&quot;#5b5b5b&quot;
+                 >
+                     2014
+                 </text>
+                 <text
+-                    x=&quot;628.7&quot;
++                    x=&quot;631.4&quot;
+                     y=&quot;549.4&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                     fill=&quot;#5b5b5b&quot;
+@@ -129,150 +129,150 @@
+         <g id=&quot;slopes&quot;>
+             <g id=&quot;outline__World&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;238&quot;
++                    cx=&quot;246.3&quot;
+                     cy=&quot;233.9&quot;
+                     r=&quot;4.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;628.7&quot;
++                    cx=&quot;631.4&quot;
+                     cy=&quot;273.3&quot;
+                     r=&quot;4.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;238&quot;
++                    x1=&quot;246.3&quot;
+                     y1=&quot;233.9&quot;
+-                    x2=&quot;628.7&quot;
++                    x2=&quot;631.4&quot;
+                     y2=&quot;273.3&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;2.5&quot;
+                 ></line>
+             </g>
+             <g id=&quot;slope__World&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;238&quot;
++                    cx=&quot;246.3&quot;
+                     cy=&quot;233.9&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#4c6a9c&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;628.7&quot;
++                    cx=&quot;631.4&quot;
+                     cy=&quot;273.3&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#4c6a9c&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;238&quot;
++                    x1=&quot;246.3&quot;
+                     y1=&quot;233.9&quot;
+-                    x2=&quot;628.7&quot;
++                    x2=&quot;631.4&quot;
+                     y2=&quot;273.3&quot;
+                     stroke=&quot;#4c6a9c&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+             </g>
+             <g id=&quot;outline__Low-income-countries&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;238&quot;
++                    cx=&quot;246.3&quot;
+                     cy=&quot;272&quot;
+                     r=&quot;4.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;628.7&quot;
++                    cx=&quot;631.4&quot;
+                     cy=&quot;298.9&quot;
+                     r=&quot;4.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;238&quot;
++                    x1=&quot;246.3&quot;
+                     y1=&quot;272&quot;
+-                    x2=&quot;628.7&quot;
++                    x2=&quot;631.4&quot;
+                     y2=&quot;298.9&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;2.5&quot;
+                 ></line>
+             </g>
+             <g id=&quot;slope__Low-income-countries&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;238&quot;
++                    cx=&quot;246.3&quot;
+                     cy=&quot;272&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#b13507&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;628.7&quot;
++                    cx=&quot;631.4&quot;
+                     cy=&quot;298.9&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#b13507&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;238&quot;
++                    x1=&quot;246.3&quot;
+                     y1=&quot;272&quot;
+-                    x2=&quot;628.7&quot;
++                    x2=&quot;631.4&quot;
+                     y2=&quot;298.9&quot;
+                     stroke=&quot;#b13507&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+             </g>
+             <g id=&quot;outline__High-income-countries&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;238&quot;
++                    cx=&quot;246.3&quot;
+                     cy=&quot;163.1&quot;
+                     r=&quot;4.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;628.7&quot;
++                    cx=&quot;631.4&quot;
+                     cy=&quot;128&quot;
+                     r=&quot;4.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;238&quot;
++                    x1=&quot;246.3&quot;
+                     y1=&quot;163.1&quot;
+-                    x2=&quot;628.7&quot;
++                    x2=&quot;631.4&quot;
+                     y2=&quot;128&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;2.5&quot;
+                 ></line>
+             </g>
+             <g id=&quot;slope__High-income-countries&quot; opacity=&quot;1&quot; class=&quot;slope&quot;>
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;238&quot;
++                    cx=&quot;246.3&quot;
+                     cy=&quot;163.1&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#996d39&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;628.7&quot;
++                    cx=&quot;631.4&quot;
+                     cy=&quot;128&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#996d39&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;238&quot;
++                    x1=&quot;246.3&quot;
+                     y1=&quot;163.1&quot;
+-                    x2=&quot;628.7&quot;
++                    x2=&quot;631.4&quot;
+                     y2=&quot;128&quot;
+                     stroke=&quot;#996d39&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -283,25 +283,25 @@
+                 class=&quot;slope&quot;
+             >
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;238&quot;
++                    cx=&quot;246.3&quot;
+                     cy=&quot;204.3&quot;
+                     r=&quot;4.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;628.7&quot;
++                    cx=&quot;631.4&quot;
+                     cy=&quot;245.5&quot;
+                     r=&quot;4.5&quot;
+                     fill=&quot;#fff&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;238&quot;
++                    x1=&quot;246.3&quot;
+                     y1=&quot;204.3&quot;
+-                    x2=&quot;628.7&quot;
++                    x2=&quot;631.4&quot;
+                     y2=&quot;245.5&quot;
+                     stroke=&quot;#fff&quot;
+                     stroke-width=&quot;2.5&quot;
+                 ></line>
+@@ -312,25 +312,25 @@
+                 class=&quot;slope&quot;
+             >
+                 <circle
+                     id=&quot;start-point&quot;
+-                    cx=&quot;238&quot;
++                    cx=&quot;246.3&quot;
+                     cy=&quot;204.3&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#2c8465&quot;
+                 ></circle>
+                 <circle
+                     id=&quot;end-point&quot;
+-                    cx=&quot;628.7&quot;
++                    cx=&quot;631.4&quot;
+                     cy=&quot;245.5&quot;
+                     r=&quot;3.5&quot;
+                     fill=&quot;#2c8465&quot;
+                 ></circle>
+                 <line
+                     id=&quot;line&quot;
+-                    x1=&quot;238&quot;
++                    x1=&quot;246.3&quot;
+                     y1=&quot;204.3&quot;
+-                    x2=&quot;628.7&quot;
++                    x2=&quot;631.4&quot;
+                     y2=&quot;245.5&quot;
+                     stroke=&quot;#2c8465&quot;
+                     stroke-width=&quot;1.5&quot;
+                 ></line>
+@@ -341,25 +341,25 @@
+                 class=&quot;slope&quot;
+
+... (diff truncated: showing 300 of 378 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Chart type filtering
+        const chartTypeFilter = document.getElementById('chart-type-filter');
+        const visibleCountSpan = document.getElementById('visible-count');
+
+        function filterByChartType(chartType) {
+            const sections = document.querySelectorAll('section[data-chart-type]');
+            let visibleCount = 0;
+
+            sections.forEach(section => {
+                if (chartType === 'all' || section.dataset.chartType === chartType) {
+                    section.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            if (visibleCountSpan) {
+                visibleCountSpan.textContent = visibleCount;
+            }
+        }
+
+        if (chartTypeFilter) {
+            chartTypeFilter.addEventListener('change', (e) => {
+                filterByChartType(e.target.value);
+            });
+        }
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section, and skip if diff was too large
+                    if (diffContainer && !renderedDiffs.has(diffId) && !diffContainer.dataset.skipped) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
