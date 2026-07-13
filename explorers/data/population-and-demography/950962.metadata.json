@@ -3,7 +3,7 @@
   "name": "Net migration - Sex: all - Age: all - Variant: estimates",
   "unit": "migrants",
   "createdAt": "2024-07-12T03:19:30.000Z",
-  "updatedAt": "2026-02-25T00:42:21.000Z",
+  "updatedAt": "2026-05-18T08:57:50.000Z",
   "coverage": "",
   "timespan": "1950-2023",
   "datasetId": 6617,
@@ -1537,22 +1537,32 @@
       ]
     }
   },
-  "descriptionShort": "Net number of migrants, that is, the number of immigrants (people moving into a given country) minus the number of emigrants (people moving out of the country).",
+  "descriptionShort": "The number of immigrants minus the number of emigrants. Positive values mean more people moved into the country than left it.",
+  "descriptionProcessing": "We compute continental aggregates (Africa, Asia, Europe, North America, South America, Oceania) by summing across constituent countries. We set the world total to zero — every immigrant in one country is an emigrant from another.",
   "type": "float",
   "grapherConfigIdETL": "0191c16a-922a-78c7-ac0e-c8c6a5bb5de7",
-  "dataChecksum": "17538283518740898894",
-  "metadataChecksum": "654075372990620876",
+  "dataChecksum": "16551617203480277315",
+  "metadataChecksum": "7474658709779900609",
   "datasetName": "World Population Prospects",
   "datasetVersion": "2024-07-12",
   "nonRedistributable": false,
   "display": {
-    "unit": "migrants"
+    "unit": "migrants",
+    "isProjection": false,
+    "roundingMode": "significantFigures",
+    "numDecimalPlaces": 0,
+    "numSignificantFigures": 4
   },
   "schemaVersion": 2,
   "presentation": {
-    "titlePublic": "Net migration, total",
+    "titlePublic": "Annual net migration",
+    "titleVariant": "",
     "attributionShort": "UN WPP"
   },
+  "descriptionKey": [
+    "Net migration is the most uncertain component of population change — flows are volatile and historical data is patchy. The UN adjusts country values so the global net migration each year sums to zero.",
+    "The 2024 revision is the first to project net migration probabilistically — earlier revisions used deterministic assumptions. Migration uncertainty is now propagated into the population projection alongside fertility and life-expectancy uncertainty."
+  ],
   "origins": [
     {
       "id": 6893,
@@ -1567,6 +1577,24 @@
       "urlDownload": "https://population.un.org/wpp/assets/Excel%20Files/1_Indicator%20(Standard)/EXCEL_FILES/1_General/WPP2024_GEN_F01_DEMOGRAPHIC_INDICATORS_FULL.xlsx",
       "dateAccessed": "2024-07-11",
       "datePublished": "2024-07-11",
+      "license": {
+        "url": "https://population.un.org/wpp/downloads/",
+        "name": "CC BY 3.0 IGO"
+      }
+    },
+    {
+      "id": 14277,
+      "titleSnapshot": "World Population Prospects - Interim Update (2026-01-19, Togo)",
+      "title": "World Population Prospects - Interim Update",
+      "description": "World Population Prospects 2024 is the 28th edition of the official estimates and projections of the global population that have been published by the United Nations since 1951. The estimates are based on all available sources of data on population size and levels of fertility, mortality and international migration for 237 countries or areas. If you have questions about this dataset, please refer to [their FAQ](https://population.un.org/wpp/faqs). You can also explore [data sources](https://population.un.org/wpp/data-sources) for each country or visit [their main page](https://population.un.org/wpp/) for more details.\n\nThis is an interim update containing revised medium-variant estimates and projections for Togo.",
+      "producer": "United Nations",
+      "citationFull": "United Nations, Department of Economic and Social Affairs, Population Division (2024). World Population Prospects 2024, Online Edition.",
+      "attribution": "UN, World Population Prospects (2024)",
+      "attributionShort": "UN WPP",
+      "urlMain": "https://population.un.org/wpp/downloads/",
+      "urlDownload": "https://population.un.org/wpp/assets/Excel%20Files/1_Indicator%20(Standard)/WPP2024_CSV_files_update.zip",
+      "dateAccessed": "2026-03-31",
+      "datePublished": "2026-01-19",
       "license": {
         "url": "https://population.un.org/wpp/downloads/",
         "name": "CC BY 3.0 IGO"

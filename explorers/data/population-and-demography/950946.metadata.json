@@ -3,7 +3,7 @@
   "name": "Life expectancy - Sex: female - Age: 80 - Variant: estimates",
   "unit": "years",
   "createdAt": "2024-07-12T03:19:27.000Z",
-  "updatedAt": "2025-07-29T13:38:05.000Z",
+  "updatedAt": "2026-05-18T08:57:31.000Z",
   "coverage": "",
   "timespan": "1950-2023",
   "datasetId": 6617,
@@ -248,7 +248,7 @@
         {
           "id": 321937,
           "name": "Africa (UN)",
-          "code": null
+          "code": "UN_AFR"
         },
         {
           "id": 16,
@@ -303,7 +303,7 @@
         {
           "id": 321935,
           "name": "Asia (UN)",
-          "code": null
+          "code": "UN_ASI"
         },
         {
           "id": 23,
@@ -593,7 +593,7 @@
         {
           "id": 321936,
           "name": "Europe (UN)",
-          "code": null
+          "code": "UN_EUR"
         },
         {
           "id": 249,
@@ -718,7 +718,7 @@
         {
           "id": 457,
           "name": "High-income countries",
-          "code": null
+          "code": "OWID_HIC"
         },
         {
           "id": 139,
@@ -838,7 +838,7 @@
         {
           "id": 321932,
           "name": "Latin America and the Caribbean (UN)",
-          "code": null
+          "code": "UN_LAC"
         },
         {
           "id": 122,
@@ -898,12 +898,12 @@
         {
           "id": 461,
           "name": "Low-income countries",
-          "code": null
+          "code": "OWID_LIC"
         },
         {
           "id": 460,
           "name": "Lower-middle-income countries",
-          "code": null
+          "code": "OWID_LMC"
         },
         {
           "id": 210,
@@ -1088,7 +1088,7 @@
         {
           "id": 321931,
           "name": "Northern America (UN)",
-          "code": null
+          "code": "UN_NAM"
         },
         {
           "id": 266,
@@ -1103,7 +1103,7 @@
         {
           "id": 321934,
           "name": "Oceania (UN)",
-          "code": null
+          "code": "UN_OCE"
         },
         {
           "id": 217,
@@ -1443,7 +1443,7 @@
         {
           "id": 459,
           "name": "Upper-middle-income countries",
-          "code": null
+          "code": "OWID_UMC"
         },
         {
           "id": 63,
@@ -1508,23 +1508,31 @@
       ]
     }
   },
-  "descriptionShort": "Period life expectancy for female individuals who have reached age 80. Estimates are expressed as the expected age at death, not as years left to live.",
+  "descriptionShort": "Period life expectancy for women who have reached age 80, shown as the expected age at death (not the years remaining).",
+  "descriptionProcessing": "For ages above 0, the UN reports life expectancy as the years a person at that age has left to live. We add the starting age back so the chart shows the *expected age at death* — for example, a 65-year-old with 17 years remaining is shown as 82.",
   "type": "float",
   "grapherConfigIdETL": "0191c16a-922a-78c7-ac0e-c8b60b0eb157",
-  "dataChecksum": "5438479870635328695",
-  "metadataChecksum": "3264986845235524836",
+  "dataChecksum": "15894947887927593366",
+  "metadataChecksum": "-7793971007892659201",
   "datasetName": "World Population Prospects",
   "datasetVersion": "2024-07-12",
   "nonRedistributable": false,
   "display": {
     "unit": "years",
-    "shortUnit": "years"
+    "shortUnit": "years",
+    "isProjection": false,
+    "numDecimalPlaces": 1
   },
   "schemaVersion": 2,
   "presentation": {
-    "titlePublic": "Life Expectancy,  females, age 80",
+    "titlePublic": "Female life expectancy at age 80",
+    "titleVariant": "",
     "attributionShort": "UN WPP"
   },
+  "descriptionKey": [
+    "This is [period life expectancy](#dod:period-life-expectancy) — a snapshot of mortality rates in a single year. It does *not* follow a real generation of people; it tells you how long someone would live if the year's age-specific death rates stayed the same for the rest of their life.",
+    "Future values are the mean of thousands of trajectories simulated by the UN. When fitting its projection model, the UN excluded observed life expectancies for 2020 to 2023 so COVID-19's temporary impact wouldn't distort the long-run trend."
+  ],
   "origins": [
     {
       "id": 6893,
@@ -1539,6 +1547,24 @@
       "urlDownload": "https://population.un.org/wpp/assets/Excel%20Files/1_Indicator%20(Standard)/EXCEL_FILES/1_General/WPP2024_GEN_F01_DEMOGRAPHIC_INDICATORS_FULL.xlsx",
       "dateAccessed": "2024-07-11",
       "datePublished": "2024-07-11",
+      "license": {
+        "url": "https://population.un.org/wpp/downloads/",
+        "name": "CC BY 3.0 IGO"
+      }
+    },
+    {
+      "id": 14277,
+      "titleSnapshot": "World Population Prospects - Interim Update (2026-01-19, Togo)",
+      "title": "World Population Prospects - Interim Update",
+      "description": "World Population Prospects 2024 is the 28th edition of the official estimates and projections of the global population that have been published by the United Nations since 1951. The estimates are based on all available sources of data on population size and levels of fertility, mortality and international migration for 237 countries or areas. If you have questions about this dataset, please refer to [their FAQ](https://population.un.org/wpp/faqs). You can also explore [data sources](https://population.un.org/wpp/data-sources) for each country or visit [their main page](https://population.un.org/wpp/) for more details.\n\nThis is an interim update containing revised medium-variant estimates and projections for Togo.",
+      "producer": "United Nations",
+      "citationFull": "United Nations, Department of Economic and Social Affairs, Population Division (2024). World Population Prospects 2024, Online Edition.",
+      "attribution": "UN, World Population Prospects (2024)",
+      "attributionShort": "UN WPP",
+      "urlMain": "https://population.un.org/wpp/downloads/",
+      "urlDownload": "https://population.un.org/wpp/assets/Excel%20Files/1_Indicator%20(Standard)/WPP2024_CSV_files_update.zip",
+      "dateAccessed": "2026-03-31",
+      "datePublished": "2026-01-19",
       "license": {
         "url": "https://population.un.org/wpp/downloads/",
         "name": "CC BY 3.0 IGO"
