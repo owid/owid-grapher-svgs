@@ -1,28 +1,30 @@
 {
   "id": 1119913,
-  "name": "Annual CO₂ emissions per unit energy (kg per kilowatt-hour)",
-  "unit": "kilograms per kilowatt-hour",
+  "name": "CO₂ emissions per unit energy",
+  "unit": "grams per kilowatt-hour",
   "createdAt": "2025-11-13T06:53:39.000Z",
-  "updatedAt": "2025-12-04T13:31:00.000Z",
+  "updatedAt": "2026-06-08T23:25:01.000Z",
   "coverage": "",
   "timespan": "1965-2024",
   "datasetId": 7266,
-  "shortUnit": "kg/kWh",
+  "shortUnit": "g/kWh",
   "columnOrder": 0,
   "shortName": "emissions_total_per_unit_energy",
   "catalogPath": "grapher/gcp/2025-11-13/global_carbon_budget/global_carbon_budget#emissions_total_per_unit_energy",
-  "descriptionShort": "Annual total emissions of carbon dioxide (CO₂), excluding land-use change, measured in kilograms per kilowatt-hour of primary energy consumption.",
+  "descriptionShort": "Carbon dioxide (CO₂) emitted per unit of [primary energy consumption](#dod:primaryenergy), measured in grams of CO₂ per [kilowatt-hour](#dod:watt-hours).",
   "descriptionProcessing": "- Global emissions are converted from tonnes of carbon to tonnes of carbon dioxide (CO₂) using a factor of 3.664. This is the conversion factor [recommended by the Global Carbon Project](https://globalcarbonbudgetdata.org/downloads/jGJH0-data/Global+Carbon+Budget+v2024+Dataset+Descriptions.pdf). It reflects that one tonne of carbon, when fully oxidized, forms 3.664 tonnes of CO₂, based on the relative molecular weights of carbon and oxygen in CO₂.\n- Emissions from the 1991 Kuwaiti oil fires are included in Kuwait's emissions for that year.",
   "type": "float",
-  "dataChecksum": "16300988614093487482",
-  "metadataChecksum": "-6840336318485493011",
+  "grapherConfigIdETL": "019ea98d-c8a1-71bc-8140-5305d3bc630e",
+  "dataChecksum": "4706215392325429297",
+  "metadataChecksum": "618302174401899428",
   "datasetName": "Global Carbon Budget",
   "updatePeriodDays": 365,
   "datasetVersion": "2025-11-13",
   "nonRedistributable": false,
   "display": {
-    "unit": "kilograms per kilowatt-hour",
-    "shortUnit": "kg/kWh"
+    "unit": "grams per kilowatt-hour",
+    "shortUnit": "g",
+    "numDecimalPlaces": 0
   },
   "schemaVersion": 2,
   "processingLevel": "major",
@@ -32,8 +34,8 @@
     ]
   },
   "descriptionKey": [
-    "This data is based on territorial emissions, meaning the emissions produced within a country's borders, but not those from imported goods. For example, emissions from imported steel are counted in the country where the steel is produced. To learn more and look at emissions adjusted for trade, read our article: [How do CO₂ emissions compare when we adjust for trade?](https://ourworldindata.org/consumption-based-co2)",
-    "Emissions from international aviation and shipping are not included in the data for any individual country or region. They are only counted in the global total."
+    "Average amount of CO₂ emitted for each unit of energy a country uses. It is calculated by dividing emissions from [fossil fuels and industry](#dod:fossilemissions) by [primary energy consumption](#dod:primaryenergy).",
+    "It reflects how carbon-intensive a country's energy is. Lower values indicate a larger role for low-carbon sources such as nuclear and renewables."
   ],
   "dimensions": {
     "years": {
@@ -171,6 +173,9 @@
           "id": 2023
         },
         {
+          "id": 2024
+        },
+        {
           "id": 1965
         },
         {
@@ -214,9 +219,6 @@
         },
         {
           "id": 1979
-        },
-        {
-          "id": 2024
         }
       ]
     },
@@ -230,7 +232,7 @@
         {
           "id": 273,
           "name": "Africa",
-          "code": null
+          "code": "OWID_AFR"
         },
         {
           "id": 16,
@@ -275,7 +277,7 @@
         {
           "id": 275,
           "name": "Asia",
-          "code": null
+          "code": "OWID_ASI"
         },
         {
           "id": 350243,
@@ -555,7 +557,7 @@
         {
           "id": 276,
           "name": "Europe",
-          "code": null
+          "code": "OWID_EUR"
         },
         {
           "id": 135115,
@@ -570,7 +572,7 @@
         {
           "id": 115117,
           "name": "European Union (27)",
-          "code": null
+          "code": "OWID_EU27"
         },
         {
           "id": 274908,
@@ -670,7 +672,7 @@
         {
           "id": 457,
           "name": "High-income countries",
-          "code": null
+          "code": "OWID_HIC"
         },
         {
           "id": 139,
@@ -810,12 +812,12 @@
         {
           "id": 461,
           "name": "Low-income countries",
-          "code": null
+          "code": "OWID_LIC"
         },
         {
           "id": 460,
           "name": "Lower-middle-income countries",
-          "code": null
+          "code": "OWID_LMC"
         },
         {
           "id": 210,
@@ -965,7 +967,7 @@
         {
           "id": 294,
           "name": "North America",
-          "code": null
+          "code": "OWID_NAM"
         },
         {
           "id": 135117,
@@ -990,7 +992,7 @@
         {
           "id": 277,
           "name": "Oceania",
-          "code": null
+          "code": "OWID_OCE"
         },
         {
           "id": 217,
@@ -1155,7 +1157,7 @@
         {
           "id": 295,
           "name": "South America",
-          "code": null
+          "code": "OWID_SAM"
         },
         {
           "id": 127,
@@ -1285,7 +1287,7 @@
         {
           "id": 459,
           "name": "Upper-middle-income countries",
-          "code": null
+          "code": "OWID_UMC"
         },
         {
           "id": 63,
@@ -1371,15 +1373,15 @@
       }
     },
     {
-      "id": 6801,
+      "id": 14452,
       "title": "International Energy Data",
       "producer": "U.S. Energy Information Administration",
-      "citationFull": "U.S. Energy Information Administration (EIA) - International Energy Data (2025).",
+      "citationFull": "U.S. Energy Information Administration (EIA) - International Energy Data (2026).",
       "attributionShort": "EIA",
       "urlMain": "https://www.eia.gov/opendata/bulkfiles.php",
       "urlDownload": "https://api.eia.gov/bulk/INTL.zip",
-      "dateAccessed": "2025-07-08",
-      "datePublished": "2025-07-07",
+      "dateAccessed": "2026-05-05",
+      "datePublished": "2026-05-05",
       "license": {
         "url": "https://www.eia.gov/about/copyrights_reuse.php",
         "name": "Public domain"
