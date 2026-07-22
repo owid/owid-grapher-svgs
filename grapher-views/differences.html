@@ -1,0 +1,1732 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        /* Filter dropdown */
+        .filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        .filter-container label {
+            font-weight: 500;
+            color: #24292e;
+        }
+
+        .filter-container select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            background: #fafbfc;
+            font-size: 0.9rem;
+            color: #24292e;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-container select:hover {
+            border-color: #a0a8b0;
+        }
+
+        .filter-container select:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        section.hidden {
+            display: none;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 0 1 auto;
+            display: flex;
+            flex-direction: column;
+            max-width: 850px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 850px;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            height: auto;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="filter-container">
+        <label for="chart-type-filter">Chart Type:</label>
+        <select id="chart-type-filter">
+            <option value="all" selected>All (8)</option>
+            <option value="SlopeChart">SlopeChart (8)</option>
+        </select>
+    </div><p class="summary">Showing <span id="visible-count">8</span> of 8 differences</p><section data-slug="co-emissions-per-capita" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>co-emissions-per-capita?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0</h2>
+            <button class="copy-slug-btn" data-slug="co-emissions-per-capita?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (20)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/co-emissions-per-capita?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/co-emissions-per-capita-602cf15b8e4cf555a48aab50e95a8aac_v62_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-log-notice/grapher/co-emissions-per-capita?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/co-emissions-per-capita-602cf15b8e4cf555a48aab50e95a8aac_v62_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/co-emissions-per-capita-602cf15b8e4cf555a48aab50e95a8aac_v62_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/co-emissions-per-capita-602cf15b8e4cf555a48aab50e95a8aac_v62_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: co-emissions-per-capita-602cf15b8e4cf555a48aab50e95a8aac_v62_850x600.svg
+===================================================================
+--- co-emissions-per-capita-602cf15b8e4cf555a48aab50e95a8aac_v62_850x600.svg
++++ co-emissions-per-capita-602cf15b8e4cf555a48aab50e95a8aac_v62_850x600.svg
+@@ -83,18 +83,8 @@
+         <text x=&quot;33.9&quot; y=&quot;115.1&quot; text-anchor=&quot;start&quot; font-size=&quot;13.50&quot;>
+             <tspan x=&quot;33.9&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>World</tspan>
+         </text>
+         <g id=&quot;World&quot;>
+-            <text
+-                x=&quot;142.5&quot;
+-                y=&quot;244&quot;
+-                font-size=&quot;11.1375&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1750&quot;
+@@ -302,18 +292,8 @@
+                 United Kingdom
+             </tspan>
+         </text>
+         <g id=&quot;United-Kingdom&quot;>
+-            <text
+-                x=&quot;696.5&quot;
+-                y=&quot;244&quot;
+-                font-size=&quot;11.1375&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1750&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="co-emissions-per-capita" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>co-emissions-per-capita?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1</h2>
+            <button class="copy-slug-btn" data-slug="co-emissions-per-capita?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (20)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/co-emissions-per-capita?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/co-emissions-per-capita-ac638c4f34d948fe349a20d2dfb61ce7_v62_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-log-notice/grapher/co-emissions-per-capita?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/co-emissions-per-capita-ac638c4f34d948fe349a20d2dfb61ce7_v62_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/co-emissions-per-capita-ac638c4f34d948fe349a20d2dfb61ce7_v62_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/co-emissions-per-capita-ac638c4f34d948fe349a20d2dfb61ce7_v62_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: co-emissions-per-capita-ac638c4f34d948fe349a20d2dfb61ce7_v62_850x600.svg
+===================================================================
+--- co-emissions-per-capita-ac638c4f34d948fe349a20d2dfb61ce7_v62_850x600.svg
++++ co-emissions-per-capita-ac638c4f34d948fe349a20d2dfb61ce7_v62_850x600.svg
+@@ -83,18 +83,8 @@
+         <text x=&quot;33.9&quot; y=&quot;115.1&quot; text-anchor=&quot;start&quot; font-size=&quot;13.50&quot;>
+             <tspan x=&quot;33.9&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>World</tspan>
+         </text>
+         <g id=&quot;World&quot;>
+-            <text
+-                x=&quot;142.5&quot;
+-                y=&quot;244&quot;
+-                font-size=&quot;11.1375&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1750&quot;
+@@ -302,18 +292,8 @@
+                 United Kingdom
+             </tspan>
+         </text>
+         <g id=&quot;United-Kingdom&quot;>
+-            <text
+-                x=&quot;696.5&quot;
+-                y=&quot;244&quot;
+-                font-size=&quot;11.1375&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1750&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="gdp-per-capita-maddison-project-database" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>gdp-per-capita-maddison-project-database?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0</h2>
+            <button class="copy-slug-btn" data-slug="gdp-per-capita-maddison-project-database?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (60)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/gdp-per-capita-maddison-project-database?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/gdp-per-capita-maddison-project-database-602cf15b8e4cf555a48aab50e95a8aac_v53_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-log-notice/grapher/gdp-per-capita-maddison-project-database?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/gdp-per-capita-maddison-project-database-602cf15b8e4cf555a48aab50e95a8aac_v53_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/gdp-per-capita-maddison-project-database-602cf15b8e4cf555a48aab50e95a8aac_v53_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/gdp-per-capita-maddison-project-database-602cf15b8e4cf555a48aab50e95a8aac_v53_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: gdp-per-capita-maddison-project-database-602cf15b8e4cf555a48aab50e95a8aac_v53_850x600.svg
+===================================================================
+--- gdp-per-capita-maddison-project-database-602cf15b8e4cf555a48aab50e95a8aac_v53_850x600.svg
++++ gdp-per-capita-maddison-project-database-602cf15b8e4cf555a48aab50e95a8aac_v53_850x600.svg
+@@ -80,18 +80,8 @@
+         <text x=&quot;46.9&quot; y=&quot;115.1&quot; text-anchor=&quot;start&quot; font-size=&quot;13.50&quot;>
+             <tspan x=&quot;46.9&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>World</tspan>
+         </text>
+         <g id=&quot;World&quot;>
+-            <text
+-                x=&quot;139&quot;
+-                y=&quot;244&quot;
+-                font-size=&quot;11.1375&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1820&quot;
+@@ -245,18 +235,8 @@
+             </tspan>
+             <tspan font-weight=&quot;400&quot; fill=&quot;#767676&quot;>(Maddison)</tspan>
+         </text>
+         <g id=&quot;Western-Europe-(Maddison)&quot;>
+-            <text
+-                x=&quot;416&quot;
+-                y=&quot;244&quot;
+-                font-size=&quot;11.1375&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1820&quot;
+@@ -407,18 +387,8 @@
+             </tspan>
+             <tspan font-weight=&quot;400&quot; fill=&quot;#767676&quot;>(Maddison)</tspan>
+         </text>
+         <g id=&quot;Eastern-Europe-(Maddison)&quot;>
+-            <text
+-                x=&quot;693&quot;
+-                y=&quot;244&quot;
+-                font-size=&quot;11.1375&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1820&quot;
+@@ -569,18 +539,8 @@
+             </tspan>
+             <tspan font-weight=&quot;400&quot; fill=&quot;#767676&quot;>(Maddison)</tspan>
+         </text>
+         <g id=&quot;Latin-America-(Maddison)&quot;>
+-            <text
+-                x=&quot;139&quot;
+-                y=&quot;385&quot;
+-                font-size=&quot;11.1375&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1820&quot;
+@@ -732,18 +692,8 @@
+             <tspan x=&quot;323.9&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>East Asia</tspan>
+             <tspan font-weight=&quot;400&quot; fill=&quot;#767676&quot;>(Maddison)</tspan>
+         </text>
+         <g id=&quot;East-Asia-(Maddison)&quot;>
+-            <text
+-                x=&quot;416&quot;
+-                y=&quot;385&quot;
+-                font-size=&quot;11.1375&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1820&quot;
+@@ -894,18 +844,8 @@
+             </tspan>
+             <tspan font-weight=&quot;400&quot; fill=&quot;#767676&quot;>(Maddison)</tspan>
+         </text>
+         <g id=&quot;Western-offshoots-(Maddison)&quot;>
+-            <text
+-                x=&quot;693&quot;
+-                y=&quot;385&quot;
+-                font-size=&quot;11.1375&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1820&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="gdp-per-capita-maddison-project-database" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>gdp-per-capita-maddison-project-database?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1</h2>
+            <button class="copy-slug-btn" data-slug="gdp-per-capita-maddison-project-database?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (60)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/gdp-per-capita-maddison-project-database?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/gdp-per-capita-maddison-project-database-ac638c4f34d948fe349a20d2dfb61ce7_v53_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-log-notice/grapher/gdp-per-capita-maddison-project-database?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/gdp-per-capita-maddison-project-database-ac638c4f34d948fe349a20d2dfb61ce7_v53_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/gdp-per-capita-maddison-project-database-ac638c4f34d948fe349a20d2dfb61ce7_v53_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/gdp-per-capita-maddison-project-database-ac638c4f34d948fe349a20d2dfb61ce7_v53_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: gdp-per-capita-maddison-project-database-ac638c4f34d948fe349a20d2dfb61ce7_v53_850x600.svg
+===================================================================
+--- gdp-per-capita-maddison-project-database-ac638c4f34d948fe349a20d2dfb61ce7_v53_850x600.svg
++++ gdp-per-capita-maddison-project-database-ac638c4f34d948fe349a20d2dfb61ce7_v53_850x600.svg
+@@ -80,18 +80,8 @@
+         <text x=&quot;46.9&quot; y=&quot;115.1&quot; text-anchor=&quot;start&quot; font-size=&quot;13.50&quot;>
+             <tspan x=&quot;46.9&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>World</tspan>
+         </text>
+         <g id=&quot;World&quot;>
+-            <text
+-                x=&quot;139&quot;
+-                y=&quot;244&quot;
+-                font-size=&quot;11.1375&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1820&quot;
+@@ -245,18 +235,8 @@
+             </tspan>
+             <tspan font-weight=&quot;400&quot; fill=&quot;#767676&quot;>(Maddison)</tspan>
+         </text>
+         <g id=&quot;Western-Europe-(Maddison)&quot;>
+-            <text
+-                x=&quot;416&quot;
+-                y=&quot;244&quot;
+-                font-size=&quot;11.1375&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1820&quot;
+@@ -407,18 +387,8 @@
+             </tspan>
+             <tspan font-weight=&quot;400&quot; fill=&quot;#767676&quot;>(Maddison)</tspan>
+         </text>
+         <g id=&quot;Eastern-Europe-(Maddison)&quot;>
+-            <text
+-                x=&quot;693&quot;
+-                y=&quot;244&quot;
+-                font-size=&quot;11.1375&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1820&quot;
+@@ -569,18 +539,8 @@
+             </tspan>
+             <tspan font-weight=&quot;400&quot; fill=&quot;#767676&quot;>(Maddison)</tspan>
+         </text>
+         <g id=&quot;Latin-America-(Maddison)&quot;>
+-            <text
+-                x=&quot;139&quot;
+-                y=&quot;385&quot;
+-                font-size=&quot;11.1375&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1820&quot;
+@@ -732,18 +692,8 @@
+             <tspan x=&quot;323.9&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>East Asia</tspan>
+             <tspan font-weight=&quot;400&quot; fill=&quot;#767676&quot;>(Maddison)</tspan>
+         </text>
+         <g id=&quot;East-Asia-(Maddison)&quot;>
+-            <text
+-                x=&quot;416&quot;
+-                y=&quot;385&quot;
+-                font-size=&quot;11.1375&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1820&quot;
+@@ -894,18 +844,8 @@
+             </tspan>
+             <tspan font-weight=&quot;400&quot; fill=&quot;#767676&quot;>(Maddison)</tspan>
+         </text>
+         <g id=&quot;Western-offshoots-(Maddison)&quot;>
+-            <text
+-                x=&quot;693&quot;
+-                y=&quot;385&quot;
+-                font-size=&quot;11.1375&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1820&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="gdp-per-capita-worldbank" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>gdp-per-capita-worldbank?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0</h2>
+            <button class="copy-slug-btn" data-slug="gdp-per-capita-worldbank?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (70)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/gdp-per-capita-worldbank?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/gdp-per-capita-worldbank-602cf15b8e4cf555a48aab50e95a8aac_v57_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-log-notice/grapher/gdp-per-capita-worldbank?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/gdp-per-capita-worldbank-602cf15b8e4cf555a48aab50e95a8aac_v57_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/gdp-per-capita-worldbank-602cf15b8e4cf555a48aab50e95a8aac_v57_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/gdp-per-capita-worldbank-602cf15b8e4cf555a48aab50e95a8aac_v57_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: gdp-per-capita-worldbank-602cf15b8e4cf555a48aab50e95a8aac_v57_850x600.svg
+===================================================================
+--- gdp-per-capita-worldbank-602cf15b8e4cf555a48aab50e95a8aac_v57_850x600.svg
++++ gdp-per-capita-worldbank-602cf15b8e4cf555a48aab50e95a8aac_v57_850x600.svg
+@@ -82,18 +82,8 @@
+                 United States
+             </tspan>
+         </text>
+         <g id=&quot;United-States&quot;>
+-            <text
+-                x=&quot;143&quot;
+-                y=&quot;209&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -244,18 +234,8 @@
+         <text x=&quot;328.4&quot; y=&quot;114.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.00&quot;>
+             <tspan x=&quot;328.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>Germany</tspan>
+         </text>
+         <g id=&quot;Germany&quot;>
+-            <text
+-                x=&quot;420&quot;
+-                y=&quot;209&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -405,18 +385,8 @@
+                 United Kingdom
+             </tspan>
+         </text>
+         <g id=&quot;United-Kingdom&quot;>
+-            <text
+-                x=&quot;697&quot;
+-                y=&quot;209&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -564,18 +534,8 @@
+         <text x=&quot;51.4&quot; y=&quot;220.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.00&quot;>
+             <tspan x=&quot;51.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>Brazil</tspan>
+         </text>
+         <g id=&quot;Brazil&quot;>
+-            <text
+-                x=&quot;143&quot;
+-                y=&quot;315&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -728,18 +688,8 @@
+                 South Korea
+             </tspan>
+         </text>
+         <g id=&quot;South-Korea&quot;>
+-            <text
+-                x=&quot;420&quot;
+-                y=&quot;315&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -887,18 +837,8 @@
+         <text x=&quot;605.4&quot; y=&quot;220.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.00&quot;>
+             <tspan x=&quot;605.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>Japan</tspan>
+         </text>
+         <g id=&quot;Japan&quot;>
+-            <text
+-                x=&quot;697&quot;
+-                y=&quot;315&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -1046,18 +986,8 @@
+         <text x=&quot;51.4&quot; y=&quot;326.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.00&quot;>
+             <tspan x=&quot;51.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>China</tspan>
+         </text>
+         <g id=&quot;China&quot;>
+-            <text
+-                x=&quot;143&quot;
+-                y=&quot;421&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="gdp-per-capita-worldbank" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>gdp-per-capita-worldbank?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1</h2>
+            <button class="copy-slug-btn" data-slug="gdp-per-capita-worldbank?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (70)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/gdp-per-capita-worldbank?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/gdp-per-capita-worldbank-ac638c4f34d948fe349a20d2dfb61ce7_v57_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-log-notice/grapher/gdp-per-capita-worldbank?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/gdp-per-capita-worldbank-ac638c4f34d948fe349a20d2dfb61ce7_v57_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/gdp-per-capita-worldbank-ac638c4f34d948fe349a20d2dfb61ce7_v57_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/gdp-per-capita-worldbank-ac638c4f34d948fe349a20d2dfb61ce7_v57_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: gdp-per-capita-worldbank-ac638c4f34d948fe349a20d2dfb61ce7_v57_850x600.svg
+===================================================================
+--- gdp-per-capita-worldbank-ac638c4f34d948fe349a20d2dfb61ce7_v57_850x600.svg
++++ gdp-per-capita-worldbank-ac638c4f34d948fe349a20d2dfb61ce7_v57_850x600.svg
+@@ -82,18 +82,8 @@
+                 United States
+             </tspan>
+         </text>
+         <g id=&quot;United-States&quot;>
+-            <text
+-                x=&quot;143&quot;
+-                y=&quot;209&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -244,18 +234,8 @@
+         <text x=&quot;328.4&quot; y=&quot;114.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.00&quot;>
+             <tspan x=&quot;328.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>Germany</tspan>
+         </text>
+         <g id=&quot;Germany&quot;>
+-            <text
+-                x=&quot;420&quot;
+-                y=&quot;209&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -405,18 +385,8 @@
+                 United Kingdom
+             </tspan>
+         </text>
+         <g id=&quot;United-Kingdom&quot;>
+-            <text
+-                x=&quot;697&quot;
+-                y=&quot;209&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -564,18 +534,8 @@
+         <text x=&quot;51.4&quot; y=&quot;220.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.00&quot;>
+             <tspan x=&quot;51.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>Brazil</tspan>
+         </text>
+         <g id=&quot;Brazil&quot;>
+-            <text
+-                x=&quot;143&quot;
+-                y=&quot;315&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -728,18 +688,8 @@
+                 South Korea
+             </tspan>
+         </text>
+         <g id=&quot;South-Korea&quot;>
+-            <text
+-                x=&quot;420&quot;
+-                y=&quot;315&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -887,18 +837,8 @@
+         <text x=&quot;605.4&quot; y=&quot;220.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.00&quot;>
+             <tspan x=&quot;605.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>Japan</tspan>
+         </text>
+         <g id=&quot;Japan&quot;>
+-            <text
+-                x=&quot;697&quot;
+-                y=&quot;315&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -1046,18 +986,8 @@
+         <text x=&quot;51.4&quot; y=&quot;326.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.00&quot;>
+             <tspan x=&quot;51.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>China</tspan>
+         </text>
+         <g id=&quot;China&quot;>
+-            <text
+-                x=&quot;143&quot;
+-                y=&quot;421&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="human-development-index" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>human-development-index?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1</h2>
+            <button class="copy-slug-btn" data-slug="human-development-index?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (80)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/human-development-index?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/human-development-index-ac638c4f34d948fe349a20d2dfb61ce7_v31_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-log-notice/grapher/human-development-index?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=1" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/human-development-index-ac638c4f34d948fe349a20d2dfb61ce7_v31_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/human-development-index-ac638c4f34d948fe349a20d2dfb61ce7_v31_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/human-development-index-ac638c4f34d948fe349a20d2dfb61ce7_v31_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: human-development-index-ac638c4f34d948fe349a20d2dfb61ce7_v31_850x600.svg
+===================================================================
+--- human-development-index-ac638c4f34d948fe349a20d2dfb61ce7_v31_850x600.svg
++++ human-development-index-ac638c4f34d948fe349a20d2dfb61ce7_v31_850x600.svg
+@@ -80,18 +80,8 @@
+                 United Kingdom
+             </tspan>
+         </text>
+         <g id=&quot;United-Kingdom&quot;>
+-            <text
+-                x=&quot;108&quot;
+-                y=&quot;263&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -249,18 +239,8 @@
+                 United States
+             </tspan>
+         </text>
+         <g id=&quot;United-States&quot;>
+-            <text
+-                x=&quot;315&quot;
+-                y=&quot;263&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -424,18 +404,8 @@
+                 South Korea
+             </tspan>
+         </text>
+         <g id=&quot;South-Korea&quot;>
+-            <text
+-                x=&quot;522&quot;
+-                y=&quot;263&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -594,18 +564,8 @@
+         <text x=&quot;660.4&quot; y=&quot;132.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.00&quot;>
+             <tspan x=&quot;660.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>India</tspan>
+         </text>
+         <g id=&quot;India&quot;>
+-            <text
+-                x=&quot;729&quot;
+-                y=&quot;263&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -761,18 +721,8 @@
+         <text x=&quot;39.4&quot; y=&quot;274.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.00&quot;>
+             <tspan x=&quot;39.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>China</tspan>
+         </text>
+         <g id=&quot;China&quot;>
+-            <text
+-                x=&quot;108&quot;
+-                y=&quot;405&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -928,18 +878,8 @@
+         <text x=&quot;246.4&quot; y=&quot;274.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.00&quot;>
+             <tspan x=&quot;246.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>Brazil</tspan>
+         </text>
+         <g id=&quot;Brazil&quot;>
+-            <text
+-                x=&quot;315&quot;
+-                y=&quot;405&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -1103,18 +1043,8 @@
+                 Democratic Republic of Co…
+             </tspan>
+         </text>
+         <g id=&quot;Democratic-Republic-of-Congo&quot;>
+-            <text
+-                x=&quot;522&quot;
+-                y=&quot;405&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -1273,18 +1203,8 @@
+         <text x=&quot;660.4&quot; y=&quot;274.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.00&quot;>
+             <tspan x=&quot;660.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>Chile</tspan>
+         </text>
+         <g id=&quot;Chile&quot;>
+-            <text
+-                x=&quot;729&quot;
+-                y=&quot;405&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="human-development-index" data-chart-type="SlopeChart">
+        <div class="header-with-actions">
+            <h2>human-development-index?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0</h2>
+            <button class="copy-slug-btn" data-slug="human-development-index?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (80)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/human-development-index?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/human-development-index-602cf15b8e4cf555a48aab50e95a8aac_v31_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-slope-facet-log-notice/grapher/human-development-index?tab=slope&time=earliest..latest&stackMode=absolute&yScale=log&facet=entity&uniformYAxis=0" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/human-development-index-602cf15b8e4cf555a48aab50e95a8aac_v31_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/human-development-index-602cf15b8e4cf555a48aab50e95a8aac_v31_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/human-development-index-602cf15b8e4cf555a48aab50e95a8aac_v31_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: human-development-index-602cf15b8e4cf555a48aab50e95a8aac_v31_850x600.svg
+===================================================================
+--- human-development-index-602cf15b8e4cf555a48aab50e95a8aac_v31_850x600.svg
++++ human-development-index-602cf15b8e4cf555a48aab50e95a8aac_v31_850x600.svg
+@@ -80,18 +80,8 @@
+                 United Kingdom
+             </tspan>
+         </text>
+         <g id=&quot;United-Kingdom&quot;>
+-            <text
+-                x=&quot;108&quot;
+-                y=&quot;263&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -249,18 +239,8 @@
+                 United States
+             </tspan>
+         </text>
+         <g id=&quot;United-States&quot;>
+-            <text
+-                x=&quot;315&quot;
+-                y=&quot;263&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -424,18 +404,8 @@
+                 South Korea
+             </tspan>
+         </text>
+         <g id=&quot;South-Korea&quot;>
+-            <text
+-                x=&quot;522&quot;
+-                y=&quot;263&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -594,18 +564,8 @@
+         <text x=&quot;660.4&quot; y=&quot;132.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.00&quot;>
+             <tspan x=&quot;660.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>India</tspan>
+         </text>
+         <g id=&quot;India&quot;>
+-            <text
+-                x=&quot;729&quot;
+-                y=&quot;263&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -761,18 +721,8 @@
+         <text x=&quot;39.4&quot; y=&quot;274.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.00&quot;>
+             <tspan x=&quot;39.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>China</tspan>
+         </text>
+         <g id=&quot;China&quot;>
+-            <text
+-                x=&quot;108&quot;
+-                y=&quot;405&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -928,18 +878,8 @@
+         <text x=&quot;246.4&quot; y=&quot;274.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.00&quot;>
+             <tspan x=&quot;246.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>Brazil</tspan>
+         </text>
+         <g id=&quot;Brazil&quot;>
+-            <text
+-                x=&quot;315&quot;
+-                y=&quot;405&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -1103,18 +1043,8 @@
+                 Democratic Republic of Co…
+             </tspan>
+         </text>
+         <g id=&quot;Democratic-Republic-of-Congo&quot;>
+-            <text
+-                x=&quot;522&quot;
+-                y=&quot;405&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+@@ -1273,18 +1203,8 @@
+         <text x=&quot;660.4&quot; y=&quot;274.7&quot; text-anchor=&quot;start&quot; font-size=&quot;13.00&quot;>
+             <tspan x=&quot;660.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>Chile</tspan>
+         </text>
+         <g id=&quot;Chile&quot;>
+-            <text
+-                x=&quot;729&quot;
+-                y=&quot;405&quot;
+-                font-size=&quot;10.725&quot;
+-                text-anchor=&quot;middle&quot;
+-                fill=&quot;#5b5b5b&quot;
+-                font-style=&quot;italic&quot;
+-            >
+-                log axis
+-            </text>
+             <g id=&quot;horizontal-axis&quot;>
+                 <g id=&quot;vertical-grid-lines&quot; class=&quot;AxisGridLines verticalLines&quot;>
+                     <line
+                         id=&quot;1990&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Chart type filtering
+        const chartTypeFilter = document.getElementById('chart-type-filter');
+        const visibleCountSpan = document.getElementById('visible-count');
+
+        function filterByChartType(chartType) {
+            const sections = document.querySelectorAll('section[data-chart-type]');
+            let visibleCount = 0;
+
+            sections.forEach(section => {
+                if (chartType === 'all' || section.dataset.chartType === chartType) {
+                    section.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            if (visibleCountSpan) {
+                visibleCountSpan.textContent = visibleCount;
+            }
+        }
+
+        if (chartTypeFilter) {
+            chartTypeFilter.addEventListener('change', (e) => {
+                filterByChartType(e.target.value);
+            });
+        }
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section, and skip if diff was too large
+                    if (diffContainer && !renderedDiffs.has(diffId) && !diffContainer.dataset.skipped) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
