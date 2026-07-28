@@ -1,0 +1,2472 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        /* Filter dropdown */
+        .filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        .filter-container label {
+            font-weight: 500;
+            color: #24292e;
+        }
+
+        .filter-container select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            background: #fafbfc;
+            font-size: 0.9rem;
+            color: #24292e;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-container select:hover {
+            border-color: #a0a8b0;
+        }
+
+        .filter-container select:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        section.hidden {
+            display: none;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 0 1 auto;
+            display: flex;
+            flex-direction: column;
+            max-width: 850px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 850px;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            height: auto;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="filter-container">
+        <label for="chart-type-filter">Chart Type:</label>
+        <select id="chart-type-filter">
+            <option value="all" selected>All (6)</option>
+            <option value="LineChart">LineChart (5)</option>
+<option value="StackedArea">StackedArea (1)</option>
+        </select>
+    </div><p class="summary">Showing <span id="visible-count">6</span> of 6 differences</p><section data-slug="excess-deaths-cumulative-economist" data-chart-type="LineChart">
+        <div class="header-with-actions">
+            <h2>excess-deaths-cumulative-economist</h2>
+            <button class="copy-slug-btn" data-slug="excess-deaths-cumulative-economist" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (208)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/excess-deaths-cumulative-economist" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/excess-deaths-cumulative-economist_v144_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-gdoc-block-url-extract/grapher/excess-deaths-cumulative-economist" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/excess-deaths-cumulative-economist_v144_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/excess-deaths-cumulative-economist_v144_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/excess-deaths-cumulative-economist_v144_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: excess-deaths-cumulative-economist_v144_850x600.svg
+===================================================================
+--- excess-deaths-cumulative-economist_v144_850x600.svg
++++ excess-deaths-cumulative-economist_v144_850x600.svg
+@@ -693,88 +693,43 @@
+         <g id=&quot;Brazil&quot;>
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+-                        id=&quot;0&quot;
++                        id=&quot;Jan-1,-2020&quot;
+                         x1=&quot;39.1&quot;
+                         y1=&quot;530.75&quot;
+                         x2=&quot;39.1&quot;
+                         y2=&quot;536.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;1629&quot;
++                        id=&quot;Jun-17,-2024&quot;
+                         x1=&quot;428.1&quot;
+                         y1=&quot;530.75&quot;
+                         x2=&quot;428.1&quot;
+                         y2=&quot;536.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;200&quot;
+-                        x1=&quot;86.9&quot;
++                        id=&quot;Sep-12,-2021&quot;
++                        x1=&quot;187.2&quot;
+                         y1=&quot;530.75&quot;
+-                        x2=&quot;86.9&quot;
++                        x2=&quot;187.2&quot;
+                         y2=&quot;536.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;400&quot;
+-                        x1=&quot;134.6&quot;
++                        id=&quot;Oct-17,-2022&quot;
++                        x1=&quot;282.7&quot;
+                         y1=&quot;530.75&quot;
+-                        x2=&quot;134.6&quot;
++                        x2=&quot;282.7&quot;
+                         y2=&quot;536.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+-                    <line
+-                        id=&quot;600&quot;
+-                        x1=&quot;182.4&quot;
+-                        y1=&quot;530.75&quot;
+-                        x2=&quot;182.4&quot;
+-                        y2=&quot;536.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;800&quot;
+-                        x1=&quot;230.2&quot;
+-                        y1=&quot;530.75&quot;
+-                        x2=&quot;230.2&quot;
+-                        y2=&quot;536.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1000&quot;
+-                        x1=&quot;277.9&quot;
+-                        y1=&quot;530.75&quot;
+-                        x2=&quot;277.9&quot;
+-                        y2=&quot;536.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1200&quot;
+-                        x1=&quot;325.7&quot;
+-                        y1=&quot;530.75&quot;
+-                        x2=&quot;325.7&quot;
+-                        y2=&quot;536.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1400&quot;
+-                        x1=&quot;373.4&quot;
+-                        y1=&quot;530.75&quot;
+-                        x2=&quot;373.4&quot;
+-                        y2=&quot;536.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+                 </g>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;39.120000000000005&quot;
+@@ -782,82 +737,37 @@
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;start&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        0
++                        Jan 1, 2020
+                     </text>
+                     <text
+                         x=&quot;428.12&quot;
+                         y=&quot;548.25&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;end&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        1629
++                        Jun 17, 2024
+                     </text>
+                     <text
+-                        x=&quot;86.9&quot;
++                        x=&quot;187.2&quot;
+                         y=&quot;548.25&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        200
++                        Sep 12, 2021
+                     </text>
+                     <text
+-                        x=&quot;134.6&quot;
++                        x=&quot;282.7&quot;
+                         y=&quot;548.25&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        400
++                        Oct 17, 2022
+                     </text>
+-                    <text
+-                        x=&quot;182.4&quot;
+-                        y=&quot;548.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        600
+-                    </text>
+-                    <text
+-                        x=&quot;230.2&quot;
+-                        y=&quot;548.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        800
+-                    </text>
+-                    <text
+-                        x=&quot;277.9&quot;
+-                        y=&quot;548.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        1000
+-                    </text>
+-                    <text
+-                        x=&quot;325.7&quot;
+-                        y=&quot;548.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        1200
+-                    </text>
+-                    <text
+-                        x=&quot;373.4&quot;
+-                        y=&quot;548.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        1400
+-                    </text>
+                 </g>
+             </g>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+@@ -1026,88 +936,43 @@
+         <g id=&quot;Indonesia&quot;>
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+-                        id=&quot;0&quot;
++                        id=&quot;Jan-1,-2020&quot;
+                         x1=&quot;443.1&quot;
+                         y1=&quot;530.75&quot;
+                         x2=&quot;443.1&quot;
+                         y2=&quot;536.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;1629&quot;
++                        id=&quot;Jun-17,-2024&quot;
+                         x1=&quot;832.1&quot;
+                         y1=&quot;530.75&quot;
+                         x2=&quot;832.1&quot;
+                         y2=&quot;536.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;200&quot;
+-                        x1=&quot;490.9&quot;
++                        id=&quot;Sep-12,-2021&quot;
++                        x1=&quot;591.2&quot;
+                         y1=&quot;530.75&quot;
+-                        x2=&quot;490.9&quot;
++                        x2=&quot;591.2&quot;
+                         y2=&quot;536.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;400&quot;
+-                        x1=&quot;538.6&quot;
++                        id=&quot;Oct-17,-2022&quot;
++                        x1=&quot;686.7&quot;
+                         y1=&quot;530.75&quot;
+-                        x2=&quot;538.6&quot;
++                        x2=&quot;686.7&quot;
+                         y2=&quot;536.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+-                    <line
+-                        id=&quot;600&quot;
+-                        x1=&quot;586.4&quot;
+-                        y1=&quot;530.75&quot;
+-                        x2=&quot;586.4&quot;
+-                        y2=&quot;536.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;800&quot;
+-                        x1=&quot;634.2&quot;
+-                        y1=&quot;530.75&quot;
+-                        x2=&quot;634.2&quot;
+-                        y2=&quot;536.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1000&quot;
+-                        x1=&quot;681.9&quot;
+-                        y1=&quot;530.75&quot;
+-                        x2=&quot;681.9&quot;
+-                        y2=&quot;536.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1200&quot;
+-                        x1=&quot;729.7&quot;
+-                        y1=&quot;530.75&quot;
+-                        x2=&quot;729.7&quot;
+-                        y2=&quot;536.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1400&quot;
+-                        x1=&quot;777.4&quot;
+-                        y1=&quot;530.75&quot;
+-                        x2=&quot;777.4&quot;
+-                        y2=&quot;536.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+                 </g>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;443.12&quot;
+@@ -1115,82 +980,37 @@
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;start&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        0
++                        Jan 1, 2020
+                     </text>
+                     <text
+                         x=&quot;832.12&quot;
+                         y=&quot;548.25&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;end&quot;
+
+... (diff truncated: showing 300 of 377 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="excess-mortality-p-scores-average-baseline-by-age" data-chart-type="LineChart">
+        <div class="header-with-actions">
+            <h2>excess-mortality-p-scores-average-baseline-by-age</h2>
+            <button class="copy-slug-btn" data-slug="excess-mortality-p-scores-average-baseline-by-age" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (486)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/excess-mortality-p-scores-average-baseline-by-age" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/excess-mortality-p-scores-average-baseline-by-age_v313_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-gdoc-block-url-extract/grapher/excess-mortality-p-scores-average-baseline-by-age" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/excess-mortality-p-scores-average-baseline-by-age_v313_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/excess-mortality-p-scores-average-baseline-by-age_v313_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/excess-mortality-p-scores-average-baseline-by-age_v313_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: excess-mortality-p-scores-average-baseline-by-age_v313_850x600.svg
+===================================================================
+--- excess-mortality-p-scores-average-baseline-by-age_v313_850x600.svg
++++ excess-mortality-p-scores-average-baseline-by-age_v313_850x600.svg
+@@ -124,70 +124,34 @@
+         <g id=&quot;Ages-0–14&quot;>
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+-                        id=&quot;0&quot;
++                        id=&quot;Jan-5,-2020&quot;
+                         x1=&quot;51.5&quot;
+                         y1=&quot;316.35&quot;
+                         x2=&quot;51.5&quot;
+                         y2=&quot;321.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;1456&quot;
++                        id=&quot;Dec-31,-2023&quot;
+                         x1=&quot;301.5&quot;
+                         y1=&quot;316.35&quot;
+                         x2=&quot;301.5&quot;
+                         y2=&quot;321.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;200&quot;
+-                        x1=&quot;85.8&quot;
++                        id=&quot;Sep-12,-2021&quot;
++                        x1=&quot;157.2&quot;
+                         y1=&quot;316.35&quot;
+-                        x2=&quot;85.8&quot;
++                        x2=&quot;157.2&quot;
+                         y2=&quot;321.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+-                    <line
+-                        id=&quot;400&quot;
+-                        x1=&quot;120.2&quot;
+-                        y1=&quot;316.35&quot;
+-                        x2=&quot;120.2&quot;
+-                        y2=&quot;321.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;600&quot;
+-                        x1=&quot;154.5&quot;
+-                        y1=&quot;316.35&quot;
+-                        x2=&quot;154.5&quot;
+-                        y2=&quot;321.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;800&quot;
+-                        x1=&quot;188.8&quot;
+-                        y1=&quot;316.35&quot;
+-                        x2=&quot;188.8&quot;
+-                        y2=&quot;321.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1000&quot;
+-                        x1=&quot;223.2&quot;
+-                        y1=&quot;316.35&quot;
+-                        x2=&quot;223.2&quot;
+-                        y2=&quot;321.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+                 </g>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;51.480000000000004&quot;
+@@ -195,64 +159,28 @@
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;start&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        0
++                        Jan 5, 2020
+                     </text>
+                     <text
+                         x=&quot;301.48&quot;
+                         y=&quot;333.85&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;end&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        1456
++                        Dec 31, 2023
+                     </text>
+                     <text
+-                        x=&quot;85.8&quot;
++                        x=&quot;157.2&quot;
+                         y=&quot;333.85&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        200
++                        Sep 12, 2021
+                     </text>
+-                    <text
+-                        x=&quot;120.2&quot;
+-                        y=&quot;333.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        400
+-                    </text>
+-                    <text
+-                        x=&quot;154.5&quot;
+-                        y=&quot;333.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        600
+-                    </text>
+-                    <text
+-                        x=&quot;188.8&quot;
+-                        y=&quot;333.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        800
+-                    </text>
+-                    <text
+-                        x=&quot;223.2&quot;
+-                        y=&quot;333.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        1000
+-                    </text>
+                 </g>
+             </g>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+@@ -402,70 +330,34 @@
+         <g id=&quot;Ages-15–64&quot;>
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+-                        id=&quot;0&quot;
++                        id=&quot;Jan-5,-2020&quot;
+                         x1=&quot;316.5&quot;
+                         y1=&quot;316.35&quot;
+                         x2=&quot;316.5&quot;
+                         y2=&quot;321.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;1456&quot;
++                        id=&quot;Dec-31,-2023&quot;
+                         x1=&quot;566.5&quot;
+                         y1=&quot;316.35&quot;
+                         x2=&quot;566.5&quot;
+                         y2=&quot;321.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;200&quot;
+-                        x1=&quot;350.8&quot;
++                        id=&quot;Sep-12,-2021&quot;
++                        x1=&quot;422.2&quot;
+                         y1=&quot;316.35&quot;
+-                        x2=&quot;350.8&quot;
++                        x2=&quot;422.2&quot;
+                         y2=&quot;321.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+-                    <line
+-                        id=&quot;400&quot;
+-                        x1=&quot;385.2&quot;
+-                        y1=&quot;316.35&quot;
+-                        x2=&quot;385.2&quot;
+-                        y2=&quot;321.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;600&quot;
+-                        x1=&quot;419.5&quot;
+-                        y1=&quot;316.35&quot;
+-                        x2=&quot;419.5&quot;
+-                        y2=&quot;321.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;800&quot;
+-                        x1=&quot;453.8&quot;
+-                        y1=&quot;316.35&quot;
+-                        x2=&quot;453.8&quot;
+-                        y2=&quot;321.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1000&quot;
+-                        x1=&quot;488.2&quot;
+-                        y1=&quot;316.35&quot;
+-                        x2=&quot;488.2&quot;
+-                        y2=&quot;321.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+                 </g>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;316.48&quot;
+@@ -473,64 +365,28 @@
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;start&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        0
++                        Jan 5, 2020
+                     </text>
+                     <text
+                         x=&quot;566.48&quot;
+                         y=&quot;333.85&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;end&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        1456
++                        Dec 31, 2023
+                     </text>
+                     <text
+-                        x=&quot;350.8&quot;
++                        x=&quot;422.2&quot;
+                         y=&quot;333.85&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        200
++                        Sep 12, 2021
+                     </text>
+-                    <text
+-                        x=&quot;385.2&quot;
+-                        y=&quot;333.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        400
+-                    </text>
+-                    <text
+-                        x=&quot;419.5&quot;
+-                        y=&quot;333.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        600
+-                    </text>
+-                    <text
+-                        x=&quot;453.8&quot;
+-                        y=&quot;333.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        800
+-                    </text>
+-                    <text
+-                        x=&quot;488.2&quot;
+-                        y=&quot;333.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        1000
+-                    </text>
+                 </g>
+             </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+@@ -626,70 +482,34 @@
+         <g id=&quot;Ages-65–74&quot;>
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+-                        id=&quot;0&quot;
+
+... (diff truncated: showing 300 of 875 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="excess-mortality-p-scores-projected-baseline-by-age" data-chart-type="LineChart">
+        <div class="header-with-actions">
+            <h2>excess-mortality-p-scores-projected-baseline-by-age</h2>
+            <button class="copy-slug-btn" data-slug="excess-mortality-p-scores-projected-baseline-by-age" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (486)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/excess-mortality-p-scores-projected-baseline-by-age" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/excess-mortality-p-scores-projected-baseline-by-age_v319_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-gdoc-block-url-extract/grapher/excess-mortality-p-scores-projected-baseline-by-age" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/excess-mortality-p-scores-projected-baseline-by-age_v319_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/excess-mortality-p-scores-projected-baseline-by-age_v319_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/excess-mortality-p-scores-projected-baseline-by-age_v319_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: excess-mortality-p-scores-projected-baseline-by-age_v319_850x600.svg
+===================================================================
+--- excess-mortality-p-scores-projected-baseline-by-age_v319_850x600.svg
++++ excess-mortality-p-scores-projected-baseline-by-age_v319_850x600.svg
+@@ -124,70 +124,34 @@
+         <g id=&quot;Ages-0–14&quot;>
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+-                        id=&quot;0&quot;
++                        id=&quot;Jan-5,-2020&quot;
+                         x1=&quot;51.5&quot;
+                         y1=&quot;316.35&quot;
+                         x2=&quot;51.5&quot;
+                         y2=&quot;321.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;1456&quot;
++                        id=&quot;Dec-31,-2023&quot;
+                         x1=&quot;301.5&quot;
+                         y1=&quot;316.35&quot;
+                         x2=&quot;301.5&quot;
+                         y2=&quot;321.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;200&quot;
+-                        x1=&quot;85.8&quot;
++                        id=&quot;Sep-12,-2021&quot;
++                        x1=&quot;157.2&quot;
+                         y1=&quot;316.35&quot;
+-                        x2=&quot;85.8&quot;
++                        x2=&quot;157.2&quot;
+                         y2=&quot;321.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+-                    <line
+-                        id=&quot;400&quot;
+-                        x1=&quot;120.2&quot;
+-                        y1=&quot;316.35&quot;
+-                        x2=&quot;120.2&quot;
+-                        y2=&quot;321.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;600&quot;
+-                        x1=&quot;154.5&quot;
+-                        y1=&quot;316.35&quot;
+-                        x2=&quot;154.5&quot;
+-                        y2=&quot;321.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;800&quot;
+-                        x1=&quot;188.8&quot;
+-                        y1=&quot;316.35&quot;
+-                        x2=&quot;188.8&quot;
+-                        y2=&quot;321.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1000&quot;
+-                        x1=&quot;223.2&quot;
+-                        y1=&quot;316.35&quot;
+-                        x2=&quot;223.2&quot;
+-                        y2=&quot;321.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+                 </g>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;51.480000000000004&quot;
+@@ -195,64 +159,28 @@
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;start&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        0
++                        Jan 5, 2020
+                     </text>
+                     <text
+                         x=&quot;301.48&quot;
+                         y=&quot;333.85&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;end&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        1456
++                        Dec 31, 2023
+                     </text>
+                     <text
+-                        x=&quot;85.8&quot;
++                        x=&quot;157.2&quot;
+                         y=&quot;333.85&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        200
++                        Sep 12, 2021
+                     </text>
+-                    <text
+-                        x=&quot;120.2&quot;
+-                        y=&quot;333.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        400
+-                    </text>
+-                    <text
+-                        x=&quot;154.5&quot;
+-                        y=&quot;333.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        600
+-                    </text>
+-                    <text
+-                        x=&quot;188.8&quot;
+-                        y=&quot;333.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        800
+-                    </text>
+-                    <text
+-                        x=&quot;223.2&quot;
+-                        y=&quot;333.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        1000
+-                    </text>
+                 </g>
+             </g>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+@@ -402,70 +330,34 @@
+         <g id=&quot;Ages-15–64&quot;>
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+-                        id=&quot;0&quot;
++                        id=&quot;Jan-5,-2020&quot;
+                         x1=&quot;316.5&quot;
+                         y1=&quot;316.35&quot;
+                         x2=&quot;316.5&quot;
+                         y2=&quot;321.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;1456&quot;
++                        id=&quot;Dec-31,-2023&quot;
+                         x1=&quot;566.5&quot;
+                         y1=&quot;316.35&quot;
+                         x2=&quot;566.5&quot;
+                         y2=&quot;321.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;200&quot;
+-                        x1=&quot;350.8&quot;
++                        id=&quot;Sep-12,-2021&quot;
++                        x1=&quot;422.2&quot;
+                         y1=&quot;316.35&quot;
+-                        x2=&quot;350.8&quot;
++                        x2=&quot;422.2&quot;
+                         y2=&quot;321.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+-                    <line
+-                        id=&quot;400&quot;
+-                        x1=&quot;385.2&quot;
+-                        y1=&quot;316.35&quot;
+-                        x2=&quot;385.2&quot;
+-                        y2=&quot;321.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;600&quot;
+-                        x1=&quot;419.5&quot;
+-                        y1=&quot;316.35&quot;
+-                        x2=&quot;419.5&quot;
+-                        y2=&quot;321.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;800&quot;
+-                        x1=&quot;453.8&quot;
+-                        y1=&quot;316.35&quot;
+-                        x2=&quot;453.8&quot;
+-                        y2=&quot;321.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;1000&quot;
+-                        x1=&quot;488.2&quot;
+-                        y1=&quot;316.35&quot;
+-                        x2=&quot;488.2&quot;
+-                        y2=&quot;321.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+                 </g>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;316.48&quot;
+@@ -473,64 +365,28 @@
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;start&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        0
++                        Jan 5, 2020
+                     </text>
+                     <text
+                         x=&quot;566.48&quot;
+                         y=&quot;333.85&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;end&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        1456
++                        Dec 31, 2023
+                     </text>
+                     <text
+-                        x=&quot;350.8&quot;
++                        x=&quot;422.2&quot;
+                         y=&quot;333.85&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        200
++                        Sep 12, 2021
+                     </text>
+-                    <text
+-                        x=&quot;385.2&quot;
+-                        y=&quot;333.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        400
+-                    </text>
+-                    <text
+-                        x=&quot;419.5&quot;
+-                        y=&quot;333.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        600
+-                    </text>
+-                    <text
+-                        x=&quot;453.8&quot;
+-                        y=&quot;333.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        800
+-                    </text>
+-                    <text
+-                        x=&quot;488.2&quot;
+-                        y=&quot;333.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        1000
+-                    </text>
+                 </g>
+             </g>
+             <g id=&quot;horizontal-grid-lines&quot; class=&quot;AxisGridLines horizontalLines&quot;>
+                 <line
+@@ -626,70 +482,34 @@
+         <g id=&quot;Ages-65–74&quot;>
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+-                        id=&quot;0&quot;
+
+... (diff truncated: showing 300 of 875 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="monthly-co2-emissions-from-international-aviation" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>monthly-co2-emissions-from-international-aviation</h2>
+            <button class="copy-slug-btn" data-slug="monthly-co2-emissions-from-international-aviation" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (96)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/monthly-co2-emissions-from-international-aviation" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/monthly-co2-emissions-from-international-aviation_v30_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-gdoc-block-url-extract/grapher/monthly-co2-emissions-from-international-aviation" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/monthly-co2-emissions-from-international-aviation_v30_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/monthly-co2-emissions-from-international-aviation_v30_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/monthly-co2-emissions-from-international-aviation_v30_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: monthly-co2-emissions-from-international-aviation_v30_850x600.svg
+===================================================================
+--- monthly-co2-emissions-from-international-aviation_v30_850x600.svg
++++ monthly-co2-emissions-from-international-aviation_v30_850x600.svg
+@@ -193,52 +193,43 @@
+         <g id=&quot;Monthly-CO₂-emissions-from-international-aviation&quot;>
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+-                        id=&quot;14&quot;
++                        id=&quot;Jan-15,-2019&quot;
+                         x1=&quot;54&quot;
+                         y1=&quot;306.75&quot;
+                         x2=&quot;54&quot;
+                         y2=&quot;312.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;2175&quot;
++                        id=&quot;Dec-15,-2024&quot;
+                         x1=&quot;417.5&quot;
+                         y1=&quot;306.75&quot;
+                         x2=&quot;417.5&quot;
+                         y2=&quot;312.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;500&quot;
+-                        x1=&quot;135.5&quot;
++                        id=&quot;Jun-4,-2021&quot;
++                        x1=&quot;200.4&quot;
+                         y1=&quot;306.75&quot;
+-                        x2=&quot;135.5&quot;
++                        x2=&quot;200.4&quot;
+                         y2=&quot;312.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;1000&quot;
+-                        x1=&quot;219.8&quot;
++                        id=&quot;Oct-17,-2022&quot;
++                        x1=&quot;284.8&quot;
+                         y1=&quot;306.75&quot;
+-                        x2=&quot;219.8&quot;
++                        x2=&quot;284.8&quot;
+                         y2=&quot;312.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+-                    <line
+-                        id=&quot;1500&quot;
+-                        x1=&quot;304.2&quot;
+-                        y1=&quot;306.75&quot;
+-                        x2=&quot;304.2&quot;
+-                        y2=&quot;312.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+                 </g>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;53.519999999999996&quot;
+@@ -246,46 +237,37 @@
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;start&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        14
++                        Jan 15, 2019
+                     </text>
+                     <text
+                         x=&quot;418&quot;
+                         y=&quot;324.25&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;end&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        2175
++                        Dec 15, 2024
+                     </text>
+                     <text
+-                        x=&quot;135.5&quot;
++                        x=&quot;200.4&quot;
+                         y=&quot;324.25&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        500
++                        Jun 4, 2021
+                     </text>
+                     <text
+-                        x=&quot;219.8&quot;
++                        x=&quot;284.8&quot;
+                         y=&quot;324.25&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        1000
++                        Oct 17, 2022
+                     </text>
+-                    <text
+-                        x=&quot;304.2&quot;
+-                        y=&quot;324.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        1500
+-                    </text>
+                 </g>
+             </g>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+@@ -530,52 +512,43 @@
+         <g id=&quot;Monthly-CO₂-emissions-from-domestic-aviation&quot;>
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+-                        id=&quot;14&quot;
++                        id=&quot;Jan-15,-2019&quot;
+                         x1=&quot;470&quot;
+                         y1=&quot;306.75&quot;
+                         x2=&quot;470&quot;
+                         y2=&quot;312.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;2175&quot;
++                        id=&quot;Dec-15,-2024&quot;
+                         x1=&quot;833.5&quot;
+                         y1=&quot;306.75&quot;
+                         x2=&quot;833.5&quot;
+                         y2=&quot;312.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;500&quot;
+-                        x1=&quot;551.5&quot;
++                        id=&quot;Jun-4,-2021&quot;
++                        x1=&quot;616.4&quot;
+                         y1=&quot;306.75&quot;
+-                        x2=&quot;551.5&quot;
++                        x2=&quot;616.4&quot;
+                         y2=&quot;312.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;1000&quot;
+-                        x1=&quot;635.8&quot;
++                        id=&quot;Oct-17,-2022&quot;
++                        x1=&quot;700.8&quot;
+                         y1=&quot;306.75&quot;
+-                        x2=&quot;635.8&quot;
++                        x2=&quot;700.8&quot;
+                         y2=&quot;312.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+-                    <line
+-                        id=&quot;1500&quot;
+-                        x1=&quot;720.2&quot;
+-                        y1=&quot;306.75&quot;
+-                        x2=&quot;720.2&quot;
+-                        y2=&quot;312.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+                 </g>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;469.52&quot;
+@@ -583,46 +556,37 @@
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;start&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        14
++                        Jan 15, 2019
+                     </text>
+                     <text
+                         x=&quot;834&quot;
+                         y=&quot;324.25&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;end&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        2175
++                        Dec 15, 2024
+                     </text>
+                     <text
+-                        x=&quot;551.5&quot;
++                        x=&quot;616.4&quot;
+                         y=&quot;324.25&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        500
++                        Jun 4, 2021
+                     </text>
+                     <text
+-                        x=&quot;635.8&quot;
++                        x=&quot;700.8&quot;
+                         y=&quot;324.25&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        1000
++                        Oct 17, 2022
+                     </text>
+-                    <text
+-                        x=&quot;720.2&quot;
+-                        y=&quot;324.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        1500
+-                    </text>
+                 </g>
+             </g>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+@@ -810,52 +774,43 @@
+         <g id=&quot;Monthly-CO₂-total-emissions-from-aviation&quot;>
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+-                        id=&quot;14&quot;
++                        id=&quot;Jan-15,-2019&quot;
+                         x1=&quot;54&quot;
+                         y1=&quot;495.75&quot;
+                         x2=&quot;54&quot;
+                         y2=&quot;501.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;2175&quot;
++                        id=&quot;Dec-15,-2024&quot;
+                         x1=&quot;417.5&quot;
+                         y1=&quot;495.75&quot;
+                         x2=&quot;417.5&quot;
+                         y2=&quot;501.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;500&quot;
+-                        x1=&quot;135.5&quot;
++                        id=&quot;Jun-4,-2021&quot;
++                        x1=&quot;200.4&quot;
+                         y1=&quot;495.75&quot;
+-                        x2=&quot;135.5&quot;
++                        x2=&quot;200.4&quot;
+                         y2=&quot;501.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;1000&quot;
+-                        x1=&quot;219.8&quot;
++                        id=&quot;Oct-17,-2022&quot;
++                        x1=&quot;284.8&quot;
+                         y1=&quot;495.75&quot;
+-                        x2=&quot;219.8&quot;
++                        x2=&quot;284.8&quot;
+                         y2=&quot;501.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+-                    <line
+-                        id=&quot;1500&quot;
+-                        x1=&quot;304.2&quot;
+-                        y1=&quot;495.75&quot;
+-                        x2=&quot;304.2&quot;
+-                        y2=&quot;501.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+                 </g>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;53.519999999999996&quot;
+@@ -863,46 +818,37 @@
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;start&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        14
++                        Jan 15, 2019
+
+... (diff truncated: showing 300 of 347 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="sea-surface-temperature" data-chart-type="LineChart">
+        <div class="header-with-actions">
+            <h2>sea-surface-temperature</h2>
+            <button class="copy-slug-btn" data-slug="sea-surface-temperature" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (204)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/sea-surface-temperature" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/sea-surface-temperature_v22_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-gdoc-block-url-extract/grapher/sea-surface-temperature" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/sea-surface-temperature_v22_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/sea-surface-temperature_v22_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/sea-surface-temperature_v22_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: sea-surface-temperature_v22_850x600.svg
+===================================================================
+--- sea-surface-temperature_v22_850x600.svg
++++ sea-surface-temperature_v22_850x600.svg
+@@ -141,70 +141,43 @@
+         <g id=&quot;Northern-Hemisphere&quot;>
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+-                        id=&quot;0&quot;
++                        id=&quot;Jan-15,-1850&quot;
+                         x1=&quot;58.3&quot;
+                         y1=&quot;298.35&quot;
+                         x2=&quot;58.3&quot;
+                         y2=&quot;303.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;64434&quot;
++                        id=&quot;Jun-15,-2026&quot;
+                         x1=&quot;437.3&quot;
+                         y1=&quot;298.35&quot;
+                         x2=&quot;437.3&quot;
+                         y2=&quot;303.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;10000&quot;
+-                        x1=&quot;117.1&quot;
++                        id=&quot;Jul-17,-1910&quot;
++                        x1=&quot;188.3&quot;
+                         y1=&quot;298.35&quot;
+-                        x2=&quot;117.1&quot;
++                        x2=&quot;188.3&quot;
+                         y2=&quot;303.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;20000&quot;
+-                        x1=&quot;176&quot;
++                        id=&quot;Apr-19,-1965&quot;
++                        x1=&quot;305.9&quot;
+                         y1=&quot;298.35&quot;
+-                        x2=&quot;176&quot;
++                        x2=&quot;305.9&quot;
+                         y2=&quot;303.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+-                    <line
+-                        id=&quot;30000&quot;
+-                        x1=&quot;234.8&quot;
+-                        y1=&quot;298.35&quot;
+-                        x2=&quot;234.8&quot;
+-                        y2=&quot;303.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;40000&quot;
+-                        x1=&quot;293.6&quot;
+-                        y1=&quot;298.35&quot;
+-                        x2=&quot;293.6&quot;
+-                        y2=&quot;303.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;50000&quot;
+-                        x1=&quot;352.4&quot;
+-                        y1=&quot;298.35&quot;
+-                        x2=&quot;352.4&quot;
+-                        y2=&quot;303.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+                 </g>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;58.32&quot;
+@@ -212,64 +185,37 @@
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;start&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        0
++                        Jan 15, 1850
+                     </text>
+                     <text
+                         x=&quot;437.32&quot;
+                         y=&quot;315.85&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;end&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        64434
++                        Jun 15, 2026
+                     </text>
+                     <text
+-                        x=&quot;117.1&quot;
++                        x=&quot;188.3&quot;
+                         y=&quot;315.85&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        10000
++                        Jul 17, 1910
+                     </text>
+                     <text
+-                        x=&quot;176&quot;
++                        x=&quot;305.9&quot;
+                         y=&quot;315.85&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        20000
++                        Apr 19, 1965
+                     </text>
+-                    <text
+-                        x=&quot;234.8&quot;
+-                        y=&quot;315.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        30000
+-                    </text>
+-                    <text
+-                        x=&quot;293.6&quot;
+-                        y=&quot;315.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        40000
+-                    </text>
+-                    <text
+-                        x=&quot;352.4&quot;
+-                        y=&quot;315.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        50000
+-                    </text>
+                 </g>
+             </g>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+@@ -459,70 +405,43 @@
+         <g id=&quot;Southern-Hemisphere&quot;>
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+-                        id=&quot;0&quot;
++                        id=&quot;Jan-15,-1850&quot;
+                         x1=&quot;452.3&quot;
+                         y1=&quot;298.35&quot;
+                         x2=&quot;452.3&quot;
+                         y2=&quot;303.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;64434&quot;
++                        id=&quot;Jun-15,-2026&quot;
+                         x1=&quot;831.3&quot;
+                         y1=&quot;298.35&quot;
+                         x2=&quot;831.3&quot;
+                         y2=&quot;303.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;10000&quot;
+-                        x1=&quot;511.1&quot;
++                        id=&quot;Jul-17,-1910&quot;
++                        x1=&quot;582.3&quot;
+                         y1=&quot;298.35&quot;
+-                        x2=&quot;511.1&quot;
++                        x2=&quot;582.3&quot;
+                         y2=&quot;303.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;20000&quot;
+-                        x1=&quot;570&quot;
++                        id=&quot;Apr-19,-1965&quot;
++                        x1=&quot;699.9&quot;
+                         y1=&quot;298.35&quot;
+-                        x2=&quot;570&quot;
++                        x2=&quot;699.9&quot;
+                         y2=&quot;303.85&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+-                    <line
+-                        id=&quot;30000&quot;
+-                        x1=&quot;628.8&quot;
+-                        y1=&quot;298.35&quot;
+-                        x2=&quot;628.8&quot;
+-                        y2=&quot;303.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;40000&quot;
+-                        x1=&quot;687.6&quot;
+-                        y1=&quot;298.35&quot;
+-                        x2=&quot;687.6&quot;
+-                        y2=&quot;303.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+-                    <line
+-                        id=&quot;50000&quot;
+-                        x1=&quot;746.4&quot;
+-                        y1=&quot;298.35&quot;
+-                        x2=&quot;746.4&quot;
+-                        y2=&quot;303.85&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+                 </g>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;452.32&quot;
+@@ -530,64 +449,37 @@
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;start&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        0
++                        Jan 15, 1850
+                     </text>
+                     <text
+                         x=&quot;831.3199999999999&quot;
+                         y=&quot;315.85&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;end&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        64434
++                        Jun 15, 2026
+                     </text>
+                     <text
+-                        x=&quot;511.1&quot;
++                        x=&quot;582.3&quot;
+                         y=&quot;315.85&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        10000
++                        Jul 17, 1910
+                     </text>
+                     <text
+-                        x=&quot;570&quot;
++                        x=&quot;699.9&quot;
+                         y=&quot;315.85&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;12&quot;
+                     >
+-                        20000
++                        Apr 19, 1965
+                     </text>
+-                    <text
+-                        x=&quot;628.8&quot;
+-                        y=&quot;315.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        30000
+-                    </text>
+-                    <text
+-                        x=&quot;687.6&quot;
+-                        y=&quot;315.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        40000
+-                    </text>
+-                    <text
+-                        x=&quot;746.4&quot;
+-                        y=&quot;315.85&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;12&quot;
+-                    >
+-                        50000
+-                    </text>
+
+... (diff truncated: showing 300 of 455 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="snow-cover-north-america" data-chart-type="LineChart">
+        <div class="header-with-actions">
+            <h2>snow-cover-north-america</h2>
+            <button class="copy-slug-btn" data-slug="snow-cover-north-america" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (64)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/snow-cover-north-america" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/snow-cover-north-america_v20_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-gdoc-block-url-extract/grapher/snow-cover-north-america" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/snow-cover-north-america_v20_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/snow-cover-north-america_v20_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/snow-cover-north-america_v20_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: snow-cover-north-america_v20_850x600.svg
+===================================================================
+--- snow-cover-north-america_v20_850x600.svg
++++ snow-cover-north-america_v20_850x600.svg
+@@ -121,52 +121,43 @@
+         <g id=&quot;Northern-Hemisphere&quot;>
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+-                        id=&quot;44559&quot;
++                        id=&quot;Jan-15,-1972&quot;
+                         x1=&quot;102.3&quot;
+                         y1=&quot;314.75&quot;
+                         x2=&quot;102.3&quot;
+                         y2=&quot;320.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;64434&quot;
++                        id=&quot;Jun-15,-2026&quot;
+                         x1=&quot;833&quot;
+                         y1=&quot;314.75&quot;
+                         x2=&quot;833&quot;
+                         y2=&quot;320.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;50000&quot;
+-                        x1=&quot;302.3&quot;
++                        id=&quot;Sep-4,-1992&quot;
++                        x1=&quot;379.4&quot;
+                         y1=&quot;314.75&quot;
+-                        x2=&quot;302.3&quot;
++                        x2=&quot;379.4&quot;
+                         y2=&quot;320.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;55000&quot;
+-                        x1=&quot;486.1&quot;
++                        id=&quot;May-14,-2006&quot;
++                        x1=&quot;563.2&quot;
+                         y1=&quot;314.75&quot;
+-                        x2=&quot;486.1&quot;
++                        x2=&quot;563.2&quot;
+                         y2=&quot;320.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+-                    <line
+-                        id=&quot;60000&quot;
+-                        x1=&quot;670&quot;
+-                        y1=&quot;314.75&quot;
+-                        x2=&quot;670&quot;
+-                        y2=&quot;320.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+                 </g>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;102.25&quot;
+@@ -174,46 +165,37 @@
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;start&quot;
+                         font-size=&quot;13&quot;
+                     >
+-                        44559
++                        Jan 15, 1972
+                     </text>
+                     <text
+                         x=&quot;833&quot;
+                         y=&quot;333.25&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;end&quot;
+                         font-size=&quot;13&quot;
+                     >
+-                        64434
++                        Jun 15, 2026
+                     </text>
+                     <text
+-                        x=&quot;302.3&quot;
++                        x=&quot;379.4&quot;
+                         y=&quot;333.25&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;13&quot;
+                     >
+-                        50000
++                        Sep 4, 1992
+                     </text>
+                     <text
+-                        x=&quot;486.1&quot;
++                        x=&quot;563.2&quot;
+                         y=&quot;333.25&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;13&quot;
+                     >
+-                        55000
++                        May 14, 2006
+                     </text>
+-                    <text
+-                        x=&quot;670&quot;
+-                        y=&quot;333.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;13&quot;
+-                    >
+-                        60000
+-                    </text>
+                 </g>
+             </g>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+@@ -384,52 +366,43 @@
+         <g id=&quot;North-America&quot;>
+             <g id=&quot;horizontal-axis&quot; class=&quot;HorizontalAxis&quot;>
+                 <g id=&quot;tick-marks&quot;>
+                     <line
+-                        id=&quot;44559&quot;
++                        id=&quot;Jan-15,-1972&quot;
+                         x1=&quot;102.3&quot;
+                         y1=&quot;531.75&quot;
+                         x2=&quot;102.3&quot;
+                         y2=&quot;537.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;64434&quot;
++                        id=&quot;Jun-15,-2026&quot;
+                         x1=&quot;833&quot;
+                         y1=&quot;531.75&quot;
+                         x2=&quot;833&quot;
+                         y2=&quot;537.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;50000&quot;
+-                        x1=&quot;302.3&quot;
++                        id=&quot;Sep-4,-1992&quot;
++                        x1=&quot;379.4&quot;
+                         y1=&quot;531.75&quot;
+-                        x2=&quot;302.3&quot;
++                        x2=&quot;379.4&quot;
+                         y2=&quot;537.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+                     <line
+-                        id=&quot;55000&quot;
+-                        x1=&quot;486.1&quot;
++                        id=&quot;May-14,-2006&quot;
++                        x1=&quot;563.2&quot;
+                         y1=&quot;531.75&quot;
+-                        x2=&quot;486.1&quot;
++                        x2=&quot;563.2&quot;
+                         y2=&quot;537.25&quot;
+                         stroke=&quot;#999&quot;
+                         stroke-width=&quot;1&quot;
+                     ></line>
+-                    <line
+-                        id=&quot;60000&quot;
+-                        x1=&quot;670&quot;
+-                        y1=&quot;531.75&quot;
+-                        x2=&quot;670&quot;
+-                        y2=&quot;537.25&quot;
+-                        stroke=&quot;#999&quot;
+-                        stroke-width=&quot;1&quot;
+-                    ></line>
+                 </g>
+                 <g id=&quot;tick-labels&quot;>
+                     <text
+                         x=&quot;102.25&quot;
+@@ -437,46 +410,37 @@
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;start&quot;
+                         font-size=&quot;13&quot;
+                     >
+-                        44559
++                        Jan 15, 1972
+                     </text>
+                     <text
+                         x=&quot;833&quot;
+                         y=&quot;550.25&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;end&quot;
+                         font-size=&quot;13&quot;
+                     >
+-                        64434
++                        Jun 15, 2026
+                     </text>
+                     <text
+-                        x=&quot;302.3&quot;
++                        x=&quot;379.4&quot;
+                         y=&quot;550.25&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;13&quot;
+                     >
+-                        50000
++                        Sep 4, 1992
+                     </text>
+                     <text
+-                        x=&quot;486.1&quot;
++                        x=&quot;563.2&quot;
+                         y=&quot;550.25&quot;
+                         fill=&quot;#5b5b5b&quot;
+                         text-anchor=&quot;middle&quot;
+                         font-size=&quot;13&quot;
+                     >
+-                        55000
++                        May 14, 2006
+                     </text>
+-                    <text
+-                        x=&quot;670&quot;
+-                        y=&quot;550.25&quot;
+-                        fill=&quot;#5b5b5b&quot;
+-                        text-anchor=&quot;middle&quot;
+-                        font-size=&quot;13&quot;
+-                    >
+-                        60000
+-                    </text>
+                 </g>
+             </g>
+             <g id=&quot;vertical-axis&quot; class=&quot;VerticalAxis&quot;>
+                 <g id=&quot;tick-labels&quot;>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Chart type filtering
+        const chartTypeFilter = document.getElementById('chart-type-filter');
+        const visibleCountSpan = document.getElementById('visible-count');
+
+        function filterByChartType(chartType) {
+            const sections = document.querySelectorAll('section[data-chart-type]');
+            let visibleCount = 0;
+
+            sections.forEach(section => {
+                if (chartType === 'all' || section.dataset.chartType === chartType) {
+                    section.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            if (visibleCountSpan) {
+                visibleCountSpan.textContent = visibleCount;
+            }
+        }
+
+        if (chartTypeFilter) {
+            chartTypeFilter.addEventListener('change', (e) => {
+                filterByChartType(e.target.value);
+            });
+        }
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section, and skip if diff was too large
+                    if (diffContainer && !renderedDiffs.has(diffId) && !diffContainer.dataset.skipped) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
