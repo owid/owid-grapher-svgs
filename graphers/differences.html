@@ -1,0 +1,1933 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        /* Filter dropdown */
+        .filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        .filter-container label {
+            font-weight: 500;
+            color: #24292e;
+        }
+
+        .filter-container select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            background: #fafbfc;
+            font-size: 0.9rem;
+            color: #24292e;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-container select:hover {
+            border-color: #a0a8b0;
+        }
+
+        .filter-container select:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        section.hidden {
+            display: none;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 0 1 auto;
+            display: flex;
+            flex-direction: column;
+            max-width: 850px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 850px;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            height: auto;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="filter-container">
+        <label for="chart-type-filter">Chart Type:</label>
+        <select id="chart-type-filter">
+            <option value="all" selected>All (5)</option>
+            <option value="WorldMap">WorldMap (5)</option>
+        </select>
+    </div><p class="summary">Showing <span id="visible-count">5</span> of 5 differences</p><section data-slug="world-regions-according-to-fao" data-chart-type="WorldMap">
+        <div class="header-with-actions">
+            <h2>world-regions-according-to-fao</h2>
+            <button class="copy-slug-btn" data-slug="world-regions-according-to-fao" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (7)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/world-regions-according-to-fao" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/world-regions-according-to-fao_v10_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-map-region-colors/grapher/world-regions-according-to-fao" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/world-regions-according-to-fao_v10_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/world-regions-according-to-fao_v10_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/world-regions-according-to-fao_v10_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: world-regions-according-to-fao_v10_850x600.svg
+===================================================================
+--- world-regions-according-to-fao_v10_850x600.svg
++++ world-regions-according-to-fao_v10_850x600.svg
+@@ -176,9 +176,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;rgb(210, 160, 161)&quot;
++                    fill=&quot;#238A84&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Fiji&quot;
+@@ -539,9 +539,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;rgb(210, 160, 161)&quot;
++                    fill=&quot;#238A84&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Uzbekistan&quot;
+@@ -2479,13 +2479,9 @@
+                     x=&quot;184.12399999999997&quot;
+                     y=&quot;534.9&quot;
+                     width=&quot;13.5&quot;
+                     height=&quot;13.5&quot;
+-                    style=&quot;
+-                        fill: rgb(210, 160, 161);
+-                        stroke-width: 0.4;
+-                        stroke: #333;
+-                    &quot;
++                    style=&quot;fill: #238a84; stroke-width: 0.4; stroke: #333&quot;
+                 ></rect>
+                 <rect
+                     id=&quot;Melanesia&quot;
+                     x=&quot;385.12&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="world-regions-according-to-ilo" data-chart-type="WorldMap">
+        <div class="header-with-actions">
+            <h2>world-regions-according-to-ilo</h2>
+            <button class="copy-slug-btn" data-slug="world-regions-according-to-ilo" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (167)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/world-regions-according-to-ilo" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/world-regions-according-to-ilo_v6_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-map-region-colors/grapher/world-regions-according-to-ilo" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/world-regions-according-to-ilo_v6_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/world-regions-according-to-ilo_v6_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/world-regions-according-to-ilo_v6_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: world-regions-according-to-ilo_v6_850x600.svg
+===================================================================
+--- world-regions-according-to-ilo_v6_850x600.svg
++++ world-regions-according-to-ilo_v6_850x600.svg
+@@ -97,9 +97,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#C3A27C&quot;
++                    fill=&quot;#526F9B&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;United-States&quot;
+@@ -130,9 +130,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#238A84&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Brazil&quot;
+@@ -163,9 +163,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#238A84&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Fiji&quot;
+@@ -174,9 +174,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#238A84&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;India&quot;
+@@ -185,9 +185,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#238A84&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Indonesia&quot;
+@@ -196,9 +196,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#238A84&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Argentina&quot;
+@@ -218,9 +218,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#C3A27C&quot;
++                    fill=&quot;#526F9B&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Norway&quot;
+@@ -229,9 +229,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#C3A27C&quot;
++                    fill=&quot;#526F9B&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Mexico&quot;
+@@ -251,9 +251,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Democratic-Republic-of-Congo&quot;
+@@ -262,9 +262,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Mongolia&quot;
+@@ -273,9 +273,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#238A84&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Saudi-Arabia&quot;
+@@ -284,9 +284,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#238A84&quot;
++                    fill=&quot;#C3A27C&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Chile&quot;
+@@ -306,9 +306,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#238A84&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Mali&quot;
+@@ -317,9 +317,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Japan&quot;
+@@ -328,9 +328,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#238A84&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Peru&quot;
+@@ -350,9 +350,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#238A84&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Sudan&quot;
+@@ -361,9 +361,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Libya&quot;
+@@ -372,9 +372,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;South-Africa&quot;
+@@ -383,9 +383,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Colombia&quot;
+@@ -405,9 +405,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Sweden&quot;
+@@ -416,9 +416,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#C3A27C&quot;
++                    fill=&quot;#526F9B&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Mozambique&quot;
+@@ -427,9 +427,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Ethiopia&quot;
+@@ -438,9 +438,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Angola&quot;
+@@ -449,9 +449,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Chad&quot;
+@@ -460,9 +460,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Myanmar&quot;
+@@ -471,9 +471,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#238A84&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Namibia&quot;
+@@ -482,9 +482,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+
+... (diff truncated: showing 300 of 1838 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="world-regions-according-to-maddison-project-database" data-chart-type="WorldMap">
+        <div class="header-with-actions">
+            <h2>world-regions-according-to-maddison-project-database</h2>
+            <button class="copy-slug-btn" data-slug="world-regions-according-to-maddison-project-database" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (172)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/world-regions-according-to-maddison-project-database" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/world-regions-according-to-maddison-project-database_v8_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-map-region-colors/grapher/world-regions-according-to-maddison-project-database" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/world-regions-according-to-maddison-project-database_v8_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/world-regions-according-to-maddison-project-database_v8_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/world-regions-according-to-maddison-project-database_v8_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: world-regions-according-to-maddison-project-database_v8_850x600.svg
+===================================================================
+--- world-regions-according-to-maddison-project-database_v8_850x600.svg
++++ world-regions-according-to-maddison-project-database_v8_850x600.svg
+@@ -503,9 +503,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#238A84&quot;
++                    fill=&quot;#92D3DE&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;United-States&quot;
+@@ -514,9 +514,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#CC7641&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Canada&quot;
+@@ -525,9 +525,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#CC7641&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;China&quot;
+@@ -536,9 +536,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#C3A27C&quot;
++                    fill=&quot;#CB7FA0&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Brazil&quot;
+@@ -547,9 +547,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Australia&quot;
+@@ -558,9 +558,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#CC7641&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;India&quot;
+@@ -569,9 +569,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#B04E74&quot;
++                    fill=&quot;#5B6D35&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Indonesia&quot;
+@@ -580,9 +580,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#B04E74&quot;
++                    fill=&quot;#5B6D35&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Argentina&quot;
+@@ -591,9 +591,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Kazakhstan&quot;
+@@ -602,9 +602,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#238A84&quot;
++                    fill=&quot;#92D3DE&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Norway&quot;
+@@ -613,9 +613,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#CC7641&quot;
++                    fill=&quot;#526F9B&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Mexico&quot;
+@@ -624,9 +624,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Algeria&quot;
+@@ -635,9 +635,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#6FA54F&quot;
++                    fill=&quot;#C3A27C&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Democratic-Republic-of-Congo&quot;
+@@ -646,9 +646,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#5FB8C8&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Mongolia&quot;
+@@ -657,9 +657,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#B04E74&quot;
++                    fill=&quot;#5B6D35&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Saudi-Arabia&quot;
+@@ -668,9 +668,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#6FA54F&quot;
++                    fill=&quot;#C3A27C&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Chile&quot;
+@@ -679,9 +679,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Iran&quot;
+@@ -690,9 +690,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#6FA54F&quot;
++                    fill=&quot;#C3A27C&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Mali&quot;
+@@ -701,9 +701,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#5FB8C8&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Japan&quot;
+@@ -712,9 +712,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#C3A27C&quot;
++                    fill=&quot;#CB7FA0&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Peru&quot;
+@@ -723,9 +723,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Pakistan&quot;
+@@ -734,9 +734,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#B04E74&quot;
++                    fill=&quot;#5B6D35&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Libya&quot;
+@@ -745,9 +745,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#6FA54F&quot;
++                    fill=&quot;#C3A27C&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;South-Africa&quot;
+@@ -756,9 +756,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#5FB8C8&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Colombia&quot;
+@@ -767,9 +767,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Niger&quot;
+@@ -778,9 +778,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#5FB8C8&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Sweden&quot;
+@@ -789,9 +789,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#CC7641&quot;
++                    fill=&quot;#526F9B&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+
+... (diff truncated: showing 300 of 1883 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="world-regions-according-to-the-world-bank" data-chart-type="WorldMap">
+        <div class="header-with-actions">
+            <h2>world-regions-according-to-the-world-bank</h2>
+            <button class="copy-slug-btn" data-slug="world-regions-according-to-the-world-bank" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (207)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/world-regions-according-to-the-world-bank" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/world-regions-according-to-the-world-bank_v12_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-map-region-colors/grapher/world-regions-according-to-the-world-bank" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/world-regions-according-to-the-world-bank_v12_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/world-regions-according-to-the-world-bank_v12_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/world-regions-according-to-the-world-bank_v12_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: world-regions-according-to-the-world-bank_v12_850x600.svg
+===================================================================
+--- world-regions-according-to-the-world-bank_v12_850x600.svg
++++ world-regions-according-to-the-world-bank_v12_850x600.svg
+@@ -119,9 +119,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#C3A27C&quot;
++                    fill=&quot;#526F9B&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;United-States&quot;
+@@ -130,9 +130,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#CC7641&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Canada&quot;
+@@ -141,9 +141,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#CC7641&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;China&quot;
+@@ -152,9 +152,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#6FA54F&quot;
++                    fill=&quot;#5FB8C8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Brazil&quot;
+@@ -163,9 +163,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#CC7641&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Greenland&quot;
+@@ -174,9 +174,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#C3A27C&quot;
++                    fill=&quot;#526F9B&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Australia&quot;
+@@ -185,9 +185,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#6FA54F&quot;
++                    fill=&quot;#5FB8C8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Fiji&quot;
+@@ -196,9 +196,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#6FA54F&quot;
++                    fill=&quot;#5FB8C8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;India&quot;
+@@ -207,9 +207,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#B04E74&quot;
++                    fill=&quot;#5B6D35&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Indonesia&quot;
+@@ -218,9 +218,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#6FA54F&quot;
++                    fill=&quot;#5FB8C8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Argentina&quot;
+@@ -229,9 +229,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#CC7641&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Kazakhstan&quot;
+@@ -240,9 +240,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#C3A27C&quot;
++                    fill=&quot;#526F9B&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Norway&quot;
+@@ -251,9 +251,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#C3A27C&quot;
++                    fill=&quot;#526F9B&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Mexico&quot;
+@@ -262,9 +262,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#CC7641&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Algeria&quot;
+@@ -273,9 +273,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#C3A27C&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Democratic-Republic-of-Congo&quot;
+@@ -284,9 +284,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#238A84&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Mongolia&quot;
+@@ -295,9 +295,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#6FA54F&quot;
++                    fill=&quot;#5FB8C8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Saudi-Arabia&quot;
+@@ -306,9 +306,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#C3A27C&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Chile&quot;
+@@ -317,9 +317,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#CC7641&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Iran&quot;
+@@ -328,9 +328,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#C3A27C&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Mali&quot;
+@@ -339,9 +339,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#238A84&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Japan&quot;
+@@ -350,9 +350,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#6FA54F&quot;
++                    fill=&quot;#5FB8C8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Peru&quot;
+@@ -361,9 +361,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#CC7641&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Pakistan&quot;
+@@ -372,9 +372,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#C3A27C&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Sudan&quot;
+@@ -383,9 +383,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#238A84&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Libya&quot;
+@@ -394,9 +394,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#C3A27C&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;South-Africa&quot;
+@@ -405,9 +405,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#238A84&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+
+... (diff truncated: showing 300 of 2270 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="world-regions-according-to-wid" data-chart-type="WorldMap">
+        <div class="header-with-actions">
+            <h2>world-regions-according-to-wid</h2>
+            <button class="copy-slug-btn" data-slug="world-regions-according-to-wid" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (180)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/world-regions-according-to-wid" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/world-regions-according-to-wid_v6_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-map-region-colors/grapher/world-regions-according-to-wid" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/world-regions-according-to-wid_v6_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/world-regions-according-to-wid_v6_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/world-regions-according-to-wid_v6_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: world-regions-according-to-wid_v6_850x600.svg
+===================================================================
+--- world-regions-according-to-wid_v6_850x600.svg
++++ world-regions-according-to-wid_v6_850x600.svg
+@@ -118,9 +118,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#92D3DE&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;United-States&quot;
+@@ -129,9 +129,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#CC7641&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Canada&quot;
+@@ -140,9 +140,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#CC7641&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;China&quot;
+@@ -162,9 +162,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#CC7641&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Greenland&quot;
+@@ -173,9 +173,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#526F9B&quot;
++                    fill=&quot;#CC7641&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Australia&quot;
+@@ -184,9 +184,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#8E97C7&quot;
++                    fill=&quot;#238A84&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Fiji&quot;
+@@ -195,9 +195,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#8E97C7&quot;
++                    fill=&quot;#238A84&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;India&quot;
+@@ -206,9 +206,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#5FB8C8&quot;
++                    fill=&quot;#5B6D35&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Indonesia&quot;
+@@ -217,9 +217,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#5FB8C8&quot;
++                    fill=&quot;#5B6D35&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Argentina&quot;
+@@ -228,9 +228,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#CC7641&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Kazakhstan&quot;
+@@ -239,9 +239,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#77538F&quot;
++                    fill=&quot;#92D3DE&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Norway&quot;
+@@ -250,9 +250,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#238A84&quot;
++                    fill=&quot;#526F9B&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Mexico&quot;
+@@ -261,9 +261,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#CC7641&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Algeria&quot;
+@@ -283,9 +283,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#B04E74&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Mongolia&quot;
+@@ -316,9 +316,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#CC7641&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Iran&quot;
+@@ -338,9 +338,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#B04E74&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Japan&quot;
+@@ -360,9 +360,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#CC7641&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Pakistan&quot;
+@@ -371,9 +371,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#5FB8C8&quot;
++                    fill=&quot;#5B6D35&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Sudan&quot;
+@@ -382,9 +382,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#B04E74&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Libya&quot;
+@@ -404,9 +404,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#B04E74&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Colombia&quot;
+@@ -415,9 +415,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#CC7641&quot;
++                    fill=&quot;#B04E74&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Niger&quot;
+@@ -426,9 +426,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#B04E74&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Sweden&quot;
+@@ -437,9 +437,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#238A84&quot;
++                    fill=&quot;#526F9B&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Mozambique&quot;
+@@ -448,9 +448,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#B04E74&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Ethiopia&quot;
+@@ -459,9 +459,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#B04E74&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Angola&quot;
+@@ -470,9 +470,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#B04E74&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Chad&quot;
+@@ -481,9 +481,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#B04E74&quot;
++                    fill=&quot;#A07AB8&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+
+... (diff truncated: showing 300 of 1977 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Chart type filtering
+        const chartTypeFilter = document.getElementById('chart-type-filter');
+        const visibleCountSpan = document.getElementById('visible-count');
+
+        function filterByChartType(chartType) {
+            const sections = document.querySelectorAll('section[data-chart-type]');
+            let visibleCount = 0;
+
+            sections.forEach(section => {
+                if (chartType === 'all' || section.dataset.chartType === chartType) {
+                    section.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            if (visibleCountSpan) {
+                visibleCountSpan.textContent = visibleCount;
+            }
+        }
+
+        if (chartTypeFilter) {
+            chartTypeFilter.addEventListener('change', (e) => {
+                filterByChartType(e.target.value);
+            });
+        }
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section, and skip if diff was too large
+                    if (diffContainer && !renderedDiffs.has(diffId) && !diffContainer.dataset.skipped) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
