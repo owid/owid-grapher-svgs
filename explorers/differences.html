@@ -1,0 +1,1888 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        /* Filter dropdown */
+        .filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        .filter-container label {
+            font-weight: 500;
+            color: #24292e;
+        }
+
+        .filter-container select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            background: #fafbfc;
+            font-size: 0.9rem;
+            color: #24292e;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-container select:hover {
+            border-color: #a0a8b0;
+        }
+
+        .filter-container select:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        section.hidden {
+            display: none;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 0 1 auto;
+            display: flex;
+            flex-direction: column;
+            max-width: 850px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 850px;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            height: auto;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="filter-container">
+        <label for="chart-type-filter">Chart Type:</label>
+        <select id="chart-type-filter">
+            <option value="all" selected>All (7)</option>
+            <option value="DiscreteBar">DiscreteBar (6)</option>
+<option value="StackedDiscreteBar">StackedDiscreteBar (1)</option>
+        </select>
+    </div><p class="summary">Showing <span id="visible-count">7</span> of 7 differences</p><section data-slug="covid?Metric=Vaccine+doses+%28by+type%29&Interval=Cumulative&Relative+to+population=false" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>covid?Metric=Vaccine+doses+%28by+type%29&Interval=Cumulative&Relative+to+population=false</h2>
+            <button class="copy-slug-btn" data-slug="covid?Metric=Vaccine+doses+%28by+type%29&Interval=Cumulative&Relative+to+population=false" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (41)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/covid?Metric=Vaccine+doses+%28by+type%29&Interval=Cumulative&Relative+to+population=false" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/covid-911e75e7515c3bbdc744858f9c624fb1_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-sig-fig-decimal-cap/explorers/covid?Metric=Vaccine+doses+%28by+type%29&Interval=Cumulative&Relative+to+population=false" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/covid-911e75e7515c3bbdc744858f9c624fb1_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/covid-911e75e7515c3bbdc744858f9c624fb1_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/covid-911e75e7515c3bbdc744858f9c624fb1_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: covid-911e75e7515c3bbdc744858f9c624fb1_v0_850x600.svg
+===================================================================
+--- covid-911e75e7515c3bbdc744858f9c624fb1_v0_850x600.svg
++++ covid-911e75e7515c3bbdc744858f9c624fb1_v0_850x600.svg
+@@ -134,50 +134,50 @@
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(97.4, -34.149375)&quot;
+-                        width=&quot;515.3000000000001&quot;
++                        width=&quot;530.5&quot;
+                         height=&quot;68.29875&quot;
+                         fill=&quot;#6a51a3&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;355.05000000000007&quot;
++                        x=&quot;362.65&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;515.3000000000001&quot;
++                        width=&quot;530.5&quot;
+                         height=&quot;68.29875&quot;
+                         fill=&quot;#fff&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+-                        543.67 million
++                        544 million
+                     </text>
+                 </g>
+                 <g id=&quot;Booster-doses&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(612.7, -34.149375)&quot;
+-                        width=&quot;126.1&quot;
++                        transform=&quot;translate(627.9, -34.149375)&quot;
++                        width=&quot;129.79999999999998&quot;
+                         height=&quot;68.29875&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;675.75&quot;
++                        x=&quot;692.8&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;126.1&quot;
++                        width=&quot;129.79999999999998&quot;
+                         height=&quot;68.29875&quot;
+                         fill=&quot;#fff&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+-                        133.06 million
++                        133 million
+                     </text>
+                 </g>
+                 <text
+                     x=&quot;92.4&quot;
+@@ -190,15 +190,15 @@
+                         United States
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(743.8, 0)&quot;
++                    transform=&quot;translate(762.7, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+-                    676.73 million
++                    677 million
+                 </text>
+             </g>
+             <g id=&quot;Brazil&quot; transform=&quot;translate(0, 287.7125)&quot; opacity=&quot;1&quot;>
+                 <g id=&quot;Initial-protocol-doses&quot;>
+@@ -206,50 +206,50 @@
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(97.4, -34.149375)&quot;
+-                        width=&quot;369.5&quot;
++                        width=&quot;380.4&quot;
+                         height=&quot;68.29875&quot;
+                         fill=&quot;#6a51a3&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;282.15&quot;
++                        x=&quot;287.6&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;369.5&quot;
++                        width=&quot;380.4&quot;
+                         height=&quot;68.29875&quot;
+                         fill=&quot;#fff&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+-                        389.85 million
++                        390 million
+                     </text>
+                 </g>
+                 <g id=&quot;Booster-doses&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(466.9, -34.149375)&quot;
+-                        width=&quot;119.79999999999998&quot;
++                        transform=&quot;translate(477.8, -34.149375)&quot;
++                        width=&quot;123.29999999999998&quot;
+                         height=&quot;68.29875&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;526.8&quot;
++                        x=&quot;539.45&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;119.79999999999998&quot;
++                        width=&quot;123.29999999999998&quot;
+                         height=&quot;68.29875&quot;
+                         fill=&quot;#fff&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+-                        126.39 million
++                        126 million
+                     </text>
+                 </g>
+                 <text
+                     x=&quot;92.4&quot;
+@@ -262,15 +262,15 @@
+                         Brazil
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(591.7, 0)&quot;
++                    transform=&quot;translate(606.1, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+-                    516.24 million
++                    516 million
+                 </text>
+             </g>
+             <g
+                 id=&quot;Japan&quot;
+@@ -282,50 +282,50 @@
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(97.4, -34.149375)&quot;
+-                        width=&quot;244.29999999999998&quot;
++                        width=&quot;251.4&quot;
+                         height=&quot;68.29875&quot;
+                         fill=&quot;#6a51a3&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;219.55&quot;
++                        x=&quot;223.10000000000002&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;244.29999999999998&quot;
++                        width=&quot;251.4&quot;
+                         height=&quot;68.29875&quot;
+                         fill=&quot;#fff&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+-                        257.69 million
++                        258 million
+                     </text>
+                 </g>
+                 <g id=&quot;Booster-doses&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(341.7, -34.149375)&quot;
+-                        width=&quot;166.49999999999997&quot;
++                        transform=&quot;translate(348.8, -34.149375)&quot;
++                        width=&quot;171.4&quot;
+                         height=&quot;68.29875&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;424.95&quot;
++                        x=&quot;434.5&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;166.49999999999997&quot;
++                        width=&quot;171.4&quot;
+                         height=&quot;68.29875&quot;
+                         fill=&quot;#fff&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+-                        175.66 million
++                        176 million
+                     </text>
+                 </g>
+                 <text
+                     x=&quot;92.4&quot;
+@@ -338,15 +338,15 @@
+                         Japan
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(513.1, 0)&quot;
++                    transform=&quot;translate(525.2, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+-                    433.36 million
++                    433 million
+                 </text>
+             </g>
+             <g
+                 id=&quot;Germany&quot;
+@@ -358,34 +358,34 @@
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+                         transform=&quot;translate(97.4, -34.149375)&quot;
+-                        width=&quot;121.79999999999998&quot;
++                        width=&quot;125.29999999999998&quot;
+                         height=&quot;68.29875&quot;
+                         fill=&quot;#6a51a3&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;158.3&quot;
++                        x=&quot;160.05&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;121.79999999999998&quot;
++                        width=&quot;125.29999999999998&quot;
+                         height=&quot;68.29875&quot;
+                         fill=&quot;#fff&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+                         dy=&quot;.32em&quot;
+                     >
+-                        128.45 million
++                        128 million
+                     </text>
+                 </g>
+                 <g id=&quot;Booster-doses&quot;>
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(219.2, -34.149375)&quot;
+-                        width=&quot;61.400000000000006&quot;
++                        transform=&quot;translate(222.7, -34.149375)&quot;
++                        width=&quot;63.19999999999999&quot;
+                         height=&quot;68.29875&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+@@ -402,15 +402,15 @@
+                         Germany
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(285.6, 0)&quot;
++                    transform=&quot;translate(291, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+                 >
+-                    193.24 million
++                    193 million
+                 </text>
+             </g>
+         </g>
+     </g>
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="fertilizers?Input=Total+nutrients&Nutrient=Nitrogen&Metric=Applied+%28total%29&Share+of+world+total=false" data-chart-type="DiscreteBar">
+        <div class="header-with-actions">
+            <h2>fertilizers?Input=Total+nutrients&Nutrient=Nitrogen&Metric=Applied+%28total%29&Share+of+world+total=false</h2>
+            <button class="copy-slug-btn" data-slug="fertilizers?Input=Total+nutrients&Nutrient=Nitrogen&Metric=Applied+%28total%29&Share+of+world+total=false" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (15)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/fertilizers?Input=Total+nutrients&Nutrient=Nitrogen&Metric=Applied+%28total%29&Share+of+world+total=false" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/fertilizers-4f8c4152b854529fe667a4cad7296644_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-sig-fig-decimal-cap/explorers/fertilizers?Input=Total+nutrients&Nutrient=Nitrogen&Metric=Applied+%28total%29&Share+of+world+total=false" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/fertilizers-4f8c4152b854529fe667a4cad7296644_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/fertilizers-4f8c4152b854529fe667a4cad7296644_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/fertilizers-4f8c4152b854529fe667a4cad7296644_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: fertilizers-4f8c4152b854529fe667a4cad7296644_v0_850x600.svg
+===================================================================
+--- fertilizers-4f8c4152b854529fe667a4cad7296644_v0_850x600.svg
++++ fertilizers-4f8c4152b854529fe667a4cad7296644_v0_850x600.svg
+@@ -87,9 +87,9 @@
+                 id=&quot;China&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 117.07833333333335)&quot;
+-                width=&quot;640.9&quot;
++                width=&quot;648.7&quot;
+                 height=&quot;48.57666666666666&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -98,9 +98,9 @@
+                 id=&quot;India&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 191.81166666666667)&quot;
+-                width=&quot;357.6&quot;
++                width=&quot;362&quot;
+                 height=&quot;48.57666666666666&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -109,9 +109,9 @@
+                 id=&quot;United-States&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 266.54499999999996)&quot;
+-                width=&quot;281.29999999999995&quot;
++                width=&quot;284.70000000000005&quot;
+                 height=&quot;48.57666666666666&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -120,9 +120,9 @@
+                 id=&quot;Brazil&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 341.27833333333325)&quot;
+-                width=&quot;61.79999999999998&quot;
++                width=&quot;62.5&quot;
+                 height=&quot;48.57666666666666&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -131,9 +131,9 @@
+                 id=&quot;France&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 416.0116666666666)&quot;
+-                width=&quot;45.400000000000006&quot;
++                width=&quot;46&quot;
+                 height=&quot;48.57666666666666&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -142,9 +142,9 @@
+                 id=&quot;Egypt&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 490.74499999999995)&quot;
+-                width=&quot;26.19999999999999&quot;
++                width=&quot;26.599999999999994&quot;
+                 height=&quot;48.57666666666666&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -153,51 +153,51 @@
+         <g id=&quot;value-labels&quot;>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(743.3, 141.36666666666667)&quot;
++                transform=&quot;translate(751.1, 141.36666666666667)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+                 font-size=&quot;13.5&quot;
+                 font-weight=&quot;400&quot;
+             >
+-                31.32 million t
++                31.3 million t
+                 <tspan fill=&quot;#999&quot;></tspan>
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(460, 216.1)&quot;
++                transform=&quot;translate(464.4, 216.1)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+                 font-size=&quot;13.5&quot;
+                 font-weight=&quot;400&quot;
+             >
+-                17.48 million t
++                17.5 million t
+                 <tspan fill=&quot;#999&quot;></tspan>
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(383.7, 290.8333333333333)&quot;
++                transform=&quot;translate(387.1, 290.8333333333333)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+                 font-size=&quot;13.5&quot;
+                 font-weight=&quot;400&quot;
+             >
+-                13.75 million t
++                13.7 million t
+                 <tspan fill=&quot;#999&quot;></tspan>
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(164.2, 365.5666666666666)&quot;
++                transform=&quot;translate(164.9, 365.5666666666666)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -209,9 +209,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(147.8, 440.29999999999995)&quot;
++                transform=&quot;translate(148.4, 440.29999999999995)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -223,9 +223,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(128.6, 515.0333333333333)&quot;
++                transform=&quot;translate(129, 515.0333333333333)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="fertilizers?Input=Total+nutrients&Nutrient=Nitrogen&Metric=Excess+%28total%29&Share+of+world+total=false" data-chart-type="DiscreteBar">
+        <div class="header-with-actions">
+            <h2>fertilizers?Input=Total+nutrients&Nutrient=Nitrogen&Metric=Excess+%28total%29&Share+of+world+total=false</h2>
+            <button class="copy-slug-btn" data-slug="fertilizers?Input=Total+nutrients&Nutrient=Nitrogen&Metric=Excess+%28total%29&Share+of+world+total=false" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (14)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/fertilizers?Input=Total+nutrients&Nutrient=Nitrogen&Metric=Excess+%28total%29&Share+of+world+total=false" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/fertilizers-12487ec937c18fd4a73cb526f35955d6_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-sig-fig-decimal-cap/explorers/fertilizers?Input=Total+nutrients&Nutrient=Nitrogen&Metric=Excess+%28total%29&Share+of+world+total=false" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/fertilizers-12487ec937c18fd4a73cb526f35955d6_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/fertilizers-12487ec937c18fd4a73cb526f35955d6_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/fertilizers-12487ec937c18fd4a73cb526f35955d6_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: fertilizers-12487ec937c18fd4a73cb526f35955d6_v0_850x600.svg
+===================================================================
+--- fertilizers-12487ec937c18fd4a73cb526f35955d6_v0_850x600.svg
++++ fertilizers-12487ec937c18fd4a73cb526f35955d6_v0_850x600.svg
+@@ -94,9 +94,9 @@
+                 id=&quot;China&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 134.55333333333334)&quot;
+-                width=&quot;640.9&quot;
++                width=&quot;648.7&quot;
+                 height=&quot;46.626666666666665&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -105,9 +105,9 @@
+                 id=&quot;India&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 206.2866666666667)&quot;
+-                width=&quot;350.6&quot;
++                width=&quot;354.9&quot;
+                 height=&quot;46.626666666666665&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -116,9 +116,9 @@
+                 id=&quot;United-States&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 278.02000000000004)&quot;
+-                width=&quot;208.4&quot;
++                width=&quot;210.99999999999997&quot;
+                 height=&quot;46.626666666666665&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -127,9 +127,9 @@
+                 id=&quot;Brazil&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 349.75333333333333)&quot;
+-                width=&quot;54.400000000000006&quot;
++                width=&quot;55&quot;
+                 height=&quot;46.626666666666665&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -138,9 +138,9 @@
+                 id=&quot;Egypt&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 421.4866666666667)&quot;
+-                width=&quot;25&quot;
++                width=&quot;25.299999999999997&quot;
+                 height=&quot;46.626666666666665&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -149,9 +149,9 @@
+                 id=&quot;France&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 493.21999999999997)&quot;
+-                width=&quot;20&quot;
++                width=&quot;20.19999999999999&quot;
+                 height=&quot;46.626666666666665&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -160,37 +160,37 @@
+         <g id=&quot;value-labels&quot;>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(743.3, 157.86666666666667)&quot;
++                transform=&quot;translate(751.1, 157.86666666666667)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+                 font-size=&quot;13.5&quot;
+                 font-weight=&quot;400&quot;
+             >
+-                24.65 million t
++                24.6 million t
+                 <tspan fill=&quot;#999&quot;></tspan>
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(453, 229.60000000000002)&quot;
++                transform=&quot;translate(457.3, 229.60000000000002)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+                 font-size=&quot;13.5&quot;
+                 font-weight=&quot;400&quot;
+             >
+-                13.48 million t
++                13.5 million t
+                 <tspan fill=&quot;#999&quot;></tspan>
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(310.8, 301.33333333333337)&quot;
++                transform=&quot;translate(313.4, 301.33333333333337)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -202,9 +202,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(156.8, 373.06666666666666)&quot;
++                transform=&quot;translate(157.4, 373.06666666666666)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -216,9 +216,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(127.4, 444.8)&quot;
++                transform=&quot;translate(127.7, 444.8)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -230,9 +230,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(122.4, 516.5333333333333)&quot;
++                transform=&quot;translate(122.6, 516.5333333333333)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="food-prices?Diet=Calorie+sufficient+diet&Cost+or+Affordability=Affordability&Affordability+metric=Number+that+cannot+afford&Cost+metric=" data-chart-type="DiscreteBar">
+        <div class="header-with-actions">
+            <h2>food-prices?Diet=Calorie+sufficient+diet&Cost+or+Affordability=Affordability&Affordability+metric=Number+that+cannot+afford&Cost+metric=</h2>
+            <button class="copy-slug-btn" data-slug="food-prices?Diet=Calorie+sufficient+diet&Cost+or+Affordability=Affordability&Affordability+metric=Number+that+cannot+afford&Cost+metric=" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (17)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/food-prices?Diet=Calorie+sufficient+diet&Cost+or+Affordability=Affordability&Affordability+metric=Number+that+cannot+afford&Cost+metric=" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/food-prices-92cc5008626e23c1c13c8d688f751a3a_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-sig-fig-decimal-cap/explorers/food-prices?Diet=Calorie+sufficient+diet&Cost+or+Affordability=Affordability&Affordability+metric=Number+that+cannot+afford&Cost+metric=" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/food-prices-92cc5008626e23c1c13c8d688f751a3a_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/food-prices-92cc5008626e23c1c13c8d688f751a3a_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/food-prices-92cc5008626e23c1c13c8d688f751a3a_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: food-prices-92cc5008626e23c1c13c8d688f751a3a_v0_850x600.svg
+===================================================================
+--- food-prices-92cc5008626e23c1c13c8d688f751a3a_v0_850x600.svg
++++ food-prices-92cc5008626e23c1c13c8d688f751a3a_v0_850x600.svg
+@@ -94,9 +94,9 @@
+                 id=&quot;Nigeria&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(114.1, 129.65437500000002)&quot;
+-                width=&quot;632.5&quot;
++                width=&quot;640.4&quot;
+                 height=&quot;35.11625&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -105,9 +105,9 @@
+                 id=&quot;India&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(114.1, 183.67937500000002)&quot;
+-                width=&quot;392.20000000000005&quot;
++                width=&quot;397&quot;
+                 height=&quot;35.11625&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -116,9 +116,9 @@
+                 id=&quot;Brazil&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(114.1, 237.704375)&quot;
+-                width=&quot;183.50000000000003&quot;
++                width=&quot;185.79999999999998&quot;
+                 height=&quot;35.11625&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -127,9 +127,9 @@
+                 id=&quot;Ethiopia&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(114.1, 291.729375)&quot;
+-                width=&quot;74.4&quot;
++                width=&quot;75.30000000000001&quot;
+                 height=&quot;35.11625&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -138,9 +138,9 @@
+                 id=&quot;Bangladesh&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(114.1, 345.754375)&quot;
+-                width=&quot;72.30000000000001&quot;
++                width=&quot;73.20000000000002&quot;
+                 height=&quot;35.11625&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -149,9 +149,9 @@
+                 id=&quot;Mexico&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(114.1, 399.77937499999996)&quot;
+-                width=&quot;62.599999999999994&quot;
++                width=&quot;63.400000000000006&quot;
+                 height=&quot;35.11625&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -160,9 +160,9 @@
+                 id=&quot;United-States&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(114.1, 453.80437499999994)&quot;
+-                width=&quot;39.5&quot;
++                width=&quot;40&quot;
+                 height=&quot;35.11625&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -171,9 +171,9 @@
+                 id=&quot;United-Kingdom&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(114.1, 507.829375)&quot;
+-                width=&quot;7.700000000000003&quot;
++                width=&quot;7.800000000000011&quot;
+                 height=&quot;35.11625&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -182,23 +182,23 @@
+         <g id=&quot;value-labels&quot;>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(751.6, 147.2125)&quot;
++                transform=&quot;translate(759.5, 147.2125)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+                 font-size=&quot;13.5&quot;
+                 font-weight=&quot;400&quot;
+             >
+-                123.4 million
++                123 million
+                 <tspan fill=&quot;#999&quot;></tspan>
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(511.3, 201.2375)&quot;
++                transform=&quot;translate(516.1, 201.2375)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -210,9 +210,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(302.6, 255.2625)&quot;
++                transform=&quot;translate(304.9, 255.2625)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -224,9 +224,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(193.5, 309.2875)&quot;
++                transform=&quot;translate(194.4, 309.2875)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -238,9 +238,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(191.4, 363.3125)&quot;
++                transform=&quot;translate(192.3, 363.3125)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -252,9 +252,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(181.7, 417.3375)&quot;
++                transform=&quot;translate(182.5, 417.3375)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -266,9 +266,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(158.6, 471.36249999999995)&quot;
++                transform=&quot;translate(159.1, 471.36249999999995)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -280,9 +280,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(126.8, 525.3875)&quot;
++                transform=&quot;translate(126.9, 525.3875)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="food-prices?Diet=Nutrient+adequate+diet&Cost+or+Affordability=Affordability&Affordability+metric=Number+that+cannot+afford&Cost+metric=" data-chart-type="DiscreteBar">
+        <div class="header-with-actions">
+            <h2>food-prices?Diet=Nutrient+adequate+diet&Cost+or+Affordability=Affordability&Affordability+metric=Number+that+cannot+afford&Cost+metric=</h2>
+            <button class="copy-slug-btn" data-slug="food-prices?Diet=Nutrient+adequate+diet&Cost+or+Affordability=Affordability&Affordability+metric=Number+that+cannot+afford&Cost+metric=" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (16)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/food-prices?Diet=Nutrient+adequate+diet&Cost+or+Affordability=Affordability&Affordability+metric=Number+that+cannot+afford&Cost+metric=" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/food-prices-5d3efc873e16cef38c080b5025578d13_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-sig-fig-decimal-cap/explorers/food-prices?Diet=Nutrient+adequate+diet&Cost+or+Affordability=Affordability&Affordability+metric=Number+that+cannot+afford&Cost+metric=" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/food-prices-5d3efc873e16cef38c080b5025578d13_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/food-prices-5d3efc873e16cef38c080b5025578d13_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/food-prices-5d3efc873e16cef38c080b5025578d13_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: food-prices-5d3efc873e16cef38c080b5025578d13_v0_850x600.svg
+===================================================================
+--- food-prices-5d3efc873e16cef38c080b5025578d13_v0_850x600.svg
++++ food-prices-5d3efc873e16cef38c080b5025578d13_v0_850x600.svg
+@@ -95,9 +95,9 @@
+                 id=&quot;India&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(114.1, 129.0675)&quot;
+-                width=&quot;632.5&quot;
++                width=&quot;640.4&quot;
+                 height=&quot;35.165&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -106,9 +106,9 @@
+                 id=&quot;Nigeria&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(114.1, 183.1675)&quot;
+-                width=&quot;187.79999999999998&quot;
++                width=&quot;190.1&quot;
+                 height=&quot;35.165&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -117,9 +117,9 @@
+                 id=&quot;Brazil&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(114.1, 237.26749999999998)&quot;
+-                width=&quot;75.4&quot;
++                width=&quot;76.30000000000001&quot;
+                 height=&quot;35.165&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -128,9 +128,9 @@
+                 id=&quot;Bangladesh&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(114.1, 291.3675)&quot;
+-                width=&quot;58.5&quot;
++                width=&quot;59.20000000000002&quot;
+                 height=&quot;35.165&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -139,9 +139,9 @@
+                 id=&quot;Ethiopia&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(114.1, 345.4675)&quot;
+-                width=&quot;57.099999999999994&quot;
++                width=&quot;57.80000000000001&quot;
+                 height=&quot;35.165&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -150,9 +150,9 @@
+                 id=&quot;Mexico&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(114.1, 399.5675)&quot;
+-                width=&quot;32.30000000000001&quot;
++                width=&quot;32.70000000000002&quot;
+                 height=&quot;35.165&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -161,9 +161,9 @@
+                 id=&quot;United-States&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(114.1, 453.6675)&quot;
+-                width=&quot;11.700000000000003&quot;
++                width=&quot;11.900000000000006&quot;
+                 height=&quot;35.165&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -183,37 +183,37 @@
+         <g id=&quot;value-labels&quot;>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(751.6, 146.65)&quot;
++                transform=&quot;translate(759.5, 146.65)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+                 font-size=&quot;13.5&quot;
+                 font-weight=&quot;400&quot;
+             >
+-                460.9 million
++                461 million
+                 <tspan fill=&quot;#999&quot;></tspan>
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(306.9, 200.75)&quot;
++                transform=&quot;translate(309.2, 200.75)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+                 font-size=&quot;13.5&quot;
+                 font-weight=&quot;400&quot;
+             >
+-                136.8 million
++                137 million
+                 <tspan fill=&quot;#999&quot;></tspan>
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(194.5, 254.85)&quot;
++                transform=&quot;translate(195.4, 254.85)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -225,9 +225,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(177.6, 308.95)&quot;
++                transform=&quot;translate(178.3, 308.95)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -239,9 +239,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(176.2, 363.04999999999995)&quot;
++                transform=&quot;translate(176.9, 363.04999999999995)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -253,9 +253,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(151.4, 417.15)&quot;
++                transform=&quot;translate(151.8, 417.15)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -267,9 +267,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(130.8, 471.25)&quot;
++                transform=&quot;translate(131, 471.25)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="plastic-pollution?Metric=Mismanaged+waste&Sub-metric=&Per+capita=false&Share+of+world+total=false&Source=Meijer+et+al.+%282021%29" data-chart-type="DiscreteBar">
+        <div class="header-with-actions">
+            <h2>plastic-pollution?Metric=Mismanaged+waste&Sub-metric=&Per+capita=false&Share+of+world+total=false&Source=Meijer+et+al.+%282021%29</h2>
+            <button class="copy-slug-btn" data-slug="plastic-pollution?Metric=Mismanaged+waste&Sub-metric=&Per+capita=false&Share+of+world+total=false&Source=Meijer+et+al.+%282021%29" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (8)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/plastic-pollution?Metric=Mismanaged+waste&Sub-metric=&Per+capita=false&Share+of+world+total=false&Source=Meijer+et+al.+%282021%29" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/plastic-pollution-8973e760266827db339ecb72a4f205ce_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-sig-fig-decimal-cap/explorers/plastic-pollution?Metric=Mismanaged+waste&Sub-metric=&Per+capita=false&Share+of+world+total=false&Source=Meijer+et+al.+%282021%29" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/plastic-pollution-8973e760266827db339ecb72a4f205ce_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/plastic-pollution-8973e760266827db339ecb72a4f205ce_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/plastic-pollution-8973e760266827db339ecb72a4f205ce_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: plastic-pollution-8973e760266827db339ecb72a4f205ce_v0_850x600.svg
+===================================================================
+--- plastic-pollution-8973e760266827db339ecb72a4f205ce_v0_850x600.svg
++++ plastic-pollution-8973e760266827db339ecb72a4f205ce_v0_850x600.svg
+@@ -87,9 +87,9 @@
+                 id=&quot;India&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 130.15666666666667)&quot;
+-                width=&quot;640.9&quot;
++                width=&quot;648.7&quot;
+                 height=&quot;97.15333333333332&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -98,9 +98,9 @@
+                 id=&quot;China&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 279.6233333333333)&quot;
+-                width=&quot;605.3000000000001&quot;
++                width=&quot;612.7&quot;
+                 height=&quot;97.15333333333332&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -109,9 +109,9 @@
+                 id=&quot;United-States&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 429.09)&quot;
+-                width=&quot;13.199999999999989&quot;
++                width=&quot;13.399999999999991&quot;
+                 height=&quot;97.15333333333332&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -120,37 +120,37 @@
+         <g id=&quot;value-labels&quot;>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(743.3, 178.73333333333332)&quot;
++                transform=&quot;translate(751.1, 178.73333333333332)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+                 font-size=&quot;13.5&quot;
+                 font-weight=&quot;400&quot;
+             >
+-                12.99 million t
++                13 million t
+                 <tspan fill=&quot;#999&quot;></tspan>
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(707.7, 328.19999999999993)&quot;
++                transform=&quot;translate(715.1, 328.19999999999993)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+                 font-size=&quot;13.5&quot;
+                 font-weight=&quot;400&quot;
+             >
+-                12.27 million t
++                12.3 million t
+                 <tspan fill=&quot;#999&quot;></tspan>
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(115.6, 477.66666666666663)&quot;
++                transform=&quot;translate(115.8, 477.66666666666663)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="plastic-pollution?Metric=Plastic+waste+generation&Sub-metric=&Per+capita=false&Share+of+world+total=false&Source=Jambeck+et+al.+%282015%29" data-chart-type="DiscreteBar">
+        <div class="header-with-actions">
+            <h2>plastic-pollution?Metric=Plastic+waste+generation&Sub-metric=&Per+capita=false&Share+of+world+total=false&Source=Jambeck+et+al.+%282015%29</h2>
+            <button class="copy-slug-btn" data-slug="plastic-pollution?Metric=Plastic+waste+generation&Sub-metric=&Per+capita=false&Share+of+world+total=false&Source=Jambeck+et+al.+%282015%29" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (8)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/explorers/plastic-pollution?Metric=Plastic+waste+generation&Sub-metric=&Per+capita=false&Share+of+world+total=false&Source=Jambeck+et+al.+%282015%29" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/plastic-pollution-002906ac34809881e67dbac762fce3bd_v0_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-sig-fig-decimal-cap/explorers/plastic-pollution?Metric=Plastic+waste+generation&Sub-metric=&Per+capita=false&Share+of+world+total=false&Source=Jambeck+et+al.+%282015%29" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/plastic-pollution-002906ac34809881e67dbac762fce3bd_v0_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/plastic-pollution-002906ac34809881e67dbac762fce3bd_v0_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/plastic-pollution-002906ac34809881e67dbac762fce3bd_v0_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: plastic-pollution-002906ac34809881e67dbac762fce3bd_v0_850x600.svg
+===================================================================
+--- plastic-pollution-002906ac34809881e67dbac762fce3bd_v0_850x600.svg
++++ plastic-pollution-002906ac34809881e67dbac762fce3bd_v0_850x600.svg
+@@ -88,9 +88,9 @@
+                 id=&quot;China&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 130.15666666666667)&quot;
+-                width=&quot;649.2&quot;
++                width=&quot;657.1&quot;
+                 height=&quot;97.15333333333332&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -99,9 +99,9 @@
+                 id=&quot;United-States&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 279.6233333333333)&quot;
+-                width=&quot;415.70000000000005&quot;
++                width=&quot;420.70000000000005&quot;
+                 height=&quot;97.15333333333332&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -110,9 +110,9 @@
+                 id=&quot;India&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+                 transform=&quot;translate(97.4, 429.09)&quot;
+-                width=&quot;49.400000000000006&quot;
++                width=&quot;50&quot;
+                 height=&quot;97.15333333333332&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -121,37 +121,37 @@
+         <g id=&quot;value-labels&quot;>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(751.6, 178.73333333333332)&quot;
++                transform=&quot;translate(759.5, 178.73333333333332)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+                 font-size=&quot;13.5&quot;
+                 font-weight=&quot;400&quot;
+             >
+-                59.08 million
++                59.1 million
+                 <tspan fill=&quot;#999&quot;></tspan>
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(518.1, 328.19999999999993)&quot;
++                transform=&quot;translate(523.1, 328.19999999999993)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+                 font-size=&quot;13.5&quot;
+                 font-weight=&quot;400&quot;
+             >
+-                37.83 million
++                37.8 million
+                 <tspan fill=&quot;#999&quot;></tspan>
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(151.8, 477.66666666666663)&quot;
++                transform=&quot;translate(152.4, 477.66666666666663)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+" data-truncated="false"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Chart type filtering
+        const chartTypeFilter = document.getElementById('chart-type-filter');
+        const visibleCountSpan = document.getElementById('visible-count');
+
+        function filterByChartType(chartType) {
+            const sections = document.querySelectorAll('section[data-chart-type]');
+            let visibleCount = 0;
+
+            sections.forEach(section => {
+                if (chartType === 'all' || section.dataset.chartType === chartType) {
+                    section.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            if (visibleCountSpan) {
+                visibleCountSpan.textContent = visibleCount;
+            }
+        }
+
+        if (chartTypeFilter) {
+            chartTypeFilter.addEventListener('change', (e) => {
+                filterByChartType(e.target.value);
+            });
+        }
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section, and skip if diff was too large
+                    if (diffContainer && !renderedDiffs.has(diffId) && !diffContainer.dataset.skipped) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
