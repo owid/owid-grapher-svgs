@@ -1,0 +1,1499 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        /* Filter dropdown */
+        .filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        .filter-container label {
+            font-weight: 500;
+            color: #24292e;
+        }
+
+        .filter-container select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            background: #fafbfc;
+            font-size: 0.9rem;
+            color: #24292e;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-container select:hover {
+            border-color: #a0a8b0;
+        }
+
+        .filter-container select:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        section.hidden {
+            display: none;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 0 1 auto;
+            display: flex;
+            flex-direction: column;
+            max-width: 850px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 850px;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            height: auto;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="filter-container">
+        <label for="chart-type-filter">Chart Type:</label>
+        <select id="chart-type-filter">
+            <option value="all" selected>All (3)</option>
+            <option value="WorldMap">WorldMap (3)</option>
+        </select>
+    </div><p class="summary">Showing <span id="visible-count">3</span> of 3 differences</p><section data-slug="china-imports-as-share-of-gdp" data-chart-type="WorldMap">
+        <div class="header-with-actions">
+            <h2>china-imports-as-share-of-gdp</h2>
+            <button class="copy-slug-btn" data-slug="china-imports-as-share-of-gdp" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (75)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/china-imports-as-share-of-gdp" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/china-imports-as-share-of-gdp_v18_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-reference-entity-debug/grapher/china-imports-as-share-of-gdp" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/china-imports-as-share-of-gdp_v18_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/china-imports-as-share-of-gdp_v18_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/china-imports-as-share-of-gdp_v18_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: china-imports-as-share-of-gdp_v18_850x600.svg
+===================================================================
+--- china-imports-as-share-of-gdp_v18_850x600.svg
++++ china-imports-as-share-of-gdp_v18_850x600.svg
+@@ -92,8 +92,36 @@
+                             stroke=&quot;#ccc&quot;
+                             stroke-width=&quot;0.7&quot;
+                         ></path>
+                     </pattern>
++                    <pattern
++                        id=&quot;notApplicablePattern&quot;
++                        patternUnits=&quot;userSpaceOnUse&quot;
++                        width=&quot;4&quot;
++                        height=&quot;4&quot;
++                        patternTransform=&quot;rotate(-45 2 2) scale(1)&quot;
++                    >
++                        <rect width=&quot;4&quot; height=&quot;4&quot; fill=&quot;#ccc&quot;></rect>
++                        <path
++                            d=&quot;M -1,2 l 6,0&quot;
++                            stroke=&quot;#fff&quot;
++                            stroke-width=&quot;0.7&quot;
++                        ></path>
++                    </pattern>
++                    <pattern
++                        id=&quot;notApplicablePatternForMap&quot;
++                        patternUnits=&quot;userSpaceOnUse&quot;
++                        width=&quot;4&quot;
++                        height=&quot;4&quot;
++                        patternTransform=&quot;rotate(-45 2 2) scale(1.155)&quot;
++                    >
++                        <rect width=&quot;4&quot; height=&quot;4&quot; fill=&quot;#ccc&quot;></rect>
++                        <path
++                            d=&quot;M -1,2 l 6,0&quot;
++                            stroke=&quot;#fff&quot;
++                            stroke-width=&quot;0.7&quot;
++                        ></path>
++                    </pattern>
+                 </defs>
+                 <path
+                     id=&quot;Andorra&quot;
+                     data-feature-id=&quot;Andorra&quot;
+@@ -105,8 +133,19 @@
+                     fill=&quot;url(#noDataPatternForMap)&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
++                    id=&quot;China&quot;
++                    data-feature-id=&quot;China&quot;
++                    d=&quot;M769.4,193.7L767.4,195.1L765.1,194.2L764.6,191.6L765.6,190.2L768.3,189.4L769.8,189.4L770.6,190.6L769.7,191.9ZM780.3,101.4L784.5,103.5L787.3,106.3L790.9,106.3L792.1,105.1L795.4,104.3L796,106.9L795.8,108L797.2,111.2L797.5,114.1L794.2,113.6L792.9,114.6L795.1,117.2L796.9,120.7L795.8,120.8L796.7,122.2L794.1,120.5L794.1,122.2L791.1,123.5L792.4,125L790.2,124.9L788.5,124L788,126.1L786.2,127.7L785.2,129.6L782.2,130.5L781.1,131.9L778.8,132.7L779.5,131.3L778.4,130.2L779.3,128.2L777.2,126.6L775.6,127.7L773.9,129.7L773.3,131.7L770.9,131.8L770.3,133.2L772.6,135.2L774.8,135.7L775.5,137.1L777.8,138L779.7,135.8L782.4,137L784.1,137.1L785.2,138.6L782,139.5L781.6,141.1L779.7,142.6L779.3,144.7L782.7,146.4L784.9,149.3L787.5,152.1L790,154.4L790.8,156.7L789.4,157.5L790.6,159.1L792.4,160L792.8,162.5L792.8,164.9L791.5,165.1L790.5,168.4L789.4,172.4L787.8,176L784.8,178.8L781.7,181.3L778.8,181.6L777.5,183L776.4,182L775.2,183.5L771.8,185L769.2,185.5L768.8,188.7L767.4,188.8L766.3,186.6L766.7,185.5L763.1,184.5L761.9,185L759.2,184.2L757.7,183L757.8,181.3L755.4,180.7L753.9,179.6L752,181.2L749.5,181.5L747.4,181.5L746.1,182.3L744.9,182.7L745.8,186.2L744.4,186.1L744.1,185.3L743.8,184.1L742,185L740.8,184.4L738.7,183.3L739,180.8L737.3,180.2L736.2,177.4L733.5,177.9L733.2,174.4L735.2,171.8L734.8,169.4L734.2,167L732.9,166.3L731.6,164.5L730.2,164.8L727.3,164.3L727.9,163.1L726.2,161.2L724.7,162.5L722.4,161.7L719.9,163.6L718,165.9L716,166.3L714.7,165.4L713.4,165.4L711.4,164.7L710.2,165.4L708.9,167.7L708.2,165.3L706.8,165.9L703.7,165.7L700.6,165L698.3,163.6L696.2,163L695,161.6L693.5,161.2L690.5,159.2L688.2,158.3L687.3,159L683.3,156.9L680.4,154.9L678.9,151.6L680.8,152L680.5,150.5L679.1,148.9L678.7,146.5L675.1,143L670.6,141.7L669.3,139.4L667,138L666.3,137.2L665.5,135.5L665.2,134.3L663.5,133.6L662.8,133.9L661.4,131.1L661.9,130.4L661.3,129.8L663.2,128.3L664.8,127.7L667.5,128.1L667.8,126.2L670.8,125.9L671.2,124.7L674.5,123.1L674.6,122.4L673.8,120.7L675.2,119.9L671,114.7L675.3,113.6L676.2,112.9L675.7,107.6L680.8,108.6L681.6,107.3L680.4,104.3L682.2,104L683.1,102.1L683.8,101.8L685.4,103.9L688.1,105.5L692,106.6L694.7,108.9L695.3,112.4L696.8,113.7L699.8,114.2L703.2,114.6L707,116.4L708.6,116.8L710.9,119.5L713.1,121.3L715.8,121.2L721.1,121.9L724.1,121.5L726.7,121.9L731.1,123.7L734,123.7L735.5,124.6L737.6,123.1L741,122L744.6,121.9L746.9,120.8L747.8,119.2L749,118.3L748.1,117.3L746.7,116.1L746.9,114.2L748.4,114.5L751.2,115.1L752.7,113.5L755.7,112.4L756.3,110.4L757.5,109.6L760.7,109.2L762.7,109.5L762.3,108.5L759,106.4L756.5,105.5L755.4,106.5L752.8,106.1L751.7,106.5L750.4,105.2L750.2,102.3L750,100.1L753.4,101.2L755.5,99.4L754.6,98.1L754.6,95L755.2,94.1L754,92.5L752.2,91.8L753,90.4L755.5,89.9L758.4,89.8L762.4,90.6L765.2,91.7L768.8,94.6L770.6,95.9L772.7,97.6L775.6,100.5Z&quot;
++                    stroke-width=&quot;0.322&quot;
++                    stroke=&quot;#aaa&quot;
++                    stroke-opacity=&quot;1&quot;
++                    cursor=&quot;pointer&quot;
++                    fill=&quot;url(#notApplicablePatternForMap)&quot;
++                    fill-opacity=&quot;1&quot;
++                ></path>
++                <path
+                     id=&quot;Cuba&quot;
+                     data-feature-id=&quot;Cuba&quot;
+                     d=&quot;M266,180.1L268.2,180.3L270.3,180.3L272.6,181.3L273.5,182.4L275.9,182.1L276.8,182.8L278.7,184.7L280.2,186L281.1,186L282.5,186.6L282.3,187.5L284.2,187.6L286,188.8L285.6,189.5L283.8,189.9L282.1,190.1L280.3,189.8L276.5,190.1L278.4,188.4L277.5,187.7L275.8,187.5L275,186.6L274.6,184.9L273.1,185L270.8,184.2L270.1,183.5L266.8,183.1L265.9,182.5L267,181.7L264.5,181.6L262.4,183.1L261.3,183.2L260.8,183.9L259.5,184.3L258.4,184L259.9,183.1L260.6,181.9L261.9,181.3L263.3,180.7L265.3,180.4Z&quot;
+                     stroke-width=&quot;0.322&quot;
+@@ -327,19 +366,8 @@
+                     fill=&quot;#d4b9da&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+-                    id=&quot;China&quot;
+-                    data-feature-id=&quot;China&quot;
+-                    d=&quot;M769.4,193.7L767.4,195.1L765.1,194.2L764.6,191.6L765.6,190.2L768.3,189.4L769.8,189.4L770.6,190.6L769.7,191.9ZM780.3,101.4L784.5,103.5L787.3,106.3L790.9,106.3L792.1,105.1L795.4,104.3L796,106.9L795.8,108L797.2,111.2L797.5,114.1L794.2,113.6L792.9,114.6L795.1,117.2L796.9,120.7L795.8,120.8L796.7,122.2L794.1,120.5L794.1,122.2L791.1,123.5L792.4,125L790.2,124.9L788.5,124L788,126.1L786.2,127.7L785.2,129.6L782.2,130.5L781.1,131.9L778.8,132.7L779.5,131.3L778.4,130.2L779.3,128.2L777.2,126.6L775.6,127.7L773.9,129.7L773.3,131.7L770.9,131.8L770.3,133.2L772.6,135.2L774.8,135.7L775.5,137.1L777.8,138L779.7,135.8L782.4,137L784.1,137.1L785.2,138.6L782,139.5L781.6,141.1L779.7,142.6L779.3,144.7L782.7,146.4L784.9,149.3L787.5,152.1L790,154.4L790.8,156.7L789.4,157.5L790.6,159.1L792.4,160L792.8,162.5L792.8,164.9L791.5,165.1L790.5,168.4L789.4,172.4L787.8,176L784.8,178.8L781.7,181.3L778.8,181.6L777.5,183L776.4,182L775.2,183.5L771.8,185L769.2,185.5L768.8,188.7L767.4,188.8L766.3,186.6L766.7,185.5L763.1,184.5L761.9,185L759.2,184.2L757.7,183L757.8,181.3L755.4,180.7L753.9,179.6L752,181.2L749.5,181.5L747.4,181.5L746.1,182.3L744.9,182.7L745.8,186.2L744.4,186.1L744.1,185.3L743.8,184.1L742,185L740.8,184.4L738.7,183.3L739,180.8L737.3,180.2L736.2,177.4L733.5,177.9L733.2,174.4L735.2,171.8L734.8,169.4L734.2,167L732.9,166.3L731.6,164.5L730.2,164.8L727.3,164.3L727.9,163.1L726.2,161.2L724.7,162.5L722.4,161.7L719.9,163.6L718,165.9L716,166.3L714.7,165.4L713.4,165.4L711.4,164.7L710.2,165.4L708.9,167.7L708.2,165.3L706.8,165.9L703.7,165.7L700.6,165L698.3,163.6L696.2,163L695,161.6L693.5,161.2L690.5,159.2L688.2,158.3L687.3,159L683.3,156.9L680.4,154.9L678.9,151.6L680.8,152L680.5,150.5L679.1,148.9L678.7,146.5L675.1,143L670.6,141.7L669.3,139.4L667,138L666.3,137.2L665.5,135.5L665.2,134.3L663.5,133.6L662.8,133.9L661.4,131.1L661.9,130.4L661.3,129.8L663.2,128.3L664.8,127.7L667.5,128.1L667.8,126.2L670.8,125.9L671.2,124.7L674.5,123.1L674.6,122.4L673.8,120.7L675.2,119.9L671,114.7L675.3,113.6L676.2,112.9L675.7,107.6L680.8,108.6L681.6,107.3L680.4,104.3L682.2,104L683.1,102.1L683.8,101.8L685.4,103.9L688.1,105.5L692,106.6L694.7,108.9L695.3,112.4L696.8,113.7L699.8,114.2L703.2,114.6L707,116.4L708.6,116.8L710.9,119.5L713.1,121.3L715.8,121.2L721.1,121.9L724.1,121.5L726.7,121.9L731.1,123.7L734,123.7L735.5,124.6L737.6,123.1L741,122L744.6,121.9L746.9,120.8L747.8,119.2L749,118.3L748.1,117.3L746.7,116.1L746.9,114.2L748.4,114.5L751.2,115.1L752.7,113.5L755.7,112.4L756.3,110.4L757.5,109.6L760.7,109.2L762.7,109.5L762.3,108.5L759,106.4L756.5,105.5L755.4,106.5L752.8,106.1L751.7,106.5L750.4,105.2L750.2,102.3L750,100.1L753.4,101.2L755.5,99.4L754.6,98.1L754.6,95L755.2,94.1L754,92.5L752.2,91.8L753,90.4L755.5,89.9L758.4,89.8L762.4,90.6L765.2,91.7L768.8,94.6L770.6,95.9L772.7,97.6L775.6,100.5Z&quot;
+-                    stroke-width=&quot;0.322&quot;
+-                    stroke=&quot;#333&quot;
+-                    stroke-opacity=&quot;1&quot;
+-                    cursor=&quot;pointer&quot;
+-                    fill=&quot;#f1eae2&quot;
+-                    fill-opacity=&quot;1&quot;
+-                ></path>
+-                <path
+                     id=&quot;Brazil&quot;
+                     data-feature-id=&quot;Brazil&quot;
+                     d=&quot;M332.7,341.1L335.5,337L338.1,334.1L339.6,332.8L341.6,331.2L341.4,328.8L339.9,327.1L338.6,327.6L339,325.9L339.2,324.1L339,322.4L338,321.9L337.1,322.4L336.1,322.3L335.7,321.1L335.2,318.3L334.6,317.4L332.8,316.6L331.8,317.2L329,316.6L328.8,312.5L327.8,310.9L328.6,310.2L328.2,308.5L328.8,307.2L329.1,304.8L328.3,302.9L326.8,302.1L326.4,300.9L326.7,299.2L321.6,299L320.4,295.5L321.1,295.5L321,294.2L320.4,293.3L320.2,291.6L318.6,290.7L316.9,290.7L315.8,289.8L314,289.2L312.8,288.1L309.9,287.6L306.8,284.9L306.9,282.9L306.6,281.7L306.7,279.4L303.3,279.9L301.9,281.1L299.7,282.3L299.1,283.2L297.8,283.3L295.8,283L294.3,283.5L293.1,283.2L293,278.6L291,280.4L288.6,280.3L287.5,278.7L285.7,278.5L286.2,277.2L284.7,275.4L283.4,272.7L284.1,272.1L284.1,270.9L285.7,270L285.3,268.4L286,267.3L286.1,265.9L289.1,263.8L291.3,263.3L291.6,262.8L294,263L295,254.7L295.1,253.4L294.6,251.7L293.5,250.6L293.5,248.4L295,247.9L295.5,248.2L295.6,247L294.1,246.7L294,244.8L299.2,244.9L300.1,243.8L300.9,244.8L301.3,246.6L301.9,246.2L303.3,247.8L305.4,247.6L305.9,246.7L307.9,246L309,245.5L309.3,244.2L311.2,243.4L311.1,242.7L308.9,242.5L308.5,240.6L308.7,238.5L307.5,237.8L308,237.5L310,237.9L312.1,238.6L312.9,237.9L314.8,237.5L317.8,236.3L318.8,235.2L318.5,234.3L319.8,234.2L320.4,234.9L320.1,236.2L321,236.7L321.5,238.1L320.8,239.1L320.3,241.7L321,243.2L321.1,244.6L322.8,246L324.1,246.2L324.4,245.6L325.2,245.4L326.4,244.9L327.3,244.1L328.8,244.4L329.4,244.3L330.8,244.5L331.1,243.9L330.7,243.3L331,242.4L332,242.7L333.3,242.4L334.8,243L335.9,243.6L336.8,242.8L337.4,243L337.7,243.8L339,243.6L340,242.5L340.9,240.2L342.5,237.5L343.4,237.3L344.1,239L345.5,244.3L346.9,244.8L346.9,246.8L344.9,249.3L345.8,250.2L350.5,250.7L350.6,253.7L352.6,251.7L355.9,252.8L360.4,254.7L361.7,256.5L361.3,258.1L364.4,257.2L369.6,258.8L373.5,258.7L377.5,261.2L381,264.5L383,265.4L385.3,265.5L386.3,266.5L387.2,270.3L387.7,272.1L386.8,277.1L385.5,279.1L381.8,283.3L380.3,286.7L378.4,289.3L377.8,289.4L377.1,291.6L377.6,297.3L377.1,301.9L376.9,303.9L376.1,305.1L375.9,309.1L373.5,313L373.3,316.2L371.2,317.5L370.7,319.3L367.9,319.3L363.9,320.4L362.2,321.8L359.3,322.6L356.5,325.1L354.5,328L354.4,330.3L355,332L354.9,335L354.5,336.5L352.9,338.1L350.8,343.4L348.9,345.8L347.4,347.3L346.7,350.1L345.3,351.8L344.3,350.1L345.2,348.7L343.4,346.7L341.1,345L338.2,343L337.3,343.1L334.3,340.8Z&quot;
+                     stroke-width=&quot;0.322&quot;
+@@ -367,9 +395,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#e7298a&quot;
++                    fill=&quot;#dd1c77&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;India&quot;
+@@ -466,9 +494,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#ce1256&quot;
++                    fill=&quot;#980043&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Saudi-Arabia&quot;
+@@ -730,9 +758,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#e7298a&quot;
++                    fill=&quot;#dd1c77&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Ukraine&quot;
+@@ -741,9 +769,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#e7298a&quot;
++                    fill=&quot;#dd1c77&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Somalia&quot;
+@@ -752,9 +780,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#e7298a&quot;
++                    fill=&quot;#dd1c77&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;France&quot;
+@@ -818,9 +846,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#ce1256&quot;
++                    fill=&quot;#980043&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Turkey&quot;
+@@ -851,9 +879,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#ce1256&quot;
++                    fill=&quot;#980043&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Egypt&quot;
+@@ -884,9 +912,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#ce1256&quot;
++                    fill=&quot;#980043&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Zambia&quot;
+@@ -928,9 +956,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#ce1256&quot;
++                    fill=&quot;#980043&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Turkmenistan&quot;
+@@ -1060,9 +1088,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#ce1256&quot;
++                    fill=&quot;#980043&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Congo&quot;
+@@ -1137,9 +1165,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#ce1256&quot;
++                    fill=&quot;#980043&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Romania&quot;
+@@ -1324,9 +1352,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#ce1256&quot;
++                    fill=&quot;#980043&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Malawi&quot;
+@@ -1357,9 +1385,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#ce1256&quot;
++                    fill=&quot;#980043&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Azerbaijan&quot;
+@@ -1445,9 +1473,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#e7298a&quot;
++                    fill=&quot;#dd1c77&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Suriname&quot;
+@@ -1467,9 +1495,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#ce1256&quot;
++                    fill=&quot;#980043&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Portugal&quot;
+@@ -1632,9 +1660,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#e7298a&quot;
++                    fill=&quot;#dd1c77&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Costa-Rica&quot;
+@@ -1863,9 +1891,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#ce1256&quot;
++                    fill=&quot;#980043&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Burundi&quot;
+@@ -1929,9 +1957,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#ce1256&quot;
++                    fill=&quot;#980043&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Belize&quot;
+@@ -2017,9 +2045,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#ce1256&quot;
++                    fill=&quot;#980043&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+                     id=&quot;Lebanon&quot;
+@@ -2083,9 +2111,9 @@
+                     stroke-width=&quot;0.322&quot;
+                     stroke=&quot;#333&quot;
+                     stroke-opacity=&quot;1&quot;
+                     cursor=&quot;pointer&quot;
+-                    fill=&quot;#ce1256&quot;
++                    fill=&quot;#980043&quot;
+                     fill-opacity=&quot;1&quot;
+                 ></path>
+                 <path
+
+... (diff truncated: showing 300 of 402 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="share-europe-using-generative-ai" data-chart-type="WorldMap">
+        <div class="header-with-actions">
+            <h2>share-europe-using-generative-ai</h2>
+            <button class="copy-slug-btn" data-slug="share-europe-using-generative-ai" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (185)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/share-europe-using-generative-ai" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/share-europe-using-generative-ai_v8_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-reference-entity-debug/grapher/share-europe-using-generative-ai" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/share-europe-using-generative-ai_v8_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/share-europe-using-generative-ai_v8_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/share-europe-using-generative-ai_v8_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: share-europe-using-generative-ai_v8_850x600.svg
+===================================================================
+--- share-europe-using-generative-ai_v8_850x600.svg
++++ share-europe-using-generative-ai_v8_850x600.svg
+@@ -106,32 +106,17 @@
+                 style=&quot;pointer-events: none&quot;
+             ></path>
+             <g id=&quot;globe&quot;>
+                 <g id=&quot;countries-without-data&quot; class=&quot;noDataFeatures&quot;>
+-                    <defs>
+-                        <pattern
+-                            id=&quot;noDataPatternForGlobe&quot;
+-                            patternUnits=&quot;userSpaceOnUse&quot;
+-                            width=&quot;4&quot;
+-                            height=&quot;4&quot;
+-                            patternTransform=&quot;rotate(-45 2 2) scale(1)&quot;
+-                        >
+-                            <path
+-                                d=&quot;M -1,2 l 6,0&quot;
+-                                stroke=&quot;#ccc&quot;
+-                                stroke-width=&quot;0.7&quot;
+-                            ></path>
+-                        </pattern>
+-                    </defs>
+                     <path
+                         id=&quot;Afghanistan&quot;
+                         data-feature-id=&quot;Afghanistan&quot;
+                         d=&quot;M856.4,326.3L864.4,323.4L867.9,317.6L866.6,312.2L870.1,306L871.4,299.8L867.9,291.5L871,284.5L869.8,280.5L873.8,279.9L875.5,278.3L878.2,274.7L883.2,271.8L885.4,270.8L886.9,263.4L889.6,262.8L888.3,256.9L891.1,253.1L890.8,250.9L888.8,246.9L888.4,241.2L892.2,239.6L893.8,242.8L895.3,241.2L900.2,248.6L904,248.7L904.1,244.7L905.4,240.8L905.1,233L908.3,229L912.3,222L914.9,223L913.4,227.9L912.5,232.8L908.6,241.6L905.4,250.5L905.6,258.1L909.2,259.9L912.7,263.3L913,270.1L915.4,272.9L916.2,277.8L911.7,284.1L917.3,286.9L915.7,293.3L917,301.4L920.5,306L920.1,311.1L917.7,312.9L914.5,319.3L915.4,322.4L911.5,327.5L911.3,336.1L915.4,343.6L910.2,356.1L905.7,360.1L905.6,363.4L901.5,366.3L896.2,374.2L883.5,380.7L884.8,366.7L881.3,361.5L875.8,364.8L872.2,359.7L866.3,354.5L866.1,346.9L862.7,348.2L860.6,340Z&quot;
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Albania&quot;
+@@ -140,9 +125,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Algeria&quot;
+@@ -151,9 +136,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Andorra&quot;
+@@ -162,9 +147,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Angola&quot;
+@@ -173,9 +158,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Antarctica&quot;
+@@ -184,9 +169,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Antigua-and-Barbuda&quot;
+@@ -195,9 +180,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Argentina&quot;
+@@ -206,9 +191,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Armenia&quot;
+@@ -217,9 +202,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Australia&quot;
+@@ -228,9 +213,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Azerbaijan&quot;
+@@ -239,9 +224,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Bahamas&quot;
+@@ -250,9 +235,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Bahrain&quot;
+@@ -261,9 +246,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Bangladesh&quot;
+@@ -272,9 +257,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Barbados&quot;
+@@ -283,9 +268,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Belarus&quot;
+@@ -294,9 +279,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Belize&quot;
+@@ -305,9 +290,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Benin&quot;
+@@ -316,9 +301,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Bhutan&quot;
+@@ -327,9 +312,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Bolivia&quot;
+@@ -338,9 +323,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Botswana&quot;
+@@ -349,9 +334,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Brazil&quot;
+@@ -360,9 +345,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Brunei&quot;
+@@ -371,9 +356,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Burkina-Faso&quot;
+@@ -382,9 +367,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Burundi&quot;
+@@ -393,9 +378,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+
+... (diff truncated: showing 300 of 1898 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="share-of-young-people-in-european-countries-using-generative-ai-tools" data-chart-type="WorldMap">
+        <div class="header-with-actions">
+            <h2>share-of-young-people-in-european-countries-using-generative-ai-tools</h2>
+            <button class="copy-slug-btn" data-slug="share-of-young-people-in-european-countries-using-generative-ai-tools" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (185)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/share-of-young-people-in-european-countries-using-generative-ai-tools" target="_blank" class="comparison-image-wrapper">
+                    <img src="originals/share-of-young-people-in-european-countries-using-generative-ai-tools_v9_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-reference-entity-debug/grapher/share-of-young-people-in-european-countries-using-generative-ai-tools" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/share-of-young-people-in-european-countries-using-generative-ai-tools_v9_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="originals/share-of-young-people-in-european-countries-using-generative-ai-tools_v9_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/share-of-young-people-in-european-countries-using-generative-ai-tools_v9_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: share-of-young-people-in-european-countries-using-generative-ai-tools_v9_850x600.svg
+===================================================================
+--- share-of-young-people-in-european-countries-using-generative-ai-tools_v9_850x600.svg
++++ share-of-young-people-in-european-countries-using-generative-ai-tools_v9_850x600.svg
+@@ -112,32 +112,17 @@
+                 style=&quot;pointer-events: none&quot;
+             ></path>
+             <g id=&quot;globe&quot;>
+                 <g id=&quot;countries-without-data&quot; class=&quot;noDataFeatures&quot;>
+-                    <defs>
+-                        <pattern
+-                            id=&quot;noDataPatternForGlobe&quot;
+-                            patternUnits=&quot;userSpaceOnUse&quot;
+-                            width=&quot;4&quot;
+-                            height=&quot;4&quot;
+-                            patternTransform=&quot;rotate(-45 2 2) scale(1)&quot;
+-                        >
+-                            <path
+-                                d=&quot;M -1,2 l 6,0&quot;
+-                                stroke=&quot;#ccc&quot;
+-                                stroke-width=&quot;0.7&quot;
+-                            ></path>
+-                        </pattern>
+-                    </defs>
+                     <path
+                         id=&quot;Afghanistan&quot;
+                         data-feature-id=&quot;Afghanistan&quot;
+                         d=&quot;M803.7,336.3L810.8,333.9L813.9,328.8L812.7,324L815.9,318.5L817.1,313L814,305.7L816.8,299.6L815.7,296L819.3,295.5L820.8,294.1L823.2,290.9L827.7,288.4L829.6,287.5L831,281L833.4,280.5L832.2,275.3L834.7,272L834.5,270L832.7,266.4L832.4,261.4L835.8,260L837.1,262.9L838.5,261.4L842.8,268L846.2,268.1L846.3,264.5L847.5,261.2L847.2,254.3L850.1,250.7L853.7,244.6L855.9,245.5L854.6,249.8L853.8,254.1L850.3,261.8L847.4,269.7L847.5,276.4L850.7,278L853.8,281L854.1,287L856.2,289.5L856.9,293.9L852.8,299.4L857.7,301.9L856.3,307.5L857.4,314.7L860.5,318.7L860.1,323.2L858,324.8L855.1,330.4L855.9,333.2L852.5,337.7L852.3,345.3L855.9,351.9L851.2,362.9L847.2,366.4L847.1,369.3L843.4,371.8L838.7,378.8L827.4,384.5L828.7,372.1L825.5,367.5L820.7,370.4L817.6,365.9L812.3,361.3L812.2,354.6L809.2,355.7L807.4,348.5Z&quot;
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Albania&quot;
+@@ -146,9 +131,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Algeria&quot;
+@@ -157,9 +142,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Andorra&quot;
+@@ -168,9 +153,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Angola&quot;
+@@ -179,9 +164,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Antarctica&quot;
+@@ -190,9 +175,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Antigua-and-Barbuda&quot;
+@@ -201,9 +186,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Argentina&quot;
+@@ -212,9 +197,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Armenia&quot;
+@@ -223,9 +208,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Australia&quot;
+@@ -234,9 +219,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Azerbaijan&quot;
+@@ -245,9 +230,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Bahamas&quot;
+@@ -256,9 +241,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Bahrain&quot;
+@@ -267,9 +252,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Bangladesh&quot;
+@@ -278,9 +263,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Barbados&quot;
+@@ -289,9 +274,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Belarus&quot;
+@@ -300,9 +285,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Belize&quot;
+@@ -311,9 +296,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Benin&quot;
+@@ -322,9 +307,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Bhutan&quot;
+@@ -333,9 +318,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Bolivia&quot;
+@@ -344,9 +329,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Botswana&quot;
+@@ -355,9 +340,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Brazil&quot;
+@@ -366,9 +351,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Brunei&quot;
+@@ -377,9 +362,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Burkina-Faso&quot;
+@@ -388,9 +373,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+                     <path
+                         id=&quot;Burundi&quot;
+@@ -399,9 +384,9 @@
+                         stroke-width=&quot;0.3&quot;
+                         stroke=&quot;#aaa&quot;
+                         stroke-opacity=&quot;1&quot;
+                         cursor=&quot;pointer&quot;
+-                        fill=&quot;url(#noDataPatternForGlobe)&quot;
++                        fill=&quot;url(#noDataPattern)&quot;
+                         fill-opacity=&quot;1&quot;
+                     ></path>
+
+... (diff truncated: showing 300 of 1898 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Chart type filtering
+        const chartTypeFilter = document.getElementById('chart-type-filter');
+        const visibleCountSpan = document.getElementById('visible-count');
+
+        function filterByChartType(chartType) {
+            const sections = document.querySelectorAll('section[data-chart-type]');
+            let visibleCount = 0;
+
+            sections.forEach(section => {
+                if (chartType === 'all' || section.dataset.chartType === chartType) {
+                    section.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            if (visibleCountSpan) {
+                visibleCountSpan.textContent = visibleCount;
+            }
+        }
+
+        if (chartTypeFilter) {
+            chartTypeFilter.addEventListener('change', (e) => {
+                filterByChartType(e.target.value);
+            });
+        }
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section, and skip if diff was too large
+                    if (diffContainer && !renderedDiffs.has(diffId) && !diffContainer.dataset.skipped) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
