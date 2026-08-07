@@ -1,0 +1,1849 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Comparison</title>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@8/dist/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #24292e;
+        }
+
+        /* Filter dropdown */
+        .filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        .filter-container label {
+            font-weight: 500;
+            color: #24292e;
+        }
+
+        .filter-container select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            background: #fafbfc;
+            font-size: 0.9rem;
+            color: #24292e;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-container select:hover {
+            border-color: #a0a8b0;
+        }
+
+        .filter-container select:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        section.hidden {
+            display: none;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        section + section {
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-with-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .copy-slug-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #24292e;
+            transition: all 0.15s;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .copy-slug-btn:hover {
+            background: #f3f4f6;
+            border-color: #a0a8b0;
+        }
+
+        .copy-slug-btn.copied {
+            background: #dafbe1;
+            border-color: #4ac26b;
+            color: #1a7f37;
+        }
+
+        .copy-slug-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5da;
+            background: #fafbfc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #24292e;
+            transition: all 0.1s;
+            font-weight: 500;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .tab-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            background: white;
+            border-color: #0969da;
+            color: #0969da;
+            z-index: 1;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Side by side view */
+        .side-by-side {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            flex: 0 1 auto;
+            display: flex;
+            flex-direction: column;
+            max-width: 850px;
+        }
+
+        .comparison-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .comparison-item.deleted .comparison-header {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-header {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper {
+            display: block;
+            border: 1px solid;
+            overflow: hidden;
+        }
+
+        .comparison-item.deleted .comparison-image-wrapper {
+            border-color: #ff818266;
+        }
+
+        .comparison-item.added .comparison-image-wrapper {
+            border-color: #4ac26b66;
+        }
+
+        .comparison-image-wrapper img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Slider view */
+        .slider-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .comparison-slider {
+            width: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+            overflow: hidden;
+            --divider-width: 1px;
+            --divider-color: #333;
+            --default-handle-opacity: 0;
+            cursor: ew-resize;
+        }
+
+        img-comparison-slider img {
+            max-width: 850px;
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            height: auto;
+        }
+
+        /* Red outline for old/reference version (first image) */
+        img-comparison-slider img[slot="first"] {
+            outline: 1px solid #d32f2f;
+            outline-offset: -1px;
+        }
+
+        /* Green outline for new/current version (second image) */
+        img-comparison-slider img[slot="second"] {
+            outline: 1px solid #388e3c;
+            outline-offset: -1px;
+        }
+
+        /* Remove focus ring when dragging */
+        img-comparison-slider:focus {
+            outline: none;
+        }
+
+        img-comparison-slider:focus-visible {
+            outline: none;
+        }
+
+        /* Labels for slider */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .slider-label-left {
+            color: #cf222e;
+        }
+
+        .slider-label-right {
+            color: #1a7f37;
+        }
+
+        /* Code diff view */
+        .code-diff-container {
+            max-height: 800px;
+            overflow: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        /* Override diff2html styles for better integration */
+        .code-diff-container .d2h-wrapper {
+            border: none;
+        }
+
+        .code-diff-container .d2h-file-header {
+            border-radius: 0;
+        }
+
+        /* Hide the "Viewed" checkbox */
+        .code-diff-container .d2h-file-collapse {
+            display: none !important;
+        }
+
+        /* Fix line number overflow on scroll */
+        .code-diff-container .d2h-file-diff {
+            overflow-x: auto;
+        }
+
+        .code-diff-container .d2h-code-side-linenumber {
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        .code-diff-container .d2h-code-linenumber {
+            min-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="filter-container">
+        <label for="chart-type-filter">Chart Type:</label>
+        <select id="chart-type-filter">
+            <option value="all" selected>All (4)</option>
+            <option value="StackedDiscreteBar">StackedDiscreteBar (1)</option>
+<option value="DiscreteBar">DiscreteBar (1)</option>
+<option value="StackedArea">StackedArea (1)</option>
+<option value="LineChart">LineChart (1)</option>
+        </select>
+    </div><p class="summary">Showing <span id="visible-count">4</span> of 4 differences</p><section data-slug="cases-of-killed-human-rights-defenders-journalists-trade-unionists" data-chart-type="StackedDiscreteBar">
+        <div class="header-with-actions">
+            <h2>cases-of-killed-human-rights-defenders-journalists-trade-unionists</h2>
+            <button class="copy-slug-btn" data-slug="cases-of-killed-human-rights-defenders-journalists-trade-unionists" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (72)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/cases-of-killed-human-rights-defenders-journalists-trade-unionists" target="_blank" class="comparison-image-wrapper">
+                    <img src="references/cases-of-killed-human-rights-defenders-journalists-trade-unionists_v36_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-text-wrap-group/grapher/cases-of-killed-human-rights-defenders-journalists-trade-unionists" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/cases-of-killed-human-rights-defenders-journalists-trade-unionists_v36_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="references/cases-of-killed-human-rights-defenders-journalists-trade-unionists_v36_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/cases-of-killed-human-rights-defenders-journalists-trade-unionists_v36_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: cases-of-killed-human-rights-defenders-journalists-trade-unionists_v36_850x600.svg
+===================================================================
+--- cases-of-killed-human-rights-defenders-journalists-trade-unionists_v36_850x600.svg
++++ cases-of-killed-human-rights-defenders-journalists-trade-unionists_v36_850x600.svg
+@@ -115,11 +115,11 @@
+             </g>
+         </g>
+         <line
+             id=&quot;vertical-zero-line&quot;
+-            x1=&quot;233.65&quot;
++            x1=&quot;257.15&quot;
+             y1=&quot;550.40&quot;
+-            x2=&quot;233.65&quot;
++            x2=&quot;257.15&quot;
+             y2=&quot;130.10&quot;
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+         ></line>
+@@ -133,19 +133,19 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(233.9, -19.51392857142857)&quot;
+-                        width=&quot;489.20000000000005&quot;
++                        transform=&quot;translate(257.4, -19.51392857142857)&quot;
++                        width=&quot;468.9&quot;
+                         height=&quot;39.02785714285714&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;478.5&quot;
++                        x=&quot;491.84999999999997&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;489.20000000000005&quot;
++                        width=&quot;468.9&quot;
+                         height=&quot;39.02785714285714&quot;
+                         fill=&quot;#fff&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -158,19 +158,19 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(723.1, -19.51392857142857)&quot;
+-                        width=&quot;77.4&quot;
++                        transform=&quot;translate(726.3, -19.51392857142857)&quot;
++                        width=&quot;74.10000000000002&quot;
+                         height=&quot;39.02785714285714&quot;
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;761.8000000000001&quot;
++                        x=&quot;763.3499999999999&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;77.4&quot;
++                        width=&quot;74.10000000000002&quot;
+                         height=&quot;39.02785714285714&quot;
+                         fill=&quot;#fff&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -179,15 +179,15 @@
+                         68
+                     </text>
+                 </g>
+                 <text
+-                    x=&quot;228.9&quot;
++                    x=&quot;252.4&quot;
+                     y=&quot;5.0&quot;
+                     text-anchor=&quot;end&quot;
+                     font-size=&quot;13.50&quot;
+                     opacity=&quot;1&quot;
+                 >
+-                    <tspan x=&quot;228.9&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
++                    <tspan x=&quot;252.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         World
+                     </tspan>
+                 </text>
+                 <text
+@@ -209,19 +209,19 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(233.9, -19.51392857142857)&quot;
+-                        width=&quot;258.29999999999995&quot;
++                        transform=&quot;translate(257.4, -19.51392857142857)&quot;
++                        width=&quot;247.60000000000002&quot;
+                         height=&quot;39.02785714285714&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;363.04999999999995&quot;
++                        x=&quot;381.2&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;258.29999999999995&quot;
++                        width=&quot;247.60000000000002&quot;
+                         height=&quot;39.02785714285714&quot;
+                         fill=&quot;#fff&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -234,19 +234,19 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(492.2, -19.51392857142857)&quot;
+-                        width=&quot;34.099999999999994&quot;
++                        transform=&quot;translate(505, -19.51392857142857)&quot;
++                        width=&quot;32.700000000000045&quot;
+                         height=&quot;39.02785714285714&quot;
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;509.25&quot;
++                        x=&quot;521.35&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;34.099999999999994&quot;
++                        width=&quot;32.700000000000045&quot;
+                         height=&quot;39.02785714285714&quot;
+                         fill=&quot;#fff&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -255,23 +255,23 @@
+                         30
+                     </text>
+                 </g>
+                 <text
+-                    x=&quot;228.9&quot;
++                    x=&quot;252.4&quot;
+                     y=&quot;-1.8&quot;
+                     text-anchor=&quot;end&quot;
+                     font-size=&quot;13.50&quot;
+                     opacity=&quot;1&quot;
+                 >
+-                    <tspan x=&quot;228.9&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
++                    <tspan x=&quot;252.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Latin America and the Caribbean
+                     </tspan>
+-                    <tspan x=&quot;228.9&quot; dy=&quot;13.5&quot; font-weight=&quot;400&quot; fill=&quot;#767676&quot;>
++                    <tspan x=&quot;252.4&quot; dy=&quot;13.5&quot; font-weight=&quot;400&quot; fill=&quot;#767676&quot;>
+                         (UN SDG)
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(531.3, 0)&quot;
++                    transform=&quot;translate(542.7, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+@@ -288,19 +288,19 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(233.9, -19.51392857142857)&quot;
+-                        width=&quot;146.79999999999998&quot;
++                        transform=&quot;translate(257.4, -19.51392857142857)&quot;
++                        width=&quot;140.70000000000005&quot;
+                         height=&quot;39.02785714285714&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;307.3&quot;
++                        x=&quot;327.75&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;146.79999999999998&quot;
++                        width=&quot;140.70000000000005&quot;
+                         height=&quot;39.02785714285714&quot;
+                         fill=&quot;#fff&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -313,19 +313,19 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(380.7, -19.51392857142857)&quot;
+-                        width=&quot;27.299999999999983&quot;
++                        transform=&quot;translate(398.1, -19.51392857142857)&quot;
++                        width=&quot;26.200000000000045&quot;
+                         height=&quot;39.02785714285714&quot;
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;394.34999999999997&quot;
++                        x=&quot;411.20000000000005&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;27.299999999999983&quot;
++                        width=&quot;26.200000000000045&quot;
+                         height=&quot;39.02785714285714&quot;
+                         fill=&quot;#fff&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -334,23 +334,23 @@
+                         24
+                     </text>
+                 </g>
+                 <text
+-                    x=&quot;228.9&quot;
++                    x=&quot;252.4&quot;
+                     y=&quot;-1.8&quot;
+                     text-anchor=&quot;end&quot;
+                     font-size=&quot;13.50&quot;
+                     opacity=&quot;1&quot;
+                 >
+-                    <tspan x=&quot;228.9&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
++                    <tspan x=&quot;252.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Northern Africa and Western Asia
+                     </tspan>
+-                    <tspan x=&quot;228.9&quot; dy=&quot;13.5&quot; font-weight=&quot;400&quot; fill=&quot;#767676&quot;>
++                    <tspan x=&quot;252.4&quot; dy=&quot;13.5&quot; font-weight=&quot;400&quot; fill=&quot;#767676&quot;>
+                         (UN SDG)
+                     </tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(413, 0)&quot;
++                    transform=&quot;translate(429.2, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+@@ -367,19 +367,19 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(233.9, -19.51392857142857)&quot;
+-                        width=&quot;37.49999999999997&quot;
++                        transform=&quot;translate(257.4, -19.51392857142857)&quot;
++                        width=&quot;36&quot;
+                         height=&quot;39.02785714285714&quot;
+                         fill=&quot;#4c6a9c&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                     <text
+-                        x=&quot;252.64999999999998&quot;
++                        x=&quot;275.4&quot;
+                         y=&quot;0&quot;
+-                        width=&quot;37.49999999999997&quot;
++                        width=&quot;36&quot;
+                         height=&quot;39.02785714285714&quot;
+                         fill=&quot;#fff&quot;
+                         font-size=&quot;13.5&quot;
+                         text-anchor=&quot;middle&quot;
+@@ -392,30 +392,30 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+-                        transform=&quot;translate(271.4, -19.51392857142857)&quot;
++                        transform=&quot;translate(293.4, -19.51392857142857)&quot;
+                         width=&quot;0&quot;
+                         height=&quot;39.02785714285714&quot;
+                         fill=&quot;#883039&quot;
+                         opacity=&quot;0.8&quot;
+                         style=&quot;transition: height 200ms ease&quot;
+                     ></rect>
+                 </g>
+                 <text
+-                    x=&quot;228.9&quot;
++                    x=&quot;252.4&quot;
+                     y=&quot;5.0&quot;
+                     text-anchor=&quot;end&quot;
+                     font-size=&quot;13.50&quot;
+                     opacity=&quot;1&quot;
+                 >
+-                    <tspan x=&quot;228.9&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
++                    <tspan x=&quot;252.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                         Central and Southern Asia
+                     </tspan>
+                     <tspan font-weight=&quot;400&quot; fill=&quot;#767676&quot;>(UN SDG)</tspan>
+                 </text>
+                 <text
+-                    transform=&quot;translate(276.4, 0)&quot;
++                    transform=&quot;translate(298.4, 0)&quot;
+                     dy=&quot;.32em&quot;
+                     opacity=&quot;1&quot;
+                     fill=&quot;#555&quot;
+                     font-size=&quot;13.5&quot;
+@@ -432,10 +432,10 @@
+                     <rect
+                         id=&quot;bar&quot;
+                         x=&quot;0&quot;
+                         y=&quot;0&quot;
+
+... (diff truncated: showing 300 of 461 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="global-food-loss-index" data-chart-type="DiscreteBar">
+        <div class="header-with-actions">
+            <h2>global-food-loss-index</h2>
+            <button class="copy-slug-btn" data-slug="global-food-loss-index" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (53)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/global-food-loss-index" target="_blank" class="comparison-image-wrapper">
+                    <img src="references/global-food-loss-index_v11_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-text-wrap-group/grapher/global-food-loss-index" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/global-food-loss-index_v11_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="references/global-food-loss-index_v11_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/global-food-loss-index_v11_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: global-food-loss-index_v11_850x600.svg
+===================================================================
+--- global-food-loss-index_v11_850x600.svg
++++ global-food-loss-index_v11_850x600.svg
+@@ -80,11 +80,11 @@
+     </g>
+     <g id=&quot;chart-area&quot; style=&quot;pointer-events: none&quot;>
+         <line
+             id=&quot;vertical-zero-line&quot;
+-            x1=&quot;238.75&quot;
++            x1=&quot;257.15&quot;
+             y1=&quot;552.40&quot;
+-            x2=&quot;238.75&quot;
++            x2=&quot;257.15&quot;
+             y2=&quot;122.00&quot;
+             stroke=&quot;#999&quot;
+             stroke-width=&quot;0.5&quot;
+         ></line>
+@@ -92,10 +92,10 @@
+             <rect
+                 id=&quot;Oceania-(UN-SDG)&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(239, 130.36888888888888)&quot;
+-                width=&quot;550.4&quot;
++                transform=&quot;translate(257.4, 130.36888888888888)&quot;
++                width=&quot;532&quot;
+                 height=&quot;31.084444444444443&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -103,10 +103,10 @@
+             <rect
+                 id=&quot;Europe-and-Northern-America-(UN-SDG)&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(239, 178.1911111111111)&quot;
+-                width=&quot;543.4&quot;
++                transform=&quot;translate(257.4, 178.1911111111111)&quot;
++                width=&quot;525.2&quot;
+                 height=&quot;31.084444444444443&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -114,10 +114,10 @@
+             <rect
+                 id=&quot;Northern-Africa-and-Western-Asia-(UN-SDG)&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(239, 226.01333333333332)&quot;
+-                width=&quot;542.8&quot;
++                transform=&quot;translate(257.4, 226.01333333333332)&quot;
++                width=&quot;524.6&quot;
+                 height=&quot;31.084444444444443&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -125,10 +125,10 @@
+             <rect
+                 id=&quot;Australia-and-New-Zealand-(UN-SDG)&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(239, 273.8355555555555)&quot;
+-                width=&quot;531.7&quot;
++                transform=&quot;translate(257.4, 273.8355555555555)&quot;
++                width=&quot;513.9&quot;
+                 height=&quot;31.084444444444443&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -136,10 +136,10 @@
+             <rect
+                 id=&quot;Sub-Saharan-Africa-(UN-SDG)&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(239, 321.65777777777777)&quot;
+-                width=&quot;527.5&quot;
++                transform=&quot;translate(257.4, 321.65777777777777)&quot;
++                width=&quot;509.9&quot;
+                 height=&quot;31.084444444444443&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -147,10 +147,10 @@
+             <rect
+                 id=&quot;World&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(239, 369.48)&quot;
+-                width=&quot;519.1&quot;
++                transform=&quot;translate(257.4, 369.48)&quot;
++                width=&quot;501.80000000000007&quot;
+                 height=&quot;31.084444444444443&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -158,10 +158,10 @@
+             <rect
+                 id=&quot;Eastern-and-South-Eastern-Asia-(UN-SDG)&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(239, 417.3022222222222)&quot;
+-                width=&quot;512.6&quot;
++                transform=&quot;translate(257.4, 417.3022222222222)&quot;
++                width=&quot;495.4&quot;
+                 height=&quot;31.084444444444443&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -169,10 +169,10 @@
+             <rect
+                 id=&quot;Latin-America-and-the-Caribbean-(UN-SDG)&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(239, 465.12444444444446)&quot;
+-                width=&quot;512.3&quot;
++                transform=&quot;translate(257.4, 465.12444444444446)&quot;
++                width=&quot;495.20000000000005&quot;
+                 height=&quot;31.084444444444443&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -180,10 +180,10 @@
+             <rect
+                 id=&quot;Central-and-Southern-Asia-(UN-SDG)&quot;
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(239, 512.9466666666666)&quot;
+-                width=&quot;483.79999999999995&quot;
++                transform=&quot;translate(257.4, 512.9466666666666)&quot;
++                width=&quot;467.6&quot;
+                 height=&quot;31.084444444444443&quot;
+                 fill=&quot;#4c6a9c&quot;
+                 opacity=&quot;0.8&quot;
+                 style=&quot;transition: height 200ms ease&quot;
+@@ -206,9 +206,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(787.4, 193.73333333333332)&quot;
++                transform=&quot;translate(787.6, 193.73333333333332)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -220,9 +220,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(786.8, 241.55555555555554)&quot;
++                transform=&quot;translate(787, 241.55555555555554)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -234,9 +234,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(775.7, 289.37777777777774)&quot;
++                transform=&quot;translate(776.3, 289.37777777777774)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -248,9 +248,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(771.5, 337.2)&quot;
++                transform=&quot;translate(772.3, 337.2)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -262,9 +262,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(763.1, 385.02222222222224)&quot;
++                transform=&quot;translate(764.2, 385.02222222222224)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -276,9 +276,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(756.6, 432.84444444444443)&quot;
++                transform=&quot;translate(757.8, 432.84444444444443)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -290,9 +290,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(756.3, 480.6666666666667)&quot;
++                transform=&quot;translate(757.6, 480.6666666666667)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -304,9 +304,9 @@
+             </text>
+             <text
+                 x=&quot;0&quot;
+                 y=&quot;0&quot;
+-                transform=&quot;translate(727.8, 528.4888888888888)&quot;
++                transform=&quot;translate(730, 528.4888888888888)&quot;
+                 fill=&quot;#5b5b5b&quot;
+                 dy=&quot;.32em&quot;
+                 text-anchor=&quot;start&quot;
+                 opacity=&quot;1&quot;
+@@ -318,116 +318,114 @@
+             </text>
+         </g>
+         <g id=&quot;entity-labels&quot;>
+             <text
+-                x=&quot;234.0&quot;
++                x=&quot;252.4&quot;
+                 y=&quot;150.9&quot;
+                 text-anchor=&quot;end&quot;
+                 font-size=&quot;13.50&quot;
+                 opacity=&quot;1&quot;
+             >
+-                <tspan x=&quot;234.0&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
++                <tspan x=&quot;252.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                     Oceania
+                 </tspan>
+                 <tspan font-weight=&quot;400&quot; fill=&quot;#767676&quot;>(UN SDG)</tspan>
+             </text>
+             <text
+-                x=&quot;234.0&quot;
+-                y=&quot;192.0&quot;
++                x=&quot;252.4&quot;
++                y=&quot;198.7&quot;
+                 text-anchor=&quot;end&quot;
+                 font-size=&quot;13.50&quot;
+                 opacity=&quot;1&quot;
+             >
+-                <tspan x=&quot;234.0&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
++                <tspan x=&quot;252.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                     Europe and Northern America
+                 </tspan>
+-                <tspan x=&quot;234.0&quot; dy=&quot;13.5&quot; font-weight=&quot;400&quot; fill=&quot;#767676&quot;>
+-                    (UN SDG)
+-                </tspan>
++                <tspan font-weight=&quot;400&quot; fill=&quot;#767676&quot;>(UN SDG)</tspan>
+             </text>
+             <text
+-                x=&quot;234.0&quot;
++                x=&quot;252.4&quot;
+                 y=&quot;239.8&quot;
+                 text-anchor=&quot;end&quot;
+                 font-size=&quot;13.50&quot;
+                 opacity=&quot;1&quot;
+             >
+-                <tspan x=&quot;234.0&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
++                <tspan x=&quot;252.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                     Northern Africa and Western Asia
+                 </tspan>
+-                <tspan x=&quot;234.0&quot; dy=&quot;13.5&quot; font-weight=&quot;400&quot; fill=&quot;#767676&quot;>
++                <tspan x=&quot;252.4&quot; dy=&quot;13.5&quot; font-weight=&quot;400&quot; fill=&quot;#767676&quot;>
+                     (UN SDG)
+                 </tspan>
+             </text>
+             <text
+-                x=&quot;234.0&quot;
++                x=&quot;252.4&quot;
+                 y=&quot;294.4&quot;
+                 text-anchor=&quot;end&quot;
+                 font-size=&quot;13.50&quot;
+                 opacity=&quot;1&quot;
+             >
+-                <tspan x=&quot;234.0&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
++                <tspan x=&quot;252.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+                     Australia and New Zealand
+                 </tspan>
+                 <tspan font-weight=&quot;400&quot; fill=&quot;#767676&quot;>(UN SDG)</tspan>
+             </text>
+             <text
+-                x=&quot;234.0&quot;
++                x=&quot;252.4&quot;
+                 y=&quot;342.2&quot;
+                 text-anchor=&quot;end&quot;
+                 font-size=&quot;13.50&quot;
+                 opacity=&quot;1&quot;
+             >
+-                <tspan x=&quot;234.0&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
++                <tspan x=&quot;252.4&quot; font-weight=&quot;700&quot; fill=&quot;#5b5b5b&quot;>
+
+... (diff truncated: showing 300 of 364 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="hiv-funding-by-region" data-chart-type="StackedArea">
+        <div class="header-with-actions">
+            <h2>hiv-funding-by-region</h2>
+            <button class="copy-slug-btn" data-slug="hiv-funding-by-region" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (39)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/hiv-funding-by-region" target="_blank" class="comparison-image-wrapper">
+                    <img src="references/hiv-funding-by-region_v23_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-text-wrap-group/grapher/hiv-funding-by-region" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/hiv-funding-by-region_v23_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="references/hiv-funding-by-region_v23_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/hiv-funding-by-region_v23_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: hiv-funding-by-region_v23_850x600.svg
+===================================================================
+--- hiv-funding-by-region_v23_850x600.svg
++++ hiv-funding-by-region_v23_850x600.svg
+@@ -90,47 +90,47 @@
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2019&quot;
+-                    x1=&quot;666.7&quot;
++                    x1=&quot;633.5&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;666.7&quot;
++                    x2=&quot;633.5&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2012&quot;
+-                    x1=&quot;211.6&quot;
++                    x1=&quot;204.2&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;211.6&quot;
++                    x2=&quot;204.2&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2014&quot;
+-                    x1=&quot;341.8&quot;
++                    x1=&quot;327&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;341.8&quot;
++                    x2=&quot;327&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2016&quot;
+-                    x1=&quot;472&quot;
++                    x1=&quot;449.8&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;472&quot;
++                    x2=&quot;449.8&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2018&quot;
+-                    x1=&quot;602.1&quot;
++                    x1=&quot;572.6&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;602.1&quot;
++                    x2=&quot;572.6&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+@@ -145,45 +145,45 @@
+                 >
+                     2010
+                 </text>
+                 <text
+-                    x=&quot;667.2&quot;
++                    x=&quot;634.05&quot;
+                     y=&quot;530.3&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;end&quot;
+                     font-size=&quot;13&quot;
+                 >
+                     2019
+                 </text>
+                 <text
+-                    x=&quot;211.6&quot;
++                    x=&quot;204.2&quot;
+                     y=&quot;530.3&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                 >
+                     2012
+                 </text>
+                 <text
+-                    x=&quot;341.8&quot;
++                    x=&quot;327&quot;
+                     y=&quot;530.3&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                 >
+                     2014
+                 </text>
+                 <text
+-                    x=&quot;472&quot;
++                    x=&quot;449.8&quot;
+                     y=&quot;530.3&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                 >
+                     2016
+                 </text>
+                 <text
+-                    x=&quot;602.1&quot;
++                    x=&quot;572.6&quot;
+                     y=&quot;530.3&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+@@ -251,50 +251,50 @@
+                 id=&quot;\$0&quot;
+                 class=&quot;zero-line&quot;
+                 x1=&quot;81.45&quot;
+                 y1=&quot;512.3&quot;
+-                x2=&quot;667.20&quot;
++                x2=&quot;634.05&quot;
+                 y2=&quot;512.3&quot;
+                 stroke=&quot;#999&quot;
+             ></line>
+             <line
+                 id=&quot;\$5-billion&quot;
+                 x1=&quot;81.45&quot;
+                 y1=&quot;416.2&quot;
+-                x2=&quot;667.20&quot;
++                x2=&quot;634.05&quot;
+                 y2=&quot;416.2&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;\$10-billion&quot;
+                 x1=&quot;81.45&quot;
+                 y1=&quot;320.1&quot;
+-                x2=&quot;667.20&quot;
++                x2=&quot;634.05&quot;
+                 y2=&quot;320.1&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;\$15-billion&quot;
+                 x1=&quot;81.45&quot;
+                 y1=&quot;224.1&quot;
+-                x2=&quot;667.20&quot;
++                x2=&quot;634.05&quot;
+                 y2=&quot;224.1&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;\$20-billion&quot;
+                 x1=&quot;81.45&quot;
+                 y1=&quot;128&quot;
+-                x2=&quot;667.20&quot;
++                x2=&quot;634.05&quot;
+                 y2=&quot;128&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+         </g>
+-        <g id=&quot;vertical-labels&quot; transform=&quot;translate(667.2, 0)&quot;>
++        <g id=&quot;vertical-labels&quot; transform=&quot;translate(634.05, 0)&quot;>
+             <g id=&quot;connectors&quot; style=&quot;pointer-events: none&quot;>
+                 <path
+                     id=&quot;Middle-East-and-North-Africa-(UNAIDS)&quot;
+                     d=&quot;M4,157.1 H16.75 V136.3 H21&quot;
+@@ -406,19 +406,17 @@
+                 </text>
+                 <text
+                     id=&quot;label__Asia-and-the-Pacific-(UNAIDS)&quot;
+                     x=&quot;25.0&quot;
+-                    y=&quot;261.5&quot;
++                    y=&quot;268.6&quot;
+                     text-anchor=&quot;start&quot;
+                     font-size=&quot;13.00&quot;
+                     opacity=&quot;1&quot;
+                 >
+                     <tspan x=&quot;25.0&quot; font-weight=&quot;400&quot; fill=&quot;#54a385&quot;>
+                         Asia and the Pacific
+                     </tspan>
+-                    <tspan x=&quot;25.0&quot; dy=&quot;14.3&quot; font-weight=&quot;400&quot; fill=&quot;#767676&quot;>
+-                        (UNAIDS)
+-                    </tspan>
++                    <tspan font-weight=&quot;400&quot; fill=&quot;#767676&quot;>(UNAIDS)</tspan>
+                 </text>
+                 <text
+                     id=&quot;label__West-and-Central-Africa-(UNAIDS)&quot;
+                     x=&quot;25.0&quot;
+@@ -458,57 +456,57 @@
+                 <path
+                     id=&quot;East-and-Southern-Africa-(UNAIDS)&quot;
+                     class=&quot;East-and-Southern-Africa-__0028UNAIDS__0029-area&quot;
+                     stroke-linecap=&quot;round&quot;
+-                    d=&quot;M81.5 367.5L146.5 344.6L211.6 338.3L276.7 328.4L341.8 331.1L406.9 334.4L472 323L537 306.2L602.1 321.3L667.2 330.6L667.2 512.3L81.5 512.3&quot;
++                    d=&quot;M81.5 367.5L142.8 344.6L204.2 338.3L265.6 328.4L327 331.1L388.4 334.4L449.8 323L511.3 306.2L572.6 321.3L634 330.6L634 512.3L81.5 512.3&quot;
+                     fill=&quot;#00295b&quot;
+                     fill-opacity=&quot;0.8&quot;
+                 ></path>
+                 <path
+                     id=&quot;West-and-Central-Africa-(UNAIDS)&quot;
+                     class=&quot;West-and-Central-Africa-__0028UNAIDS__0029-area&quot;
+                     stroke-linecap=&quot;round&quot;
+-                    d=&quot;M81.5 325L146.5 305L211.6 293.1L276.7 279.6L341.8 286.5L406.9 292.9L472 283.5L537 265L602.1 284.4L667.2 295.1L667.2 330.6L602.1 321.3L537 306.2L472 323L406.9 334.4L341.8 331.1L276.7 328.4L211.6 338.3L146.5 344.6L81.5 367.5&quot;
++                    d=&quot;M81.5 325L142.8 305L204.2 293.1L265.6 279.6L327 286.5L388.4 292.9L449.8 283.5L511.3 265L572.6 284.4L634 295.1L634 330.6L572.6 321.3L511.3 306.2L449.8 323L388.4 334.4L327 331.1L265.6 328.4L204.2 338.3L142.8 344.6L81.5 367.5&quot;
+                     fill=&quot;#8c4569&quot;
+                     fill-opacity=&quot;0.8&quot;
+                 ></path>
+                 <path
+                     id=&quot;Asia-and-the-Pacific-(UNAIDS)&quot;
+                     class=&quot;Asia-and-the-Pacific-__0028UNAIDS__0029-area&quot;
+                     stroke-linecap=&quot;round&quot;
+-                    d=&quot;M81.5 274.2L146.5 243.7L211.6 232.7L276.7 216L341.8 223.1L406.9 228L472 221L537 204L602.1 217.4L667.2 232.6L667.2 295.1L602.1 284.4L537 265L472 283.5L406.9 292.9L341.8 286.5L276.7 279.6L211.6 293.1L146.5 305L81.5 325&quot;
++                    d=&quot;M81.5 274.2L142.8 243.7L204.2 232.7L265.6 216L327 223.1L388.4 228L449.8 221L511.3 204L572.6 217.4L634 232.6L634 295.1L572.6 284.4L511.3 265L449.8 283.5L388.4 292.9L327 286.5L265.6 279.6L204.2 293.1L142.8 305L81.5 325&quot;
+                     fill=&quot;#58ac8c&quot;
+                     fill-opacity=&quot;0.8&quot;
+                 ></path>
+                 <path
+                     id=&quot;Latin-America-(UNAIDS)&quot;
+                     class=&quot;Latin-America-__0028UNAIDS__0029-area&quot;
+                     stroke-linecap=&quot;round&quot;
+-                    d=&quot;M81.5 242.1L146.5 208L211.6 197.9L276.7 178.2L341.8 183.6L406.9 185.8L472 175.6L537 151.8L602.1 169.4L667.2 174.3L667.2 232.6L602.1 217.4L537 204L472 221L406.9 228L341.8 223.1L276.7 216L211.6 232.7L146.5 243.7L81.5 274.2&quot;
++                    d=&quot;M81.5 242.1L142.8 208L204.2 197.9L265.6 178.2L327 183.6L388.4 185.8L449.8 175.6L511.3 151.8L572.6 169.4L634 174.3L634 232.6L572.6 217.4L511.3 204L449.8 221L388.4 228L327 223.1L265.6 216L204.2 232.7L142.8 243.7L81.5 274.2&quot;
+                     fill=&quot;#883039&quot;
+                     fill-opacity=&quot;0.8&quot;
+                 ></path>
+                 <path
+                     id=&quot;Eastern-Europe-and-Central-Asia-(UNAIDS)&quot;
+                     class=&quot;Eastern-Europe-and-Central-Asia-__0028UNAIDS__0029-area&quot;
+                     stroke-linecap=&quot;round&quot;
+-                    d=&quot;M81.5 233.2L146.5 198.3L211.6 187.6L276.7 167.9L341.8 173.5L406.9 175.7L472 165.8L537 139.2L602.1 157.8L667.2 163.4L667.2 174.3L602.1 169.4L537 151.8L472 175.6L406.9 185.8L341.8 183.6L276.7 178.2L211.6 197.9L146.5 208L81.5 242.1&quot;
++                    d=&quot;M81.5 233.2L142.8 198.3L204.2 187.6L265.6 167.9L327 173.5L388.4 175.7L449.8 165.8L511.3 139.2L572.6 157.8L634 163.4L634 174.3L572.6 169.4L511.3 151.8L449.8 175.6L388.4 185.8L327 183.6L265.6 178.2L204.2 197.9L142.8 208L81.5 242.1&quot;
+                     fill=&quot;#4c6a9c&quot;
+                     fill-opacity=&quot;0.8&quot;
+                 ></path>
+                 <path
+                     id=&quot;Caribbean-(UNAIDS)&quot;
+                     class=&quot;Caribbean-__0028UNAIDS__0029-area&quot;
+                     stroke-linecap=&quot;round&quot;
+-                    d=&quot;M81.5 226.9L146.5 191.3L211.6 180.5L276.7 160.7L341.8 166.5L406.9 169.1L472 161.1L537 133.6L602.1 151.6L667.2 158.5L667.2 163.4L602.1 157.8L537 139.2L472 165.8L406.9 175.7L341.8 173.5L276.7 167.9L211.6 187.6L146.5 198.3L81.5 233.2&quot;
++                    d=&quot;M81.5 226.9L142.8 191.3L204.2 180.5L265.6 160.7L327 166.5L388.4 169.1L449.8 161.1L511.3 133.6L572.6 151.6L634 158.5L634 163.4L572.6 157.8L511.3 139.2L449.8 165.8L388.4 175.7L327 173.5L265.6 167.9L204.2 187.6L142.8 198.3L81.5 233.2&quot;
+                     fill=&quot;#e56e5a&quot;
+                     fill-opacity=&quot;0.8&quot;
+                 ></path>
+                 <path
+                     id=&quot;Middle-East-and-North-Africa-(UNAIDS)&quot;
+                     class=&quot;Middle-East-and-North-Africa-__0028UNAIDS__0029-area&quot;
+                     stroke-linecap=&quot;round&quot;
+-                    d=&quot;M81.5 223.4L146.5 188.1L211.6 177.6L276.7 157.7L341.8 163.7L406.9 166.3L472 158.2L537 130.2L602.1 147.9L667.2 155.7L667.2 158.5L602.1 151.6L537 133.6L472 161.1L406.9 169.1L341.8 166.5L276.7 160.7L211.6 180.5L146.5 191.3L81.5 226.9&quot;
++                    d=&quot;M81.5 223.4L142.8 188.1L204.2 177.6L265.6 157.7L327 163.7L388.4 166.3L449.8 158.2L511.3 130.2L572.6 147.9L634 155.7L634 158.5L572.6 151.6L511.3 133.6L449.8 161.1L388.4 169.1L327 166.5L265.6 160.7L204.2 180.5L142.8 191.3L81.5 226.9&quot;
+                     fill=&quot;#bc8e5a&quot;
+                     fill-opacity=&quot;0.8&quot;
+                 ></path>
+             </g>
+@@ -516,9 +514,9 @@
+                 <path
+                     id=&quot;East-and-Southern-Africa-(UNAIDS)&quot;
+                     class=&quot;East-and-Southern-Africa-__0028UNAIDS__0029-border&quot;
+                     stroke-linecap=&quot;round&quot;
+-                    d=&quot;M81.5 367.5L146.5 344.6L211.6 338.3L276.7 328.4L341.8 331.1L406.9 334.4L472 323L537 306.2L602.1 321.3L667.2 330.6&quot;
++                    d=&quot;M81.5 367.5L142.8 344.6L204.2 338.3L265.6 328.4L327 331.1L388.4 334.4L449.8 323L511.3 306.2L572.6 321.3L634 330.6&quot;
+                     stroke=&quot;rgb(0, 34, 76)&quot;
+                     stroke-opacity=&quot;0.7&quot;
+                     stroke-width=&quot;0.5&quot;
+                     fill=&quot;none&quot;
+@@ -526,9 +524,9 @@
+                 <path
+                     id=&quot;West-and-Central-Africa-(UNAIDS)&quot;
+                     class=&quot;West-and-Central-Africa-__0028UNAIDS__0029-border&quot;
+                     stroke-linecap=&quot;round&quot;
+-                    d=&quot;M81.5 325L146.5 305L211.6 293.1L276.7 279.6L341.8 286.5L406.9 292.9L472 283.5L537 265L602.1 284.4L667.2 295.1&quot;
++                    d=&quot;M81.5 325L142.8 305L204.2 293.1L265.6 279.6L327 286.5L388.4 292.9L449.8 283.5L511.3 265L572.6 284.4L634 295.1&quot;
+                     stroke=&quot;rgb(117, 58, 88)&quot;
+                     stroke-opacity=&quot;0.7&quot;
+                     stroke-width=&quot;0.5&quot;
+                     fill=&quot;none&quot;
+@@ -536,9 +534,9 @@
+                 <path
+                     id=&quot;Asia-and-the-Pacific-(UNAIDS)&quot;
+                     class=&quot;Asia-and-the-Pacific-__0028UNAIDS__0029-border&quot;
+                     stroke-linecap=&quot;round&quot;
+-                    d=&quot;M81.5 274.2L146.5 243.7L211.6 232.7L276.7 216L341.8 223.1L406.9 228L472 221L537 204L602.1 217.4L667.2 232.6&quot;
++                    d=&quot;M81.5 274.2L142.8 243.7L204.2 232.7L265.6 216L327 223.1L388.4 228L449.8 221L511.3 204L572.6 217.4L634 232.6&quot;
+                     stroke=&quot;rgb(74, 144, 117)&quot;
+                     stroke-opacity=&quot;0.7&quot;
+                     stroke-width=&quot;0.5&quot;
+                     fill=&quot;none&quot;
+@@ -546,9 +544,9 @@
+                 <path
+                     id=&quot;Latin-America-(UNAIDS)&quot;
+                     class=&quot;Latin-America-__0028UNAIDS__0029-border&quot;
+                     stroke-linecap=&quot;round&quot;
+-                    d=&quot;M81.5 242.1L146.5 208L211.6 197.9L276.7 178.2L341.8 183.6L406.9 185.8L472 175.6L537 151.8L602.1 169.4L667.2 174.3&quot;
++                    d=&quot;M81.5 242.1L142.8 208L204.2 197.9L265.6 178.2L327 183.6L388.4 185.8L449.8 175.6L511.3 151.8L572.6 169.4L634 174.3&quot;
+                     stroke=&quot;rgb(114, 40, 48)&quot;
+                     stroke-opacity=&quot;0.7&quot;
+                     stroke-width=&quot;0.5&quot;
+
+... (diff truncated: showing 300 of 335 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+<section data-slug="people-with-access-to-at-least-basic-drinking-water" data-chart-type="LineChart">
+        <div class="header-with-actions">
+            <h2>people-with-access-to-at-least-basic-drinking-water</h2>
+            <button class="copy-slug-btn" data-slug="people-with-access-to-at-least-basic-drinking-water" title="Copy to clipboard">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10.5 2h-8A1.5 1.5 0 001 3.5v8A1.5 1.5 0 002.5 13h8a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0010.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 2V1.5A1.5 1.5 0 016.5 0h8A1.5 1.5 0 0116 1.5v8A1.5 1.5 0 0114.5 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="copy-text">Copy</span>
+            </button>
+        </div>
+        <div class="tabs">
+        <button class="tab-btn active" data-tab="side-by-side">Side by Side</button>
+        <button class="tab-btn" data-tab="slider">Swipe</button>
+        <button class="tab-btn" data-tab="code-diff">Code Diff (277)</button>
+    </div>
+        <div class="tab-content">
+            <div class="tab-pane active" data-pane="side-by-side">
+        <div class="side-by-side">
+            <div class="comparison-item deleted">
+                <div class="comparison-header">Deleted</div>
+                <a href="https://ourworldindata.org/grapher/people-with-access-to-at-least-basic-drinking-water" target="_blank" class="comparison-image-wrapper">
+                    <img src="references/people-with-access-to-at-least-basic-drinking-water_v8_850x600.svg" loading="lazy" alt="Reference (live)">
+                </a>
+            </div>
+            <div class="comparison-item added">
+                <div class="comparison-header">Added</div>
+                <a href="http://staging-site-text-wrap-group/grapher/people-with-access-to-at-least-basic-drinking-water" target="_blank" class="comparison-image-wrapper">
+                    <img src="differences/people-with-access-to-at-least-basic-drinking-water_v8_850x600.svg" loading="lazy" alt="Current (local)">
+                </a>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="slider">
+        <div class="slider-wrapper">
+            <img-comparison-slider class="comparison-slider">
+                <img slot="first" src="references/people-with-access-to-at-least-basic-drinking-water_v8_850x600.svg" loading="lazy" alt="Reference (live)" />
+                <img slot="second" src="differences/people-with-access-to-at-least-basic-drinking-water_v8_850x600.svg" loading="lazy" alt="Current (local)" />
+            </img-comparison-slider>
+        </div>
+    </div>
+            <div class="tab-pane" data-pane="code-diff">
+        <div class="code-diff-container" data-diff="Index: people-with-access-to-at-least-basic-drinking-water_v8_850x600.svg
+===================================================================
+--- people-with-access-to-at-least-basic-drinking-water_v8_850x600.svg
++++ people-with-access-to-at-least-basic-drinking-water_v8_850x600.svg
+@@ -90,47 +90,47 @@
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2024&quot;
+-                    x1=&quot;573.3&quot;
++                    x1=&quot;558.5&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;573.3&quot;
++                    x2=&quot;558.5&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2005&quot;
+-                    x1=&quot;172&quot;
++                    x1=&quot;168.9&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;172&quot;
++                    x2=&quot;168.9&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2010&quot;
+-                    x1=&quot;277.6&quot;
++                    x1=&quot;271.4&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;277.6&quot;
++                    x2=&quot;271.4&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2015&quot;
+-                    x1=&quot;383.2&quot;
++                    x1=&quot;374&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;383.2&quot;
++                    x2=&quot;374&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+                 <line
+                     id=&quot;2020&quot;
+-                    x1=&quot;488.8&quot;
++                    x1=&quot;476.5&quot;
+                     y1=&quot;511.79999999999995&quot;
+-                    x2=&quot;488.8&quot;
++                    x2=&quot;476.5&quot;
+                     y2=&quot;517.3&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;1&quot;
+                 ></line>
+@@ -145,45 +145,45 @@
+                 >
+                     2000
+                 </text>
+                 <text
+-                    x=&quot;573.34&quot;
++                    x=&quot;558.52&quot;
+                     y=&quot;530.3&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;end&quot;
+                     font-size=&quot;13&quot;
+                 >
+                     2024
+                 </text>
+                 <text
+-                    x=&quot;172&quot;
++                    x=&quot;168.9&quot;
+                     y=&quot;530.3&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                 >
+                     2005
+                 </text>
+                 <text
+-                    x=&quot;277.6&quot;
++                    x=&quot;271.4&quot;
+                     y=&quot;530.3&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                 >
+                     2010
+                 </text>
+                 <text
+-                    x=&quot;383.2&quot;
++                    x=&quot;374&quot;
+                     y=&quot;530.3&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+                 >
+                     2015
+                 </text>
+                 <text
+-                    x=&quot;488.8&quot;
++                    x=&quot;476.5&quot;
+                     y=&quot;530.3&quot;
+                     fill=&quot;#5b5b5b&quot;
+                     text-anchor=&quot;middle&quot;
+                     font-size=&quot;13&quot;
+@@ -291,86 +291,86 @@
+                 id=&quot;0&quot;
+                 class=&quot;zero-line&quot;
+                 x1=&quot;66.37&quot;
+                 y1=&quot;512.3&quot;
+-                x2=&quot;573.34&quot;
++                x2=&quot;558.52&quot;
+                 y2=&quot;512.3&quot;
+                 stroke=&quot;#999&quot;
+             ></line>
+             <line
+                 id=&quot;1-billion&quot;
+                 x1=&quot;66.37&quot;
+                 y1=&quot;462&quot;
+-                x2=&quot;573.34&quot;
++                x2=&quot;558.52&quot;
+                 y2=&quot;462&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;2-billion&quot;
+                 x1=&quot;66.37&quot;
+                 y1=&quot;411.7&quot;
+-                x2=&quot;573.34&quot;
++                x2=&quot;558.52&quot;
+                 y2=&quot;411.7&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;3-billion&quot;
+                 x1=&quot;66.37&quot;
+                 y1=&quot;361.4&quot;
+-                x2=&quot;573.34&quot;
++                x2=&quot;558.52&quot;
+                 y2=&quot;361.4&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;4-billion&quot;
+                 x1=&quot;66.37&quot;
+                 y1=&quot;311.1&quot;
+-                x2=&quot;573.34&quot;
++                x2=&quot;558.52&quot;
+                 y2=&quot;311.1&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;5-billion&quot;
+                 x1=&quot;66.37&quot;
+                 y1=&quot;260.9&quot;
+-                x2=&quot;573.34&quot;
++                x2=&quot;558.52&quot;
+                 y2=&quot;260.9&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;6-billion&quot;
+                 x1=&quot;66.37&quot;
+                 y1=&quot;210.6&quot;
+-                x2=&quot;573.34&quot;
++                x2=&quot;558.52&quot;
+                 y2=&quot;210.6&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;7-billion&quot;
+                 x1=&quot;66.37&quot;
+                 y1=&quot;160.3&quot;
+-                x2=&quot;573.34&quot;
++                x2=&quot;558.52&quot;
+                 y2=&quot;160.3&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+             <line
+                 id=&quot;8-billion&quot;
+                 x1=&quot;66.37&quot;
+                 y1=&quot;110&quot;
+-                x2=&quot;573.34&quot;
++                x2=&quot;558.52&quot;
+                 y2=&quot;110&quot;
+                 stroke=&quot;#ddd&quot;
+                 stroke-dasharray=&quot;4,4&quot;
+             ></line>
+         </g>
+-        <g id=&quot;vertical-labels&quot; transform=&quot;translate(573.34, 0)&quot;>
++        <g id=&quot;vertical-labels&quot; transform=&quot;translate(558.52, 0)&quot;>
+             <g id=&quot;connectors&quot; style=&quot;pointer-events: none&quot;>
+                 <path
+                     id=&quot;World&quot;
+                     d=&quot;M4,136.9 H12.5 V136.9 H21&quot;
+@@ -379,51 +379,51 @@
+                     fill=&quot;none&quot;
+                 ></path>
+                 <path
+                     id=&quot;Eastern-and-South-Eastern-Asia-(UN-SDG)&quot;
+-                    d=&quot;M4,399.5 H6.125 V361.2999999999999 H21&quot;
++                    d=&quot;M4,399.5 H6.125 V382.74999999999994 H21&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;0.5&quot;
+                     fill=&quot;none&quot;
+                 ></path>
+                 <path
+                     id=&quot;Central-and-Southern-Asia-(UN-SDG)&quot;
+-                    d=&quot;M4,409.6 H8.25 V386.7499999999999 H21&quot;
++                    d=&quot;M4,409.6 H8.25 V401.04999999999995 H21&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;0.5&quot;
+                     fill=&quot;none&quot;
+                 ></path>
+                 <path
+                     id=&quot;Europe-and-Northern-America-(UN-SDG)&quot;
+-                    d=&quot;M4,456.2 H10.375 V405.0499999999999 H21&quot;
++                    d=&quot;M4,456.2 H10.375 V419.34999999999997 H21&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;0.5&quot;
+                     fill=&quot;none&quot;
+                 ></path>
+                 <path
+                     id=&quot;Sub-Saharan-Africa-(UN-SDG)&quot;
+-                    d=&quot;M4,470.1 H12.5 V423.3499999999999 H21&quot;
++                    d=&quot;M4,470.1 H12.5 V437.65 H21&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;0.5&quot;
+                     fill=&quot;none&quot;
+                 ></path>
+                 <path
+                     id=&quot;Latin-America-and-the-Caribbean-(UN-SDG)&quot;
+-                    d=&quot;M4,479.8 H14.625 V448.79999999999995 H21&quot;
++                    d=&quot;M4,479.8 H14.625 V455.95 H21&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;0.5&quot;
+                     fill=&quot;none&quot;
+                 ></path>
+                 <path
+                     id=&quot;Northern-Africa-and-Western-Asia-(UN-SDG)&quot;
+-                    d=&quot;M4,485.4 H16.75 V481.4 H21&quot;
++                    d=&quot;M4,485.4 H16.75 V481.40000000000003 H21&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;0.5&quot;
+                     fill=&quot;none&quot;
+                 ></path>
+                 <path
+                     id=&quot;Australia-and-New-Zealand-(UN-SDG)&quot;
+-                    d=&quot;M4,510.7 H18.875 V506.84999999999997 H21&quot;
++                    d=&quot;M4,510.7 H18.875 V506.85 H21&quot;
+                     stroke=&quot;#999&quot;
+                     stroke-width=&quot;0.5&quot;
+                     fill=&quot;none&quot;
+                 ></path>
+@@ -450,24 +450,22 @@
+                 </text>
+                 <text
+                     id=&quot;label__Eastern-and-South-Eastern-Asia-(UN-SDG)&quot;
+                     x=&quot;25.0&quot;
+-                    y=&quot;359.0&quot;
++                    y=&quot;387.6&quot;
+                     text-anchor=&quot;start&quot;
+                     font-size=&quot;13.00&quot;
+                     opacity=&quot;1&quot;
+                 >
+                     <tspan x=&quot;25.0&quot; font-weight=&quot;400&quot; fill=&quot;#996d39&quot;>
+                         Eastern and South-Eastern Asia
+                     </tspan>
+-                    <tspan x=&quot;25.0&quot; dy=&quot;14.3&quot; font-weight=&quot;400&quot; fill=&quot;#767676&quot;>
+-                        (UN SDG)
+-                    </tspan>
++                    <tspan font-weight=&quot;400&quot; fill=&quot;#767676&quot;>(UN SDG)</tspan>
+                 </text>
+                 <text
+                     id=&quot;label__Central-and-Southern-Asia-(UN-SDG)&quot;
+                     x=&quot;25.0&quot;
+-                    y=&quot;391.6&quot;
++                    y=&quot;405.9&quot;
+                     text-anchor=&quot;start&quot;
+                     font-size=&quot;13.00&quot;
+                     opacity=&quot;1&quot;
+                 >
+@@ -478,9 +476,9 @@
+                 </text>
+                 <text
+
+... (diff truncated: showing 300 of 2502 lines)" data-truncated="true"></div>
+    </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/img-comparison-slider@8/dist/index.js"></script>
+    <script src="https://unpkg.com/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script>
+        // Track which diffs have been rendered
+        const renderedDiffs = new Set();
+
+        // Chart type filtering
+        const chartTypeFilter = document.getElementById('chart-type-filter');
+        const visibleCountSpan = document.getElementById('visible-count');
+
+        function filterByChartType(chartType) {
+            const sections = document.querySelectorAll('section[data-chart-type]');
+            let visibleCount = 0;
+
+            sections.forEach(section => {
+                if (chartType === 'all' || section.dataset.chartType === chartType) {
+                    section.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            if (visibleCountSpan) {
+                visibleCountSpan.textContent = visibleCount;
+            }
+        }
+
+        if (chartTypeFilter) {
+            chartTypeFilter.addEventListener('change', (e) => {
+                filterByChartType(e.target.value);
+            });
+        }
+
+        // Tab switching functionality
+        document.addEventListener('click', (e) => {
+            const tabBtn = e.target.closest('.tab-btn');
+            if (tabBtn) {
+                const section = tabBtn.closest('section');
+                const targetTab = tabBtn.dataset.tab;
+
+                // Update button states
+                section.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tab === targetTab);
+                });
+
+                // Update pane visibility
+                section.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.dataset.pane === targetTab);
+                });
+
+                // Render code diff if switching to code-diff tab
+                if (targetTab === 'code-diff') {
+                    const diffContainer = section.querySelector('.code-diff-container');
+                    const slug = section.dataset.slug;
+                    const diffId = slug;
+
+                    // Only render once per section, and skip if diff was too large
+                    if (diffContainer && !renderedDiffs.has(diffId) && !diffContainer.dataset.skipped) {
+                        const diffString = diffContainer.dataset.diff;
+                        const isTruncated = diffContainer.dataset.truncated === 'true';
+
+                        // Add truncation warning if needed
+                        if (isTruncated) {
+                            const warning = document.createElement('div');
+                            warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 12px; border-radius: 6px; text-align: center; font-size: 0.9rem;';
+                            warning.innerHTML = '<strong>Note:</strong> This diff is very large and has been truncated';
+                            diffContainer.parentElement.insertBefore(warning, diffContainer);
+                        }
+
+                        // Create Diff2Html UI instance
+                        const diff2htmlUi = new Diff2HtmlUI(diffContainer, diffString, {
+                            drawFileList: false,
+                            matching: 'lines',
+                            outputFormat: 'side-by-side',
+                            highlight: true,
+                            renderNothingWhenEmpty: false,
+                        });
+
+                        diff2htmlUi.draw();
+                        renderedDiffs.add(diffId);
+                    }
+                }
+
+                return;
+            }
+
+            // Copy slug functionality
+            const copyBtn = e.target.closest('.copy-slug-btn');
+            if (copyBtn) {
+                const slug = copyBtn.dataset.slug;
+                const copyText = copyBtn.querySelector('.copy-text');
+
+                navigator.clipboard.writeText(slug).then(() => {
+                    // Visual feedback
+                    copyBtn.classList.add('copied');
+                    const originalText = copyText.textContent;
+                    copyText.textContent = 'Copied!';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyText.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    copyText.textContent = 'Failed';
+                    setTimeout(() => {
+                        copyText.textContent = 'Copy slug';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
