@@ -3,7 +3,7 @@
   "name": "Number of countries neither colonized nor colonizer by region",
   "unit": "countries",
   "createdAt": "2023-10-26T15:39:48.000Z",
-  "updatedAt": "2026-08-26T18:50:33.000Z",
+  "updatedAt": "2026-11-10T14:43:41.000Z",
   "coverage": "",
   "timespan": "1462-2022",
   "datasetId": 6258,
@@ -13,12 +13,12 @@
   "catalogPath": "grapher/harvard/2023-09-18/colonial_dates_dataset/colonial_dates_dataset#not_colonized_nor_colonizer_number",
   "descriptionShort": "Number of countries not colonized in each region by an European colonial power. Colonies are defined in terms of contemporary nation states: along current independent countries and their borders.\n",
   "descriptionFromProducer": "",
-  "descriptionProcessing": "This is is an aggregation of the number of countries that are not colonized nor are colonizers in a given year, by OWID geographic region or World Bank income groups.\n\nWe include Europe as a region because we conventionally classify Cyprus as a European country. The Colonial Dates Dataset data meanwhile considers Cyprus a European overseas colony.\n\nYears are defined from last date aggregations available in the Colonial Dates Dataset. This means that when sources differ, years of colonization are defined from the last date between them. This is different from mean date aggregations (also available), which averages the dates of colonization across the original sources.\n\nYears have been expanded to show the full range of years in the dataset, from 1462 to 2022. The original dataset only includes the years where a country was colonized.\n\n",
+  "descriptionProcessing": "For each region and income group, we count how many countries were neither colonies nor colonial powers in each year. This includes countries whose colonial rule had already ended.\n\nRegions follow Our World in Data’s definitions, and income groups follow the World Bank’s classification. Europe is included because we count Cyprus as a European country, while COLDAT treats it as a European overseas colony.\n\nCOLDAT gives each start and end date of colonial rule in two versions: the latest of the dates its sources give, and their average. COLDAT’s author filled in by hand the few dates that no source gives. We use the latest dates, to be conservative: they mark the years by which all the sources that give a date agree colonial rule had started or ended.\n\nCOLDAT only lists the years in which each country was a colony. We fill in every year from 1462, the earliest start date in the data, to 2022, so that each country also has values before, between and after its colonial periods.",
   "type": "int",
   "dataChecksum": "6174489814276406202",
-  "metadataChecksum": "-8376151562960150012",
+  "metadataChecksum": "2619993945025323431",
   "datasetName": "Colonial Dates Dataset (COLDAT)",
-  "updatePeriodDays": 365,
+  "updatePeriodDays": 0,
   "datasetVersion": "2023-09-18",
   "nonRedistributable": false,
   "display": {
@@ -35,6 +35,7 @@
       "State Capacity"
     ]
   },
+  "descriptionKey": "- This data comes from the Colonial Dates Dataset (COLDAT), compiled by Bastian Becker at the University of Bremen. COLDAT doesn’t collect new historical evidence. Instead, it combines the start and end dates of colonial rule recorded in four existing datasets: the Correlates of War project, and datasets by Lange and coauthors (2006), Wimmer and Min (2006), and Olsson (2009).\n- COLDAT gives each start and end date of colonial rule in two versions: the latest of the dates the four datasets give, and their average. Not every colony appears in all four datasets, and COLDAT’s author filled in by hand the 25 dates that none of them gives, mostly from the CIA World Factbook. We use the latest dates. This is a conservative choice: a country only counts as a colony from the year all the datasets that give a date agree colonial rule had started, and until the year they all agree it had ended. As a result, colonial rule can start later in this data than in some of the datasets COLDAT draws on.\n- COLDAT doesn’t include every colony. For example, it doesn’t record Dutch rule in today’s Malaysia (Malacca) or Sri Lanka (Ceylon), and its author notes that colonies none of the four datasets mentions are missing. In such cases, the data can miss years in which a country was colonized, or show the wrong colonizer for them. It also leaves out colonies of European countries other than the eight it covers, such as Denmark and Sweden.",
   "dimensions": {
     "years": {
       "values": [

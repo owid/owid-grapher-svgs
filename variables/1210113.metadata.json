@@ -3,19 +3,19 @@
   "name": "Electoral democracy",
   "unit": "",
   "createdAt": "2026-03-23T20:11:30.000Z",
-  "updatedAt": "2026-08-12T12:22:57.000Z",
+  "updatedAt": "2026-11-06T16:40:33.000Z",
   "coverage": "",
   "timespan": "2005-2025",
   "datasetId": 7777,
   "columnOrder": 0,
   "shortName": "electdem",
   "catalogPath": "grapher/democracy/2026-03-23/fh/fh#electdem",
-  "descriptionShort": "Identifies if the political regime of a country is an electoral democracy. It identifies whether a country is an electoral democracy (score 1) or not (score 0).",
-  "descriptionProcessing": "This is a binary indicator which we define as follows:\n\n* score 1: If `electprocess >= 7`, `polrights_score >= 20` and `civlibs_score >= 30`.\n* score NA: If `electprocess`, `polrights_score` and `civlibs_score` values are all missing.\n* score 0: Otherwise.",
-  "type": "int",
-  "grapherConfigIdETL": "019e2e14-6a0f-73c7-a2a9-8b73f722297c",
+  "descriptionShort": "Identifies if the political regime of a country is an electoral democracy. It identifies whether a country is an electoral democracy (\"Yes\") or not (\"No\").",
+  "descriptionProcessing": "This is a binary indicator which we define as follows:\n\n* \"Yes\": If `electprocess >= 7`, `polrights_score >= 20` and `civlibs_score >= 30`.\n* Missing: If `electprocess`, `polrights_score` and `civlibs_score` values are all missing.\n* \"No\": Otherwise.",
+  "type": "string",
+  "patchConfigIdETL": "019e2e14-6a0f-73c7-a2a9-8b73f722297c",
   "dataChecksum": "4274345796928165928",
-  "metadataChecksum": "-6785840665246564524",
+  "metadataChecksum": "5084963004116837086",
   "datasetName": "Freedom in the World",
   "updatePeriodDays": 365,
   "datasetVersion": "2026-03-23",
@@ -1180,12 +1180,24 @@
           "code": "ZWE"
         }
       ]
+    },
+    "values": {
+      "values": [
+        {
+          "id": 0,
+          "name": "No"
+        },
+        {
+          "id": 1,
+          "name": "Yes"
+        }
+      ]
     }
   },
   "origins": [
     {
-      "id": 715,
-      "titleSnapshot": "Freedom in the World - Aggregate Category and Subcategory Scores, 2003-2024",
+      "id": 24740,
+      "titleSnapshot": "Freedom in the World – Aggregate Category and Subcategory Scores, 2003–2024",
       "title": "Freedom in the World",
       "descriptionSnapshot": "This workbook lists all publicly available data by survey year (e.g. survey FIW2003 analyzes calendar year 2002).\n\nThe same indicators were present from FIW2003 through FIW2017.\n\nIn FIW2018, Add A (Additional Discretionary Question A) was eliminated, and Add B (Additional Discretionary Question B) was renamed Add Q.\n\nFor data-analysis purposes, Freedom in the World divides countries and territories into six world regions: Africa, the Americas, Asia-Pacific, Eurasia, Europe, and the Middle East. Prior to the 2022 edition, the countries of North Africa were grouped with the Middle East rather than the rest of Africa.",
       "description": "The Freedom in the World report is composed of numerical ratings and supporting descriptive texts for 195 countries and 15 territories. External analysts assess 210 countries and territories, using a combination of on-the-ground research, consultations with local contacts, and information from news articles, nongovernmental organizations, governments, and a variety of other sources. Expert advisers and regional specialists then vet the analysts’ conclusions. The final product represents the consensus of the analysts, advisers, and Freedom House staff.\n\nFor each country and territory, Freedom in the World analyzes the electoral process, political pluralism and participation, the functioning of the government, freedom of expression and of belief, associational and organizational rights, the rule of law, and personal autonomy and individual rights.",
@@ -1201,8 +1213,8 @@
       }
     },
     {
-      "id": 14229,
-      "titleSnapshot": "Freedom in the World - Aggregate Category and Subcategory Scores, 2013-2026",
+      "id": 24739,
+      "titleSnapshot": "Freedom in the World – Aggregate Category and Subcategory Scores, 2013–2026",
       "title": "Freedom in the World",
       "descriptionSnapshot": "The same indicators were present from FIW2013 through FIW2018.\n\nIn FIW2018, Add A (Additional Discretionary Question A) was eliminated, and Add B (Additional Discretionary Question B) was renamed Add Q.\n\nFor data-analysis purposes, Freedom in the World divides countries and territories into six world regions: Africa, the Americas, Asia-Pacific, Eurasia, Europe, and the Middle East. Prior to the 2022 edition, the countries of North Africa were grouped with the Middle East rather than the rest of Africa.",
       "description": "The Freedom in the World report is composed of numerical ratings and supporting descriptive texts for 195 countries and 15 territories. External analysts assess 210 countries and territories, using a combination of on-the-ground research, consultations with local contacts, and information from news articles, nongovernmental organizations, governments, and a variety of other sources. Expert advisers and regional specialists then vet the analysts' conclusions. The final product represents the consensus of the analysts, advisers, and Freedom House staff.\n\nFor each country and territory, Freedom in the World analyzes the electoral process, political pluralism and participation, the functioning of the government, freedom of expression and of belief, associational and organizational rights, the rule of law, and personal autonomy and individual rights.",

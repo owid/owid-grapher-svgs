@@ -3,20 +3,20 @@
   "name": "Political regime (LIED+)",
   "unit": "",
   "createdAt": "2026-04-02T17:39:21.000Z",
-  "updatedAt": "2026-08-12T12:22:12.000Z",
+  "updatedAt": "2026-11-06T16:40:36.000Z",
   "coverage": "",
   "timespan": "1789-2025",
   "datasetId": 7788,
   "columnOrder": 0,
   "shortName": "regime_lied",
   "catalogPath": "grapher/democracy/2026-04-02/lexical_index/lexical_index#regime_lied",
-  "descriptionShort": "Identifies the political regime of a country. It distinguishes between non-electoral autocracies (score 0), one-party autocracies (score 1), multi-party autocracies without elected executive (score 2), multi-party autocracies (score 3), exclusive democracies (score 4), male democracies (score 5), electoral democracies (score 6), and full democracies (score 7).",
+  "descriptionShort": "Identifies the political regime of a country. It distinguishes between non-electoral autocracies, one-party autocracies, multi-party autocracies without elected executive, multi-party autocracies, exclusive democracies, male democracies, electoral democracies, and full democracies.",
   "descriptionFromProducer": "This index, LIED+, add an extra layer to the upper-end of LIED in the form of political liberties. This is done to distinguish between electoral democracies and full democracies. The meaning of the scores from 0 to 5 are identical to LIED, whereas 6 and 7 refer to the following configurations of indicator values:\n\n6: legislative_elections=1 & multi-party_legislative_elections=1 & executive_elections=1 & competitive_elections=1 & male_suffrage=1 & female_suffrage=1 & political_liberties=0 (regime type: electoral democracies)\n\n7: legislative_elections=1 & multi-party_legislative_elections=1 & executive_elections=1 & competitive_elections=1 & male_suffrage=1 & female_suffrage=1 & political_liberties=1 (regime type: full democracies)\n\nEquivalent indicator: `lexical_index_plus`\n\nWe have replaced the term \"polyarchy\" with \"full democracy\".",
-  "descriptionProcessing": "0: non-electoral autocracy\n1: one-party autocracy\n2: multi-party autocracy without elected executive\n3: multi-party autocracy\n4: exclusive democracy\n5: male democracy\n6: electoral democracy\n7: full democracy (polyarchy)",
-  "type": "int",
-  "grapherConfigIdETL": "019e2e14-839f-7798-b0fb-7a442377e184",
+  "descriptionProcessing": "We use the source's scores from 0 to 7 to assign each country-year its regime type, from non-electoral autocracy (0) to full democracy (7). Skaaning et al. call full democracies \"polyarchies\".",
+  "type": "ordinal",
+  "patchConfigIdETL": "019e2e14-839f-7798-b0fb-7a442377e184",
   "dataChecksum": "12984696045195142944",
-  "metadataChecksum": "6987287688668597320",
+  "metadataChecksum": "-822014588246582753",
   "datasetName": "Lexical Index of Electoral Democracy (LIED)",
   "updatePeriodDays": 365,
   "datasetVersion": "2026-04-02",
@@ -1958,6 +1958,42 @@
           "id": 80,
           "name": "Zimbabwe",
           "code": "ZWE"
+        }
+      ]
+    },
+    "values": {
+      "values": [
+        {
+          "id": 0,
+          "name": "Non-electoral autocracy"
+        },
+        {
+          "id": 1,
+          "name": "One-party autocracy"
+        },
+        {
+          "id": 2,
+          "name": "Multi-party autocracy, unelected executive"
+        },
+        {
+          "id": 3,
+          "name": "Multi-party autocracy"
+        },
+        {
+          "id": 4,
+          "name": "Exclusive democracy"
+        },
+        {
+          "id": 5,
+          "name": "Male democracy"
+        },
+        {
+          "id": 6,
+          "name": "Electoral democracy"
+        },
+        {
+          "id": 7,
+          "name": "Full democracy"
         }
       ]
     }

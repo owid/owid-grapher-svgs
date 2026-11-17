@@ -3,7 +3,7 @@
   "name": "Recent electoral turnover",
   "unit": "",
   "createdAt": "2026-04-02T17:39:25.000Z",
-  "updatedAt": "2026-08-12T12:22:15.000Z",
+  "updatedAt": "2026-11-06T16:40:39.000Z",
   "coverage": "",
   "timespan": "1789-2025",
   "datasetId": 7788,
@@ -11,10 +11,10 @@
   "shortName": "recent_turnover_event_lied",
   "catalogPath": "grapher/democracy/2026-04-02/lexical_index/lexical_index#recent_turnover_event_lied",
   "descriptionShort": "Indicates whether the country experienced an electoral turnover event within the last 12 years.",
-  "descriptionProcessing": "Derived from the `turnover_event` indicator. For each country, if `turnover_event` = 1 in year Y, then `recent_turnover_event_lied` = 1 for years Y through Y+11. If multiple turnover events occur, their windows overlap.",
-  "type": "int",
+  "descriptionProcessing": "Derived from the `turnover_event` indicator. For each country, if a turnover event happened in year Y, `recent_turnover_event_lied` is \"Yes\" for years Y through Y+11. If multiple turnover events occur, their windows overlap.",
+  "type": "string",
   "dataChecksum": "691637630194239785",
-  "metadataChecksum": "-4015971280607867047",
+  "metadataChecksum": "-4590686359647486195",
   "datasetName": "Lexical Index of Electoral Democracy (LIED)",
   "updatePeriodDays": 365,
   "datasetVersion": "2026-04-02",
@@ -26,7 +26,7 @@
       "Democracy"
     ]
   },
-  "descriptionKey": "- An electoral turnover is when partisan control of government alternates to the opposition as a result of an election.\n- The indicator equals 1 if a turnover event occurred in the current year or any of the preceding 11 years (12-year window).\n- Values are binary: 1 = recent turnover, 0 = no recent turnover.",
+  "descriptionKey": "- An electoral turnover is when partisan control of government alternates to the opposition as a result of an election.\n- The indicator equals \"Yes\" if a turnover event occurred in the current year or any of the preceding 11 years (12-year window).\n- Values are \"Yes\" (recent turnover) or \"No\" (no recent turnover).",
   "dimensions": {
     "years": {
       "values": [
@@ -1954,6 +1954,18 @@
           "id": 80,
           "name": "Zimbabwe",
           "code": "ZWE"
+        }
+      ]
+    },
+    "values": {
+      "values": [
+        {
+          "id": 0,
+          "name": "No"
+        },
+        {
+          "id": 1,
+          "name": "Yes"
         }
       ]
     }
